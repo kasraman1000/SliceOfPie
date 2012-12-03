@@ -10,6 +10,7 @@ namespace EmptyProject
         public static void Main(String[] args)
         {
             Console.WriteLine("Kasra do a dance");
+            String kek = "Kewin";
         }
     }
 }
