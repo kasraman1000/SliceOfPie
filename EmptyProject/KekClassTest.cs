@@ -11,7 +11,7 @@ namespace EmptyProject
         {
             Console.WriteLine("Kasra do a dance");
             String kek = "Kewin";
-            Console.WriteLine(kek + " sucks bawls!!!!");
+            Console.WriteLine(kek + " sucks bawls!!!! Crelde desktop agrees");
         }
     }
 }
