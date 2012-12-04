@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmptyProject", "EmptyProject\EmptyProject.csproj", "{DBBA9D0E-E773-47D1-BF52-5532BF235160}"
 EndProject
-Project("{F088123C-0E9E-452A-89E6-6BA2F21D5CAC}") = "UML Slice of Pie", "..\..\..\Documents\Visual Studio 2010\Projects\UML Slice of Pie\UML Slice of Pie\UML Slice of Pie.modelproj", "{0C67B403-9ADD-4491-BB6D-3DD240BBF137}"
+Project("{F088123C-0E9E-452A-89E6-6BA2F21D5CAC}") = "UML Slice of Pie", "UML Slice of Pie\UML Slice of Pie\UML Slice of Pie.modelproj", "{0C67B403-9ADD-4491-BB6D-3DD240BBF137}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
