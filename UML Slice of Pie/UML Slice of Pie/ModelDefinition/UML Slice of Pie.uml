@@ -402,6 +402,10 @@
                 Id="0cebcc85-6e31-41f1-953c-26b3ee4cd508"
                 LastKnownName="MessageOccurrenceSpecification5"
                 LastKnownLocation="UML Slice of Pie.uml" />
+              <messageOccurrenceSpecificationMoniker
+                Id="5ca92bdd-6cf4-40e1-a19c-12e9e4e41835"
+                LastKnownName="MessageOccurrenceSpecification17"
+                LastKnownLocation="UML Slice of Pie.uml" />
             </nestedOccurrences>
           </behaviorExecutionSpecification>
           <executionOccurrenceSpecification
@@ -508,6 +512,72 @@
                 LastKnownLocation="UML Slice of Pie.uml" />
             </covered>
           </messageOccurrenceSpecification>
+          <behaviorExecutionSpecification
+            Id="734485b5-72bb-4e8c-b35c-796bd3ddd807"
+            name="BehaviorExecutionSpecification8">
+            <coveredLifelines>
+              <lifelineMoniker
+                Id="24f9573a-9e97-4a7d-bb88-893780ba9238"
+                LastKnownName="Storage"
+                LastKnownLocation="UML Slice of Pie.uml" />
+            </coveredLifelines>
+            <finish>
+              <executionOccurrenceSpecificationMoniker
+                Id="4580b7ab-0eb6-4259-85c4-e4649db6d1d3"
+                LastKnownName="ExecutionOccurrenceSpecification16"
+                LastKnownLocation="UML Slice of Pie.uml" />
+            </finish>
+            <start>
+              <executionOccurrenceSpecificationMoniker
+                Id="18789827-34b5-488f-9604-9f43773074b3"
+                LastKnownName="ExecutionOccurrenceSpecification15"
+                LastKnownLocation="UML Slice of Pie.uml" />
+            </start>
+            <nestedOccurrences>
+              <messageOccurrenceSpecificationMoniker
+                Id="4b87204b-7ee6-4f60-9e7d-acc47167e560"
+                LastKnownName="MessageOccurrenceSpecification18"
+                LastKnownLocation="UML Slice of Pie.uml" />
+            </nestedOccurrences>
+          </behaviorExecutionSpecification>
+          <executionOccurrenceSpecification
+            Id="18789827-34b5-488f-9604-9f43773074b3"
+            name="ExecutionOccurrenceSpecification15">
+            <event>
+              <executionOccurrenceSpecificationReferencesEvent>
+                <executionEventMoniker
+                  Id="29c86fbd-9c43-4ced-b8b6-51e9728833f0"
+                  LastKnownName="ExecutionEvent"
+                  LastKnownLocation="UML Slice of Pie.uml" />
+              </executionOccurrenceSpecificationReferencesEvent>
+            </event>
+            <covered>
+              <lifelineMoniker
+                Id="24f9573a-9e97-4a7d-bb88-893780ba9238"
+                LastKnownName="Storage"
+                LastKnownLocation="UML Slice of Pie.uml" />
+            </covered>
+          </executionOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="4b87204b-7ee6-4f60-9e7d-acc47167e560"
+            name="MessageOccurrenceSpecification18">
+            <covered>
+              <lifelineMoniker
+                Id="24f9573a-9e97-4a7d-bb88-893780ba9238"
+                LastKnownName="Storage"
+                LastKnownLocation="UML Slice of Pie.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="5ca92bdd-6cf4-40e1-a19c-12e9e4e41835"
+            name="MessageOccurrenceSpecification17">
+            <covered>
+              <lifelineMoniker
+                Id="2e56c6f4-33d2-49f2-9d46-650e95bad42c"
+                LastKnownName=": Explorer"
+                LastKnownLocation="UML Slice of Pie.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
           <executionOccurrenceSpecification
             Id="1a3d84dd-43b8-4aeb-9add-9975e465cd7f"
             name="ExecutionOccurrenceSpecification2">
@@ -523,6 +593,24 @@
               <lifelineMoniker
                 Id="2e56c6f4-33d2-49f2-9d46-650e95bad42c"
                 LastKnownName=": Explorer"
+                LastKnownLocation="UML Slice of Pie.uml" />
+            </covered>
+          </executionOccurrenceSpecification>
+          <executionOccurrenceSpecification
+            Id="4580b7ab-0eb6-4259-85c4-e4649db6d1d3"
+            name="ExecutionOccurrenceSpecification16">
+            <event>
+              <executionOccurrenceSpecificationReferencesEvent>
+                <executionEventMoniker
+                  Id="faf9c0f5-88ca-4033-ac85-4b8f0f97f0be"
+                  LastKnownName="ExecutionEvent"
+                  LastKnownLocation="UML Slice of Pie.uml" />
+              </executionOccurrenceSpecificationReferencesEvent>
+            </event>
+            <covered>
+              <lifelineMoniker
+                Id="24f9573a-9e97-4a7d-bb88-893780ba9238"
+                LastKnownName="Storage"
                 LastKnownLocation="UML Slice of Pie.uml" />
             </covered>
           </executionOccurrenceSpecification>
@@ -551,6 +639,10 @@
               <messageOccurrenceSpecificationMoniker
                 Id="d1dc2218-17ee-4a7d-a2bb-a854c2b15efa"
                 LastKnownName="MessageOccurrenceSpecification10"
+                LastKnownLocation="UML Slice of Pie.uml" />
+              <messageOccurrenceSpecificationMoniker
+                Id="05df70d0-5164-476e-95e6-4420338f28f6"
+                LastKnownName="MessageOccurrenceSpecification19"
                 LastKnownLocation="UML Slice of Pie.uml" />
               <messageOccurrenceSpecificationMoniker
                 Id="95d062d1-c6f3-47f9-9369-699477803e3b"
@@ -585,16 +677,6 @@
             </covered>
           </executionOccurrenceSpecification>
           <messageOccurrenceSpecification
-            Id="d1dc2218-17ee-4a7d-a2bb-a854c2b15efa"
-            name="MessageOccurrenceSpecification10">
-            <covered>
-              <lifelineMoniker
-                Id="2e56c6f4-33d2-49f2-9d46-650e95bad42c"
-                LastKnownName=": Explorer"
-                LastKnownLocation="UML Slice of Pie.uml" />
-            </covered>
-          </messageOccurrenceSpecification>
-          <messageOccurrenceSpecification
             Id="2686852a-f093-42a5-ad0f-432f37404bed"
             name="MessageOccurrenceSpecification9">
             <covered>
@@ -604,6 +686,100 @@
                 LastKnownLocation="UML Slice of Pie.uml" />
             </covered>
           </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="d1dc2218-17ee-4a7d-a2bb-a854c2b15efa"
+            name="MessageOccurrenceSpecification10">
+            <covered>
+              <lifelineMoniker
+                Id="2e56c6f4-33d2-49f2-9d46-650e95bad42c"
+                LastKnownName=": Explorer"
+                LastKnownLocation="UML Slice of Pie.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <behaviorExecutionSpecification
+            Id="2ca59693-4cfb-4252-8e7a-028e5928c1d1"
+            name="BehaviorExecutionSpecification9">
+            <coveredLifelines>
+              <lifelineMoniker
+                Id="24f9573a-9e97-4a7d-bb88-893780ba9238"
+                LastKnownName="Storage"
+                LastKnownLocation="UML Slice of Pie.uml" />
+            </coveredLifelines>
+            <finish>
+              <executionOccurrenceSpecificationMoniker
+                Id="89eadefe-0cb9-40b1-bf93-7d857a983de2"
+                LastKnownName="ExecutionOccurrenceSpecification18"
+                LastKnownLocation="UML Slice of Pie.uml" />
+            </finish>
+            <start>
+              <executionOccurrenceSpecificationMoniker
+                Id="2c9c2c3e-5dad-4451-b840-e4da1ac6c856"
+                LastKnownName="ExecutionOccurrenceSpecification17"
+                LastKnownLocation="UML Slice of Pie.uml" />
+            </start>
+            <nestedOccurrences>
+              <messageOccurrenceSpecificationMoniker
+                Id="24d83548-8d8a-44c5-a3cc-14684b1812e8"
+                LastKnownName="MessageOccurrenceSpecification20"
+                LastKnownLocation="UML Slice of Pie.uml" />
+            </nestedOccurrences>
+          </behaviorExecutionSpecification>
+          <executionOccurrenceSpecification
+            Id="2c9c2c3e-5dad-4451-b840-e4da1ac6c856"
+            name="ExecutionOccurrenceSpecification17">
+            <event>
+              <executionOccurrenceSpecificationReferencesEvent>
+                <executionEventMoniker
+                  Id="453e98ca-38de-42a3-9c9f-d75cb820a011"
+                  LastKnownName="ExecutionEvent"
+                  LastKnownLocation="UML Slice of Pie.uml" />
+              </executionOccurrenceSpecificationReferencesEvent>
+            </event>
+            <covered>
+              <lifelineMoniker
+                Id="24f9573a-9e97-4a7d-bb88-893780ba9238"
+                LastKnownName="Storage"
+                LastKnownLocation="UML Slice of Pie.uml" />
+            </covered>
+          </executionOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="05df70d0-5164-476e-95e6-4420338f28f6"
+            name="MessageOccurrenceSpecification19">
+            <covered>
+              <lifelineMoniker
+                Id="2e56c6f4-33d2-49f2-9d46-650e95bad42c"
+                LastKnownName=": Explorer"
+                LastKnownLocation="UML Slice of Pie.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="24d83548-8d8a-44c5-a3cc-14684b1812e8"
+            name="MessageOccurrenceSpecification20">
+            <covered>
+              <lifelineMoniker
+                Id="24f9573a-9e97-4a7d-bb88-893780ba9238"
+                LastKnownName="Storage"
+                LastKnownLocation="UML Slice of Pie.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <executionOccurrenceSpecification
+            Id="b3d745e2-551f-465f-ba7a-44e6b54cebba"
+            name="ExecutionOccurrenceSpecification6">
+            <event>
+              <executionOccurrenceSpecificationReferencesEvent>
+                <executionEventMoniker
+                  Id="47601e9d-114c-4ac1-b8e0-d9710e2bba23"
+                  LastKnownName="ExecutionEvent"
+                  LastKnownLocation="UML Slice of Pie.uml" />
+              </executionOccurrenceSpecificationReferencesEvent>
+            </event>
+            <covered>
+              <lifelineMoniker
+                Id="bf973b1b-c415-4706-8ce7-f27e8a96a39b"
+                LastKnownName=": Visual presentation"
+                LastKnownLocation="UML Slice of Pie.uml" />
+            </covered>
+          </executionOccurrenceSpecification>
           <behaviorExecutionSpecification
             Id="4f4f10bd-a301-4b09-b772-112ee284dae0"
             name="BehaviorExecutionSpecification6">
@@ -675,20 +851,20 @@
             </covered>
           </messageOccurrenceSpecification>
           <executionOccurrenceSpecification
-            Id="b3d745e2-551f-465f-ba7a-44e6b54cebba"
-            name="ExecutionOccurrenceSpecification6">
+            Id="89eadefe-0cb9-40b1-bf93-7d857a983de2"
+            name="ExecutionOccurrenceSpecification18">
             <event>
               <executionOccurrenceSpecificationReferencesEvent>
                 <executionEventMoniker
-                  Id="47601e9d-114c-4ac1-b8e0-d9710e2bba23"
+                  Id="adcf8a5d-d51a-4090-99f9-1f0ae5860746"
                   LastKnownName="ExecutionEvent"
                   LastKnownLocation="UML Slice of Pie.uml" />
               </executionOccurrenceSpecificationReferencesEvent>
             </event>
             <covered>
               <lifelineMoniker
-                Id="bf973b1b-c415-4706-8ce7-f27e8a96a39b"
-                LastKnownName=": Visual presentation"
+                Id="24f9573a-9e97-4a7d-bb88-893780ba9238"
+                LastKnownName="Storage"
                 LastKnownLocation="UML Slice of Pie.uml" />
             </covered>
           </executionOccurrenceSpecification>
@@ -911,6 +1087,30 @@
                 LastKnownLocation="UML Slice of Pie.uml" />
             </topLevelOccurrences>
           </lifeline>
+          <lifeline
+            Id="24f9573a-9e97-4a7d-bb88-893780ba9238"
+            name="Storage"
+            isActor="false"
+            lifelineDisplayName="Storage">
+            <topLevelOccurrences>
+              <executionOccurrenceSpecificationMoniker
+                Id="18789827-34b5-488f-9604-9f43773074b3"
+                LastKnownName="ExecutionOccurrenceSpecification15"
+                LastKnownLocation="UML Slice of Pie.uml" />
+              <executionOccurrenceSpecificationMoniker
+                Id="4580b7ab-0eb6-4259-85c4-e4649db6d1d3"
+                LastKnownName="ExecutionOccurrenceSpecification16"
+                LastKnownLocation="UML Slice of Pie.uml" />
+              <executionOccurrenceSpecificationMoniker
+                Id="2c9c2c3e-5dad-4451-b840-e4da1ac6c856"
+                LastKnownName="ExecutionOccurrenceSpecification17"
+                LastKnownLocation="UML Slice of Pie.uml" />
+              <executionOccurrenceSpecificationMoniker
+                Id="89eadefe-0cb9-40b1-bf93-7d857a983de2"
+                LastKnownName="ExecutionOccurrenceSpecification18"
+                LastKnownLocation="UML Slice of Pie.uml" />
+            </topLevelOccurrences>
+          </lifeline>
         </lifelines>
         <messages>
           <message
@@ -1027,6 +1227,44 @@
                 LastKnownLocation="UML Slice of Pie.uml" />
             </receiveEvent>
           </message>
+          <message
+            Id="1e4cc92d-4008-4917-a775-ac94cf0898ba"
+            name="Save to Storage"
+            messageKind="Complete"
+            messageSort="AsynchCall"
+            createSelfMessage="false">
+            <sendEvent>
+              <messageOccurrenceSpecificationMoniker
+                Id="5ca92bdd-6cf4-40e1-a19c-12e9e4e41835"
+                LastKnownName="MessageOccurrenceSpecification17"
+                LastKnownLocation="UML Slice of Pie.uml" />
+            </sendEvent>
+            <receiveEvent>
+              <messageOccurrenceSpecificationMoniker
+                Id="4b87204b-7ee6-4f60-9e7d-acc47167e560"
+                LastKnownName="MessageOccurrenceSpecification18"
+                LastKnownLocation="UML Slice of Pie.uml" />
+            </receiveEvent>
+          </message>
+          <message
+            Id="8133dda9-3159-434e-ba35-132fc7bcae53"
+            name="Save to storage"
+            messageKind="Complete"
+            messageSort="AsynchCall"
+            createSelfMessage="false">
+            <sendEvent>
+              <messageOccurrenceSpecificationMoniker
+                Id="05df70d0-5164-476e-95e6-4420338f28f6"
+                LastKnownName="MessageOccurrenceSpecification19"
+                LastKnownLocation="UML Slice of Pie.uml" />
+            </sendEvent>
+            <receiveEvent>
+              <messageOccurrenceSpecificationMoniker
+                Id="24d83548-8d8a-44c5-a3cc-14684b1812e8"
+                LastKnownName="MessageOccurrenceSpecification20"
+                LastKnownLocation="UML Slice of Pie.uml" />
+            </receiveEvent>
+          </message>
         </messages>
         <ownedAttributesInternal>
           <property
@@ -1096,6 +1334,26 @@
     <packageHasNamedElement>
       <executionEvent
         Id="9b2f63a2-d813-4997-a9c2-6c3dae89b996"
+        name="ExecutionEvent" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <executionEvent
+        Id="29c86fbd-9c43-4ced-b8b6-51e9728833f0"
+        name="ExecutionEvent" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <executionEvent
+        Id="faf9c0f5-88ca-4033-ac85-4b8f0f97f0be"
+        name="ExecutionEvent" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <executionEvent
+        Id="453e98ca-38de-42a3-9c9f-d75cb820a011"
+        name="ExecutionEvent" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <executionEvent
+        Id="adcf8a5d-d51a-4090-99f9-1f0ae5860746"
         name="ExecutionEvent" />
     </packageHasNamedElement>
   </packagedElements>
