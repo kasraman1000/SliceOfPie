@@ -5,6 +5,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmptyProject", "EmptyProjec
 EndProject
 Project("{F088123C-0E9E-452A-89E6-6BA2F21D5CAC}") = "UML Slice of Pie", "UML Slice of Pie\UML Slice of Pie\UML Slice of Pie.modelproj", "{0C67B403-9ADD-4491-BB6D-3DD240BBF137}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SliceOfPie", "SliceOfPie\SliceOfPie.csproj", "{1F35C9E2-48E9-4986-8F49-8542CC2CB1AC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,6 +37,16 @@ Global
 		{0C67B403-9ADD-4491-BB6D-3DD240BBF137}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{0C67B403-9ADD-4491-BB6D-3DD240BBF137}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{0C67B403-9ADD-4491-BB6D-3DD240BBF137}.Release|x86.ActiveCfg = Release|Any CPU
+		{1F35C9E2-48E9-4986-8F49-8542CC2CB1AC}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{1F35C9E2-48E9-4986-8F49-8542CC2CB1AC}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{1F35C9E2-48E9-4986-8F49-8542CC2CB1AC}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{1F35C9E2-48E9-4986-8F49-8542CC2CB1AC}.Debug|x86.ActiveCfg = Debug|x86
+		{1F35C9E2-48E9-4986-8F49-8542CC2CB1AC}.Debug|x86.Build.0 = Debug|x86
+		{1F35C9E2-48E9-4986-8F49-8542CC2CB1AC}.Release|Any CPU.ActiveCfg = Release|x86
+		{1F35C9E2-48E9-4986-8F49-8542CC2CB1AC}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{1F35C9E2-48E9-4986-8F49-8542CC2CB1AC}.Release|Mixed Platforms.Build.0 = Release|x86
+		{1F35C9E2-48E9-4986-8F49-8542CC2CB1AC}.Release|x86.ActiveCfg = Release|x86
+		{1F35C9E2-48E9-4986-8F49-8542CC2CB1AC}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
