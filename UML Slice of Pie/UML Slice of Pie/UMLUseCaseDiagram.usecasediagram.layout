@@ -1,0 +1,88 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<useCaseDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.5" name="UMLUseCaseDiagram">
+  <useCaseModelRootMoniker Id="4bce26e1-8c3f-4792-a549-35f3af5882b4" />
+  <nestedChildShapes>
+    <actorShape Id="70e31b9e-8f0e-4ab9-a260-28d473b42f19" absoluteBounds="1.375, 2.375, 0.875, 1.25" isReference="false" heightOffset="0">
+      <actorMoniker Id="e3524e94-15aa-447d-82bd-cce6f0f2bea3" LastKnownName="User 1" />
+      <relativeChildShapes />
+    </actorShape>
+    <artifactShape Id="5269ef70-0f37-43d4-80eb-12b6ad245e35" absoluteBounds="7.5, 1.625, 2.25, 0.75" customColor="161, 199, 231">
+      <artifactMoniker Id="47ff8413-7667-458c-8ff8-b686d8baf5a5" LastKnownName="Create meta-properties" />
+    </artifactShape>
+    <artifactShape Id="142411b6-7b73-4389-988e-f42ffcba490a" absoluteBounds="7.5, 4.125, 2.25, 0.75" customColor="161, 199, 231">
+      <artifactMoniker Id="ca22d731-54e6-4a42-9726-22a2f48f213a" LastKnownName="Update the underlying data storage" />
+    </artifactShape>
+    <artifactShape Id="6cf09091-0c8f-4f9a-9bbe-2c66d6401f38" absoluteBounds="7.5, 2.875, 2.25, 0.875" customColor="161, 199, 231">
+      <artifactMoniker Id="5b339678-f341-4847-86a3-1781b844352f" LastKnownName="Create/Update visual presentation of the document" />
+    </artifactShape>
+    <SubsystemShape Id="25cd359e-6182-4868-a4ec-ec25e38feaba" absoluteBounds="3.125, 1, 4.125, 4.5" customColor="White">
+      <subsystemMoniker Id="530fc996-2619-48b4-8790-182386997a98" LastKnownName="Explorer" />
+      <nestedChildShapes>
+        <useCaseShape Id="44b6b587-00b3-4581-842b-f46a947245aa" absoluteBounds="4.375, 1.5, 1.75, 0.75" customColor="238, 237, 131" heightOffset="0">
+          <useCaseMoniker Id="697a0bb1-3997-4619-98b1-4258cd6ae392" LastKnownName="Create a new Document" />
+          <relativeChildShapes />
+        </useCaseShape>
+        <useCaseShape Id="f7088790-178e-431e-a4f3-497d67e3e301" absoluteBounds="4.375, 2.875, 1.75, 0.75" customColor="238, 237, 131" heightOffset="0">
+          <useCaseMoniker Id="80699856-3abe-4a78-8a4e-77f54730bcd8" LastKnownName="Change the name of the document" />
+          <relativeChildShapes />
+        </useCaseShape>
+      </nestedChildShapes>
+    </SubsystemShape>
+    <useCaseAssociationConnector edgePoints="[(2.25 : 2.85681818181818); (4.55457816281411 : 2.10259260126084)]" fixedFrom="NotFixed" fixedTo="NotFixed" customColor="113, 111, 110" sourceMultiplicity="" targetMultiplicity="">
+      <associationMoniker Id="cf57c810-f258-4621-9796-4a159b9104c1" />
+      <relativeChildShapes />
+      <nodes>
+        <actorShapeMoniker Id="70e31b9e-8f0e-4ab9-a260-28d473b42f19" />
+        <useCaseShapeMoniker Id="44b6b587-00b3-4581-842b-f46a947245aa" />
+      </nodes>
+    </useCaseAssociationConnector>
+    <useCaseAssociationConnector edgePoints="[(6.05411861084345 : 2.02285295627315); (7.5 : 2.02651523796215)]" fixedFrom="NotFixed" fixedTo="NotFixed" customColor="113, 111, 110" sourceMultiplicity="" targetMultiplicity="">
+      <associationMoniker Id="13064181-1116-466b-8415-be3b6bcf4f73" />
+      <relativeChildShapes />
+      <nodes>
+        <useCaseShapeMoniker Id="44b6b587-00b3-4581-842b-f46a947245aa" />
+        <artifactShapeMoniker Id="5269ef70-0f37-43d4-80eb-12b6ad245e35" />
+      </nodes>
+    </useCaseAssociationConnector>
+    <useCaseAssociationConnector edgePoints="[(5.57579150031175 : 2.22303718089324); (7.5 : 4.27863439887308)]" fixedFrom="NotFixed" fixedTo="NotFixed" customColor="113, 111, 110" sourceMultiplicity="" targetMultiplicity="">
+      <associationMoniker Id="af1a2422-6b20-426d-9ac5-4daad04a6fb2" />
+      <relativeChildShapes />
+      <nodes>
+        <useCaseShapeMoniker Id="44b6b587-00b3-4581-842b-f46a947245aa" />
+        <artifactShapeMoniker Id="142411b6-7b73-4389-988e-f42ffcba490a" />
+      </nodes>
+    </useCaseAssociationConnector>
+    <useCaseAssociationConnector edgePoints="[(2.25 : 3.03181818181818); (4.3873329794116 : 3.18726058032084)]" fixedFrom="Algorithm" fixedTo="Algorithm" customColor="113, 111, 110" sourceMultiplicity="" targetMultiplicity="">
+      <associationMoniker Id="03da8d0f-265b-46a4-a14f-9c5c8805feee" />
+      <relativeChildShapes />
+      <nodes>
+        <actorShapeMoniker Id="70e31b9e-8f0e-4ab9-a260-28d473b42f19" />
+        <useCaseShapeMoniker Id="f7088790-178e-431e-a4f3-497d67e3e301" />
+      </nodes>
+    </useCaseAssociationConnector>
+    <useCaseAssociationConnector edgePoints="[(5.91203631953746 : 3.49519863686572); (7.6125 : 4.125)]" fixedFrom="Algorithm" fixedTo="Algorithm" customColor="113, 111, 110" sourceMultiplicity="" targetMultiplicity="">
+      <associationMoniker Id="adc066c4-8ae5-4fe0-b173-74e464094dd7" />
+      <relativeChildShapes />
+      <nodes>
+        <useCaseShapeMoniker Id="f7088790-178e-431e-a4f3-497d67e3e301" />
+        <artifactShapeMoniker Id="142411b6-7b73-4389-988e-f42ffcba490a" />
+      </nodes>
+    </useCaseAssociationConnector>
+    <useCaseAssociationConnector edgePoints="[(5.75139276053825 : 2.18232794081648); (7.5 : 3.2541341264975)]" fixedFrom="NotFixed" fixedTo="NotFixed" customColor="113, 111, 110" sourceMultiplicity="" targetMultiplicity="">
+      <associationMoniker Id="bc807412-1974-49d7-a35c-f220c7fe2ab5" />
+      <relativeChildShapes />
+      <nodes>
+        <useCaseShapeMoniker Id="44b6b587-00b3-4581-842b-f46a947245aa" />
+        <artifactShapeMoniker Id="6cf09091-0c8f-4f9a-9bbe-2c66d6401f38" />
+      </nodes>
+    </useCaseAssociationConnector>
+    <useCaseAssociationConnector edgePoints="[(6.1241842887033 : 3.26618859793895); (7.5 : 3.29166666666667)]" fixedFrom="Algorithm" fixedTo="Algorithm" customColor="113, 111, 110" sourceMultiplicity="" targetMultiplicity="">
+      <associationMoniker Id="15789a0c-b892-4993-b1e3-e148fc1d9b23" />
+      <relativeChildShapes />
+      <nodes>
+        <useCaseShapeMoniker Id="f7088790-178e-431e-a4f3-497d67e3e301" />
+        <artifactShapeMoniker Id="6cf09091-0c8f-4f9a-9bbe-2c66d6401f38" />
+      </nodes>
+    </useCaseAssociationConnector>
+  </nestedChildShapes>
+</useCaseDiagram>

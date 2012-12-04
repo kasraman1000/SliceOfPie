@@ -1,0 +1,386 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<modelStoreModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/SimpleShapesModel" xmlns:dm9="http://schemas.microsoft.com/dsltools/UseCaseModel"
+  dslVersion="1.0.0.0"
+  Id="361e43b2-01dc-42b4-896e-13e7e37e3c87"
+  name="UML Slice of Pie" xmlns="http://schemas.microsoft.com/dsltools/ModelStore">
+  <profileInstances>
+    <packageHasProfileInstances
+      Id="0caec977-1f8c-4ba3-a7db-8cc9ad9cc73b">
+      <profileInstance
+        Id="e34d544e-0fea-4ed6-ac5e-1b74119ac791"
+        name="StandardProfileL2" />
+    </packageHasProfileInstances>
+    <packageHasProfileInstances
+      Id="29349502-908c-4fda-9054-c48619c59ed0">
+      <profileInstance
+        Id="532ea607-fb19-44b8-8502-3351b05452be"
+        name="StandardProfileL3" />
+    </packageHasProfileInstances>
+  </profileInstances>
+  <packagedElements>
+    <packageHasNamedElement>
+      <actor
+        Id="31ce1492-a946-48a7-97cb-332dd5847cef"
+        name="User 1"
+        isAbstract="false"
+        isLeaf="false">
+        <targetEnds>
+          <association
+            Id="0f51e2d3-541f-4dc3-8567-d25ffa7b7ce4"
+            isDerived="false"
+            sourceEndRoleName="User 1"
+            targetEndRoleName="Create a new Document"
+            isLeaf="false"
+            isAbstract="false">
+            <useCaseMoniker
+              Id="1cf2a39f-7919-4224-b73f-8b11388de63c"
+              LastKnownName="Create a new Document"
+              LastKnownLocation="UML Slice of Pie.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="906e9c44-dd79-4451-8c7b-a0fa7958d5f9"
+                  name="User 1"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="3c54169c-44b3-422a-a956-7ca61b0782b6"
+                  name="Create a new Document"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+          <association
+            Id="8dbb7fce-8e0a-4939-8b79-13b578279807"
+            isDerived="false"
+            sourceEndRoleName="User 1"
+            targetEndRoleName="Change the name of the document"
+            isLeaf="false"
+            isAbstract="false">
+            <useCaseMoniker
+              Id="000dcc10-d9c3-48c4-8b52-357f7a9811b9"
+              LastKnownName="Change the name of the document"
+              LastKnownLocation="UML Slice of Pie.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="608bd66e-a2ff-43dc-b3f9-10365a282dfa"
+                  name="User 1"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="25a1251b-1433-4296-9048-c997db9bd35e"
+                  name="Change the name of the document"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+        </targetEnds>
+      </actor>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="1cf2a39f-7919-4224-b73f-8b11388de63c"
+        name="Create a new Document"
+        isAbstract="false"
+        isLeaf="false">
+        <targetEnds>
+          <association
+            Id="e956b448-9f4e-460a-8d45-4794c4b32457"
+            isDerived="false"
+            sourceEndRoleName="Create a new Document"
+            targetEndRoleName="Update underlying storage"
+            isLeaf="false"
+            isAbstract="false">
+            <artifactMoniker
+              Id="6a17b49f-3f3e-484d-9494-7ae1eeb3aa9f"
+              LastKnownName="Create meta-properties"
+              LastKnownLocation="UML Slice of Pie.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="ec19551f-b55a-45ce-a784-cfda9586ba49"
+                  name="Create a new Document"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="d56b8357-539a-4fb6-8039-02f219aa8354"
+                  name="Update underlying storage"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+          <association
+            Id="a9d4ad75-7ac9-4ae7-81e7-242e146743bd"
+            isDerived="false"
+            sourceEndRoleName="Create a new Document"
+            targetEndRoleName="Update the underlying data storage"
+            isLeaf="false"
+            isAbstract="false">
+            <artifactMoniker
+              Id="abe17337-1ef9-4506-a7cf-2b175046c834"
+              LastKnownName="Update the underlying data storage"
+              LastKnownLocation="UML Slice of Pie.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="57755ba4-6329-4665-bca5-76904b024358"
+                  name="Create a new Document"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="0c854996-63e0-471f-bca6-16defafe1d4b"
+                  name="Update the underlying data storage"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+          <association
+            Id="39e3c50f-e615-40fd-b157-2c1a6a12629b"
+            isDerived="false"
+            sourceEndRoleName="Create a new Document"
+            targetEndRoleName="Create/Update visual presentation of the document"
+            isLeaf="false"
+            isAbstract="false">
+            <artifactMoniker
+              Id="480e8110-6b2c-4911-b856-bdacb1bbe718"
+              LastKnownName="Create/Update visual presentation of the document"
+              LastKnownLocation="UML Slice of Pie.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="91145add-6cb9-4ce3-8f61-7eef71c19062"
+                  name="Create a new Document"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="de743ac7-704f-4033-923a-cb0c331a9716"
+                  name="Create/Update visual presentation of the document"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+        </targetEnds>
+        <subjects>
+          <subsystemMoniker
+            Id="d1e5b20e-e40b-4df4-a1a0-b6f91573b7d2"
+            LastKnownName="Explorer"
+            LastKnownLocation="UML Slice of Pie.uml" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <subsystem
+        Id="d1e5b20e-e40b-4df4-a1a0-b6f91573b7d2"
+        name="Explorer"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <artifact
+        Id="6a17b49f-3f3e-484d-9494-7ae1eeb3aa9f"
+        name="Create meta-properties"
+        isAbstract="false"
+        isLeaf="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <artifact
+        Id="abe17337-1ef9-4506-a7cf-2b175046c834"
+        name="Update the underlying data storage"
+        isAbstract="false"
+        isLeaf="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="000dcc10-d9c3-48c4-8b52-357f7a9811b9"
+        name="Change the name of the document"
+        isAbstract="false"
+        isLeaf="false">
+        <targetEnds>
+          <association
+            Id="6962eab6-25b1-4a70-b631-83adbe2f4afe"
+            isDerived="false"
+            sourceEndRoleName="Change the name of the document"
+            targetEndRoleName="Update the underlying data storage"
+            isLeaf="false"
+            isAbstract="false">
+            <artifactMoniker
+              Id="abe17337-1ef9-4506-a7cf-2b175046c834"
+              LastKnownName="Update the underlying data storage"
+              LastKnownLocation="UML Slice of Pie.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="a9bbc1cc-759c-497b-b319-8e8d58ba2f02"
+                  name="Change the name of the document"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="a18f5e99-e14a-4256-817e-b442bb3407d7"
+                  name="Update the underlying data storage"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+          <association
+            Id="5451d3e9-ef2b-4914-837b-321c49b3da1a"
+            isDerived="false"
+            sourceEndRoleName="Change the name of the document"
+            targetEndRoleName="Create/Update visual presentation of the document"
+            isLeaf="false"
+            isAbstract="false">
+            <artifactMoniker
+              Id="480e8110-6b2c-4911-b856-bdacb1bbe718"
+              LastKnownName="Create/Update visual presentation of the document"
+              LastKnownLocation="UML Slice of Pie.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="5d1ff4ca-3c2f-4c68-b2bd-bd3ad915dcaf"
+                  name="Change the name of the document"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="116feae3-0115-4694-b3fa-7f5a1607e2e7"
+                  name="Create/Update visual presentation of the document"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+        </targetEnds>
+        <subjects>
+          <subsystemMoniker
+            Id="d1e5b20e-e40b-4df4-a1a0-b6f91573b7d2"
+            LastKnownName="Explorer"
+            LastKnownLocation="UML Slice of Pie.uml" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <artifact
+        Id="480e8110-6b2c-4911-b856-bdacb1bbe718"
+        name="Create/Update visual presentation of the document"
+        isAbstract="false"
+        isLeaf="false" />
+    </packageHasNamedElement>
+  </packagedElements>
+  <primitiveType
+    Id="220a3521-e091-4221-bae9-3ef9018e845c"
+    name="Integer"
+    isAbstract="false"
+    isLeaf="false" />
+  <primitiveType
+    Id="8943dc84-709e-4f62-b15a-a3273aa6f165"
+    name="Boolean"
+    isAbstract="false"
+    isLeaf="false" />
+  <primitiveType
+    Id="59259974-6d55-42c6-b7bd-763d77ac8ef9"
+    name="String"
+    isAbstract="false"
+    isLeaf="false" />
+  <primitiveType
+    Id="3ab42e7d-4969-445a-b209-471f5cb8209c"
+    name="UnlimitedNatural"
+    isAbstract="false"
+    isLeaf="false" />
+</modelStoreModel>
