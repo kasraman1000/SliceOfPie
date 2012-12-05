@@ -13,17 +13,17 @@ namespace SliceOfPie
 
         public string GetTitle()
         {
-            return null;
+            return title;
         }
 
-        public void AddChild(Document doc)
+        public void AddChild(IFileSystemComponent doc)
         {
-
+            children.Add(doc);
         }
 
         public void RemoveChild(IFileSystemComponent child)
         {
-
+            children.Remove(child);
         }
 
         public List<IFileSystemComponent> GetChildren()
