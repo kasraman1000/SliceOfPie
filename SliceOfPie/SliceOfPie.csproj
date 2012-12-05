@@ -45,7 +45,6 @@
   <ItemGroup>
     <Compile Include="Controller.cs" />
     <Compile Include="Document.cs" />
-    <Compile Include="DocumentLog.cs" />
     <Compile Include="Entry.cs" />
     <Compile Include="Folder.cs" />
     <Compile Include="IFileSystemComponent.cs" />
