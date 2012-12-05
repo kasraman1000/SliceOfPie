@@ -32,7 +32,22 @@ namespace SliceOfPie
         
         public static void  Main(string[] args)
         {
-        
+            /*
+            string test = "Hej\nMed\ndig";
+
+            Document doc = new Document(test, "Kewins dokument", new User("Kewin", 1));
+
+
+
+            Console.Out.WriteLine(doc.text);
+            string[] testArray = doc.CreateTextArray();
+
+            for (int i=0; i<testArray.Length; i++)
+            {
+                Console.Out.WriteLine("array["+i+"] : " +testArray[i]);
+            }
+            Console.Out.WriteLine(doc.CreateTextArray());
+            */
         }
 
     }

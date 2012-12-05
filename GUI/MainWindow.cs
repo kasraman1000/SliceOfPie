@@ -6,14 +6,90 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using SliceOfPie;
 
 namespace GUI
 {
     public partial class MainWindow : Form
     {
+        private Folder root;
+
+
         public MainWindow()
         {
             InitializeComponent();
+
+
+            // initialise test data
+            User dummyUser = new User("Dummy User", 1);
+
+            Document doc1 = new Document("content of document 1",
+                "Top level document",
+                dummyUser);
+            Document doc2 = new Document("content of document 2",
+                "Another Top level document",
+                dummyUser);
+            Document doc3 = new Document("Some more text inside of this doc",
+                "A nested document",
+                dummyUser);
+            Document doc4 = new Document("lots\nof\nnew\nlines!",
+                "A nested nested document",
+                dummyUser);
+            Document doc5 = new Document("can't think of anything new to put in these",
+                "Nested in another folder document",
+                dummyUser);
+
+            root = new Folder("root");
+            Folder folder1 = new Folder("Top level folder");
+            Folder folder2 = new Folder("Nested folder");
+            Folder folder3 = new Folder("Another top level folder");
+
+            root.AddChild(folder1);
+            folder1.AddChild(folder2);
+            root.AddChild(folder3);
+
+            root.AddChild(doc1);
+            root.AddChild(doc2);
+            folder1.AddChild(doc3);
+            folder2.AddChild(doc4);
+            folder3.AddChild(doc5);
+        }
+
+        /**
+         * Called when the window is loaded
+         */
+        private void MainWindow_Load(object sender, EventArgs e)
+        {
+            // Initialize the treeView with the folders and docs
+            BuildDocumentTree(treeView.Nodes, root);
+
+
+        }
+
+        /**
+         * Recursive function, 
+         * filling out the treeView with folders and documents
+         * 'tag' is a property referencing the object per se.
+         */
+        private void BuildDocumentTree(TreeNodeCollection nodes, IFileSystemComponent fsc)
+        {
+
+            if (fsc.GetChildren() == null) // If it's a document
+            {
+                TreeNode n = new TreeNode(fsc.GetTitle());
+                n.Tag = fsc;
+                nodes.Add(n);
+            }
+            else // else, if it's a folder
+            {
+                TreeNode n = new TreeNode(fsc.GetTitle());
+                n.Tag = fsc;
+                nodes.Add(n);
+                foreach (IFileSystemComponent f in fsc.GetChildren())
+                {
+                    BuildDocumentTree(n.Nodes, f);
+                }
+            }
         }
     }
 }
