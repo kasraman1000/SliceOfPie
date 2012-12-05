@@ -56,5 +56,10 @@ namespace SliceOfPie
 
             return temp;
         }
+
+        public string GetText()
+        {
+            return text;
+        }
     }
 }
