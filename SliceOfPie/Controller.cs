@@ -35,7 +35,7 @@ namespace SliceOfPie
 
             Document doc1 = new Document("text", "Kewins dokument", new User("Kewin", 1));
             Document.DocumentLog log = doc1.GetLog();
-            Entry e = log.GetNewestEntry();
+            Document.DocumentLog.Entry e = log.GetNewestEntry();
             Console.Out.WriteLine(e.ToString());
 
 
