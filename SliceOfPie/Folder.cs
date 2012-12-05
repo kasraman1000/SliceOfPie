@@ -5,11 +5,18 @@ using System.Text;
 
 namespace SliceOfPie
 {
-    class Folder : IFileSystemComponent
+    public class Folder : IFileSystemComponent
     {
         string title;
         List<IFileSystemComponent> children;
         bool isRoot;
+
+        public Folder(string title)
+        {
+            this.title = title;
+            children = new List<IFileSystemComponent>();
+        }
+
 
         public string GetTitle()
         {

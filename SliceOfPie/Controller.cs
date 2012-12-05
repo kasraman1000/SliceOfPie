@@ -61,7 +61,7 @@ namespace SliceOfPie
                               "Fordi jeg er snart godt træt af det her work-all-day.";
 
             Document doc1 = new Document(doc1text, "Kewins dokument", new User("Kewin"));
-            Document doc2 = new Document(doc2text, "Kewins dokument", new User("Kewin"));
+            Document doc2 = new Document(doc2text, "Kewins dokument", new U ser("Kewin"));
 
             List<string> changes = doc1.MergeWith(doc2);
 
