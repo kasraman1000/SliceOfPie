@@ -67,6 +67,7 @@
             this.Controls.Add(this.createButton);
             this.Controls.Add(this.openButton);
             this.Controls.Add(this.treeView);
+            this.MaximizeBox = false;
             this.Name = "MainWindow";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
