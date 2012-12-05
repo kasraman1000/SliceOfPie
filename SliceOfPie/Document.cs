@@ -29,10 +29,26 @@ namespace SliceOfPie
             log = new Document.DocumentLog(owner, this);
         }
 
+        public string GetText()
+        {
+            return text;
+        }
+
         public string GetTitle()
         {
             return title;
         }
+
+        public User GetOwner()
+        {
+            return owner;
+        }
+
+        public List<User> GetSharedWith()
+        {
+            return sharedWith;
+        }
+
         
         // This functions takes a newer version of this document, and merges it this one
         // acording to "Simple Merge Policy" given in slice-of-pie.pdf.
