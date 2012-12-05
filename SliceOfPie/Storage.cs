@@ -30,7 +30,12 @@ namespace SliceOfPie
             WriteToFile(testDoc);
 
             Document retrievedDoc = ReadFromFile("Fuckface");
-
+            string[] txt = retrievedDoc.CreateTextArray();
+           
+            for (int i = 0; i < txt.Length; i++)
+            {
+                Console.Out.WriteLine("array[" + i + "] : " + txt[i]);
+            }
             DeleteFile("Fuckface");
 
 
@@ -119,21 +124,18 @@ namespace SliceOfPie
                 }
                 List<User> userList = userArr.ToList<User>();
 
-                // SMARTER INITIATION OF THE ARRAY SHOULD BE INVENTED, TODO 
-                string[] text = new string[200];
-
+                StringBuilder text = new StringBuilder();
                 // This part creates the Text the document should have
                 int j = 0;
                 while (tr.Peek() != -1)
                 {
-                    text[j++] = tr.ReadLine();
-
+                    text.AppendLine(tr.ReadLine());
                 }
                 string finalText = text.ToString();
 
                 // Finally makes the document to return
                 Document finalDoc = new Document(finalText, title, owner, userList);
-
+ 
                 // Closes the reader
                 tr.Close();
                 return finalDoc;
