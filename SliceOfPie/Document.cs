@@ -29,6 +29,16 @@ namespace SliceOfPie
             log = new Document.DocumentLog(owner, this);
         }
 
+        public Document(string text, string title, User owner, List<User> sharedWith)
+        {
+            this.text = text;
+            this.title = title;
+            this.owner = owner;
+            this.sharedWith = sharedWith;
+            log = new Document.DocumentLog(owner, this);
+        }
+
+
         public string GetTitle()
         {
             return title;

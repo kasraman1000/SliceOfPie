@@ -16,14 +16,14 @@ namespace SliceOfPie
 
         }
 
-        public void DeleteDocument(Document doc)
+        public void DeleteDocument(string title)
         {
-            Storage.DeleteFile(doc);
+            Storage.DeleteFile(title);
         }
 
-        public void OpenDocument(Document doc)
+        public void OpenDocument(string title)
         {
-            Storage.ReadFromFile(doc);
+            Storage.ReadFromFile(title);
             // And do something with it.
         }
 
@@ -31,7 +31,7 @@ namespace SliceOfPie
         {
 
         }
-
+        /*
         public static void Main(string[] args)
         {
 
@@ -69,7 +69,7 @@ namespace SliceOfPie
             }
             Console.Out.WriteLine(doc.CreateTextArray());
         }
-
+        */
     }
 
 }

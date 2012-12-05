@@ -12,25 +12,30 @@ namespace SliceOfPie
     class Storage
     {
         //  MAIN FOR TESTING PURPOSES WILL BE REWRITTEN INTO A TESTCLASS!!
-        
+
         public static void Main(string[] args)
         {
             string docText = "This my new and fabulous blog where i would love to write about my dog called Fuckface!\n" +
                 "Fuckface is a really nice dog which sadly only has 3 legs, because one time where i was really angry, and i had this saw, well never mind.\n" +
                 "I love my dog above anything else in this world, and i thought i would dedicate this document to him!\n" +
-                "This is Fuckface: <img src=\"fuckface.gif\" alt=\"My Dog\">" ;
+                "This is Fuckface: <img src=\"fuckface.gif\" alt=\"My Dog\">";
 
-            Document testDoc = new Document(docText, "Fuckface", new User("Karsten", 1338));
-            testDoc.ShareWith(new User("ForeverAloneGuy", 8999));
-            testDoc.ShareWith(new User("Captain Haddoc", 666));
-            testDoc.ShareWith(new User("Motor-Bjarne", 24));
+            Document testDoc = new Document(docText, "Fuckface", new User("Karsten"));
+            testDoc.ShareWith(new User("ForeverAloneGuy"));
+            testDoc.ShareWith(new User("Captain Haddoc"));
+            testDoc.ShareWith(new User("Motor-Bjarne"));
+
 
 
             WriteToFile(testDoc);
-            ReadFromFile(testDoc);
-           // DeleteFile(testDoc);
+
+            Document retrievedDoc = ReadFromFile("Fuckface");
+
+            DeleteFile("Fuckface");
+
+
         }
-        
+
 
         /*
          * This method creates a new document based on the document given as a parameter, in the format:
@@ -43,16 +48,18 @@ namespace SliceOfPie
             // Creates a fileName for the file based on the files title
             string fileName = doc.GetTitle() + ".txt";
             TextWriter tw = new StreamWriter(fileName);
+
             // Writes the first line in the file which is the owner of the document
             tw.WriteLine(doc.GetOwner().ToString());
+           
             // Makes the array with usernames that the document is shared with ready 
             List<User> sharedwith = doc.GetSharedWith();
             User[] userArray = sharedwith.ToArray();
             String[] userNames = new string[userArray.Length];
-            
+
             int i = 0;
             foreach (User u in userArray)
-            { 
+            {
                 userNames[i] = u.ToString();
                 i++;
             }
@@ -74,41 +81,87 @@ namespace SliceOfPie
 
                 j++;
             }
+
             // Finally writes the users text into the document
-            tw.WriteLine("");            
+            tw.WriteLine("");
             tw.Write(doc.GetText());
+
             // Closes the writer
             tw.Close();
         }
 
 
-        public static void ReadFromFile(Document doc) 
+        public static Document ReadFromFile(string title)
         {
-            // Decides which file the document is associated with
-            string fileName = doc.GetTitle() + ".txt";
-
-            // Creates a new reader and as long as we haven't reached end of file it continues to output the lines.
-            TextReader tr = new StreamReader(fileName);
-            while (tr.Peek() != -1)
+            string fileName = title + ".txt";
+           
+            try
             {
-                Console.Out.WriteLine(tr.ReadLine());
+                // Decides which file the document is associated with
+
+
+                // Creates a new reader
+                TextReader tr = new StreamReader(fileName);
+
+                // Gets the name of the owner from the string and makes a user
+                string ownerString = tr.ReadLine();
+                User owner = new User(ownerString);
+
+                // This part creates the List of users the doc is shared with
+                string users = tr.ReadLine();
+                string[] userNameArr = users.Split(',');
+                User[] userArr = new User[userNameArr.Length];
+                int i = 0;
+                foreach (string s in userNameArr)
+                {
+                    userArr[i] = new User(s);
+                    i++;
+                }
+                List<User> userList = userArr.ToList<User>();
+
+                // SMARTER INITIATION OF THE ARRAY SHOULD BE INVENTED, TODO 
+                string[] text = new string[200];
+
+                // This part creates the Text the document should have
+                int j = 0;
+                while (tr.Peek() != -1)
+                {
+                    text[j++] = tr.ReadLine();
+
+                }
+                string finalText = text.ToString();
+
+                // Finally makes the document to return
+                Document finalDoc = new Document(finalText, title, owner, userList);
+
+                // Closes the reader
+                tr.Close();
+                return finalDoc;
             }
-            // Closes the reader
-            tr.Close();
- 
+            catch(FileNotFoundException)
+            {
+                Console.WriteLine("No file exists by that name");
+                return null;
+            }
+
         }
 
         /*
          * Deletes the file given the file name 
          */
-        public static void DeleteFile(Document doc)
+        public static void DeleteFile(string title)
         {
             // Decides which file the document is associated with
-            string fileName = doc.GetTitle()+".txt";
+            string fileName = title + ".txt";
+
             // Checks if a filename that matches the string exists and deletes it
-            if (File.Exists(fileName))
+            if(File.Exists(fileName))
             {
                 File.Delete(fileName);
+            }
+            else
+            {
+                Console.WriteLine("No file exists by that name");
             }
 
         }

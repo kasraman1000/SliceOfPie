@@ -8,12 +8,10 @@ namespace SliceOfPie
     class User
     {
         private string name;
-        private int id;
 
-        public User(string n, int i)
+        public User(string n)
         {
             name = n;
-            id = i;
         }
 
         public override string ToString()
