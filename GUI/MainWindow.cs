@@ -12,8 +12,10 @@ namespace GUI
 {
     public partial class MainWindow : Form
     {
+        private Folder selectedFolder;
+        private Document selectedDocument;
+        
         private Folder root;
-
 
         public MainWindow()
         {
@@ -90,6 +92,37 @@ namespace GUI
                     BuildDocumentTree(n.Nodes, f);
                 }
             }
+        }
+
+        /**
+         * Called when something is selected, expanded or collapsed in the treeview
+         * Sets the selected folder/document here
+         */
+        private void treeView_AfterSelect(object sender, TreeViewEventArgs e)
+        {
+            IFileSystemComponent fsc = (IFileSystemComponent) e.Node.Tag;
+            if (fsc.GetChildren() == null) // If it's a document
+            {
+                selectedDocument = (Document) fsc;
+                selectedFolder = (Folder) e.Node.Parent.Tag;
+            }
+            else // else, if it's a folder
+            {
+                selectedDocument = null;
+                selectedFolder = (Folder) e.Node.Tag;
+            }
+
+
+            if (selectedDocument == null)
+            {
+                openButton.Enabled = false;
+            }
+            else
+            {
+                openButton.Enabled = true;
+            }
+
+
         }
     }
 }
