@@ -13,7 +13,7 @@ namespace SliceOfPie
 
         public string GetTitle()
         {
-            return null;
+            return title;
         }
 
         public void AddChild(Document doc)
