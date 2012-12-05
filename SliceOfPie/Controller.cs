@@ -12,17 +12,19 @@ namespace SliceOfPie
 
         public void SaveDocument(Document doc)
         {
+            Storage.WriteToFile(doc);
 
         }
 
         public void DeleteDocument(Document doc)
         {
-
+            Storage.DeleteFile(doc);
         }
 
         public void OpenDocument(Document doc)
         {
-
+            Storage.ReadFromFile(doc);
+            // And do something with it.
         }
 
         public void CreateDocument(Document doc)

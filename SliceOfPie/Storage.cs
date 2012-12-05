@@ -38,7 +38,7 @@ namespace SliceOfPie
          * Second line: The users the document is shared with
          * The rest is the text
          */
-        static void WriteToFile(Document doc)
+        public static void WriteToFile(Document doc)
         {
             // Creates a fileName for the file based on the files title
             string fileName = doc.GetTitle() + ".txt";
@@ -82,7 +82,7 @@ namespace SliceOfPie
         }
 
 
-        static void ReadFromFile(Document doc) 
+        public static void ReadFromFile(Document doc) 
         {
             // Decides which file the document is associated with
             string fileName = doc.GetTitle() + ".txt";
@@ -101,7 +101,7 @@ namespace SliceOfPie
         /*
          * Deletes the file given the file name 
          */
-        static void DeleteFile(Document doc)
+        public static void DeleteFile(Document doc)
         {
             // Decides which file the document is associated with
             string fileName = doc.GetTitle()+".txt";
