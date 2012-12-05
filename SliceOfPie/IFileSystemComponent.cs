@@ -5,8 +5,11 @@ using System.Text;
 
 namespace SliceOfPie
 {
-    interface IFileSystemComponent
+    public interface IFileSystemComponent
     {
         String GetTitle();
+        void AddChild(IFileSystemComponent child);
+        void RemoveChild(IFileSystemComponent child);
+        List<IFileSystemComponent> GetChildren();
     }
 }

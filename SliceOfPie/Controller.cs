@@ -5,10 +5,23 @@ using System.Text;
 
 namespace SliceOfPie
 {
-    class Controller
+    public class Controller
     {
         User activeUser;
         Folder rootFolder;
+
+        static private Controller instance;
+
+        /**
+         * Singleton method
+         * TODO: make private constructor or rethink implementation
+         */
+        public static Controller GetInstance()
+        {
+            if (instance == null)
+                instance = new Controller();
+            return instance;
+        }
 
         public void SaveDocument(Document doc)
         {
@@ -125,6 +138,7 @@ namespace SliceOfPie
                 Console.Out.WriteLine("array[" + i + "] : " + testArray[i]);
             }
             Console.Out.WriteLine(doc.CreateTextArray());
+            
         */
         }
 

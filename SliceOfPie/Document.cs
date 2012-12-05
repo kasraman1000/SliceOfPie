@@ -11,7 +11,7 @@ namespace SliceOfPie
     // The class itself contains inforamation relevant to the document, and functions
     // to change data in the object, as well as functions to merge the document newer
     // versions of the same document.
-    class Document : IFileSystemComponent
+    public class Document : IFileSystemComponent
     {
         private string text;
         private string title;
@@ -247,5 +247,12 @@ namespace SliceOfPie
                 }
             }
         }
+
+
+        // non-functional interface member
+        public void AddChild(IFileSystemComponent child) { }
+        public void RemoveChild(IFileSystemComponent child) { }
+        public List<IFileSystemComponent> GetChildren() { return null; }
+
     }
 }
