@@ -49,6 +49,7 @@
             this.openButton.TabIndex = 1;
             this.openButton.Text = "Open Document";
             this.openButton.UseVisualStyleBackColor = true;
+            this.openButton.Click += new System.EventHandler(this.openButton_Click);
             // 
             // createButton
             // 

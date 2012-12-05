@@ -12,6 +12,8 @@ namespace GUI
 {
     public partial class MainWindow : Form
     {
+        private EditWindow editWindow;
+        
         private Folder selectedFolder;
         private Document selectedDocument;
         
@@ -20,7 +22,6 @@ namespace GUI
         public MainWindow()
         {
             InitializeComponent();
-
 
             // initialise test data
             User dummyUser = new User("Dummy User", 1);
@@ -122,6 +123,26 @@ namespace GUI
                 openButton.Enabled = true;
             }
 
+
+        }
+
+        private void openButton_Click(object sender, EventArgs e)
+        {
+            if (editWindow == null)
+            {
+                editWindow = new EditWindow(selectedDocument);
+                editWindow.Show();
+            }
+            else if (editWindow.Modified)
+            {
+                MessageBox.Show("Please save changes in the Edit Document Window");
+            }
+            else
+            {
+                editWindow.Hide();
+                editWindow = new EditWindow(selectedDocument);
+                editWindow.Show();
+            }
 
         }
     }

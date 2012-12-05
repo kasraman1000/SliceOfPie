@@ -40,6 +40,7 @@
             this.titleField.Size = new System.Drawing.Size(255, 22);
             this.titleField.TabIndex = 1;
             this.titleField.Text = "Input Document Title Here";
+            this.titleField.TextChanged += new System.EventHandler(this.titleField_TextChanged);
             // 
             // textField
             // 
@@ -50,6 +51,7 @@
             this.textField.Size = new System.Drawing.Size(254, 173);
             this.textField.TabIndex = 2;
             this.textField.Text = "Input Document Contents Here";
+            this.textField.TextChanged += new System.EventHandler(this.textField_TextChanged);
             // 
             // saveButton
             // 
@@ -59,6 +61,7 @@
             this.saveButton.TabIndex = 3;
             this.saveButton.Text = "Save Changes";
             this.saveButton.UseVisualStyleBackColor = true;
+            this.saveButton.Click += new System.EventHandler(this.saveButton_Click);
             // 
             // EditWindow
             // 
@@ -72,6 +75,7 @@
             this.Controls.Add(this.titleField);
             this.Name = "EditWindow";
             this.Text = "Edit Document";
+            this.Load += new System.EventHandler(this.EditWindow_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
