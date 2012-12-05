@@ -32,6 +32,17 @@ namespace SliceOfPie
         {
             return title;
         }
+
+        public User GetOwner()
+        {
+            return owner;
+        }
+
+        public List<User> GetSharedWith()
+        {
+            return sharedWith;
+        }
+
         
         public void MergeWith(Document doc)
         {
