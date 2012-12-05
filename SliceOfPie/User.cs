@@ -7,8 +7,8 @@ namespace SliceOfPie
 {
     public class User
     {
-        string name;
-        int id;
+        private string name;
+        private int id;
 
         public User(string n, int i)
         {
@@ -16,6 +16,9 @@ namespace SliceOfPie
             id = i;
         }
 
-
+        public override string ToString()
+        {
+            return name;
+        }
     }  
 }
