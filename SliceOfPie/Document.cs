@@ -25,7 +25,7 @@ namespace SliceOfPie
             this.title = title;
             this.owner = owner;
             sharedWith = new List<User>();
-            log = new Document.DocumentLog(owner, this);
+            log = new Document.DocumentLog(owner);
         }
 
         public Document(string text, string title, User owner, List<User> sharedWith)
@@ -34,7 +34,7 @@ namespace SliceOfPie
             this.title = title;
             this.owner = owner;
             this.sharedWith = sharedWith;
-            log = new Document.DocumentLog(owner, this);
+            log = new Document.DocumentLog(owner);
         }
 
 
@@ -55,14 +55,12 @@ namespace SliceOfPie
       
         // This functions takes a newer version of this document, and merges it with this one
         // acording to "Simple Merge Policy" given in slice-of-pie.pdf.
-        public void MergeWith(Document doc)
+        public List<string> MergeWith(Document doc)
         {
+            List<string> changes = new List<string>();
             // Create original and latest arrays. ( step 1 )
             string[] original = this.CreateTextArray();
-            Console.Out.WriteLine(original[2]);
             string[] latest = doc.CreateTextArray();
-            Console.Out.WriteLine(latest[2]);
-            Console.ReadKey();
             // Create merged array ( made as a list instead ). ( step 2 )
             List<string> merged = new List<string>();
             // Definer o and n index, which point to lines in the original and latest arrays. ( step 3 ) 
@@ -81,7 +79,8 @@ namespace SliceOfPie
                 {
                     Console.Out.WriteLine("Step 4");
                     for (int N=n; N < latest.Length; N++)
-                    {
+                    {   
+                        changes.Add("+L"+N+": "+latest[N]);
                         merged.Add(latest[N]);
                         n++;
                     }
@@ -91,6 +90,10 @@ namespace SliceOfPie
                 else if ((o != original.Length) && (n == latest.Length))
                 {
                     Console.Out.WriteLine("Step 5");
+                    for (int O=o; O < original.Length; O++)
+                    {   
+                        changes.Add("-L"+O+": "+original[O]);     
+                    }
                     o = original.Length;
                 }
                 // No changes have occured in this line ( step 6 )
@@ -121,37 +124,43 @@ namespace SliceOfPie
                         if (found == false)
                         {
                             Console.Out.WriteLine("Step 7.b");
+                            changes.Add("-L"+o+": "+original[o]);
                             o++;
                         }
                         // All lines in between have been added ( step 7.c )
                         else
                         {
                             Console.Out.WriteLine("Step 7.c");
+                            int counter = 0;
                             foreach (string s in temp)
                             {
+                                if (!(counter == temp.Count-1))
+                                changes.Add("+L"+n+": "+latest[n]);
                                 merged.Add(s);
+                                n++;
+                                counter++;
                             }
-
                             o++;
                             n = t + 1;
-                        }
-
-                   
+                        }    
                 }
                 if (((o == original.Length) && (n == latest.Length)))
                 {
                     done = true;
                 }
-
             }
             Console.Out.WriteLine("Merge complete");
             StringBuilder newTextBuilder = new StringBuilder();
-            foreach (string s in merged)
+            for (int i = 0; i < merged.Count; i++)
             {
-                newTextBuilder.AppendFormat(s + "\n");
+                if (!(i == merged.Count-1))
+                newTextBuilder.AppendFormat(merged[i] + "\n");
+                else
+                newTextBuilder.AppendFormat(merged[i]);
             }
+           
             text = newTextBuilder.ToString();
-            
+            return changes;
         }
         // CHange the name of the document.
         public void ChangeName(String newName)
@@ -196,10 +205,10 @@ namespace SliceOfPie
         {
             List<Entry> entries;
 
-            public DocumentLog(User user, Document doc)
+            public DocumentLog(User user)
             {
                 entries = new List<Entry>();
-                entries.Add(new Entry(user,"Created the document",doc));
+                entries.Add(new Entry(user,"Created the document"));
             }
             // Adds an entry to the Log.
             public void AddEntry(Entry entry)
@@ -217,14 +226,13 @@ namespace SliceOfPie
                 private User user;
                 private DateTime time;
                 private string description;
-                private Document earlierVersion;
+                private List<string> earlierVersion;
 
-                public Entry(User u, string desc, Document doc)
+                public Entry(User u, string desc)
                 {
                     time = DateTime.Now;
                     user = u;
                     description = desc;
-                    earlierVersion = doc;
                 }
 
                 public DateTime GetTime()

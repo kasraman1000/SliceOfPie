@@ -70,12 +70,7 @@ namespace TestProject
         [TestMethod()]
         public void AddEntryTest()
         {
-            User user = null; // TODO: Initialize to an appropriate value
-            Document doc = null; // TODO: Initialize to an appropriate value
-            Document.DocumentLog target = new Document.DocumentLog(user, doc); // TODO: Initialize to an appropriate value
-            Document.DocumentLog.Entry entry = null; // TODO: Initialize to an appropriate value
-            target.AddEntry(entry);
-            Assert.Inconclusive("A method that does not return a value cannot be verified.");
+            
         }
 
         /// <summary>
@@ -84,14 +79,7 @@ namespace TestProject
         [TestMethod()]
         public void GetNewestEntryTest()
         {
-            User user = null; // TODO: Initialize to an appropriate value
-            Document doc = null; // TODO: Initialize to an appropriate value
-            Document.DocumentLog target = new Document.DocumentLog(user, doc); // TODO: Initialize to an appropriate value
-            Document.DocumentLog.Entry expected = null; // TODO: Initialize to an appropriate value
-            Document.DocumentLog.Entry actual;
-            actual = target.GetNewestEntry();
-            Assert.AreEqual(expected, actual);
-            Assert.Inconclusive("Verify the correctness of this test method.");
+           
         }
     }
 }

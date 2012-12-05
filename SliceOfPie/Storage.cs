@@ -12,7 +12,7 @@ namespace SliceOfPie
     class Storage
     {
         //  MAIN FOR TESTING PURPOSES WILL BE REWRITTEN INTO A TESTCLASS!!
-
+        /*
         public static void Main(string[] args)
         {
             string docText = "This my new and fabulous blog where i would love to write about my dog called Fuckface!\n" +

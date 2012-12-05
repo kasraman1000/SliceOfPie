@@ -70,15 +70,7 @@ namespace TestProject
         [TestMethod()]
         public void GetTimeTest()
         {
-            User u = null; // TODO: Initialize to an appropriate value
-            string desc = string.Empty; // TODO: Initialize to an appropriate value
-            Document doc = null; // TODO: Initialize to an appropriate value
-            Document.DocumentLog.Entry target = new Document.DocumentLog.Entry(u, desc, doc); // TODO: Initialize to an appropriate value
-            DateTime expected = new DateTime(); // TODO: Initialize to an appropriate value
-            DateTime actual;
-            actual = target.GetTime();
-            Assert.AreEqual(expected, actual);
-            Assert.Inconclusive("Verify the correctness of this test method.");
+            
         }
     }
 }
