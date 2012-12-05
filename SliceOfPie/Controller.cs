@@ -13,7 +13,6 @@ namespace SliceOfPie
         public void SaveDocument(Document doc)
         {
             Storage.WriteToFile(doc);
-
         }
 
         public void DeleteDocument(string title)
@@ -35,7 +34,7 @@ namespace SliceOfPie
         public static void Main(string[] args)
         {
 
-            Document doc = new Document("text", "Kewins dokument", new User("Kewin", 1));
+            Document doc = new Document("Hej\nMed\ndig", "Kewins dokument", new User("Kewin", 1));
             Document.DocumentLog log = doc.GetLog();
             Document.DocumentLog.Entry e = log.GetNewestEntry();
             Console.Out.WriteLine(e.ToString());
@@ -56,8 +55,6 @@ namespace SliceOfPie
 
 
             //Test af createTextArray
-
-            string test = "Hej\nMed\ndig";
 
             string s = doc.GetText();
             Console.Out.WriteLine(s);
