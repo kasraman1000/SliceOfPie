@@ -13,6 +13,11 @@ namespace SliceOfPie
         List<User> sharedWith;
         DocumentLog log;
 
+        public string GetText()
+        {
+            return text;
+        }
+
         public string GetTitle()
         {
             return title;

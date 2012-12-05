@@ -29,11 +29,11 @@ namespace SliceOfPie
         {
 
         }
-        
+        /*
         public static void  Main(string[] args)
         {
         
         }
-
+        */
     }
 }
