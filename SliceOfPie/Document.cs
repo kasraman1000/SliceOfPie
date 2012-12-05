@@ -19,7 +19,6 @@ namespace SliceOfPie
         private List<User> sharedWith;
         private Document.DocumentLog log;
         
-
         public Document(string text, string title, User owner)
         {
             this.text = text;
@@ -43,9 +42,8 @@ namespace SliceOfPie
         {
             return sharedWith;
         }
-
-        
-        // This functions takes a newer version of this document, and merges it this one
+      
+        // This functions takes a newer version of this document, and merges it with this one
         // acording to "Simple Merge Policy" given in slice-of-pie.pdf.
         public void MergeWith(Document doc)
         {
@@ -63,7 +61,7 @@ namespace SliceOfPie
             bool done = false;
 
             Console.Out.WriteLine("Started merge.");
-            // While loop that continues untill the end of both versions of the document has been reached.
+            // While loop that continues untill the end of both versions of the document have been reached.
                 while (!done)   
             {
                 Console.Out.WriteLine("New round in while loop");
