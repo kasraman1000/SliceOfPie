@@ -15,10 +15,6 @@ namespace SliceOfPie
             name = n;
             id = i;
         }
-        public string GetName()
-        {
-            return name;
-        }
 
         public override string ToString()
         {

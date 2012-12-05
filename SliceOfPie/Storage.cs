@@ -44,7 +44,7 @@ namespace SliceOfPie
             string fileName = doc.GetTitle() + ".txt";
             TextWriter tw = new StreamWriter(fileName);
             // Writes the first line in the file which is the owner of the document
-            tw.WriteLine(doc.GetOwner().GetName());
+            tw.WriteLine(doc.GetOwner().ToString());
             // Makes the array with usernames that the document is shared with ready 
             List<User> sharedwith = doc.GetSharedWith();
             User[] userArray = sharedwith.ToArray();
@@ -53,7 +53,7 @@ namespace SliceOfPie
             int i = 0;
             foreach (User u in userArray)
             { 
-                userNames[i] = u.GetName();
+                userNames[i] = u.ToString();
                 i++;
             }
 

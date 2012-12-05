@@ -29,11 +29,6 @@ namespace SliceOfPie
             log = new Document.DocumentLog(owner, this);
         }
 
-        public string GetText()
-        {
-            return text;
-        }
-
         public string GetTitle()
         {
             return title;

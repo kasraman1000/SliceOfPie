@@ -31,19 +31,19 @@ namespace SliceOfPie
         {
 
         }
-        /*
-        public static void  Main(string[] args)
+
+        public static void Main(string[] args)
         {
 
-            Document doc1 = new Document("text", "Kewins dokument", new User("Kewin", 1));
-            Document.DocumentLog log = doc1.GetLog();
+            Document doc = new Document("text", "Kewins dokument", new User("Kewin", 1));
+            Document.DocumentLog log = doc.GetLog();
             Document.DocumentLog.Entry e = log.GetNewestEntry();
             Console.Out.WriteLine(e.ToString());
 
 
-            
+
             // Test af MergeWith
-            /*
+
             string doc1text = "Dette er et dokument.\nDokumentet indeholder linjer.\nSenere kan det også indeholde billeder.";
             string doc2text = "Dette er et dokument.\nDokumentet indeholder linjer.\nHer tester jeg om en indsat linje kommer med.\nSenere kan det også indeholde billeder.";
 
@@ -53,26 +53,24 @@ namespace SliceOfPie
             doc2.MergeWith(doc1);
 
             Console.Out.WriteLine(doc1.GetText());
-            */
+
 
             //Test af createTextArray
-            /*
+
             string test = "Hej\nMed\ndig";
-
-            Document doc = new Document(test, "Kewins dokument", new User("Kewin", 1));
-
 
             string s = doc.GetText();
             Console.Out.WriteLine(s);
             string[] testArray = doc.CreateTextArray();
 
-            for (int i=0; i<testArray.Length; i++)
+            for (int i = 0; i < testArray.Length; i++)
             {
-                Console.Out.WriteLine("array["+i+"] : " +testArray[i]);
+                Console.Out.WriteLine("array[" + i + "] : " + testArray[i]);
             }
             Console.Out.WriteLine(doc.CreateTextArray());
-            */
         }
-        */
+
     }
+
 }
+
