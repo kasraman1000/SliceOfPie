@@ -28,15 +28,15 @@ namespace GUI
 
         private void EditWindow_Load(object sender, EventArgs e)
         {
-            titleField.Text = currentDoc.GetTitle();
-            textField.Text = currentDoc.GetText();
+            titleField.Text = currentDoc.Title;
+            textField.Text = currentDoc.Text;
             modified = false;
         }
 
         private void saveButton_Click(object sender, EventArgs e)
         {
-            currentDoc.ChangeName(titleField.Text);
-            currentDoc.EditText(textField.Text);
+            currentDoc.Title = titleField.Text;
+            currentDoc.Text = textField.Text;
 
             Controller.GetInstance().SaveDocument(currentDoc);
 

@@ -14,10 +14,20 @@ namespace SliceOfPie
     public class Document : IFileSystemComponent
     {
         private string text;
+        public string Text { get { return text; } set { text = value; } }
+    
         private string title;
+        public string Title { get { return title; } set { title = value; } }
+
         private User owner;
+        public User Owner { get { return owner; } set { owner = value; } }
+
         private List<User> sharedWith;
+        public List<User> SharedWith { get { return sharedWith; } set { sharedWith = value; } }
+
         private Document.DocumentLog log;
+        public Document.DocumentLog Log { get { return log; } set { log = value; } }
+
         
         public Document(string text, string title, User owner)
         {
@@ -36,31 +46,15 @@ namespace SliceOfPie
             this.sharedWith = sharedWith;
             log = new Document.DocumentLog(owner);
         }
-
-
-        public string GetTitle()
-        {
-            return title;
-        }
-
-        public User GetOwner()
-        {
-            return owner;
-        }
-
-        public List<User> GetSharedWith()
-        {
-            return sharedWith;
-        }
-      
+    
         // This functions takes a newer version of this document, and merges it with this one
         // acording to "Simple Merge Policy" given in slice-of-pie.pdf.
         public List<string> MergeWith(Document doc)
         {
             List<string> changes = new List<string>();
             // Create original and latest arrays. ( step 1 )
-            string[] original = this.CreateTextArray();
-            string[] latest = doc.CreateTextArray();
+            string[] original = this.GetTextAsArray();
+            string[] latest = doc.GetTextAsArray();
             // Create merged array ( made as a list instead ). ( step 2 )
             List<string> merged = new List<string>();
             // Definer o and n index, which point to lines in the original and latest arrays. ( step 3 ) 
@@ -162,26 +156,16 @@ namespace SliceOfPie
             text = newTextBuilder.ToString();
             return changes;
         }
-        // CHange the name of the document.
-        public void ChangeName(String newName)
-        {
-            title = newName;
-        }
+        
         // Puts a User on the documents "sharedWith" list, which allows him to access the document.
         public void ShareWith(User user)
         {
             sharedWith.Add(user);
         }
         // Edits the text of the document.
-        public void EditText(string text)
-        {
-            //Some security shoud possibly be added to this function
-
-            this.text = text;
-        }
-
-        // Creates a stringArray of the text in the document, that is split on linebreaks.
-        public string[] CreateTextArray()
+       
+        // Returns a stringArray of the text in the document, that is split on linebreaks.
+        public string[] GetTextAsArray()
         {
             string[] temp;
 
@@ -189,16 +173,7 @@ namespace SliceOfPie
 
             return temp;
         }
-        // Returns the text in the document.
-        public string GetText()
-        {
-            return text;
-        }
-        // Returns the document's log.
-        public DocumentLog GetLog()
-        {
-            return log;
-        }
+        
         // Every Document has its own DocumentLog, which holds logs all information of when 
         // there has been changes to the document.
         public class DocumentLog
