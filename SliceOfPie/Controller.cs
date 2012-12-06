@@ -5,7 +5,7 @@ using System.Text;
 
 namespace SliceOfPie
 {
-    class Controller
+    public class Controller
     {
         /*
         User activeUser;
@@ -22,10 +22,10 @@ namespace SliceOfPie
             Storage.DeleteFile(title);
         }
 
-        public void OpenDocument(string title)
+        public Document OpenDocument(string title)
         {
-            Storage.ReadFromFile(title);
-            //And do something with it.
+            return Storage.ReadFromFile(title);
+            
         }
 
         public void CreateDocument(Document doc)
