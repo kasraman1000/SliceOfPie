@@ -51,14 +51,14 @@ namespace SliceOfPie
         public static void WriteToFile(Document doc)
         {
             // Creates a fileName for the file based on the files title
-            string fileName = doc.GetTitle() + ".txt";
+            string fileName = doc.Title + ".txt";
             TextWriter tw = new StreamWriter(fileName);
 
             // Writes the first line in the file which is the owner of the document
-            tw.WriteLine(doc.GetOwner().ToString());
+            tw.WriteLine(doc.Owner.ToString());
            
             // Makes the array with usernames that the document is shared with ready 
-            List<User> sharedwith = doc.GetSharedWith();
+            List<User> sharedwith = doc.SharedWith;
             User[] userArray = sharedwith.ToArray();
             String[] userNames = new string[userArray.Length];
 
@@ -89,7 +89,7 @@ namespace SliceOfPie
 
             // Finally writes the users text into the document
             tw.WriteLine("");
-            tw.Write(doc.GetText());
+            tw.Write(doc.Text);
 
             // Closes the writer
             tw.Close();

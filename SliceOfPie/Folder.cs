@@ -7,7 +7,8 @@ namespace SliceOfPie
 {
     public class Folder : IFileSystemComponent
     {
-        string title;
+        private string title;
+        public string Title{get{ return title; } set{ title = value;} }
         List<IFileSystemComponent> children;
         bool isRoot;
 
@@ -15,12 +16,6 @@ namespace SliceOfPie
         {
             this.title = title;
             children = new List<IFileSystemComponent>();
-        }
-
-
-        public string GetTitle()
-        {
-            return title;
         }
 
         public void AddChild(IFileSystemComponent doc)

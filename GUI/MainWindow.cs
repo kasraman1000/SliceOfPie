@@ -79,13 +79,13 @@ namespace GUI
 
             if (fsc.GetChildren() == null) // If it's a document
             {
-                TreeNode n = new TreeNode(fsc.GetTitle());
+                TreeNode n = new TreeNode(fsc.Title);
                 n.Tag = fsc;
                 nodes.Add(n);
             }
             else // else, if it's a folder
             {
-                TreeNode n = new TreeNode(fsc.GetTitle());
+                TreeNode n = new TreeNode(fsc.Title);
                 n.Tag = fsc;
                 nodes.Add(n);
                 foreach (IFileSystemComponent f in fsc.GetChildren())
