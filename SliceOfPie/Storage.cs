@@ -126,7 +126,6 @@ namespace SliceOfPie
 
                 StringBuilder text = new StringBuilder();
                 // This part creates the Text the document should have
-                int j = 0;
                 while (tr.Peek() != -1)
                 {
                     text.AppendLine(tr.ReadLine());
