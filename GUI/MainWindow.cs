@@ -24,7 +24,7 @@ namespace GUI
             InitializeComponent();
 
             // initialise test data
-            User dummyUser = new User("Dummy User", 1);
+            User dummyUser = new User("Dummy User");
 
             Document doc1 = new Document("content of document 1",
                 "Top level document",
