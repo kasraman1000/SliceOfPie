@@ -48,14 +48,32 @@ namespace SliceOfPie
             this.sharedWith = sharedWith;
             log = new Document.DocumentLog(owner);
         }
-    
-        
+<<<<<<< HEAD
+
+
+        public string GetTitle()
+        {
+            return title;
+        }
+
+        public User GetOwner()
+        {
+            return owner;
+        }
+
+        public List<User> GetSharedWith()
+        {
+            return sharedWith;
+        }
 
         public IFileSystemComponentEnum.docType GetDocType()
         {
             return fileType;
         }
       
+=======
+    
+>>>>>>> b028e09669aefb4da19d883217256fd9f9645d39
         // This functions takes a newer version of this document, and merges it with this one
         // acording to "Simple Merge Policy" given in slice-of-pie.pdf.
         public List<string> MergeWith(Document doc)

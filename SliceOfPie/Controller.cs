@@ -7,9 +7,11 @@ namespace SliceOfPie
 {
     public class Controller
     {
+        /*
         User activeUser;
         Folder rootFolder;
-
+        */
+          
         public void SaveDocument(Document doc)
         {
             Storage.WriteToFile(doc);
