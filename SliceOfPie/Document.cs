@@ -13,6 +13,7 @@ namespace SliceOfPie
     // versions of the same document.
     public class Document : IFileSystemComponent
     {
+        private IFileSystemComponentEnum.docType fileType;
         private string text;
         private string title;
         private User owner;
@@ -21,6 +22,7 @@ namespace SliceOfPie
         
         public Document(string text, string title, User owner)
         {
+            fileType = IFileSystemComponentEnum.docType.Document;
             this.text = text;
             this.title = title;
             this.owner = owner;
@@ -51,6 +53,11 @@ namespace SliceOfPie
         public List<User> GetSharedWith()
         {
             return sharedWith;
+        }
+
+        public IFileSystemComponentEnum.docType GetDocType()
+        {
+            return fileType;
         }
       
         // This functions takes a newer version of this document, and merges it with this one

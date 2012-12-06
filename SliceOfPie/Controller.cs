@@ -30,7 +30,7 @@ namespace SliceOfPie
         {
 
         }
-
+        /*
         public static void Main(string[] args)
         {   
             /*
@@ -50,7 +50,7 @@ namespace SliceOfPie
             {
                 Console.WriteLine(s);
             }
-            */
+            
 
 
             //TEST AF MERGE WITH'S "CHANGES"
@@ -69,7 +69,7 @@ namespace SliceOfPie
             {
                 Console.WriteLine(s);
             }
-            
+            */
             /*
             string doc1text = "Der var engang en dreng der hed Birger.\n" +
                                "Birger var en rigtig dum dreng og blev drillet i skolen.\n" +
@@ -130,5 +130,5 @@ namespace SliceOfPie
 
     }
 
-}
+
 

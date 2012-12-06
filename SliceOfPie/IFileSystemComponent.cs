@@ -11,5 +11,6 @@ namespace SliceOfPie
         void AddChild(IFileSystemComponent child);
         void RemoveChild(IFileSystemComponent child);
         List<IFileSystemComponent> GetChildren();
+        IFileSystemComponentEnum.docType GetDocType();
     }
 }

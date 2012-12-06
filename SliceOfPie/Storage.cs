@@ -12,21 +12,22 @@ namespace SliceOfPie
     class Storage
     {
         //  MAIN FOR TESTING PURPOSES WILL BE REWRITTEN INTO A TESTCLASS!!
-        /*
+        
         public static void Main(string[] args)
         {
+            
             string docText = "This my new and fabulous blog where i would love to write about my dog called Fuckface!\n" +
                 "Fuckface is a really nice dog which sadly only has 3 legs, because one time where i was really angry, and i had this saw, well never mind.\n" +
                 "I love my dog above anything else in this world, and i thought i would dedicate this document to him!\n" +
                 "This is Fuckface: <img src=\"fuckface.gif\" alt=\"My Dog\">";
 
-            Document testDoc = new Document(docText, "Fuckface", new User("Karsten"));
+            Document testDoc = new Document(docText, "Fuckfacess", new User("Karsten"));
             testDoc.ShareWith(new User("ForeverAloneGuy"));
             testDoc.ShareWith(new User("Captain Haddoc"));
             testDoc.ShareWith(new User("Motor-Bjarne"));
 
-
-
+            
+            /*
             WriteToFile(testDoc);
 
             Document retrievedDoc = ReadFromFile("Fuckface");
@@ -38,7 +39,15 @@ namespace SliceOfPie
             }
             DeleteFile("Fuckface");
 
-
+            */
+            Folder fold = new Folder("herpderps");
+            Folder anotherFolder = new Folder("FolderCeption");
+            fold.AddChild(testDoc);
+            
+            Document anotherDoc = new Document("Hello im just another doc","CreldeDoc", new User("Crelde"));
+            anotherFolder.AddChild(anotherDoc);
+            fold.AddChild(anotherFolder);
+            CreateNewFolder(fold);
         }
 
 
@@ -48,11 +57,13 @@ namespace SliceOfPie
          * Second line: The users the document is shared with
          * The rest is the text
          */
-        public static void WriteToFile(Document doc)
+
+        // Second parameter is optional for now, chooses where to put the file
+        public static void WriteToFile(Document doc, string filePath = "")
         {
             // Creates a fileName for the file based on the files title
             string fileName = doc.GetTitle() + ".txt";
-            TextWriter tw = new StreamWriter(fileName);
+            TextWriter tw = new StreamWriter(filePath+fileName);
 
             // Writes the first line in the file which is the owner of the document
             tw.WriteLine(doc.GetOwner().ToString());
@@ -95,6 +106,61 @@ namespace SliceOfPie
             tw.Close();
         }
 
+        public static void CreateRootFolder()
+        {
+            if (!File.Exists("root"))
+            {
+                Directory.CreateDirectory("C:\\root");
+            }
+
+        }
+        // OOOKAY.. functionality finally works.. mostly for testing fordi det skal omskrives til flere metoder det her..
+        // MEN det kan tage imod en folder med en folder i med et dokument i og lave hele hierakiet i filesystem på c//
+        // Det scaler bare ikke endnu
+        public static void CreateNewFolder(Folder f)
+        {
+            // In case there isn't a root folder yet, it makes one
+            CreateRootFolder();
+
+
+            List<IFileSystemComponent> children = f.GetChildren();
+
+            // Assuming the folder has no other parents than the root
+            Directory.CreateDirectory("C:\\root\\" + f.GetTitle());
+                           
+                foreach(IFileSystemComponent file in children)
+                {
+                    // Should make some function thingy that makes up the proper filepath
+                    // Right now it puts the document into the folder given as a parameter to the method
+                    string path = "C:\\root\\"+f.GetTitle()+"\\";
+
+                    // Checks if the given file has any documents and writes to the right folder
+                    if (file.GetDocType() == IFileSystemComponentEnum.docType.Document)
+                    {
+                        WriteToFile((Document)file, path);
+                    }
+                    else if (file.GetDocType() == IFileSystemComponentEnum.docType.Folder)
+                    {
+                        Directory.CreateDirectory("C:\\root\\" + f.GetTitle()+"\\"+ file.GetTitle());
+                        List<IFileSystemComponent> files = ((Folder)file).GetChildren();
+                        if(files.Count != 0)
+                        {
+                            foreach (IFileSystemComponent ifiles in files)
+                            {
+                                path = "C:\\root\\" + f.GetTitle()+"\\"+ file.GetTitle()+"\\";
+                                if (ifiles.GetDocType() == IFileSystemComponentEnum.docType.Document)
+                                {
+                                    WriteToFile((Document)ifiles, path);
+                                }
+                            }
+                                            
+                        }
+                        
+                    }
+                }
+
+        }
+
 
         public static Document ReadFromFile(string title)
         {
@@ -126,7 +192,6 @@ namespace SliceOfPie
 
                 StringBuilder text = new StringBuilder();
                 // This part creates the Text the document should have
-                int j = 0;
                 while (tr.Peek() != -1)
                 {
                     text.AppendLine(tr.ReadLine());
