@@ -7,7 +7,7 @@ namespace SliceOfPie
 {
     public class Controller
     {
-        /*
+        /* Never used?
         User activeUser;
         Folder rootFolder;
         */
