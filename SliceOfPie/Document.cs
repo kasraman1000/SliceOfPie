@@ -205,7 +205,7 @@ namespace SliceOfPie
                 private User user;
                 private DateTime time;
                 private string description;
-                private List<string> earlierVersion;
+                private List<string> changeLog;
 
                 public Entry(User u, string desc)
                 {

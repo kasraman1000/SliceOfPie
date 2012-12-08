@@ -24,8 +24,7 @@ namespace SliceOfPie
 
         public Document OpenDocument(string title)
         {
-            return Storage.ReadFromFile(title);
-            
+            return Storage.ReadFromFile(title);    
         }
 
         public void CreateDocument(Document doc)
