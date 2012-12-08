@@ -14,9 +14,15 @@ namespace SliceOfPie
             get;
             set;
         }
+
+        IFileSystemComponentEnum.docType FileType
+        {
+            get;
+        }
+
+
         void AddChild(IFileSystemComponent child);
         void RemoveChild(IFileSystemComponent child);
         List<IFileSystemComponent> GetChildren();
-        IFileSystemComponentEnum.docType GetDocType();
     }
 }

@@ -62,14 +62,14 @@ namespace SliceOfPie
         public static void WriteToFile(Document doc, string filePath = "")
         {
             // Creates a fileName for the file based on the files title
-            string fileName = doc.GetTitle() + ".txt";
+            string fileName = doc.Title + ".txt";
             TextWriter tw = new StreamWriter(filePath+fileName);
 
             // Writes the first line in the file which is the owner of the document
-            tw.WriteLine(doc.GetOwner().ToString());
+            tw.WriteLine(doc.Owner.ToString());
            
             // Makes the array with usernames that the document is shared with ready 
-            List<User> sharedwith = doc.GetSharedWith();
+            List<User> sharedwith = doc.SharedWith;
             User[] userArray = sharedwith.ToArray();
             String[] userNames = new string[userArray.Length];
 
@@ -100,7 +100,7 @@ namespace SliceOfPie
 
             // Finally writes the users text into the document
             tw.WriteLine("");
-            tw.Write(doc.GetText());
+            tw.Write(doc.Text);
 
             // Closes the writer
             tw.Close();
@@ -126,29 +126,29 @@ namespace SliceOfPie
             List<IFileSystemComponent> children = f.GetChildren();
 
             // Assuming the folder has no other parents than the root
-            Directory.CreateDirectory("C:\\root\\" + f.GetTitle());
+            Directory.CreateDirectory("C:\\root\\" + f.Title);
                            
                 foreach(IFileSystemComponent file in children)
                 {
                     // Should make some function thingy that makes up the proper filepath
                     // Right now it puts the document into the folder given as a parameter to the method
-                    string path = "C:\\root\\"+f.GetTitle()+"\\";
+                    string path = "C:\\root\\"+f.Title+"\\";
 
                     // Checks if the given file has any documents and writes to the right folder
-                    if (file.GetDocType() == IFileSystemComponentEnum.docType.Document)
+                    if (file.FileType == IFileSystemComponentEnum.docType.Document)
                     {
                         WriteToFile((Document)file, path);
                     }
-                    else if (file.GetDocType() == IFileSystemComponentEnum.docType.Folder)
+                    else if (file.FileType == IFileSystemComponentEnum.docType.Folder)
                     {
-                        Directory.CreateDirectory("C:\\root\\" + f.GetTitle()+"\\"+ file.GetTitle());
+                        Directory.CreateDirectory("C:\\root\\" + f.Title+"\\"+ file.Title);
                         List<IFileSystemComponent> files = ((Folder)file).GetChildren();
                         if(files.Count != 0)
                         {
                             foreach (IFileSystemComponent ifiles in files)
                             {
-                                path = "C:\\root\\" + f.GetTitle()+"\\"+ file.GetTitle()+"\\";
-                                if (ifiles.GetDocType() == IFileSystemComponentEnum.docType.Document)
+                                path = "C:\\root\\" + f.Title+"\\"+ file.Title+"\\";
+                                if (ifiles.FileType == IFileSystemComponentEnum.docType.Document)
                                 {
                                     WriteToFile((Document)ifiles, path);
                                 }

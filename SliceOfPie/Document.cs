@@ -14,6 +14,8 @@ namespace SliceOfPie
     public class Document : IFileSystemComponent
     {
         private IFileSystemComponentEnum.docType fileType;
+        public IFileSystemComponentEnum.docType FileType { get { return fileType; } }
+
         private string text;
         public string Text { get { return text; } set { text = value; } }
     
@@ -48,14 +50,7 @@ namespace SliceOfPie
             this.sharedWith = sharedWith;
             log = new Document.DocumentLog(owner);
         }
-    
-        
-
-        public IFileSystemComponentEnum.docType GetDocType()
-        {
-            return fileType;
-        }
-      
+         
         // This functions takes a newer version of this document, and merges it with this one
         // acording to "Simple Merge Policy" given in slice-of-pie.pdf.
         public List<string> MergeWith(Document doc)

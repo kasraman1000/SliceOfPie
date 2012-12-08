@@ -8,8 +8,11 @@ namespace SliceOfPie
     public class Folder : IFileSystemComponent
     {
         private string title;
-        public string Title{get{ return title; } set{ title = value;} }
-        IFileSystemComponentEnum.docType fileType;
+        public string Title{ get { return title; } set { title = value;} }
+
+        private IFileSystemComponentEnum.docType fileType;
+        public IFileSystemComponentEnum.docType FileType { get { return fileType; } }
+
         List<IFileSystemComponent> children;
         bool isRoot;
 
@@ -36,9 +39,6 @@ namespace SliceOfPie
             return children;
         }
 
-        public IFileSystemComponentEnum.docType GetDocType()
-        {
-            return fileType;
-        }
+       
     }
 }
