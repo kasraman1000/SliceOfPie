@@ -225,12 +225,25 @@ namespace SliceOfPie
                 changeLog.Add(change);
             }
 
-            if 
+            string sharedWithString ="";
+            string titleString = "";
+            string pathString = "";
+            string textString = "";
 
+            if (titleChanged)
+                titleString = "Title. ";
 
+            if (textChanged)
+                textString = "Text. ";
 
-
-            this.Log.AddEntry(new DocumentLog.Entry(user, "Made changes to : 
+            if (sharedWithChanged)
+                sharedWithString = "sharedWith. ";
+                      
+            if (pathChanged)
+                pathString = "Path. ";
+            
+            
+            this.Log.AddEntry(new DocumentLog.Entry(user, "Made changed to the following fields : " +titleString+textString+sharedWithString+pathString,changeLog));
         }
 
         
@@ -259,7 +272,7 @@ namespace SliceOfPie
             public DocumentLog(User user)
             {
                 entries = new List<Entry>();
-                entries.Add(new Entry(user,"Created the document"));
+                entries.Add(new Entry(user,"Created the document",null));
             }
 
             public DocumentLog(List<Entry> list)
