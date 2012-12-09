@@ -6,15 +6,21 @@ using System.Text.RegularExpressions;
 
 namespace SliceOfPie
 {
-    // The Document class is a generalization of the IFileSystemComponent Interface.
+    // The Document class is a generalization of the IFileSystemComponentEnum Interface.
     // This means that it can be represented in an "explorer" when placed in Folders.
     // The class itself contains inforamation relevant to the document, and functions
     // to change data in the object, as well as functions to merge the document newer
     // versions of the same document.
     public class Document : IFileSystemComponent
     {
-        private IFileSystemComponentEnum.docType fileType;
-        public IFileSystemComponentEnum.docType FileType { get { return fileType; } }
+        private string id;
+        public string Id { get { return id; } }
+
+        private string path;
+        public string Path { get { return path; } set { path = value; } }
+
+        private DocType fileType;
+        public DocType FileType { get { return fileType; } }
 
         private string text;
         public string Text { get { return text; } set { text = value; } }
@@ -23,23 +29,24 @@ namespace SliceOfPie
         public string Title { get { return title; } set { title = value; } }
 
         private User owner;
-        public User Owner { get { return owner; } set { owner = value; } }
+        public User Owner { get { return owner; } }
 
         private List<User> sharedWith;
-        public List<User> SharedWith { get { return sharedWith; } set { sharedWith = value; } }
+        public List<User> SharedWith { get { return sharedWith; } }
 
         private Document.DocumentLog log;
-        public Document.DocumentLog Log { get { return log; } set { log = value; } }
+        public Document.DocumentLog Log { get { return log; } }
 
         
         public Document(string text, string title, User owner)
         {
-            fileType = IFileSystemComponentEnum.docType.Document;
+            fileType = DocType.Document;
             this.text = text;
             this.title = title;
             this.owner = owner;
             sharedWith = new List<User>();
             log = new Document.DocumentLog(owner);
+            CreateId(owner);
         }
 
         public Document(string text, string title, User owner, List<User> sharedWith)
@@ -49,11 +56,19 @@ namespace SliceOfPie
             this.owner = owner;
             this.sharedWith = sharedWith;
             log = new Document.DocumentLog(owner);
+            CreateId(owner);
         }
-         
+        
+        private void CreateId(User owner)
+        {
+            TimeSpan t = DateTime.UtcNow - new DateTime(1991, 12, 2);
+            int secondsSinceImportantDay = (int)t.TotalSeconds;
+            id = (secondsSinceImportantDay.ToString() + owner.ToString());
+        }
+
         // This functions takes a newer version of this document, and merges it with this one
         // acording to "Simple Merge Policy" given in slice-of-pie.pdf.
-        public List<string> MergeWith(Document doc)
+        public void MergeWith(Document doc, User user)
         {
             List<string> changes = new List<string>();
             // Create original and latest arrays. ( step 1 )
@@ -158,18 +173,74 @@ namespace SliceOfPie
             }
            
             text = newTextBuilder.ToString();
-            return changes;
+
+            // A log that will document what changes have been made to the document.
+            List<string> changeLog = new List<string>();
+
+            bool sharedWithChanged = false;
+            bool titleChanged = false;
+            bool pathChanged = false;
+            bool textChanged = (changes.Count==0);
+
+
+            // Has there been changes to Sharedwith?
+            foreach (User us in doc.SharedWith)
+            {
+                if (!(this.SharedWith.Contains(us)))
+                {
+                    this.ShareWith(us);
+                    changeLog.Add("Document shared with: " + user.ToString());
+                }
+                    
+            }
+            foreach (User us in this.SharedWith)
+            {
+                if (!(doc.SharedWith.Contains(us)))
+                {
+                    this.SharedWith.Remove(us);
+                    changeLog.Add("Document no longer shared with: " + user.ToString());
+                }
+            }
+            
+            // Has title been changed?
+            if (String.Compare(doc.Title, this.Title) != 0)
+            {
+                changeLog.Add("Title has been changed from '" + this.Title + "' to ' " + doc.Title + "'");
+                this.title = doc.Title;
+            }
+
+            // Has path been changed?
+            if (String.Compare(doc.Path, this.Path) != 0)
+            {
+                changeLog.Add("Path has been changed from '" + this.Path + "' to ' " + doc.Path + "'");
+                this.path = doc.Path;
+            }
+
+            // Finally, add changes to the text to the changelog.
+            changeLog.Add("Changes to the document:\n");
+
+            foreach (string change in changes)
+            {
+                changeLog.Add(change);
+            }
+
+            if 
+
+
+
+
+            this.Log.AddEntry(new DocumentLog.Entry(user, "Made changes to : 
         }
+
         
         // Puts a User on the documents "sharedWith" list, which allows him to access the document.
         public void ShareWith(User user)
         {
             sharedWith.Add(user);
         }
-        // Edits the text of the document.
-       
+
         // Returns a stringArray of the text in the document, that is split on linebreaks.
-        public string[] GetTextAsArray()
+        private string[] GetTextAsArray()
         {
             string[] temp;
 
@@ -189,6 +260,11 @@ namespace SliceOfPie
                 entries = new List<Entry>();
                 entries.Add(new Entry(user,"Created the document"));
             }
+
+            public DocumentLog(List<Entry> list)
+            {
+                entries = list;
+            }
             // Adds an entry to the Log.
             public void AddEntry(Entry entry)
             {
@@ -203,22 +279,23 @@ namespace SliceOfPie
             public class Entry
             {
                 private User user;
+                public User User { get { return user; } }
+                
                 private DateTime time;
-                private string description;
-                private List<string> changeLog;
+                public DateTime Time { get { return time; }}
 
-                public Entry(User u, string desc)
+                private string description;
+                public string Description { get { return description; }}
+
+                private List<string> changeLog;
+                public List<string> ChangeLog { get { return changeLog; } }
+
+                public Entry(User u, string desc, List<string> log)
                 {
                     time = DateTime.Now;
                     user = u;
                     description = desc;
                 }
-
-                public DateTime GetTime()
-                {
-                    return time;
-                }
-
 
                 public override string ToString()
                 {
