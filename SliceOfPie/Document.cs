@@ -46,6 +46,7 @@ namespace SliceOfPie
             this.owner = owner;
             sharedWith = new List<User>();
             log = new Document.DocumentLog(owner);
+            Path = "root";
             CreateId(owner);
         }
 
@@ -56,6 +57,7 @@ namespace SliceOfPie
             this.owner = owner;
             this.sharedWith = sharedWith;
             log = new Document.DocumentLog(owner);
+            Path = "root";
             CreateId(owner);
         }
         
@@ -180,7 +182,7 @@ namespace SliceOfPie
             bool sharedWithChanged = false;
             bool titleChanged = false;
             bool pathChanged = false;
-            bool textChanged = (changes.Count==0);
+            bool textChanged = (!(changes.Count==0));
 
 
             // Has there been changes to Sharedwith?
@@ -190,6 +192,7 @@ namespace SliceOfPie
                 {
                     this.ShareWith(us);
                     changeLog.Add("Document shared with: " + user.ToString());
+                    sharedWithChanged = true;
                 }
                     
             }
@@ -199,6 +202,7 @@ namespace SliceOfPie
                 {
                     this.SharedWith.Remove(us);
                     changeLog.Add("Document no longer shared with: " + user.ToString());
+                    sharedWithChanged = true;
                 }
             }
             
@@ -207,6 +211,7 @@ namespace SliceOfPie
             {
                 changeLog.Add("Title has been changed from '" + this.Title + "' to ' " + doc.Title + "'");
                 this.title = doc.Title;
+                titleChanged = true;
             }
 
             // Has path been changed?
@@ -214,10 +219,11 @@ namespace SliceOfPie
             {
                 changeLog.Add("Path has been changed from '" + this.Path + "' to ' " + doc.Path + "'");
                 this.path = doc.Path;
+                pathChanged = true;
             }
 
             // Finally, add changes to the text to the changelog.
-            changeLog.Add("Changes to the document:\n");
+            changeLog.Add("Changes to the documents text:");
 
             foreach (string change in changes)
             {
@@ -242,7 +248,7 @@ namespace SliceOfPie
                 pathString = "Path. ";
             
             
-            this.Log.AddEntry(new DocumentLog.Entry(user, "Made changed to the following fields : " +titleString+textString+sharedWithString+pathString,changeLog));
+            this.Log.AddEntry(new DocumentLog.Entry(user, "Made changes to the following fields : " +titleString+textString+sharedWithString+pathString,changeLog));
         }
 
         
@@ -271,7 +277,9 @@ namespace SliceOfPie
             public DocumentLog(User user)
             {
                 entries = new List<Entry>();
-                entries.Add(new Entry(user,"Created the document",null));
+                List<string> emptyLog = new List<string>();
+                emptyLog.Add("");
+                entries.Add(new Entry(user,"created the document",emptyLog));
             }
 
             public DocumentLog(List<Entry> list)
@@ -287,6 +295,25 @@ namespace SliceOfPie
             public Entry GetNewestEntry()
             {
                 return entries.ElementAt(entries.Count - 1);
+            }
+
+            public override string ToString()
+            {
+                StringBuilder temp = new StringBuilder();
+
+                temp.AppendFormat("\nLog:\n");
+                
+                int counter = 0;
+
+                foreach (Entry entry in entries)
+                {
+                    temp.AppendFormat("Entry" + counter +"\n");
+                    counter++;
+                    temp.AppendFormat(entry.ToStringWithLog());
+                }
+
+
+                return temp.ToString();
             }
 
             public class Entry
@@ -308,11 +335,29 @@ namespace SliceOfPie
                     time = DateTime.Now;
                     user = u;
                     description = desc;
+                    changeLog = log;
                 }
 
                 public override string ToString()
                 {
-                    return (user + " " + description + " on the " + time);
+                    return (user + " " + description + " on the " + time+"\n");
+                }
+
+                public string ToStringWithLog()
+                {
+                    StringBuilder temp = new StringBuilder();
+
+                    temp.AppendFormat(ToString());
+
+                    foreach (string entry in changeLog)
+                    {
+                        if (String.Compare(entry,"")==0)
+                            temp.AppendFormat(entry);
+                        else
+                            temp.AppendFormat(entry+"\n");
+                    }
+
+                    return temp.ToString();
                 }
             }
         }
