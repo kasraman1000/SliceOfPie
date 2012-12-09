@@ -59,6 +59,7 @@
             this.createDocumentButton.TabIndex = 11;
             this.createDocumentButton.Text = "New document";
             this.createDocumentButton.UseVisualStyleBackColor = true;
+            this.createDocumentButton.Click += new System.EventHandler(this.createDocumentButton_Click);
             // 
             // openButton
             // 
@@ -79,6 +80,7 @@
             this.createFolderButton.TabIndex = 16;
             this.createFolderButton.Text = "New Folder";
             this.createFolderButton.UseVisualStyleBackColor = true;
+            this.createFolderButton.Click += new System.EventHandler(this.createFolderButton_Click);
             // 
             // moveButton
             // 
@@ -129,6 +131,7 @@
             this.syncButton.TabIndex = 18;
             this.syncButton.Text = "Synchronize with server";
             this.syncButton.UseVisualStyleBackColor = true;
+            this.syncButton.Click += new System.EventHandler(this.syncButton_Click);
             // 
             // MainWindow
             // 

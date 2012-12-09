@@ -11,16 +11,13 @@ namespace SliceOfPie
     // The class itself contains inforamation relevant to the document, and functions
     // to change data in the object, as well as functions to merge the document newer
     // versions of the same document.
-    public class Document : IFileSystemComponent
+    public class Document
     {
         private string id;
         public string Id { get { return id; } }
 
         private string path;
         public string Path { get { return path; } set { path = value; } }
-
-        private DocType fileType;
-        public DocType FileType { get { return fileType; } }
 
         private string text;
         public string Text { get { return text; } set { text = value; } }
@@ -40,7 +37,6 @@ namespace SliceOfPie
         
         public Document(string text, string title, User owner)
         {
-            fileType = DocType.Document;
             this.text = text;
             this.title = title;
             this.owner = owner;

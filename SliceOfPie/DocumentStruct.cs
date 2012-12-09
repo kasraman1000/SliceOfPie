@@ -5,7 +5,7 @@ using System.Text;
 
 namespace SliceOfPie
 {
-    struct DocumentStruct : IFileSystemComponent
+    public struct DocumentStruct : IFileSystemComponent
     {
         private string id;
         public string Id { get { return id; } }

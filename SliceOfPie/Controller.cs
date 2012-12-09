@@ -5,41 +5,42 @@ using System.Text;
 
 namespace SliceOfPie
 {
-    public class Controller
+    public static class Controller
     {
         /* Never used?
         User activeUser;
         Folder rootFolder;
         */
           
-        public void SaveDocument(Document doc)
+        public static void SaveDocument(Document doc)
         {
             Storage.WriteToFile(doc);
         }
 
-        public void DeleteDocument(string title)
+        public static void DeleteDocument(string id)
         {
-            Storage.DeleteFile(title);
+            Storage.DeleteFile(id);
         }
 
-        public Document OpenDocument(string title)
+        public static Document OpenDocument(string id)
         {
-            return Storage.ReadFromFile(title);    
+            return Storage.ReadFromFile(id);    
         }
 
-        public void CreateDocument(Document doc)
+        public static void CreateDocument(Document doc)
         {
 
         }
 
-        public void ShareDocument(Document doc, User user)
+        public static void ShareDocument(Document doc, User user)
         {
             
         }
 
-        public void SyncWithServer()
+        public static void SyncWithServer()
         {
-
+            Console.WriteLine("yay, the syncbutton was pressed!");
+            //TODO DO THEMOTHERFUCKING EVERYTHING HERE :<
         }
 
         /*
