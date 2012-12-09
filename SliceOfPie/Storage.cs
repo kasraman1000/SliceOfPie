@@ -27,7 +27,7 @@ namespace SliceOfPie
             doc1.MergeWith(doc3, new User("Kewin"));
 
             Console.WriteLine(doc1.Log.ToString());
-            /*
+           
             string docText = "This my new and fabulous blog where i would love to write about my dog called Fuckface!\n" +
                 "Fuckface is a really nice dog which sadly only has 3 legs, because one time where i was really angry, and i had this saw, well never mind.\n" +
                 "I love my dog above anything else in this world, and i thought i would dedicate this document to him!\n" +
@@ -40,29 +40,30 @@ namespace SliceOfPie
             testDoc.ShareWith(new User("Motor-Bjarne"));
 
             
-            WriteToFile(testDoc);
-            Thread.Sleep(1000);            
-            Document retrievedDoc = ReadFromFile(testDoc.Id);
-            Console.WriteLine("title: "+retrievedDoc.Title);
-            Console.WriteLine("path: " + retrievedDoc.Path);
-            Console.WriteLine("owner: " + retrievedDoc.Owner);
-            Console.WriteLine("sharedWith: " + retrievedDoc.SharedWith);
-            Console.WriteLine("Text: " + retrievedDoc.Text);
-            GetHierachy();
+            WriteToFile(doc1);
             /*
-            DeleteFile("Fuckface");
+           Thread.Sleep(1000);            
+           Document retrievedDoc = ReadFromFile(testDoc.Id);
+           Console.WriteLine("title: "+retrievedDoc.Title);
+           Console.WriteLine("path: " + retrievedDoc.Path);
+           Console.WriteLine("owner: " + retrievedDoc.Owner);
+           Console.WriteLine("sharedWith: " + retrievedDoc.SharedWith);
+           Console.WriteLine("Text: " + retrievedDoc.Text);
+           GetHierachy();
+           /*
+           DeleteFile("Fuckface");
             
 
-            Folder fold = new Folder("herpderps");
-            Folder anotherFolder = new Folder("FolderCeption");
-            Folder thirdFolder= new Folder("FolderCeptionEVENMOAR");
-            fold.AddChild(testDoc);
+           Folder fold = new Folder("herpderps");
+           Folder anotherFolder = new Folder("FolderCeption");
+           Folder thirdFolder= new Folder("FolderCeptionEVENMOAR");
+           fold.AddChild(testDoc);
             
-            Document anotherDoc = new Document("Hello im just another doc","CreldeDoc", new User("Crelde"));
-            anotherFolder.AddChild(anotherDoc);
-            anotherFolder.AddChild(thirdFolder);
-            fold.AddChild(anotherFolder);
-            */
+           Document anotherDoc = new Document("Hello im just another doc","CreldeDoc", new User("Crelde"));
+           anotherFolder.AddChild(anotherDoc);
+           anotherFolder.AddChild(thirdFolder);
+           fold.AddChild(anotherFolder);
+           */
         }
 
 
@@ -133,7 +134,7 @@ namespace SliceOfPie
 
             // And finally it includes the DocumentLog
             tw.WriteLine("");
-            tw.Write(doc.Log.ToString());
+            tw.Write(doc.Log);
 
             // Closes the writer
             tw.Close();
