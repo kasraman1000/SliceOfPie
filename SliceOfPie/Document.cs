@@ -44,6 +44,7 @@ namespace SliceOfPie
             this.text = text;
             this.title = title;
             this.owner = owner;
+            Path = "root";
             sharedWith = new List<User>();
             log = new Document.DocumentLog(owner);
             CreateId(owner);
@@ -54,6 +55,7 @@ namespace SliceOfPie
             this.text = text;
             this.title = title;
             this.owner = owner;
+            Path = "root";
             this.sharedWith = sharedWith;
             log = new Document.DocumentLog(owner);
             CreateId(owner);

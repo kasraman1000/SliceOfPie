@@ -76,8 +76,13 @@ namespace SliceOfPie
             }
 
             TextWriter tw = new StreamWriter("root\\"+fileName);
+            // Writes the first line in the document file which should be the title
+            tw.WriteLine(doc.Title);
 
-            // Writes the first line in the file which is the owner of the document
+            // Writes the second line in the document which should be the path (for gui representation)
+            tw.WriteLine(doc.Path);
+
+            // Writes the third line in the file which is the owner of the document
             tw.WriteLine(doc.Owner.ToString());
            
             // Makes the array with usernames that the document is shared with ready 
@@ -92,7 +97,7 @@ namespace SliceOfPie
                 i++;
             }
 
-            // Writes the second line, which is the usernames that the document is shared with
+            // Writes the fourth line, which is the usernames that the document is shared with
             int j = 1;
             foreach (string s in userNames)
             {
@@ -110,9 +115,13 @@ namespace SliceOfPie
                 j++;
             }
 
-            // Finally writes the users text into the document
+            // Writes the users text into the document
             tw.WriteLine("");
             tw.Write(doc.Text);
+
+            // And finally it includes the DocumentLog
+            tw.WriteLine("");
+            tw.Write(doc.Log.ToString());
 
             // Closes the writer
             tw.Close();
@@ -153,7 +162,7 @@ namespace SliceOfPie
                 string finalText = text.ToString();
 
                 // Finally makes the document to return
-                Document finalDoc = new Document(finalText, title, owner, userList);
+                Document finalDoc = new Document(finalText, id, owner, userList);
  
                 // Closes the reader
                 tr.Close();
