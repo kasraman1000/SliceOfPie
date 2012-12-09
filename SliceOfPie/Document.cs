@@ -68,6 +68,7 @@ namespace SliceOfPie
 
         // This functions takes a newer version of this document, and merges it with this one
         // acording to "Simple Merge Policy" given in slice-of-pie.pdf.
+        
         public void MergeWith(Document doc, User user)
         {
             List<string> changes = new List<string>();

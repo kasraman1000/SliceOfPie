@@ -30,11 +30,12 @@ namespace SliceOfPie
             get { return fileType; }
         }
 
-        DocumentStruct(string title, User user, string ID)
+        DocumentStruct(string title, User user, string ID, string path)
         {
             id = ID;
             fileType = DocType.Document;
             this.title = title;
+            this.path = path;
         }
 
         public void AddChild(IFileSystemComponent i)

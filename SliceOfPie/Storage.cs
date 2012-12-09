@@ -61,11 +61,12 @@ namespace SliceOfPie
          */
 
         // Second parameter is optional for now, chooses where to put the file
-        public static void WriteToFile(Document doc, string filePath = "")
+        
+        
+        public static void WriteToFile(Document doc)
         {
             // Creates a fileName for the file based on the files title
-            string fileName = doc.Title + ".txt";
-            string path = filePath+fileName;
+            string fileName = doc.Id + ".txt";
 
             // Create the root folder if it doesnt exist
             if (!Directory.Exists("root"))
@@ -117,14 +118,12 @@ namespace SliceOfPie
             tw.Close();
         }
 
-        public static Document ReadFromFile(string title)
+        public static Document ReadFromFile(string id)
         {
-            string fileName = title + ".txt";
+            string fileName = id + ".txt";
            
             try
             {
-                // Decides which file the document is associated with
-
 
                 // Creates a new reader
                 TextReader tr = new StreamReader(fileName);
