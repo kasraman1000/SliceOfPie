@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.IO;
+using System.Threading;
 
 namespace SliceOfPie
 {
@@ -22,21 +23,22 @@ namespace SliceOfPie
                 "This is Fuckface: <img src=\"fuckface.gif\" alt=\"My Dog\">";
 
             Document testDoc = new Document(docText, "Fuckfacess", new User("Karsten"));
+            testDoc.Path = "root\\cuteanimalsxoxo";
             testDoc.ShareWith(new User("ForeverAloneGuy"));
             testDoc.ShareWith(new User("Captain Haddoc"));
             testDoc.ShareWith(new User("Motor-Bjarne"));
 
             
             WriteToFile(testDoc);
-
+            Thread.Sleep(1000);            
+            Document retrievedDoc = ReadFromFile(testDoc.Id);
+            Console.WriteLine("title: "+retrievedDoc.Title);
+            Console.WriteLine("path: " + retrievedDoc.Path);
+            Console.WriteLine("owner: " + retrievedDoc.Owner);
+            Console.WriteLine("sharedWith: " + retrievedDoc.SharedWith);
+            Console.WriteLine("Text: " + retrievedDoc.Text);
+            GetHierachy();
             /*
-            Document retrievedDoc = ReadFromFile("Fuckface");
-            string[] txt = retrievedDoc.CreateTextArray();
-           
-            for (int i = 0; i < txt.Length; i++)
-            {
-                Console.Out.WriteLine("array[" + i + "] : " + txt[i]);
-            }
             DeleteFile("Fuckface");
             
 
@@ -72,10 +74,9 @@ namespace SliceOfPie
             if (!Directory.Exists("root"))
             {
                 Directory.CreateDirectory("root");
-
             }
-
-            TextWriter tw = new StreamWriter("root\\"+fileName);
+            // False means that it will overwrite an existing file with the same id.
+            TextWriter tw = new StreamWriter("root\\"+fileName, false);
             // Writes the first line in the document file which should be the title
             tw.WriteLine(doc.Title);
 
@@ -127,6 +128,8 @@ namespace SliceOfPie
             tw.Close();
         }
 
+
+
         public static Document ReadFromFile(string id)
         {
             string fileName = id + ".txt";
@@ -135,7 +138,13 @@ namespace SliceOfPie
             {
 
                 // Creates a new reader
-                TextReader tr = new StreamReader(fileName);
+                TextReader tr = new StreamReader("root\\"+fileName);
+
+                // Gets the title from the string and 
+                string title = tr.ReadLine();
+
+                // Gets the path from the string 
+                string path = tr.ReadLine();
 
                 // Gets the name of the owner from the string and makes a user
                 string ownerString = tr.ReadLine();
@@ -162,8 +171,8 @@ namespace SliceOfPie
                 string finalText = text.ToString();
 
                 // Finally makes the document to return
-                Document finalDoc = new Document(finalText, id, owner, userList);
- 
+                Document finalDoc = new Document( finalText, title, owner, userList);
+                finalDoc.Path = path; 
                 // Closes the reader
                 tr.Close();
                 return finalDoc;
@@ -179,21 +188,50 @@ namespace SliceOfPie
         /*
          * Deletes the file given the file name 
          */
-        public static void DeleteFile(string title)
+        public static void DeleteFile(string id)
         {
             // Decides which file the document is associated with
-            string fileName = title + ".txt";
+            string fileName = id + ".txt";
 
             // Checks if a filename that matches the string exists and deletes it
-            if(File.Exists(fileName))
+            if(File.Exists("root\\" + fileName))
             {
-                File.Delete(fileName);
+                File.Delete("root\\" + fileName);
             }
             else
             {
                 Console.WriteLine("No file exists by that name");
             }
 
+        }
+
+        public static Folder GetHierachy()
+        {
+            if(Directory.Exists("root"))
+            {
+                IEnumerable<string> filesInRoot = Directory.EnumerateFiles("root");
+                foreach (string s in filesInRoot)
+                {
+                    Console.WriteLine(s);
+                }
+
+
+                
+                
+                
+
+
+
+
+
+
+
+
+            }
+
+
+
+            return null;
         }
     }
 }
