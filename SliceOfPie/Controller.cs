@@ -31,6 +31,17 @@ namespace SliceOfPie
         {
 
         }
+
+        public void ShareDocument(Document doc, User user)
+        {
+            
+        }
+
+        public void SyncWithServer()
+        {
+
+        }
+
         /*
         public static void Main(string[] args)
         {   

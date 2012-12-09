@@ -52,5 +52,31 @@ namespace GUI
         {
             modified = true;
         }
+
+        private void EditWindow_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (modified)
+            {
+                
+                DialogResult result = MessageBox.Show(
+                    "You have unsaved changes to this document. " +
+                    "Closing this window now will discard these changes. " +
+                    "\nAre you sure you want to close this window?",
+                    "Unsaved Changes",
+                    MessageBoxButtons.OKCancel,
+                    MessageBoxIcon.Warning);
+
+                if (result == System.Windows.Forms.DialogResult.Cancel)
+                {
+                    e.Cancel = true;
+                }
+                else
+                {
+                    modified = false;
+                }
+
+            }
+
+        }
     }
 }
