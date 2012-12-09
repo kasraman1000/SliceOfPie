@@ -13,11 +13,8 @@ namespace SliceOfPie
         private DocType fileType;
         public DocType FileType { get { return fileType; } }
 
-        List<IFileSystemComponent> children;
-        List<IFileSystemComponent> Children { get { return children; } } 
-
-        // Deprecated, remove please:
-        public List<IFileSystemComponent> GetChildren() { return null; }
+        private List<IFileSystemComponent> children;
+        public List<IFileSystemComponent> Children { get { return children; } } 
 
         public Folder(string title)
         {

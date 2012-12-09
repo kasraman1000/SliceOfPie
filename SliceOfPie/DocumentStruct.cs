@@ -35,18 +35,7 @@ namespace SliceOfPie
             id = ID;
             fileType = DocType.Document;
             this.title = title;
+            path = ""; // It won't compile without this :<
         }
-
-        public void AddChild(IFileSystemComponent i)
-        {
-            
-        }
-        public void RemoveChild(IFileSystemComponent i)
-        {
-
-        }
-
-        public List<IFileSystemComponent> GetChildren() { return null; }
-
     }
 }

@@ -224,12 +224,6 @@ namespace SliceOfPie
                 changeLog.Add(change);
             }
 
-            if 
-
-
-
-
-            this.Log.AddEntry(new DocumentLog.Entry(user, "Made changes to : 
         }
 
         
@@ -257,8 +251,8 @@ namespace SliceOfPie
 
             public DocumentLog(User user)
             {
-                entries = new List<Entry>();
-                entries.Add(new Entry(user,"Created the document"));
+               entries = new List<Entry>();
+            // entries.Add(new Entry(user,"Created the document"));
             }
 
             public DocumentLog(List<Entry> list)
@@ -303,12 +297,5 @@ namespace SliceOfPie
                 }
             }
         }
-
-
-        // non-functional interface member
-        public void AddChild(IFileSystemComponent child) { }
-        public void RemoveChild(IFileSystemComponent child) { }
-        public List<IFileSystemComponent> GetChildren() { return null; }
-
     }
 }
