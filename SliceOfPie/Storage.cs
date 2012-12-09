@@ -16,13 +16,16 @@ namespace SliceOfPie
         
         public static void Main(string[] args)
         {
-            Document doc1 = new Document("Line1\nLine2\nLine3", "Kewins Dokument", new User("Kewin"));
+            /*
+             * */
+            Document doc1 = new Document("Line1\nLine2\nLine3", "Kewins Dokument", new User("Crelde"));
             Document doc2 = new Document("Line1\nLine4\nLine3", "Kewins nye Dokument", new User("Kewin"));
 
             doc1.MergeWith(doc2, new User("Kewin"));
+            
 
             Document doc3 = new Document("Line1\nLine4\nLine3\nAnotherLine", "Kewins nye og 3. Dokument", new User("Kewin"));
-            doc3.Path = "root\\mappe1";
+            doc3.Path = "root/";
 
             doc1.MergeWith(doc3, new User("Kewin"));
 
@@ -38,32 +41,33 @@ namespace SliceOfPie
             testDoc.ShareWith(new User("ForeverAloneGuy"));
             testDoc.ShareWith(new User("Captain Haddoc"));
             testDoc.ShareWith(new User("Motor-Bjarne"));
-
             
+            GetHierachy();
+           
             WriteToFile(doc1);
             /*
-           Thread.Sleep(1000);            
-           Document retrievedDoc = ReadFromFile(testDoc.Id);
-           Console.WriteLine("title: "+retrievedDoc.Title);
-           Console.WriteLine("path: " + retrievedDoc.Path);
-           Console.WriteLine("owner: " + retrievedDoc.Owner);
-           Console.WriteLine("sharedWith: " + retrievedDoc.SharedWith);
-           Console.WriteLine("Text: " + retrievedDoc.Text);
-           GetHierachy();
-           /*
-           DeleteFile("Fuckface");
+          Thread.Sleep(1000);            
+          Document retrievedDoc = ReadFromFile(testDoc.Id);
+          Console.WriteLine("title: "+retrievedDoc.Title);
+          Console.WriteLine("path: " + retrievedDoc.Path);
+          Console.WriteLine("owner: " + retrievedDoc.Owner);
+          Console.WriteLine("sharedWith: " + retrievedDoc.SharedWith);
+          Console.WriteLine("Text: " + retrievedDoc.Text);
+          GetHierachy();
+          /*
+          DeleteFile("Fuckface");
             
 
-           Folder fold = new Folder("herpderps");
-           Folder anotherFolder = new Folder("FolderCeption");
-           Folder thirdFolder= new Folder("FolderCeptionEVENMOAR");
-           fold.AddChild(testDoc);
+          Folder fold = new Folder("herpderps");
+          Folder anotherFolder = new Folder("FolderCeption");
+          Folder thirdFolder= new Folder("FolderCeptionEVENMOAR");
+          fold.AddChild(testDoc);
             
-           Document anotherDoc = new Document("Hello im just another doc","CreldeDoc", new User("Crelde"));
-           anotherFolder.AddChild(anotherDoc);
-           anotherFolder.AddChild(thirdFolder);
-           fold.AddChild(anotherFolder);
-           */
+          Document anotherDoc = new Document("Hello im just another doc","CreldeDoc", new User("Crelde"));
+          anotherFolder.AddChild(anotherDoc);
+          anotherFolder.AddChild(thirdFolder);
+          fold.AddChild(anotherFolder);
+          */
         }
 
 
@@ -222,9 +226,39 @@ namespace SliceOfPie
             if(Directory.Exists("root"))
             {
                 IEnumerable<string> filesInRoot = Directory.EnumerateFiles("root");
+                List<DocumentStruct> structs = new List<DocumentStruct>();
+
                 foreach (string s in filesInRoot)
                 {
-                    Console.WriteLine(s);
+                    TextReader tr = new StreamReader(s);
+
+                    string title = tr.ReadLine();
+                    string path = tr.ReadLine();
+                    User user = new User(tr.ReadLine());
+                    // Make sharedWith list
+                    string users = tr.ReadLine();
+                    string[] userNameArr = users.Split(',');
+                    User[] userArr = new User[userNameArr.Length];
+                    int i = 0;
+                    foreach (string u in userNameArr)
+                    {
+                        userArr[i] = new User(u);
+                        i++;
+                    }
+                    List<User> userList = userArr.ToList<User>();
+
+
+                    tr.Close();
+                    string[] filePath = path.Split('/');
+                    List<Folder> folders = new List<Folder>();
+                    foreach (string st in filePath)
+                    {
+                        folders.Add(new Folder(st));
+
+                    }
+
+                    structs.Add(new DocumentStruct(title, user, s, path, userList));
+                    
                 }
 
 
