@@ -27,9 +27,9 @@ namespace SliceOfPie
             testDoc.ShareWith(new User("Motor-Bjarne"));
 
             
-            /*
             WriteToFile(testDoc);
 
+            /*
             Document retrievedDoc = ReadFromFile("Fuckface");
             string[] txt = retrievedDoc.CreateTextArray();
            
@@ -38,8 +38,8 @@ namespace SliceOfPie
                 Console.Out.WriteLine("array[" + i + "] : " + txt[i]);
             }
             DeleteFile("Fuckface");
+            
 
-            */
             Folder fold = new Folder("herpderps");
             Folder anotherFolder = new Folder("FolderCeption");
             Folder thirdFolder= new Folder("FolderCeptionEVENMOAR");
@@ -49,7 +49,7 @@ namespace SliceOfPie
             anotherFolder.AddChild(anotherDoc);
             anotherFolder.AddChild(thirdFolder);
             fold.AddChild(anotherFolder);
-            //CreateNewFolder(fold);
+            */
         }
 
 
@@ -66,7 +66,15 @@ namespace SliceOfPie
             // Creates a fileName for the file based on the files title
             string fileName = doc.Title + ".txt";
             string path = filePath+fileName;
-            TextWriter tw = new StreamWriter(path);
+
+            // Create the root folder if it doesnt exist
+            if (!Directory.Exists("root"))
+            {
+                Directory.CreateDirectory("root");
+
+            }
+
+            TextWriter tw = new StreamWriter("root\\"+fileName);
 
             // Writes the first line in the file which is the owner of the document
             tw.WriteLine(doc.Owner.ToString());

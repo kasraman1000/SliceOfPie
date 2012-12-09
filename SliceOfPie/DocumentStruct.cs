@@ -10,6 +10,13 @@ namespace SliceOfPie
         private string id;
         public string Id { get { return id; } }
 
+        private string path;
+        public string Path
+        {
+            get { return path; }
+            set { path = value; }
+        }
+
         private string title;
         public string Title
         {
@@ -29,5 +36,17 @@ namespace SliceOfPie
             fileType = DocType.Document;
             this.title = title;
         }
+
+        public void AddChild(IFileSystemComponent i)
+        {
+            
+        }
+        public void RemoveChild(IFileSystemComponent i)
+        {
+
+        }
+
+        public List<IFileSystemComponent> GetChildren() { return null; }
+
     }
 }

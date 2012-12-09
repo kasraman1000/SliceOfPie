@@ -13,8 +13,8 @@ namespace SliceOfPie
     // versions of the same document.
     public class Document : IFileSystemComponent
     {
-        private IFileSystemComponentEnum.docType fileType;
-        public IFileSystemComponentEnum.docType FileType { get { return fileType; } }
+        private DocType fileType;
+        public DocType FileType { get { return fileType; } }
 
         private string text;
         public string Text { get { return text; } set { text = value; } }
@@ -34,7 +34,7 @@ namespace SliceOfPie
         
         public Document(string text, string title, User owner)
         {
-            fileType = IFileSystemComponentEnum.docType.Document;
+            fileType = DocType.Document;
             this.text = text;
             this.title = title;
             this.owner = owner;
