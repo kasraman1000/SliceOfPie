@@ -96,7 +96,7 @@ namespace TestProject
             Document doc1 = new Document(doc1text, "Kewins dokument", new User("Kewin"));
             Document doc2 = new Document(doc2text, "Kewins dokument", new User("Kewin"));
 
-            doc1.MergeWith(doc2);
+            doc1.MergeWith(doc2, new User("Kewin"));
 
             bool compare = (String.Compare(doc1.Text, doc2text) == 0);
 
@@ -112,7 +112,7 @@ namespace TestProject
             Document doc1 = new Document(doc1text, "Kewins dokument", new User("Kewin"));
             Document doc2 = new Document(doc2text, "Kewins dokument", new User("Kewin"));
 
-            doc2.MergeWith(doc1);
+            doc2.MergeWith(doc1, new User("Kewin"));
 
             bool compare = (String.Compare(doc2.Text, doc1text) == 0);
 
@@ -136,7 +136,7 @@ namespace TestProject
             Document doc1 = new Document(doc1text, "Kewins dokument", new User("Kewin"));
             Document doc2 = new Document(doc2text, "Kewins dokument", new User("Kewin"));
 
-            doc1.MergeWith(doc2);
+            doc1.MergeWith(doc2, new User("Kewin"));
 
             bool compare = (String.Compare(doc1.Text, doc2text) == 0);
 
@@ -149,8 +149,8 @@ namespace TestProject
         {
             User user = new User("Kewin");
             Document doc1 = new Document("text", "Kewins dokument", user);
-            doc1.Log.AddEntry(new Document.DocumentLog.Entry(user, "First entry"));
-            Document.DocumentLog.Entry entry1 = new Document.DocumentLog.Entry(user, "Second entry");
+            doc1.Log.AddEntry(new Document.DocumentLog.Entry(user, "First entry", null));
+            Document.DocumentLog.Entry entry1 = new Document.DocumentLog.Entry(user, "Second entry",null);
             doc1.Log.AddEntry(entry1);
 
             Document.DocumentLog.Entry entry2 = doc1.Log.GetNewestEntry();
