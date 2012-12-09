@@ -13,6 +13,8 @@ namespace GUI
 {
     public partial class MainWindow : Form
     {
+        private User activeUser;
+
         private EditWindow editWindow;
         
         private Folder selectedFolder;
