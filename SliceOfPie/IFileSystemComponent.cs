@@ -15,7 +15,7 @@ namespace SliceOfPie
             set;
         }
 
-        IFileSystemComponentEnum.docType FileType
+        DocType FileType
         {
             get;
         }

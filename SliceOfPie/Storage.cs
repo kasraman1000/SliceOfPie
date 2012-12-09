@@ -9,7 +9,7 @@ namespace SliceOfPie
     /*
      * This class is responsible for everything that has to do with our external storage this being the files the users are saving.
      */
-    class Storage
+    static class Storage
     {
         //  MAIN FOR TESTING PURPOSES WILL BE REWRITTEN INTO A TESTCLASS!!
         
@@ -135,11 +135,11 @@ namespace SliceOfPie
                     string path = "C:\\root\\"+f.Title+"\\";
 
                     // Checks if the given file has any documents and writes to the right folder
-                    if (file.FileType == IFileSystemComponentEnum.docType.Document)
+                    if (file.FileType == DocType.Document)
                     {
                         WriteToFile((Document)file, path);
                     }
-                    else if (file.FileType == IFileSystemComponentEnum.docType.Folder)
+                    else if (file.FileType == DocType.Folder)
                     {
                         Directory.CreateDirectory("C:\\root\\" + f.Title+"\\"+ file.Title);
                         List<IFileSystemComponent> files = ((Folder)file).GetChildren();
@@ -148,7 +148,7 @@ namespace SliceOfPie
                             foreach (IFileSystemComponent ifiles in files)
                             {
                                 path = "C:\\root\\" + f.Title+"\\"+ file.Title+"\\";
-                                if (ifiles.FileType == IFileSystemComponentEnum.docType.Document)
+                                if (ifiles.FileType == DocType.Document)
                                 {
                                     WriteToFile((Document)ifiles, path);
                                 }

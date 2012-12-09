@@ -10,17 +10,21 @@ namespace SliceOfPie
         private string title;
         public string Title{ get { return title; } set { title = value;} }
 
-        private IFileSystemComponentEnum.docType fileType;
-        public IFileSystemComponentEnum.docType FileType { get { return fileType; } }
+        private DocType fileType;
+        public DocType FileType { get { return fileType; } }
 
         List<IFileSystemComponent> children;
-        bool isRoot;
+        List<IFileSystemComponent> Children { get { return children; } } 
+
+        // Deprecated, remove please:
+        public void RemoveChild(IFileSystemComponent child) { }
+        public List<IFileSystemComponent> GetChildren() { return null; }
 
         public Folder(string title)
         {
-            fileType = IFileSystemComponentEnum.docType.Folder;
+            fileType = DocType.Folder;
             this.title = title;
-            children = new List<IFileSystemComponent>();
+            children = new List<IFileSystemComponent>();    
 
          }
          
@@ -34,11 +38,6 @@ namespace SliceOfPie
             children.Remove(child);
         }
 
-        public List<IFileSystemComponent> GetChildren()
-        {
-            return children;
-        }
-
-       
+              
     }
 }

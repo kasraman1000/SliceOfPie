@@ -13,20 +13,20 @@ namespace SliceOfPie
         private string title;
         public string Title
         {
-            get;
-            set;
+            get { return title; }
+            set { title = value; }
         }
 
+        private DocType fileType;
         public DocType FileType
         {
-            get;
+            get { return fileType; }
         }
 
-        DocumentStruct(string title, User user)
+        DocumentStruct(string title, User user, string ID)
         {
-            TimeSpan t = DateTime.UtcNow - new DateTime(1991, 12, 2);
-            int secondsSinceImportantDay = (int)t.TotalSeconds;
-            id = (secondsSinceImportantDay.ToString() + user.ToString());
+            id = ID;
+            fileType = DocType.Document;
             this.title = title;
         }
     }

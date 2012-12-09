@@ -67,7 +67,7 @@ namespace TestProject
         ///A test for ShareWith and GetSharedWith.
         ///</summary>
         [TestMethod()]
-        public void ShareWithANDGetSharedWithTest()
+        public void ShareWithTest()
         {
             User user1 = new User("kewin");
 
@@ -142,9 +142,22 @@ namespace TestProject
 
             Assert.IsTrue(compare);
         }
-        /// <summary>
-        ///A test for GetTitle
-        ///</summary>
+
+        [TestMethod()]
+        // Test if it is actually the later of 2 entries that is retrieved.
+        public void GetNewestEntryTest()
+        {
+            User user = new User("Kewin");
+            Document doc1 = new Document("text", "Kewins dokument", user);
+            doc1.Log.AddEntry(new Document.DocumentLog.Entry(user, "First entry"));
+            Document.DocumentLog.Entry entry1 = new Document.DocumentLog.Entry(user, "Second entry");
+            doc1.Log.AddEntry(entry1);
+
+            Document.DocumentLog.Entry entry2 = doc1.Log.GetNewestEntry();
+
+            Assert.AreEqual(entry1, entry2);
+        }
+
 
     }
     
