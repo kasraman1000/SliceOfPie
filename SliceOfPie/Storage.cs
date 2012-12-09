@@ -15,7 +15,18 @@ namespace SliceOfPie
         
         public static void Main(string[] args)
         {
-            
+            Document doc1 = new Document("Line1\nLine2\nLine3", "Kewins Dokument", new User("Kewin"));
+            Document doc2 = new Document("Line1\nLine4\nLine3", "Kewins nye Dokument", new User("Kewin"));
+
+            doc1.MergeWith(doc2, new User("Kewin"));
+
+            Document doc3 = new Document("Line1\nLine4\nLine3\nAnotherLine", "Kewins nye og 3. Dokument", new User("Kewin"));
+            doc3.Path = "root\\mappe1";
+
+            doc1.MergeWith(doc3, new User("Kewin"));
+
+            Console.WriteLine(doc1.Log.ToString());
+            /*
             string docText = "This my new and fabulous blog where i would love to write about my dog called Fuckface!\n" +
                 "Fuckface is a really nice dog which sadly only has 3 legs, because one time where i was really angry, and i had this saw, well never mind.\n" +
                 "I love my dog above anything else in this world, and i thought i would dedicate this document to him!\n" +
@@ -28,7 +39,7 @@ namespace SliceOfPie
 
             
             WriteToFile(testDoc);
-
+            */
             /*
             Document retrievedDoc = ReadFromFile("Fuckface");
             string[] txt = retrievedDoc.CreateTextArray();
