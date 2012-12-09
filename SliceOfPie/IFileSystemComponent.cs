@@ -7,8 +7,6 @@ namespace SliceOfPie
 {
     public interface IFileSystemComponent
     {
-        
-
         string Title
         {
             get;
@@ -19,10 +17,5 @@ namespace SliceOfPie
         {
             get;
         }
-
-
-        void AddChild(IFileSystemComponent child);
-        void RemoveChild(IFileSystemComponent child);
-        List<IFileSystemComponent> GetChildren();
     }
 }

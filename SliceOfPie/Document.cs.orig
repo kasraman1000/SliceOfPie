@@ -278,10 +278,15 @@ namespace SliceOfPie
 
             public DocumentLog(User user)
             {
-               entries = new List<Entry>();
+<<<<<<< HEAD
+                entries = new List<Entry>();
                 List<string> emptyLog = new List<string>();
                 emptyLog.Add("");
                 entries.Add(new Entry(user,"created the document",emptyLog));
+=======
+               entries = new List<Entry>();
+               entries.Add(new Entry(user,"Created the document",null));
+>>>>>>> 5b92674e45edd693f73cdbeb7461169e09951bb3
             }
 
             public DocumentLog(List<Entry> list)
