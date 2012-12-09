@@ -30,12 +30,12 @@ namespace SliceOfPie
             get { return fileType; }
         }
 
-        DocumentStruct(string title, User user, string ID)
+        DocumentStruct(string title, User user, string ID, string path)
         {
             id = ID;
             fileType = DocType.Document;
             this.title = title;
-            path = ""; // It won't compile without this :<
+            this.path = path;
         }
     }
 }

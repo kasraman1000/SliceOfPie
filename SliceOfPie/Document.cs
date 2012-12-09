@@ -44,6 +44,7 @@ namespace SliceOfPie
             this.text = text;
             this.title = title;
             this.owner = owner;
+            Path = "root";
             sharedWith = new List<User>();
             log = new Document.DocumentLog(owner);
             CreateId(owner);
@@ -54,6 +55,7 @@ namespace SliceOfPie
             this.text = text;
             this.title = title;
             this.owner = owner;
+            Path = "root";
             this.sharedWith = sharedWith;
             log = new Document.DocumentLog(owner);
             CreateId(owner);
@@ -68,6 +70,7 @@ namespace SliceOfPie
 
         // This functions takes a newer version of this document, and merges it with this one
         // acording to "Simple Merge Policy" given in slice-of-pie.pdf.
+        
         public void MergeWith(Document doc, User user)
         {
             List<string> changes = new List<string>();
@@ -224,6 +227,24 @@ namespace SliceOfPie
                 changeLog.Add(change);
             }
 
+            string sharedWithString ="";
+            string titleString = "";
+            string pathString = "";
+            string textString = "";
+
+            if (titleChanged)
+                titleString = "Title. ";
+
+            if (textChanged)
+                textString = "Text. ";
+            if (sharedWithChanged)
+                sharedWithString = "sharedWith. ";
+                      
+            if (pathChanged)
+                pathString = "Path. ";
+            
+            
+            this.Log.AddEntry(new DocumentLog.Entry(user, "Made changed to the following fields : " +titleString+textString+sharedWithString+pathString,changeLog));
         }
 
         
@@ -252,7 +273,7 @@ namespace SliceOfPie
             public DocumentLog(User user)
             {
                entries = new List<Entry>();
-            // entries.Add(new Entry(user,"Created the document"));
+               entries.Add(new Entry(user,"Created the document",null));
             }
 
             public DocumentLog(List<Entry> list)
