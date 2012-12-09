@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using SliceOfPie;
 
+
 namespace GUI
 {
     public partial class MainWindow : Form
@@ -77,7 +78,7 @@ namespace GUI
         private void BuildDocumentTree(TreeNodeCollection nodes, IFileSystemComponent fsc)
         {
 
-            if (fsc.GetChildren() == null) // If it's a document
+            if (fsc.FileType == SliceOfPie.DocType.Document) // If it's a document
             {
                 TreeNode n = new TreeNode(fsc.Title);
                 n.Tag = fsc;
@@ -88,7 +89,8 @@ namespace GUI
                 TreeNode n = new TreeNode(fsc.Title);
                 n.Tag = fsc;
                 nodes.Add(n);
-                foreach (IFileSystemComponent f in fsc.GetChildren())
+                SliceOfPie.Folder folder = (SliceOfPie.Folder)fsc;
+                foreach (IFileSystemComponent f in (folder.Children))
                 {
                     BuildDocumentTree(n.Nodes, f);
                 }
@@ -102,7 +104,7 @@ namespace GUI
         private void treeView_AfterSelect(object sender, TreeViewEventArgs e)
         {
             IFileSystemComponent fsc = (IFileSystemComponent) e.Node.Tag;
-            if (fsc.GetChildren() == null) // If it's a document
+            if (fsc.FileType == DocType.Document) // If it's a document
             {
                 selectedDocument = (Document) fsc;
                 selectedFolder = (Folder) e.Node.Parent.Tag;
@@ -113,7 +115,7 @@ namespace GUI
                 selectedFolder = (Folder) e.Node.Tag;
             }
 
-
+            // If a document was not selected, grey out the button
             if (selectedDocument == null)
             {
                 openButton.Enabled = false;

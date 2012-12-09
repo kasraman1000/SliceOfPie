@@ -37,17 +37,5 @@ namespace SliceOfPie
             this.title = title;
             this.path = path;
         }
-
-        public void AddChild(IFileSystemComponent i)
-        {
-            
-        }
-        public void RemoveChild(IFileSystemComponent i)
-        {
-
-        }
-
-        public List<IFileSystemComponent> GetChildren() { return null; }
-
     }
 }
