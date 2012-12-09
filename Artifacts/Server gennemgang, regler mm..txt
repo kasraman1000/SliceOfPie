@@ -1,0 +1,62 @@
+Ifilesystemcomponenet
+
+
+
+Dokumenter bør have:
+
+Bør have ID
+
+
+Bør have sti?
+
+
+
+REGLER:
+
+Kun owner kan ændre følgende:
+Path
+Sharedwith
+Title
+
+
+
+
+
+
+
+
+
+Sync fremgangsmåde
+
+
+
+Få fat i root
+
+
+
+Step1
+Tag dokumenter en af gangen, send.
+
+step2
+Server modtager, ser om ID findes på server
+
+Hvis nej:
+tilføj, ezcake
+
+hvis ja, merge with server ( nyeste dokument har ret )
+
+
+step3
+Server Sender (possibly) changed document back
+
+Hvis der er flere dokumenter tilbage, repeat step1.
+
+Step 4.
+
+tjek om server har nogle nye dokumenter der er shared med bruger som skal sendes.
+
+step 5:
+
+send nye shared dokumenter hvis der er nogle.
+
+

@@ -9,7 +9,7 @@ namespace SliceOfPie
     /*
      * This class is responsible for everything that has to do with our external storage this being the files the users are saving.
      */
-    class Storage
+    static class Storage
     {
         //  MAIN FOR TESTING PURPOSES WILL BE REWRITTEN INTO A TESTCLASS!!
         
