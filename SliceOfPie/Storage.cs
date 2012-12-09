@@ -17,7 +17,7 @@ namespace SliceOfPie
         public static void Main(string[] args)
         {
             /*
-             * */
+             * 
             Document doc1 = new Document("Line1\nLine2\nLine3", "Kewins Dokument", new User("Crelde"));
             Document doc2 = new Document("Line1\nLine4\nLine3", "Kewins nye Dokument", new User("Kewin"));
 
@@ -25,11 +25,11 @@ namespace SliceOfPie
             
 
             Document doc3 = new Document("Line1\nLine4\nLine3\nAnotherLine", "Kewins nye og 3. Dokument", new User("Kewin"));
-            doc3.Path = "root/";
+            doc3.Path = "root/mappe1/insideJoke";
 
             doc1.MergeWith(doc3, new User("Kewin"));
 
-            Console.WriteLine(doc1.Log.ToString());
+           // Console.WriteLine(doc1.Log.ToString());
            
             string docText = "This my new and fabulous blog where i would love to write about my dog called Fuckface!\n" +
                 "Fuckface is a really nice dog which sadly only has 3 legs, because one time where i was really angry, and i had this saw, well never mind.\n" +
@@ -41,10 +41,10 @@ namespace SliceOfPie
             testDoc.ShareWith(new User("ForeverAloneGuy"));
             testDoc.ShareWith(new User("Captain Haddoc"));
             testDoc.ShareWith(new User("Motor-Bjarne"));
-            
+            */
             GetHierachy();
            
-            WriteToFile(doc1);
+            //WriteToFile(doc1);
             /*
           Thread.Sleep(1000);            
           Document retrievedDoc = ReadFromFile(testDoc.Id);
@@ -225,11 +225,15 @@ namespace SliceOfPie
         {
             if(Directory.Exists("root"))
             {
+                IEnumerable<string> distinctFolderNames;
+                List<Folder> folders = new List<Folder>();
+                List<string> toBeFolders = new List<string>();
                 IEnumerable<string> filesInRoot = Directory.EnumerateFiles("root");
                 List<DocumentStruct> structs = new List<DocumentStruct>();
 
                 foreach (string s in filesInRoot)
                 {
+                    
                     TextReader tr = new StreamReader(s);
 
                     string title = tr.ReadLine();
@@ -247,31 +251,78 @@ namespace SliceOfPie
                     }
                     List<User> userList = userArr.ToList<User>();
 
-
-                    tr.Close();
                     string[] filePath = path.Split('/');
-                    List<Folder> folders = new List<Folder>();
+                    
                     foreach (string st in filePath)
                     {
-                        folders.Add(new Folder(st));
-
+                        toBeFolders.Add(st);
+                        
                     }
-
-                    structs.Add(new DocumentStruct(title, user, s, path, userList));
+                   
+                    tr.Close();
+                    structs.Add(new DocumentStruct(title, user, s, path, userList));  
                     
+        
+                }
+                distinctFolderNames = toBeFolders.Distinct();
+                foreach (string folderName in distinctFolderNames)
+                {
+                    folders.Add(new Folder(folderName));
                 }
 
+                foreach (DocumentStruct d in structs)
+                {
+                    string[] folder = d.Path.Split('/');
+                    foreach(Folder fo in folders)
+                    {
+                        if (fo.Title.Equals(folder.Last()))
+                        {
+                            fo.AddChild(d);
+                        }
+                    }
+                }
 
-                
-                
-                
+                foreach (string s in filesInRoot)
+                {
+                    TextReader tr = new StreamReader(s);
+                    tr.ReadLine();
+                    string path = tr.ReadLine();
+                    string[] splitPath = path.Split('/');
+                    for (int i = splitPath.Length; i != 0; i--)
+                    {
+                        
+                        foreach (Folder fol in folders)
+                        {
+                            
+                            if(!splitPath[i-1].Equals("root"))
+                            {
+                                
+                               if (fol.Title.Equals(splitPath[i-1]))
+                               {
+                                   
+                                 var r1 = from f in folders
+                                            where f.Title.Equals(splitPath[i-1])
+                                            select f;
 
+                                 var r2 = from f in folders
+                                         where f.Title.Equals(splitPath[i-2])
+                                         select f;
 
-
-
-
-
-
+                                 List<IFileSystemComponent> derp1 = r2.FirstOrDefault().Children;
+                                       Folder derp3 = r1.FirstOrDefault();
+                                 if (!derp1.Contains(derp3) && !derp1.Equals(derp3))
+                                 {
+                                     r2.FirstOrDefault().AddChild(r1.FirstOrDefault());
+                                 }
+                                    
+                                }
+                            }
+                            
+                        }
+                      
+                    }
+                }
+                Folder finalFolder = folders.ElementAt(0);
 
             }
 
