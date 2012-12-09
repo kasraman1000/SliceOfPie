@@ -27,9 +27,9 @@ namespace SliceOfPie
             testDoc.ShareWith(new User("Motor-Bjarne"));
 
             
-            /*
             WriteToFile(testDoc);
 
+            /*
             Document retrievedDoc = ReadFromFile("Fuckface");
             string[] txt = retrievedDoc.CreateTextArray();
            
@@ -38,16 +38,18 @@ namespace SliceOfPie
                 Console.Out.WriteLine("array[" + i + "] : " + txt[i]);
             }
             DeleteFile("Fuckface");
+            
 
-            */
             Folder fold = new Folder("herpderps");
             Folder anotherFolder = new Folder("FolderCeption");
+            Folder thirdFolder= new Folder("FolderCeptionEVENMOAR");
             fold.AddChild(testDoc);
             
             Document anotherDoc = new Document("Hello im just another doc","CreldeDoc", new User("Crelde"));
             anotherFolder.AddChild(anotherDoc);
+            anotherFolder.AddChild(thirdFolder);
             fold.AddChild(anotherFolder);
-            CreateNewFolder(fold);
+            */
         }
 
 
@@ -63,7 +65,16 @@ namespace SliceOfPie
         {
             // Creates a fileName for the file based on the files title
             string fileName = doc.Title + ".txt";
-            TextWriter tw = new StreamWriter(filePath+fileName);
+            string path = filePath+fileName;
+
+            // Create the root folder if it doesnt exist
+            if (!Directory.Exists("root"))
+            {
+                Directory.CreateDirectory("root");
+
+            }
+
+            TextWriter tw = new StreamWriter("root\\"+fileName);
 
             // Writes the first line in the file which is the owner of the document
             tw.WriteLine(doc.Owner.ToString());
@@ -105,62 +116,6 @@ namespace SliceOfPie
             // Closes the writer
             tw.Close();
         }
-
-        public static void CreateRootFolder()
-        {
-            if (!File.Exists("root"))
-            {
-                Directory.CreateDirectory("C:\\root");
-            }
-
-        }
-        // OOOKAY.. functionality finally works.. mostly for testing fordi det skal omskrives til flere metoder det her..
-        // MEN det kan tage imod en folder med en folder i med et dokument i og lave hele hierakiet i filesystem på c//
-        // Det scaler bare ikke endnu
-        public static void CreateNewFolder(Folder f)
-        {
-            // In case there isn't a root folder yet, it makes one
-            CreateRootFolder();
-
-
-            List<IFileSystemComponent> children = f.GetChildren();
-
-            // Assuming the folder has no other parents than the root
-            Directory.CreateDirectory("C:\\root\\" + f.Title);
-                           
-                foreach(IFileSystemComponent file in children)
-                {
-                    // Should make some function thingy that makes up the proper filepath
-                    // Right now it puts the document into the folder given as a parameter to the method
-                    string path = "C:\\root\\"+f.Title+"\\";
-
-                    // Checks if the given file has any documents and writes to the right folder
-                    if (file.FileType == DocType.Document)
-                    {
-                        WriteToFile((Document)file, path);
-                    }
-                    else if (file.FileType == DocType.Folder)
-                    {
-                        Directory.CreateDirectory("C:\\root\\" + f.Title+"\\"+ file.Title);
-                        List<IFileSystemComponent> files = ((Folder)file).GetChildren();
-                        if(files.Count != 0)
-                        {
-                            foreach (IFileSystemComponent ifiles in files)
-                            {
-                                path = "C:\\root\\" + f.Title+"\\"+ file.Title+"\\";
-                                if (ifiles.FileType == DocType.Document)
-                                {
-                                    WriteToFile((Document)ifiles, path);
-                                }
-                            }
-                                            
-                        }
-                        
-                    }
-                }
-
-        }
-
 
         public static Document ReadFromFile(string title)
         {

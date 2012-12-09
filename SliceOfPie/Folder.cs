@@ -17,7 +17,6 @@ namespace SliceOfPie
         List<IFileSystemComponent> Children { get { return children; } } 
 
         // Deprecated, remove please:
-        public void RemoveChild(IFileSystemComponent child) { }
         public List<IFileSystemComponent> GetChildren() { return null; }
 
         public Folder(string title)
