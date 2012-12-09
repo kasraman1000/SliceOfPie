@@ -63,10 +63,13 @@ namespace SliceOfPie
         
         private void CreateId(User owner)
         {
+            id = 8.ToString();
+            /*
             TimeSpan t = DateTime.UtcNow - new DateTime(1991, 12, 2);
             int secondsSinceImportantDay = (int)t.TotalSeconds;
             id = (secondsSinceImportantDay.ToString() + owner.ToString());
-        }
+        
+             */ }
 
         // This functions takes a newer version of this document, and merges it with this one
         // acording to "Simple Merge Policy" given in slice-of-pie.pdf.
