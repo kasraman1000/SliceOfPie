@@ -16,8 +16,7 @@ namespace SliceOfPie
         
         public static void Main(string[] args)
         {
-            /*
-             * 
+           
             Document doc1 = new Document("Line1\nLine2\nLine3", "Kewins Dokument", new User("Crelde"));
             Document doc2 = new Document("Line1\nLine4\nLine3", "Kewins nye Dokument", new User("Kewin"));
 
@@ -25,10 +24,10 @@ namespace SliceOfPie
             
 
             Document doc3 = new Document("Line1\nLine4\nLine3\nAnotherLine", "Kewins nye og 3. Dokument", new User("Kewin"));
-            doc3.Path = "root/mappe1/insideJoke";
+            doc3.Path = "root";
 
             doc1.MergeWith(doc3, new User("Kewin"));
-
+/*
            // Console.WriteLine(doc1.Log.ToString());
            
             string docText = "This my new and fabulous blog where i would love to write about my dog called Fuckface!\n" +
@@ -42,9 +41,9 @@ namespace SliceOfPie
             testDoc.ShareWith(new User("Captain Haddoc"));
             testDoc.ShareWith(new User("Motor-Bjarne"));
             */
-            GetHierachy();
+           // GetHierachy();
            
-            //WriteToFile(doc1);
+            WriteToFile(doc1);
             /*
           Thread.Sleep(1000);            
           Document retrievedDoc = ReadFromFile(testDoc.Id);
@@ -260,7 +259,10 @@ namespace SliceOfPie
                     }
                    
                     tr.Close();
-                    structs.Add(new DocumentStruct(title, user, s, path, userList));  
+
+                    string id = Path.GetFileNameWithoutExtension(s);
+
+                    structs.Add(new DocumentStruct(title, user, id, path, userList));  
                     
         
                 }
@@ -323,6 +325,7 @@ namespace SliceOfPie
                     }
                 }
                 Folder finalFolder = folders.ElementAt(0);
+                return finalFolder;
 
             }
 

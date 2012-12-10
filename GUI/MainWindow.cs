@@ -30,7 +30,7 @@ namespace GUI
             // initialise test data
             activeUser = new User("karsten");
 
-            root = new Folder("root");
+            root = Storage.GetHierachy();
 
 
             /*
@@ -195,20 +195,8 @@ namespace GUI
 
         private void createFolderButton_Click(object sender, EventArgs e)
         {
-            InputDialog inputDialog = new InputDialog("Input name of new Folder");
-            inputDialog.ShowDialog();
-
-            if (!inputDialog.Canceled)
-            {
-                string title = inputDialog.Input;
-                Folder newFolder = new Folder(title); 
-
-                // TODO figure out a way to make a path for the new folder
-                // and then send it to some method in the controller,
-                // maybe possibly reload the hierachy
-
-            }
 
         }
+
     }
 }

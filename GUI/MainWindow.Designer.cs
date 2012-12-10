@@ -70,6 +70,7 @@
             this.openButton.TabIndex = 12;
             this.openButton.Text = "Open document";
             this.openButton.UseVisualStyleBackColor = true;
+            this.openButton.Click += new System.EventHandler(this.openButton_Click);
             // 
             // createFolderButton
             // 
