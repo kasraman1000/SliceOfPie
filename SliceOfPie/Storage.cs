@@ -20,7 +20,6 @@ namespace SliceOfPie
 
             Document doc1 = new Document("Line1\nLine2\nLine3", "Kewins Dokument", new User("Kewin"));
 
-                        doc1.ShareWith(new User("crelde"));
             Document doc2 = new Document("Line1\nLine4\nLine3", "Kewins nye Dokument", new User("Kewin"));
 
             doc1.MergeWith(doc2, new User("Kewin"));
@@ -46,6 +45,7 @@ namespace SliceOfPie
             */
            // GetHierachy();
            
+            Document documentWithEmptyText = new Document("", "Document", new User("kewin"));
             WriteToFile(doc1);
             Document loadedDoc = ReadFromFile("8");
 
@@ -53,25 +53,10 @@ namespace SliceOfPie
             bool titleBool = String.Compare(doc1.Title, loadedDoc.Title) == 0;
             bool pathBool = String.Compare(doc1.Path, loadedDoc.Path) == 0;
 
-            bool sharedWithBool = true;
 
             bool logBool = true;
 
-            foreach (User us in doc1.SharedWith)
-            {
-                if (!(loadedDoc.SharedWith.Contains(us)))
-                {
-                    sharedWithBool = false;
-                }
-
-            }
-            foreach (User us in loadedDoc.SharedWith)
-            {
-                if (!(doc1.SharedWith.Contains(us)))
-                {
-                    sharedWithBool = false;
-                }
-            }
+            
 
 
             foreach (Document.DocumentLog.Entry entry in doc1.Log.entries)
@@ -159,38 +144,8 @@ namespace SliceOfPie
 
             // Writes the third line in the file which is the owner of the document
             tw.WriteLine(doc.Owner.ToString());
-           
-            // Makes the array with usernames that the document is shared with ready 
-            List<User> sharedwith = doc.SharedWith;
-            User[] userArray = sharedwith.ToArray();
-            String[] userNames = new string[userArray.Length];
-
-            int i = 0;
-            foreach (User u in userArray)
-            {
-                userNames[i] = u.ToString();
-                i++;
-            }
-
-            // Writes the fourth line, which is the usernames that the document is shared with
-            int j = 1;
-            foreach (string s in userNames)
-            {
-                // If its the last username it doesn't write a comma
-                if (j == userNames.Length)
-                {
-                    tw.Write(s);
-                }
-
-                else
-                {
-                    tw.Write(s + ", ");
-                }
-
-                j++;
-            }
-                       
-            // And finally it includes the DocumentLog
+                                  
+            // Write the documents log
             tw.WriteLine("");
             tw.Write(doc.Log);
 
@@ -224,43 +179,41 @@ namespace SliceOfPie
                 string ownerString = tr.ReadLine();
                 User owner = new User(ownerString);
 
-                // This part creates the List of users the doc is shared with
-                string users = tr.ReadLine();
-                string[] userNameArr = users.Split(',');
-                List<User> sharedWithList = new List<User>();
-                int i = 0;
-                foreach (string s in userNameArr)
-                {
-                    if (!(String.Compare(s,"")==0))
-                        sharedWithList.Add(new User(s));
-                    i++;
-                }
-
-                //KEWIN DU STARTEDE HER
+                // Create a StringBilder and append the rest of the file to it, it will contain both the log and the text of the document.
                 StringBuilder rest = new StringBuilder();
-                // This part creates the Text the document should have
                 while (tr.Peek() != -1)
                 {
                     rest.AppendLine(tr.ReadLine());
                 }
                 string restString = rest.ToString();
 
+                // Splitting on the string "---------------ENDOFLOG------------------", by this we assume the user will NEVER write this exact
+                // string in his document, if he does, our program will not work.
                 string[] restArray = restString.Split(new string[] { "---------------ENDOFLOG------------------" }, StringSplitOptions.None);
 
+                if (restArray.Length!=2)
+                    throw new Exception("The user wrote the string \"---------------ENDOFLOG------------------\", as part of his text");
+
+                // Remove the Mac line feed character from the text string.
                 string textString = Regex.Replace(restArray[1], "\r", "");
-
+                // Remove normal line feed at start of text.
                 string textS = textString.Substring(1);
-                string text = textS.Substring(0, textS.Length - 1);
+                // Remove normal line feed at end of text.
+                string text = "";
+                if (textS.Length!=0)
+                    text = textS.Substring(0, textS.Length - 1);
 
-
+                // The list of entries the Document's Log will receive
                 List<Document.DocumentLog.Entry> entryList = new List<Document.DocumentLog.Entry>();
-
+                // Remove Mac line feed from Log.
                 string logWithoutMacLineFeed = Regex.Replace(restArray[0], "\r", "");
+                // Split the log into separate strings for each Entry.
                 string[] entryArray = logWithoutMacLineFeed.Split(new string[] { "Entry" }, StringSplitOptions.None);
                
-
+                // This loop takes each string in entryArray ( excluding the first, which is just "Log:" ), and creates an Entry from it.
                 for (int index = 1; index < entryArray.Length; index++)
                 {
+                    // Create the Entrys log ( first line being the description, which will be removed before the Entry is created).
                     List<string> log = new List<string>();
                     string[] entry = entryArray[index].Split(new string[] { "\n" }, StringSplitOptions.None);
                     for (int index2 = 1; index2 < entry.Length; index2++)
@@ -268,20 +221,30 @@ namespace SliceOfPie
                         if (!(String.Compare(entry[index2],"")==0))
                             log.Add(entry[index2]);
                         }
-
+                    // Find the first word in the description, which is the Users name.
                     string pattern = @"^\S*";
                     Match m = Regex.Match(log[0],pattern);
+                    // Create the User object.
                     User user = new User(m.ToString());
+                    // Get all remaining characters untill a number is found ( this being the description ).
                     string stringWithoutOwner = log[0].Substring(m.Index + m.Length);
                     pattern = @"\D*";
                     Match m2 = Regex.Match(stringWithoutOwner, pattern);
+                    // Trim for whitespaces at start and end of string.
                     string desc = m2.ToString().Trim(); 
+                    // Remove last 7 characters in string ( this part of the string is auto generated by the log, and not actually
+                    // part of the description.
                     string description = desc.Substring(0,desc.Length-7);
+                    // Finally get the last part of the string, which is the DateTime of the Entry.
                     string dateString = stringWithoutOwner.Substring(m2.Index + m2.Length);
+                    // Remove line feed from date string.
                     string dateStringWithoutLineFeed = Regex.Replace(dateString, "\n", "");
+                    // Convert date string into DateTime object.
                     DateTime time = Convert.ToDateTime(dateString);
+                    // As mentioned above, first entry in the log was the description, and that should not be part
+                    // of the log, so it is removed.
                     log.RemoveAt(0);
-
+                    // Created the Entry object, and add it to the entryList.
                     entryList.Add(new Document.DocumentLog.Entry(user, description, log, time));
 
                 }
@@ -290,7 +253,7 @@ namespace SliceOfPie
                 
 
                 // Finally makes the document to return
-                Document finalDoc = Document.CreateDocumentFromFile(id, text, title, owner, path, sharedWithList, new Document.DocumentLog(entryList));
+                Document finalDoc = Document.CreateDocumentFromFile(id, text, title, owner, path, new Document.DocumentLog(entryList));
                 // Closes the reader
                 tr.Close();
                 return finalDoc;
