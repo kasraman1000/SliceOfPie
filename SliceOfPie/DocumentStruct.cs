@@ -43,5 +43,18 @@ namespace SliceOfPie
             this.path = path;
             this.sharedWith = sharedWith;
         }
+        public override bool Equals(object obj)
+        {
+            if (!(obj is DocumentStruct))
+                return false;
+            DocumentStruct d = (DocumentStruct)obj;
+            if (this.Id == d.Id && this.Path == d.Path && this.Title == d.Title && this.FileType == d.FileType)
+            {
+                return true;
+            }
+            return false;
+
+           
+        }
     }
 }
