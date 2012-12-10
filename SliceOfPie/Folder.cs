@@ -10,7 +10,7 @@ namespace SliceOfPie
         private string title;
         public string Title{ get { return title; } set { title = value;} }
 
-        private DocType fileType;
+        protected DocType fileType;
         public DocType FileType { get { return fileType; } }
 
         private List<IFileSystemComponent> children;
