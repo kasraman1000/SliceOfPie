@@ -37,31 +37,50 @@ namespace SliceOfPie
         private Document.DocumentLog log;
         public Document.DocumentLog Log { get { return log; } }
 
-        
-        public Document(string text, string title, User owner)
+        // Default constructor for creating a document object.
+        public Document(string text, string title, User owner, List<User> sharedWith)
         {
             fileType = DocType.Document;
             this.text = text;
             this.title = title;
             this.owner = owner;
             Path = "root";
-            sharedWith = new List<User>();
+            this.sharedWith = sharedWith;
             log = new Document.DocumentLog(owner);
-            Path = "root";
             CreateId(owner);
         }
 
-        public Document(string text, string title, User owner, List<User> sharedWith)
+        // Simpler constructor which does not allow for the sharedWith list to be set by the constructor.
+        public Document(string text, string title, User owner)
         {
+           
             this.text = text;
             this.title = title;
             this.owner = owner;
             Path = "root";
-            this.sharedWith = sharedWith;
+            sharedWith = new List<User>();
             log = new Document.DocumentLog(owner);
-            Path = "root";
             CreateId(owner);
         }
+
+        // Private construtor that is only used by CreateDocumentFromFile
+        private Document(){}
+
+        // Creates and returns a document in it's complete version from a file on the file system.
+        public static Document CreateDocumentFromFile(string id, string text, string title, User owner, string path, List<User> sharedWith, Document.DocumentLog log)
+        {
+            Document doc = new Document();
+            doc.id = id;
+            doc.text = text;
+            doc.title = title;
+            doc.owner = owner;
+            doc.path = path;
+            doc.sharedWith = sharedWith;
+            doc.log = log;
+            return doc;
+        }
+
+        
         
         private void CreateId(User owner)
         {
@@ -192,12 +211,20 @@ namespace SliceOfPie
 
 
             // Has there been changes to Sharedwith?
+            List<User> newSharedWith = new List<User>();
+
+            foreach (User u in sharedWith)
+            {
+                newSharedWith.Add(u);
+            }
+
+
             foreach (User us in doc.SharedWith)
             {
                 if (!(this.SharedWith.Contains(us)))
                 {
-                    this.ShareWith(us);
-                    changeLog.Add("Document shared with: " + user.ToString());
+                    newSharedWith.Add(us);
+                    changeLog.Add("Document shared with: " + us.ToString());
                     sharedWithChanged = true;
                 }
                     
@@ -206,11 +233,12 @@ namespace SliceOfPie
             {
                 if (!(doc.SharedWith.Contains(us)))
                 {
-                    this.SharedWith.Remove(us);
-                    changeLog.Add("Document no longer shared with: " + user.ToString());
+                    newSharedWith.Remove(us);
+                    changeLog.Add("Document no longer shared with: " + us.ToString());
                     sharedWithChanged = true;
                 }
             }
+            sharedWith = newSharedWith;
             
             // Has title been changed?
             if (String.Compare(doc.Title, this.Title) != 0)
@@ -277,13 +305,12 @@ namespace SliceOfPie
         // there has been changes to the document.
         public class DocumentLog
         {
-            List<Entry> entries;
+            public List<Entry> entries;
 
             public DocumentLog(User user)
             {
                entries = new List<Entry>();
                 List<string> emptyLog = new List<string>();
-                emptyLog.Add("");
                 entries.Add(new Entry(user,"created the document",emptyLog));
             }
 
@@ -306,7 +333,7 @@ namespace SliceOfPie
             {
                 StringBuilder temp = new StringBuilder();
 
-                temp.AppendFormat("\nLog:\n");
+                temp.AppendFormat("Log:\n");
                 
                 int counter = 0;
 
@@ -317,7 +344,7 @@ namespace SliceOfPie
                     temp.AppendFormat(entry.ToStringWithLog());
                 }
 
-
+                temp.AppendFormat("---------------ENDOFLOG------------------");
                 return temp.ToString();
             }
 
@@ -341,6 +368,14 @@ namespace SliceOfPie
                     user = u;
                     description = desc;
                     changeLog = log;
+                }
+
+                public Entry(User u, string desc, List<string> log, DateTime time)
+                {
+                    user = u;
+                    description = desc;
+                    changeLog = log;
+                    this.time = time;
                 }
 
                 public override string ToString()

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.IO;
 using System.Threading;
+using System.Text.RegularExpressions;
 
 namespace SliceOfPie
 {
@@ -16,7 +17,9 @@ namespace SliceOfPie
         
         public static void Main(string[] args)
         {
+
             Document doc1 = new Document("Line1\nLine2\nLine3", "Kewins Dokument", new User("Kewin"));
+            doc1.ShareWith(new User("crelde"));
             Document doc2 = new Document("Line1\nLine4\nLine3", "Kewins nye Dokument", new User("Kewin"));
 
             doc1.MergeWith(doc2, new User("Kewin"));
@@ -26,7 +29,7 @@ namespace SliceOfPie
 
             doc1.MergeWith(doc3, new User("Kewin"));
 
-            Console.WriteLine(doc1.Log.ToString());
+            //Console.WriteLine(doc1.Log.ToString());
            
             string docText = "This my new and fabulous blog where i would love to write about my dog called Fuckface!\n" +
                 "Fuckface is a really nice dog which sadly only has 3 legs, because one time where i was really angry, and i had this saw, well never mind.\n" +
@@ -41,6 +44,62 @@ namespace SliceOfPie
 
             
             WriteToFile(doc1);
+            Document loadedDoc = ReadFromFile("8");
+
+            bool textBool = String.Compare(doc1.Text, loadedDoc.Text) == 0;
+            bool titleBool = String.Compare(doc1.Title, loadedDoc.Title) == 0;
+            bool pathBool = String.Compare(doc1.Path, loadedDoc.Path) == 0;
+
+            bool sharedWithBool = true;
+
+            bool logBool = true;
+
+            foreach (User us in doc1.SharedWith)
+            {
+                if (!(loadedDoc.SharedWith.Contains(us)))
+                {
+                    sharedWithBool = false;
+                }
+
+            }
+            foreach (User us in loadedDoc.SharedWith)
+            {
+                if (!(doc1.SharedWith.Contains(us)))
+                {
+                    sharedWithBool = false;
+                }
+            }
+
+
+            foreach (Document.DocumentLog.Entry entry in doc1.Log.entries)
+            {
+                if (!(loadedDoc.Log.entries.Contains(entry)))
+                {
+                    logBool = false;
+                }
+
+            }
+            foreach (Document.DocumentLog.Entry entry in loadedDoc.Log.entries)
+            {
+                if (!(doc1.Log.entries.Contains(entry)))
+                {
+                    logBool = false;
+                }
+            }
+
+            List<Document.DocumentLog.Entry> doc1List = doc1.Log.entries;
+            List<Document.DocumentLog.Entry> loadedDocList = loadedDoc.Log.entries;
+
+            for (int i = 0; i < doc1List.Count; i++)
+            {
+                bool derp = doc1List[i].Equals(loadedDocList[i]);
+            }
+
+
+
+
+            Console.ReadKey();
+            //Console.Write(ReadFromFile("8"));
             /*
            Thread.Sleep(1000);            
            Document retrievedDoc = ReadFromFile(testDoc.Id);
@@ -127,14 +186,14 @@ namespace SliceOfPie
 
                 j++;
             }
+                       
+            // And finally it includes the DocumentLog
+            tw.WriteLine("");
+            tw.Write(doc.Log);
 
             // Writes the users text into the document
             tw.WriteLine("");
             tw.Write(doc.Text);
-
-            // And finally it includes the DocumentLog
-            tw.WriteLine("");
-            tw.Write(doc.Log);
 
             // Closes the writer
             tw.Close();
@@ -165,26 +224,70 @@ namespace SliceOfPie
                 // This part creates the List of users the doc is shared with
                 string users = tr.ReadLine();
                 string[] userNameArr = users.Split(',');
-                User[] userArr = new User[userNameArr.Length];
+                List<User> sharedWithList = new List<User>();
                 int i = 0;
                 foreach (string s in userNameArr)
                 {
-                    userArr[i] = new User(s);
+                    if (!(String.Compare(s,"")==0))
+                        sharedWithList.Add(new User(s));
                     i++;
                 }
-                List<User> userList = userArr.ToList<User>();
 
-                StringBuilder text = new StringBuilder();
+                //KEWIN DU STARTEDE HER
+                StringBuilder rest = new StringBuilder();
                 // This part creates the Text the document should have
                 while (tr.Peek() != -1)
                 {
-                    text.AppendLine(tr.ReadLine());
+                    rest.AppendLine(tr.ReadLine());
                 }
-                string finalText = text.ToString();
+                string restString = rest.ToString();
+
+                string[] restArray = restString.Split(new string[] { "---------------ENDOFLOG------------------" }, StringSplitOptions.None);
+
+                string textString = Regex.Replace(restArray[1], "\r", "");
+
+                string textS = textString.Substring(1);
+                string text = textS.Substring(0, textS.Length - 1);
+
+
+                List<Document.DocumentLog.Entry> entryList = new List<Document.DocumentLog.Entry>();
+
+                string logWithoutMacLineFeed = Regex.Replace(restArray[0], "\r", "");
+                string[] entryArray = logWithoutMacLineFeed.Split(new string[] { "Entry" }, StringSplitOptions.None);
+               
+
+                for (int index = 1; index < entryArray.Length; index++)
+                {
+                    List<string> log = new List<string>();
+                    string[] entry = entryArray[index].Split(new string[] { "\n" }, StringSplitOptions.None);
+                    for (int index2 = 1; index2 < entry.Length; index2++)
+                    {
+                        if (!(String.Compare(entry[index2],"")==0))
+                            log.Add(entry[index2]);
+                        }
+
+                    string pattern = @"^\S*";
+                    Match m = Regex.Match(log[0],pattern);
+                    User user = new User(m.ToString());
+                    string stringWithoutOwner = log[0].Substring(m.Index + m.Length);
+                    pattern = @"\D*";
+                    Match m2 = Regex.Match(stringWithoutOwner, pattern);
+                    string desc = m2.ToString().Trim(); 
+                    string description = desc.Substring(0,desc.Length-7);
+                    string dateString = stringWithoutOwner.Substring(m2.Index + m2.Length);
+                    string dateStringWithoutLineFeed = Regex.Replace(dateString, "\n", "");
+                    DateTime time = Convert.ToDateTime(dateString);
+                    log.RemoveAt(0);
+
+                    entryList.Add(new Document.DocumentLog.Entry(user, description, log, time));
+
+                }
+                
+
+                
 
                 // Finally makes the document to return
-                Document finalDoc = new Document( finalText, title, owner, userList);
-                finalDoc.Path = path; 
+                Document finalDoc = Document.CreateDocumentFromFile(id, text, title, owner, path, sharedWithList, new Document.DocumentLog(entryList));
                 // Closes the reader
                 tr.Close();
                 return finalDoc;
