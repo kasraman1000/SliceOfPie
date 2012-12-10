@@ -10,6 +10,10 @@ namespace SliceOfPie
         private User owner;
         public User Owner { get { return owner; } }
 
+        private string id;
+        public string Id { get { return id; } }
+
+
         private List<User> sharedWith;
         public List<User> SharedWith { get { return sharedWith; } }
 
@@ -19,8 +23,16 @@ namespace SliceOfPie
             this.sharedWith = sharedWith;
             base.fileType = DocType.Project;
             this.sharedWith = sharedWith;
+            CreateId();
         }
-         
+
+        private void CreateId()
+        {
+            TimeSpan t = DateTime.UtcNow - new DateTime(1991, 12, 2);
+            int secondsSinceImportantDay = (int)t.TotalSeconds;
+            id = ("p"+secondsSinceImportantDay.ToString() + owner.ToString());
+        }
+ 
         public void shareWith(User user)
         {
             this.sharedWith.Add(user);

@@ -305,18 +305,7 @@ namespace SliceOfPie
                     string title = tr.ReadLine();
                     string path = tr.ReadLine();
                     User user = new User(tr.ReadLine());
-                    // Make sharedWith list
-                    string users = tr.ReadLine();
-                    string[] userNameArr = users.Split(',');
-                    User[] userArr = new User[userNameArr.Length];
-                    int i = 0;
-                    foreach (string u in userNameArr)
-                    {
-                        userArr[i] = new User(u);
-                        i++;
-                    }
-                    List<User> userList = userArr.ToList<User>();
-
+               
                     string[] filePath = path.Split('/');
                     
                     foreach (string st in filePath)
@@ -329,7 +318,7 @@ namespace SliceOfPie
 
                     string id = Path.GetFileNameWithoutExtension(s);
 
-                    structs.Add(new DocumentStruct(title, user, id, path, userList));  
+                    structs.Add(new DocumentStruct(title, user, id, path));  
                     
         
                 }

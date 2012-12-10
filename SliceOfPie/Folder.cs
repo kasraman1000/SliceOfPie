@@ -39,12 +39,21 @@ namespace SliceOfPie
             if (!(obj is Folder))
                 return false;
             Folder f = (Folder)obj;
-            if (this.FileType == f.FileType && this.Title == f.Title && this.Children == f.Children)
+            if (!(this.FileType == f.FileType && this.Title == f.Title))
             {
-                return true;
-            }
-            return false;
+               return false;
 
+                
+            } 
+            for (int i = 0; i < children.Count; i++)
+            {
+                if (!(children[i].Equals(f.Children[i])))
+                {
+                    return false;
+                }
+
+            }
+            return true; 
 
         }
 

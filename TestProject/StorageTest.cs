@@ -55,9 +55,7 @@ namespace TestProject
 
             testDoc = new Document(docText, "Fido", new User("Karsten"));
             testDoc.Path = "root/cuteanimalsxoxo";
-            testDoc.ShareWith(new User("ForeverAloneGuy"));
-            testDoc.ShareWith(new User("Captain Haddoc"));
-            testDoc.ShareWith(new User("Motor-Bjarne"));
+
 
             // Test doc 1
             string docText1 = "New text\n" +
@@ -65,9 +63,7 @@ namespace TestProject
 
             testDoc1 = new Document(docText1, "Herp", new User("Kewin"));
             testDoc1.Path = "root";
-            testDoc1.ShareWith(new User("DragonSlayer837"));
-            testDoc1.ShareWith(new User("Captain Obv"));
-            testDoc1.ShareWith(new User("Motor-Bjarne"));
+
 
             // Test doc 2
             string docText2 = "Interesting facts about crocodiles: \n" +
@@ -76,9 +72,6 @@ namespace TestProject
 
             testDoc2= new Document(docText2, "Crocoman", new User("Johnny"));
             testDoc2.Path = "root/cuteanimalsxoxo/reptiles";
-            testDoc2.ShareWith(new User("DragonSlayer837"));
-            testDoc2.ShareWith(new User("Captain Obv"));
-            testDoc2.ShareWith(new User("Motor-Bjarne"));
 
             
 
@@ -214,9 +207,9 @@ namespace TestProject
             Folder cuteanimals = new Folder("cuteanimalsxoxo");
             Folder reptiles = new Folder("reptiles");
 
-            DocumentStruct testStruct0 = new DocumentStruct(testDoc.Title, testDoc.Owner, testDoc.Id, testDoc.Path, testDoc.SharedWith);
-            DocumentStruct testStruct1 = new DocumentStruct(testDoc1.Title, testDoc1.Owner, testDoc1.Id, testDoc1.Path, testDoc1.SharedWith);
-            DocumentStruct testStruct2 = new DocumentStruct(testDoc2.Title, testDoc2.Owner, testDoc2.Id, testDoc2.Path, testDoc2.SharedWith);
+            DocumentStruct testStruct0 = new DocumentStruct(testDoc.Title, testDoc.Owner, testDoc.Id, testDoc.Path);
+            DocumentStruct testStruct1 = new DocumentStruct(testDoc1.Title, testDoc1.Owner, testDoc1.Id, testDoc1.Path);
+            DocumentStruct testStruct2 = new DocumentStruct(testDoc2.Title, testDoc2.Owner, testDoc2.Id, testDoc2.Path);
 
             reptiles.AddChild(testStruct2);
             cuteanimals.AddChild(testStruct0);
@@ -228,10 +221,6 @@ namespace TestProject
             Folder actual = Storage.GetHierachy();
 
             Assert.AreEqual(expected, actual);
-
-            
-            
-
 
         }
 
