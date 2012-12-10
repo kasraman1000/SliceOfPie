@@ -13,7 +13,6 @@ namespace SliceOfPie
         private string id;
         public string Id { get { return id; } }
 
-
         private List<User> sharedWith;
         public List<User> SharedWith { get { return sharedWith; } }
 
