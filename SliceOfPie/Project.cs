@@ -5,7 +5,7 @@ using System.Text;
 
 namespace SliceOfPie
 {
-    class Project : Folder
+    public class Project : Folder
     {
         private User owner;
         public User Owner { get { return owner; } }

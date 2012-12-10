@@ -4,6 +4,7 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.Text;
+using SliceOfPie;
 
 namespace SliceOfPieServiceLibrary
 {
@@ -12,16 +13,7 @@ namespace SliceOfPieServiceLibrary
     public interface ISliceOfPieService
     {
         [OperationContract]
-        
-
-
-        [OperationContract]
-        string GetData(int value);
-
-        [OperationContract]
-        CompositeType GetDataUsingDataContract(CompositeType composite);
-
-        // TODO: Add your service operations here
+        List<Document> SyncAll(List<Document> docs);
     }
 
     // Use a data contract as illustrated in the sample below to add composite types to service operations
