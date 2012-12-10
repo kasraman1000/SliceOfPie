@@ -51,14 +51,14 @@
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.textBox.Location = new System.Drawing.Point(12, 32);
             this.textBox.Name = "textBox";
-            this.textBox.Size = new System.Drawing.Size(168, 22);
+            this.textBox.Size = new System.Drawing.Size(287, 22);
             this.textBox.TabIndex = 1;
             // 
             // questionLabel
             // 
             this.questionLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.questionLabel.AutoSize = true;
-            this.questionLabel.Location = new System.Drawing.Point(12, 12);
+            this.questionLabel.Location = new System.Drawing.Point(12, 9);
             this.questionLabel.Name = "questionLabel";
             this.questionLabel.Size = new System.Drawing.Size(46, 17);
             this.questionLabel.TabIndex = 0;
@@ -79,7 +79,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(192, 95);
+            this.ClientSize = new System.Drawing.Size(311, 95);
             this.ControlBox = false;
             this.Controls.Add(this.cancelButton);
             this.Controls.Add(this.okButton);

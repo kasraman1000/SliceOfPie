@@ -73,7 +73,13 @@ namespace GUI
         private void MainWindow_Load(object sender, EventArgs e)
         {
             // Ask for who the user is
-            // TODO MAKE FORM TO ASK FOR USER HERE
+            InputDialog inputDialog = new InputDialog("Hello and welcome! Who are you? (Input username)",
+                "",
+                false);
+            inputDialog.ShowDialog();
+            activeUser = new User(inputDialog.Input);
+
+            userLabel.Text = "Logged in as: " + activeUser.ToString();
 
             // Initialize the treeView with the folders and docs
             BuildDocumentTree(treeView.Nodes, root);
