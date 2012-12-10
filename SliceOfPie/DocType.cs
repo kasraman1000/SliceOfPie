@@ -8,6 +8,7 @@ namespace SliceOfPie
     public enum DocType
     {
         Document,
-        Folder
+        Folder,
+        Project
     }
 }

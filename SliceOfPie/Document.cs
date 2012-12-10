@@ -21,49 +21,44 @@ namespace SliceOfPie
 
         private string text;
         public string Text { get { return text; } set { text = value; } }
+
+        private User owner;
+        public User Owner { get { return owner; } set { owner = value; } }
     
         private string title;
         public string Title { get { return title; } set { title = value; } }
-
-        private User owner;
-        public User Owner { get { return owner; } }
-
-        private List<User> sharedWith;
-        public List<User> SharedWith { get { return sharedWith; } }
 
         private Document.DocumentLog log;
         public Document.DocumentLog Log { get { return log; } }
 
         // Default constructor for creating a document object.
-        public Document(string text, string title, User owner, List<User> sharedWith)
+        public Document(string text, string title, User owner)
         {
             this.text = text;
             this.title = title;
             this.owner = owner;
             Path = "root";
-            this.sharedWith = sharedWith;
             log = new Document.DocumentLog(owner);
             CreateId(owner);
         }
 
-        // Simpler constructor which does not allow for the sharedWith list to be set by the constructor.
-        public Document(string text, string title, User owner)
+        // Same as constructor above, but this one allows to set id as well.
+        // This is primarily used by tests.
+        public Document(string text, string title, User owner, string id)
         {
-           
             this.text = text;
             this.title = title;
             this.owner = owner;
             Path = "root";
-            sharedWith = new List<User>();
             log = new Document.DocumentLog(owner);
-            CreateId(owner);
+            this.id = id;
         }
 
         // Private construtor that is only used by CreateDocumentFromFile
         private Document(){}
 
         // Creates and returns a document in it's complete version from a file on the file system.
-        public static Document CreateDocumentFromFile(string id, string text, string title, User owner, string path, List<User> sharedWith, Document.DocumentLog log)
+        public static Document CreateDocumentFromFile(string id, string text, string title, User owner, string path, Document.DocumentLog log)
         {
             Document doc = new Document();
             doc.id = id;
@@ -71,7 +66,6 @@ namespace SliceOfPie
             doc.title = title;
             doc.owner = owner;
             doc.path = path;
-            doc.sharedWith = sharedWith;
             doc.log = log;
             return doc;
         }
@@ -79,20 +73,21 @@ namespace SliceOfPie
         
         
         private void CreateId(User owner)
-        {
-           //id = 8.ToString();
-            
+        {           
             TimeSpan t = DateTime.UtcNow - new DateTime(1991, 12, 2);
             int secondsSinceImportantDay = (int)t.TotalSeconds;
             id = (secondsSinceImportantDay.ToString() + owner.ToString());
-        
         }
 
         // This functions takes a newer version of this document, and merges it with this one
         // acording to "Simple Merge Policy" given in slice-of-pie.pdf.
+        // MergeWith returns a bool as well, it returns false if the ID of the updated
+        // document is not the same as this documents ID, otherwise it returns true.
         
-        public void MergeWith(Document doc, User user)
+        public bool MergeWith(Document doc, User user)
         {
+            if (this.id != doc.id)
+                return false;
             List<string> changes = new List<string>();
             // Create original and latest arrays. ( step 1 )
             string[] original = this.GetTextAsArray();
@@ -200,46 +195,14 @@ namespace SliceOfPie
             // A log that will document what changes have been made to the document.
             List<string> changeLog = new List<string>();
 
-            bool sharedWithChanged = false;
             bool titleChanged = false;
             bool pathChanged = false;
             bool textChanged = (!(changes.Count==0));
-
-
-            // Has there been changes to Sharedwith?
-            List<User> newSharedWith = new List<User>();
-
-            foreach (User u in sharedWith)
-            {
-                newSharedWith.Add(u);
-            }
-
-
-            foreach (User us in doc.SharedWith)
-            {
-                if (!(this.SharedWith.Contains(us)))
-                {
-                    newSharedWith.Add(us);
-                    changeLog.Add("Document shared with: " + us.ToString());
-                    sharedWithChanged = true;
-                }
-                    
-            }
-            foreach (User us in this.SharedWith)
-            {
-                if (!(doc.SharedWith.Contains(us)))
-                {
-                    newSharedWith.Remove(us);
-                    changeLog.Add("Document no longer shared with: " + us.ToString());
-                    sharedWithChanged = true;
-                }
-            }
-            sharedWith = newSharedWith;
-            
+                                    
             // Has title been changed?
             if (String.Compare(doc.Title, this.Title) != 0)
             {
-                changeLog.Add("Title has been changed from '" + this.Title + "' to ' " + doc.Title + "'");
+                changeLog.Add("Title has been changed from '" + this.Title + "' to '" + doc.Title + "'");
                 this.title = doc.Title;
                 titleChanged = true;
             }
@@ -247,7 +210,7 @@ namespace SliceOfPie
             // Has path been changed?
             if (String.Compare(doc.Path, this.Path) != 0)
             {
-                changeLog.Add("Path has been changed from '" + this.Path + "' to ' " + doc.Path + "'");
+                changeLog.Add("Path has been changed from '" + this.Path + "' to '" + doc.Path + "'");
                 this.path = doc.Path;
                 pathChanged = true;
             }
@@ -260,7 +223,6 @@ namespace SliceOfPie
                 changeLog.Add(change);
             }
 
-            string sharedWithString ="";
             string titleString = "";
             string pathString = "";
             string textString = "";
@@ -270,21 +232,13 @@ namespace SliceOfPie
 
             if (textChanged)
                 textString = "Text. ";
-            if (sharedWithChanged)
-                sharedWithString = "sharedWith. ";
                       
             if (pathChanged)
                 pathString = "Path. ";
             
             
-            this.Log.AddEntry(new DocumentLog.Entry(user, "Made changes to the following fields : " +titleString+textString+sharedWithString+pathString,changeLog));
-        }
-
-        
-        // Puts a User on the documents "sharedWith" list, which allows him to access the document.
-        public void ShareWith(User user)
-        {
-            sharedWith.Add(user);
+            this.Log.AddEntry(new DocumentLog.Entry(user, "Made changes to the following fields : " +titleString+textString+pathString,changeLog));
+            return true;
         }
 
         // Returns a stringArray of the text in the document, that is split on linebreaks.

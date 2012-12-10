@@ -20,8 +20,7 @@ namespace SliceOfPie
         {
             fileType = DocType.Folder;
             this.title = title;
-            children = new List<IFileSystemComponent>();    
-
+            children = new List<IFileSystemComponent>();
          }
          
         public void AddChild(IFileSystemComponent doc)

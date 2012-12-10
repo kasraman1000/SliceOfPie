@@ -49,6 +49,7 @@
     <Compile Include="Document.cs" />
     <Compile Include="Folder.cs" />
     <Compile Include="IFileSystemComponent.cs" />
+    <Compile Include="Project.cs" />
     <Compile Include="Storage.cs" />
     <Compile Include="User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
