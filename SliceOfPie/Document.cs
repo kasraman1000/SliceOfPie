@@ -11,16 +11,13 @@ namespace SliceOfPie
     // The class itself contains inforamation relevant to the document, and functions
     // to change data in the object, as well as functions to merge the document newer
     // versions of the same document.
-    public class Document : IFileSystemComponent
+    public class Document
     {
         private string id;
         public string Id { get { return id; } }
 
         private string path;
         public string Path { get { return path; } set { path = value; } }
-
-        private DocType fileType;
-        public DocType FileType { get { return fileType; } }
 
         private string text;
         public string Text { get { return text; } set { text = value; } }
@@ -40,7 +37,6 @@ namespace SliceOfPie
         // Default constructor for creating a document object.
         public Document(string text, string title, User owner, List<User> sharedWith)
         {
-            fileType = DocType.Document;
             this.text = text;
             this.title = title;
             this.owner = owner;
@@ -84,13 +80,13 @@ namespace SliceOfPie
         
         private void CreateId(User owner)
         {
-            id = 8.ToString();
-            /*
+           //id = 8.ToString();
+            
             TimeSpan t = DateTime.UtcNow - new DateTime(1991, 12, 2);
             int secondsSinceImportantDay = (int)t.TotalSeconds;
             id = (secondsSinceImportantDay.ToString() + owner.ToString());
         
-             */ }
+        }
 
         // This functions takes a newer version of this document, and merges it with this one
         // acording to "Simple Merge Policy" given in slice-of-pie.pdf.

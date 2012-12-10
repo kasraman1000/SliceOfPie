@@ -11,7 +11,7 @@ namespace SliceOfPie
     /*
      * This class is responsible for everything that has to do with our external storage this being the files the users are saving.
      */
-    static class Storage
+    public static class Storage
     {
         //  MAIN FOR TESTING PURPOSES WILL BE REWRITTEN INTO A TESTCLASS!!
         
@@ -19,16 +19,18 @@ namespace SliceOfPie
         {
 
             Document doc1 = new Document("Line1\nLine2\nLine3", "Kewins Dokument", new User("Kewin"));
-            doc1.ShareWith(new User("crelde"));
+
+                        doc1.ShareWith(new User("crelde"));
             Document doc2 = new Document("Line1\nLine4\nLine3", "Kewins nye Dokument", new User("Kewin"));
 
             doc1.MergeWith(doc2, new User("Kewin"));
+            
 
             Document doc3 = new Document("Line1\nLine4\nLine3\nAnotherLine", "Kewins nye og 3. Dokument", new User("Kewin"));
-            doc3.Path = "root\\mappe1";
+            doc3.Path = "root";
 
             doc1.MergeWith(doc3, new User("Kewin"));
-
+/*
             //Console.WriteLine(doc1.Log.ToString());
            
             string docText = "This my new and fabulous blog where i would love to write about my dog called Fuckface!\n" +
@@ -41,8 +43,9 @@ namespace SliceOfPie
             testDoc.ShareWith(new User("ForeverAloneGuy"));
             testDoc.ShareWith(new User("Captain Haddoc"));
             testDoc.ShareWith(new User("Motor-Bjarne"));
-
-            
+            */
+           // GetHierachy();
+           
             WriteToFile(doc1);
             Document loadedDoc = ReadFromFile("8");
 
@@ -101,28 +104,28 @@ namespace SliceOfPie
             Console.ReadKey();
             //Console.Write(ReadFromFile("8"));
             /*
-           Thread.Sleep(1000);            
-           Document retrievedDoc = ReadFromFile(testDoc.Id);
-           Console.WriteLine("title: "+retrievedDoc.Title);
-           Console.WriteLine("path: " + retrievedDoc.Path);
-           Console.WriteLine("owner: " + retrievedDoc.Owner);
-           Console.WriteLine("sharedWith: " + retrievedDoc.SharedWith);
-           Console.WriteLine("Text: " + retrievedDoc.Text);
-           GetHierachy();
-           /*
-           DeleteFile("Fuckface");
+          Thread.Sleep(1000);            
+          Document retrievedDoc = ReadFromFile(testDoc.Id);
+          Console.WriteLine("title: "+retrievedDoc.Title);
+          Console.WriteLine("path: " + retrievedDoc.Path);
+          Console.WriteLine("owner: " + retrievedDoc.Owner);
+          Console.WriteLine("sharedWith: " + retrievedDoc.SharedWith);
+          Console.WriteLine("Text: " + retrievedDoc.Text);
+          GetHierachy();
+          /*
+          DeleteFile("Fuckface");
             
 
-           Folder fold = new Folder("herpderps");
-           Folder anotherFolder = new Folder("FolderCeption");
-           Folder thirdFolder= new Folder("FolderCeptionEVENMOAR");
-           fold.AddChild(testDoc);
+          Folder fold = new Folder("herpderps");
+          Folder anotherFolder = new Folder("FolderCeption");
+          Folder thirdFolder= new Folder("FolderCeptionEVENMOAR");
+          fold.AddChild(testDoc);
             
-           Document anotherDoc = new Document("Hello im just another doc","CreldeDoc", new User("Crelde"));
-           anotherFolder.AddChild(anotherDoc);
-           anotherFolder.AddChild(thirdFolder);
-           fold.AddChild(anotherFolder);
-           */
+          Document anotherDoc = new Document("Hello im just another doc","CreldeDoc", new User("Crelde"));
+          anotherFolder.AddChild(anotherDoc);
+          anotherFolder.AddChild(thirdFolder);
+          fold.AddChild(anotherFolder);
+          */
         }
 
 
@@ -324,23 +327,108 @@ namespace SliceOfPie
         {
             if(Directory.Exists("root"))
             {
+                IEnumerable<string> distinctFolderNames;
+                List<Folder> folders = new List<Folder>();
+                List<string> toBeFolders = new List<string>();
                 IEnumerable<string> filesInRoot = Directory.EnumerateFiles("root");
+                List<DocumentStruct> structs = new List<DocumentStruct>();
+
                 foreach (string s in filesInRoot)
                 {
-                    Console.WriteLine(s);
+                    
+                    TextReader tr = new StreamReader(s);
+
+                    string title = tr.ReadLine();
+                    string path = tr.ReadLine();
+                    User user = new User(tr.ReadLine());
+                    // Make sharedWith list
+                    string users = tr.ReadLine();
+                    string[] userNameArr = users.Split(',');
+                    User[] userArr = new User[userNameArr.Length];
+                    int i = 0;
+                    foreach (string u in userNameArr)
+                    {
+                        userArr[i] = new User(u);
+                        i++;
+                    }
+                    List<User> userList = userArr.ToList<User>();
+
+                    string[] filePath = path.Split('/');
+                    
+                    foreach (string st in filePath)
+                    {
+                        toBeFolders.Add(st);
+                        
+                    }
+                   
+                    tr.Close();
+
+                    string id = Path.GetFileNameWithoutExtension(s);
+
+                    structs.Add(new DocumentStruct(title, user, id, path, userList));  
+                    
+        
+                }
+                distinctFolderNames = toBeFolders.Distinct();
+                foreach (string folderName in distinctFolderNames)
+                {
+                    folders.Add(new Folder(folderName));
                 }
 
+                foreach (DocumentStruct d in structs)
+                {
+                    string[] folder = d.Path.Split('/');
+                    foreach(Folder fo in folders)
+                    {
+                        if (fo.Title.Equals(folder.Last()))
+                        {
+                            fo.AddChild(d);
+                        }
+                    }
+                }
 
-                
-                
-                
+                foreach (string s in filesInRoot)
+                {
+                    TextReader tr = new StreamReader(s);
+                    tr.ReadLine();
+                    string path = tr.ReadLine();
+                    string[] splitPath = path.Split('/');
+                    for (int i = splitPath.Length; i != 0; i--)
+                    {
+                        
+                        foreach (Folder fol in folders)
+                        {
+                            
+                            if(!splitPath[i-1].Equals("root"))
+                            {
+                                
+                               if (fol.Title.Equals(splitPath[i-1]))
+                               {
+                                   
+                                 var r1 = from f in folders
+                                            where f.Title.Equals(splitPath[i-1])
+                                            select f;
 
+                                 var r2 = from f in folders
+                                         where f.Title.Equals(splitPath[i-2])
+                                         select f;
 
-
-
-
-
-
+                                 List<IFileSystemComponent> derp1 = r2.FirstOrDefault().Children;
+                                       Folder derp3 = r1.FirstOrDefault();
+                                 if (!derp1.Contains(derp3) && !derp1.Equals(derp3))
+                                 {
+                                     r2.FirstOrDefault().AddChild(r1.FirstOrDefault());
+                                 }
+                                    
+                                }
+                            }
+                            
+                        }
+                      
+                    }
+                }
+                Folder finalFolder = folders.ElementAt(0);
+                return finalFolder;
 
             }
 

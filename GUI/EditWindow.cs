@@ -38,7 +38,7 @@ namespace GUI
             currentDoc.Title = titleField.Text;
             currentDoc.Text = textField.Text;
 
-            new Controller().SaveDocument(currentDoc);
+            Controller.SaveDocument(currentDoc);
 
             modified = false;
         }
@@ -51,6 +51,32 @@ namespace GUI
         private void textField_TextChanged(object sender, EventArgs e)
         {
             modified = true;
+        }
+
+        private void EditWindow_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (modified)
+            {
+                
+                DialogResult result = MessageBox.Show(
+                    "You have unsaved changes to this document. " +
+                    "Closing this window now will discard these changes. " +
+                    "\nAre you sure you want to close this window?",
+                    "Unsaved Changes",
+                    MessageBoxButtons.OKCancel,
+                    MessageBoxIcon.Warning);
+
+                if (result == System.Windows.Forms.DialogResult.Cancel)
+                {
+                    e.Cancel = true;
+                }
+                else
+                {
+                    modified = false;
+                }
+
+            }
+
         }
     }
 }

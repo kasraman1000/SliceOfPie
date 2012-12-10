@@ -5,7 +5,7 @@ using System.Text;
 
 namespace SliceOfPie
 {
-    struct DocumentStruct : IFileSystemComponent
+    public struct DocumentStruct : IFileSystemComponent
     {
         private string id;
         public string Id { get { return id; } }
@@ -29,13 +29,19 @@ namespace SliceOfPie
         {
             get { return fileType; }
         }
+        private List<User> sharedWith;
+        public List<User> SharedWith
+        {
+            get { return sharedWith; }
+        }
 
-        DocumentStruct(string title, User user, string ID, string path)
+        public DocumentStruct(string title, User user, string ID, string path, List<User> sharedWith)
         {
             id = ID;
             fileType = DocType.Document;
             this.title = title;
             this.path = path;
+            this.sharedWith = sharedWith;
         }
     }
 }
