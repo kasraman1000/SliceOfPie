@@ -17,100 +17,101 @@ namespace SliceOfPie
         
         public static void Main(string[] args)
         {
+            /*
+                        Document doc1 = new Document("Line1\nLine2\nLine3", "Kewins Dokument", new User("Kewin"));
 
-            Document doc1 = new Document("Line1\nLine2\nLine3", "Kewins Dokument", new User("Kewin"));
-
+                        Document doc2 = new Document("Line1\nLine4\nLine3", "Kewins nye Dokument", new User("Kewin"));
             Document doc2 = new Document("Line1\nLine4\nLine3", "Kewins nye Dokument", new User("Kewin"));
 
-            doc1.MergeWith(doc2, new User("Kewin"));
+                        doc1.MergeWith(doc2, new User("Kewin"));
             
 
-            Document doc3 = new Document("Line1\nLine4\nLine3\nAnotherLine", "Kewins nye og 3. Dokument", new User("Kewin"));
-            doc3.Path = "root";
+                        Document doc3 = new Document("Line1\nLine4\nLine3\nAnotherLine", "Kewins nye og 3. Dokument", new User("Kewin"));
+                        doc3.Path = "root";
 
-            doc1.MergeWith(doc3, new User("Kewin"));
-/*
-            //Console.WriteLine(doc1.Log.ToString());
+                        doc1.MergeWith(doc3, new User("Kewin"));
+
+                        //Console.WriteLine(doc1.Log.ToString());
            
-            string docText = "This my new and fabulous blog where i would love to write about my dog called Fuckface!\n" +
-                "Fuckface is a really nice dog which sadly only has 3 legs, because one time where i was really angry, and i had this saw, well never mind.\n" +
-                "I love my dog above anything else in this world, and i thought i would dedicate this document to him!\n" +
-                "This is Fuckface: <img src=\"fuckface.gif\" alt=\"My Dog\">";
+                        string docText = "This my new and fabulous blog where i would love to write about my dog called Fuckface!\n" +
+                            "Fuckface is a really nice dog which sadly only has 3 legs, because one time where i was really angry, and i had this saw, well never mind.\n" +
+                            "I love my dog above anything else in this world, and i thought i would dedicate this document to him!\n" +
+                            "This is Fuckface: <img src=\"fuckface.gif\" alt=\"My Dog\">";
 
-            Document testDoc = new Document(docText, "Fuckfacess", new User("Karsten"));
-            testDoc.Path = "root\\cuteanimalsxoxo";
-            testDoc.ShareWith(new User("ForeverAloneGuy"));
-            testDoc.ShareWith(new User("Captain Haddoc"));
-            testDoc.ShareWith(new User("Motor-Bjarne"));
-            */
+                        Document testDoc = new Document(docText, "Fuckfacess", new User("Karsten"));
+                        testDoc.Path = "root\\cuteanimalsxoxo";
+                        testDoc.ShareWith(new User("ForeverAloneGuy"));
+                        testDoc.ShareWith(new User("Captain Haddoc"));
+                        testDoc.ShareWith(new User("Motor-Bjarne"));
+                        */
            // GetHierachy();
-           
-            Document documentWithEmptyText = new Document("", "Document", new User("kewin"));
-            WriteToFile(doc1);
-            Document loadedDoc = ReadFromFile("8");
-
-            bool textBool = String.Compare(doc1.Text, loadedDoc.Text) == 0;
-            bool titleBool = String.Compare(doc1.Title, loadedDoc.Title) == 0;
-            bool pathBool = String.Compare(doc1.Path, loadedDoc.Path) == 0;
-
-
-            bool logBool = true;
-
-            
-
-
-            foreach (Document.DocumentLog.Entry entry in doc1.Log.entries)
-            {
-                if (!(loadedDoc.Log.entries.Contains(entry)))
-                {
-                    logBool = false;
-                }
-
-            }
-            foreach (Document.DocumentLog.Entry entry in loadedDoc.Log.entries)
-            {
-                if (!(doc1.Log.entries.Contains(entry)))
-                {
-                    logBool = false;
-                }
-            }
-
-            List<Document.DocumentLog.Entry> doc1List = doc1.Log.entries;
-            List<Document.DocumentLog.Entry> loadedDocList = loadedDoc.Log.entries;
-
-            for (int i = 0; i < doc1List.Count; i++)
-            {
-                bool derp = doc1List[i].Equals(loadedDocList[i]);
-            }
-
-
-
-
-            Console.ReadKey();
-            //Console.Write(ReadFromFile("8"));
             /*
-          Thread.Sleep(1000);            
-          Document retrievedDoc = ReadFromFile(testDoc.Id);
-          Console.WriteLine("title: "+retrievedDoc.Title);
-          Console.WriteLine("path: " + retrievedDoc.Path);
-          Console.WriteLine("owner: " + retrievedDoc.Owner);
-          Console.WriteLine("sharedWith: " + retrievedDoc.SharedWith);
-          Console.WriteLine("Text: " + retrievedDoc.Text);
-          GetHierachy();
-          /*
-          DeleteFile("Fuckface");
+            Document documentWithEmptyText = new Document("", "Document", new User("kewin"));
+             WriteToFile(doc1);
+             Document loadedDoc = ReadFromFile("8");
+
+             bool textBool = String.Compare(doc1.Text, loadedDoc.Text) == 0;
+             bool titleBool = String.Compare(doc1.Title, loadedDoc.Title) == 0;
+             bool pathBool = String.Compare(doc1.Path, loadedDoc.Path) == 0;
+
+
+             bool logBool = true;
+
             
 
-          Folder fold = new Folder("herpderps");
-          Folder anotherFolder = new Folder("FolderCeption");
-          Folder thirdFolder= new Folder("FolderCeptionEVENMOAR");
-          fold.AddChild(testDoc);
+
+             foreach (Document.DocumentLog.Entry entry in doc1.Log.entries)
+             {
+                 if (!(loadedDoc.Log.entries.Contains(entry)))
+                 {
+                     logBool = false;
+                 }
+
+             }
+             foreach (Document.DocumentLog.Entry entry in loadedDoc.Log.entries)
+             {
+                 if (!(doc1.Log.entries.Contains(entry)))
+                 {
+                     logBool = false;
+                 }
+             }
+
+             List<Document.DocumentLog.Entry> doc1List = doc1.Log.entries;
+             List<Document.DocumentLog.Entry> loadedDocList = loadedDoc.Log.entries;
+
+             for (int i = 0; i < doc1List.Count; i++)
+             {
+                 bool derp = doc1List[i].Equals(loadedDocList[i]);
+             }
+
+
+
+
+             Console.ReadKey();
+             //Console.Write(ReadFromFile("8"));
             
-          Document anotherDoc = new Document("Hello im just another doc","CreldeDoc", new User("Crelde"));
-          anotherFolder.AddChild(anotherDoc);
-          anotherFolder.AddChild(thirdFolder);
-          fold.AddChild(anotherFolder);
-          */
+           Thread.Sleep(1000);            
+           Document retrievedDoc = ReadFromFile(testDoc.Id);
+           Console.WriteLine("title: "+retrievedDoc.Title);
+           Console.WriteLine("path: " + retrievedDoc.Path);
+           Console.WriteLine("owner: " + retrievedDoc.Owner);
+           Console.WriteLine("sharedWith: " + retrievedDoc.SharedWith);
+           Console.WriteLine("Text: " + retrievedDoc.Text);
+           GetHierachy();
+           /*
+           DeleteFile("Fuckface");
+            
+
+           Folder fold = new Folder("herpderps");
+           Folder anotherFolder = new Folder("FolderCeption");
+           Folder thirdFolder= new Folder("FolderCeptionEVENMOAR");
+           fold.AddChild(testDoc);
+            
+           Document anotherDoc = new Document("Hello im just another doc","CreldeDoc", new User("Crelde"));
+           anotherFolder.AddChild(anotherDoc);
+           anotherFolder.AddChild(thirdFolder);
+           fold.AddChild(anotherFolder);
+           */
         }
 
 

@@ -33,6 +33,21 @@ namespace SliceOfPie
             children.Remove(child);
         }
 
+
+        public override bool Equals(object obj)
+        {
+            if (!(obj is Folder))
+                return false;
+            Folder f = (Folder)obj;
+            if (this.FileType == f.FileType && this.Title == f.Title && this.Children == f.Children)
+            {
+                return true;
+            }
+            return false;
+
+
+        }
+
               
     }
 }
