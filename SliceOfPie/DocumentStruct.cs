@@ -29,19 +29,13 @@ namespace SliceOfPie
         {
             get { return fileType; }
         }
-        private List<User> sharedWith;
-        public List<User> SharedWith
-        {
-            get { return sharedWith; }
-        }
 
-        public DocumentStruct(string title, User user, string ID, string path, List<User> sharedWith)
+        public DocumentStruct(string title, User user, string ID, string path)
         {
             id = ID;
             fileType = DocType.Document;
             this.title = title;
             this.path = path;
-            this.sharedWith = sharedWith;
         }
         public override bool Equals(object obj)
         {
