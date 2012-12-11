@@ -39,7 +39,7 @@ namespace SliceOfPie
             this.owner = owner;
             Path = "root";
             log = new Document.DocumentLog(owner);
-            CreateId(owner);
+            CreateId();
         }
 
         // Same as constructor above, but this one allows to set id as well.
@@ -72,7 +72,7 @@ namespace SliceOfPie
 
         
         
-        private void CreateId(User owner)
+        private void CreateId()
         {           
             TimeSpan t = DateTime.UtcNow - new DateTime(1991, 12, 2);
             int secondsSinceImportantDay = (int)t.TotalSeconds;
