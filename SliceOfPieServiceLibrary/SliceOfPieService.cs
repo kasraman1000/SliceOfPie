@@ -13,7 +13,10 @@ namespace SliceOfPieServiceLibrary
     {
         public List<Document> SyncAll(List<Document> docs)
         {
-            return null;
+            List<Document> result = new List<Document>();
+            result.Add(new Document("Little Red Riding Nigga", "Niggerhood", new User("Mister nigger")));
+
+            return result;
         }
     }
 }

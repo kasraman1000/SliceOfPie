@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Runtime.Serialization;
 
 namespace SliceOfPie
 {
@@ -11,23 +12,30 @@ namespace SliceOfPie
     // The class itself contains inforamation relevant to the document, and functions
     // to change data in the object, as well as functions to merge the document newer
     // versions of the same document.
+    [DataContract]
     public class Document
     {
+        [DataMember]
         private string id;
         public string Id { get { return id; } }
 
+        [DataMember]
         private string path;
         public string Path { get { return path; } set { path = value; } }
 
+        [DataMember]
         private string text;
         public string Text { get { return text; } set { text = value; } }
 
+        [DataMember]
         private User owner;
         public User Owner { get { return owner; } set { owner = value; } }
-    
+
+        [DataMember]
         private string title;
         public string Title { get { return title; } set { title = value; } }
 
+        [DataMember]
         private Document.DocumentLog log;
         public Document.DocumentLog Log { get { return log; } }
 
@@ -253,6 +261,7 @@ namespace SliceOfPie
         
         // Every Document has its own DocumentLog, which holds logs all information of when 
         // there has been changes to the document.
+        [DataContract]
         public class DocumentLog
         {
             public List<Entry> entries;
@@ -298,17 +307,22 @@ namespace SliceOfPie
                 return temp.ToString();
             }
 
+            [DataContract]
             public class Entry
             {
+                [DataMember]
                 private User user;
                 public User User { get { return user; } }
-                
+
+                [DataMember]
                 private DateTime time;
                 public DateTime Time { get { return time; }}
 
+                [DataMember]
                 private string description;
                 public string Description { get { return description; }}
 
+                [DataMember]
                 private List<string> changeLog;
                 public List<string> ChangeLog { get { return changeLog; } }
 
