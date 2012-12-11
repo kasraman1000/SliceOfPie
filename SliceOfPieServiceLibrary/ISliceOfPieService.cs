@@ -8,33 +8,16 @@ using SliceOfPie;
 
 namespace SliceOfPieServiceLibrary
 {
-    // NOTE: You can use the "Rename" command on the "Refactor" menu to change the interface name "IService1" in both code and config file together.
+    /**
+     * This is where you can define all the operations the server should provide.
+     * Add a new method to the interface and add the [OperationContract] attribute
+     * to that method. The implementation of the method can be written in
+     * SliceOfPieService.cs
+     */
     [ServiceContract]
     public interface ISliceOfPieService
     {
         [OperationContract]
         List<Document> SyncAll(List<Document> docs);
-    }
-
-    // Use a data contract as illustrated in the sample below to add composite types to service operations
-    [DataContract]
-    public class CompositeType
-    {
-        bool boolValue = true;
-        string stringValue = "Hello ";
-
-        [DataMember]
-        public bool BoolValue
-        {
-            get { return boolValue; }
-            set { boolValue = value; }
-        }
-
-        [DataMember]
-        public string StringValue
-        {
-            get { return stringValue; }
-            set { stringValue = value; }
-        }
     }
 }
