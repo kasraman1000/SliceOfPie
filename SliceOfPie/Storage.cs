@@ -17,12 +17,16 @@ namespace SliceOfPie
         
         public static void Main(string[] args)
         {
-            /*
+            
                         Document doc1 = new Document("Line1\nLine2\nLine3", "Kewins Dokument", new User("Kewin"));
 
-                        Document doc2 = new Document("Line1\nLine4\nLine3", "Kewins nye Dokument", new User("Kewin"));
-            Document doc2 = new Document("Line1\nLine4\nLine3", "Kewins nye Dokument", new User("Kewin"));
+                        Document doc2 = new Document("Line1\nLine4\nLine3", "Kewins nye Dokument", new User("Crelde"));
+                        Document doc5 = new Document("Line1\nLine4\nLine3", "Kewins nye Dokument", new User("Derp"));
+                        doc1.Path=("cuteanimalsxoxo");
+                        doc2.Path=("cuteanimalsxoxo/reptiles");
+                        doc5.Path=("cuteanimalsxoxo/reptiles/snakes");
 
+            /*
                         doc1.MergeWith(doc2, new User("Kewin"));
             
 
@@ -40,10 +44,24 @@ namespace SliceOfPie
 
                         Document testDoc = new Document(docText, "Fuckfacess", new User("Karsten"));
                         testDoc.Path = "root\\cuteanimalsxoxo";
-                        testDoc.ShareWith(new User("ForeverAloneGuy"));
-                        testDoc.ShareWith(new User("Captain Haddoc"));
-                        testDoc.ShareWith(new User("Motor-Bjarne"));
-                        */
+             * */
+                        List<User> sh = new List<User>();
+                        sh.Add(new User("ForeverAloneGuy"));
+                        sh.Add(new User("Captain Haddoc"));
+                        sh.Add(new User("Motor-Bjarne"));
+
+                        Project proj = new Project("Creldes project", new User("Crelde"), sh);
+                        SaveProjectToFile(proj);
+                        WriteToFile(proj, doc1);
+                        WriteToFile(proj, doc5);
+                        WriteToFile(proj, doc2);
+                        GetHierachy(proj.Id);
+
+
+                       //testDoc.ShareWith(new User("ForeverAloneGuy"));
+                       // testDoc.ShareWith(new User("Captain Haddoc"));
+                       // testDoc.ShareWith(new User("Motor-Bjarne"));
+                        
            // GetHierachy();
             /*
             Document documentWithEmptyText = new Document("", "Document", new User("kewin"));
@@ -125,18 +143,13 @@ namespace SliceOfPie
         // Second parameter is optional for now, chooses where to put the file
         
         
-        public static void WriteToFile(Document doc)
+        public static void WriteToFile(Project pro, Document doc)
         {
             // Creates a fileName for the file based on the files title
-            string fileName = doc.Id + ".txt";
+            string fileName = pro.Id+"\\"+doc.Id + ".txt";
 
-            // Create the root folder if it doesnt exist
-            if (!Directory.Exists("root"))
-            {
-                Directory.CreateDirectory("root");
-            }
             // False means that it will overwrite an existing file with the same id.
-            TextWriter tw = new StreamWriter("root\\"+fileName, false);
+            TextWriter tw = new StreamWriter(fileName, false);
             // Writes the first line in the document file which should be the title
             tw.WriteLine(doc.Title);
 
@@ -158,11 +171,51 @@ namespace SliceOfPie
             tw.Close();
         }
 
-
-
-        public static Document ReadFromFile(string id)
+        public static void SaveProjectToFile(Project p)
         {
-            string fileName = id + ".txt";
+            if (!Directory.Exists(p.Id))
+            {
+                Directory.CreateDirectory(p.Id);
+                TextWriter tw = new StreamWriter(p.Id+"\\MetaInfo.txt", false);
+                tw.WriteLine(p.Title);
+                tw.WriteLine(p.Owner.ToString());
+
+                List<User> userList = p.SharedWith;
+                User[] users = userList.ToArray();
+                string[] userNames = new string[users.Length];
+                
+                int i = 0;
+                foreach (User u in users)
+                {
+                    userNames[i] = u.ToString();
+                    i++;
+                }
+                StringBuilder sb = new StringBuilder();
+                int j = 1;
+                foreach (string s in userNames)
+                {
+                    if (!(j==userNames.Length))
+                    {
+                        sb.AppendFormat(s+", ");
+                    }
+                    else
+                    {
+                        sb.AppendFormat(s);
+                    }
+                    j++;
+                }
+                tw.WriteLine(sb.ToString());
+                tw.Close();
+
+            }
+
+        }
+
+
+
+        public static Document ReadFromFile(string fid, string did)
+        {
+            string fileName = fid+"\\"+ did + ".txt";
            
             try
             {
@@ -254,7 +307,7 @@ namespace SliceOfPie
                 
 
                 // Finally makes the document to return
-                Document finalDoc = Document.CreateDocumentFromFile(id, text, title, owner, path, new Document.DocumentLog(entryList));
+                Document finalDoc = Document.CreateDocumentFromFile(did, text, title, owner, path, new Document.DocumentLog(entryList));
                 // Closes the reader
                 tr.Close();
                 return finalDoc;
@@ -287,14 +340,14 @@ namespace SliceOfPie
 
         }
 
-        public static Folder GetHierachy()
+        public static Project GetHierachy(string pid)
         {
-            if(Directory.Exists("root"))
+            if(Directory.Exists(pid))
             {
                 IEnumerable<string> distinctFolderNames;
                 List<Folder> folders = new List<Folder>();
                 List<string> toBeFolders = new List<string>();
-                IEnumerable<string> filesInRoot = Directory.EnumerateFiles("root");
+                IEnumerable<string> filesInRoot = Directory.EnumerateFiles(pid);
                 List<DocumentStruct> structs = new List<DocumentStruct>();
 
                 foreach (string s in filesInRoot)
@@ -352,7 +405,7 @@ namespace SliceOfPie
                         foreach (Folder fol in folders)
                         {
                             
-                            if(!splitPath[i-1].Equals("root"))
+                            if(!splitPath[i-1].Equals(splitPath[0]))
                             {
                                 
                                if (fol.Title.Equals(splitPath[i-1]))
@@ -380,14 +433,37 @@ namespace SliceOfPie
                       
                     }
                 }
-                Folder finalFolder = folders.ElementAt(0);
-                return finalFolder;
+                if (folders.Count == 0)
+                {
+                    Console.WriteLine("There is no folders to show");
+
+                }
+                else
+                {
+                    Folder finalFolder = folders.ElementAt(0);
+                
+
+                
+                TextReader mr = new StreamReader(pid+"\\MetaInfo.txt");
+                string ti = mr.ReadLine();
+                User us = new User(mr.ReadLine());
+                List<User> sha = new List<User>();
+                string[] userNames = (mr.ReadLine().Split(','));
+                foreach (string str in userNames)
+                {
+                    sha.Add(new User(str.Trim()));
+                }
+
+                Project finalProject = new Project(ti, us, sha);
+                finalProject.AddChild(finalFolder);
+                return finalProject;
+                }
 
             }
 
-
-
+            Console.WriteLine("No file exists by that name");
             return null;
+
         }
     }
 }
