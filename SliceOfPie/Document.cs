@@ -70,8 +70,6 @@ namespace SliceOfPie
             return doc;
         }
 
-        
-        
         private void CreateId()
         {           
             TimeSpan t = DateTime.UtcNow - new DateTime(1991, 12, 2);
@@ -82,8 +80,7 @@ namespace SliceOfPie
         // This functions takes a newer version of this document, and merges it with this one
         // acording to "Simple Merge Policy" given in slice-of-pie.pdf.
         // MergeWith returns a bool as well, it returns false if the ID of the updated
-        // document is not the same as this documents ID, otherwise it returns true.
-        
+        // document is not the same as this documents ID, otherwise it returns true
         public bool MergeWith(Document doc, User user)
         {
             if (this.id != doc.id)
@@ -312,6 +309,8 @@ namespace SliceOfPie
                 private List<string> changeLog;
                 public List<string> ChangeLog { get { return changeLog; } }
 
+                // Constructor that creates an Entry with the parameters specified, as well 
+                // as defining the DateTime to be the second the entry object was created.
                 public Entry(User u, string desc, List<string> log)
                 {
                     time = DateTime.Now;
@@ -320,6 +319,7 @@ namespace SliceOfPie
                     changeLog = log;
                 }
 
+                // Constructor that allows specifying when the Entry is from.
                 public Entry(User u, string desc, List<string> log, DateTime time)
                 {
                     user = u;
@@ -333,6 +333,7 @@ namespace SliceOfPie
                     return (user + " " + description + " on the " + time+"\n");
                 }
 
+                // The ToStringWithLog is usedwhen writing the Entry to the file system.
                 public string ToStringWithLog()
                 {
                     StringBuilder temp = new StringBuilder();
@@ -346,7 +347,6 @@ namespace SliceOfPie
                         else
                             temp.AppendFormat(entry+"\n");
                     }
-
                     return temp.ToString();
                 }
             }
