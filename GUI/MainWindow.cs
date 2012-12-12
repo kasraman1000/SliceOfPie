@@ -19,6 +19,7 @@ namespace GUI
         
         private Folder selectedFolder;
         private DocumentStruct selectedDocument;
+        private Project selectedProject;
         private bool isDocument;
         
         private Folder root;
@@ -30,7 +31,7 @@ namespace GUI
             // initialise test data
             activeUser = new User("karsten");
 
-            root = Storage.GetHierachy();
+            root = Storage.GetHierachy(selectedProject.Id);
 
 
             /*
@@ -155,7 +156,7 @@ namespace GUI
         {
             if (editWindow == null)
             {
-                editWindow = new EditWindow(Controller.OpenDocument(selectedDocument.Id));
+                editWindow = new EditWindow(Controller.OpenDocument(selectedProject.Id, selectedDocument.Id));
                 editWindow.Show();
             }
             else if (editWindow.Modified)
@@ -166,7 +167,7 @@ namespace GUI
             else
             {
                 editWindow.Hide();
-                editWindow = new EditWindow(Controller.OpenDocument(selectedDocument.Id));
+                editWindow = new EditWindow(Controller.OpenDocument(selectedProject.Id, selectedDocument.Id));
                 editWindow.Show();
             }
 

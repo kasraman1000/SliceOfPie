@@ -13,7 +13,7 @@ namespace GUI
     public partial class EditWindow : Form
     {
         private Document currentDoc;
-        
+        private Project currentProj;
         private bool modified; // Does this document have unsaved changes?
         public bool Modified
         {
@@ -38,7 +38,7 @@ namespace GUI
             currentDoc.Title = titleField.Text;
             currentDoc.Text = textField.Text;
 
-            Controller.SaveDocument(currentDoc);
+            Controller.SaveDocument(currentProj, currentDoc);
 
             modified = false;
         }

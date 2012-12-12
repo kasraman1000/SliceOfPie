@@ -12,9 +12,9 @@ namespace SliceOfPie
         Folder rootFolder;
         */
           
-        public static void SaveDocument(Document doc)
+        public static void SaveDocument(Project proj, Document doc)
         {
-            Storage.WriteToFile(doc);
+            Storage.WriteToFile(proj, doc);
         }
 
         public static void DeleteDocument(string id)
@@ -22,9 +22,9 @@ namespace SliceOfPie
             Storage.DeleteFile(id);
         }
 
-        public static Document OpenDocument(string id)
+        public static Document OpenDocument(string pid, string did)
         {
-            return Storage.ReadFromFile(id);    
+            return Storage.ReadFromFile(pid,did);    
         }
 
         public static void CreateDocument(Document doc)
