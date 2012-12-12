@@ -30,6 +30,7 @@ namespace GUI
 
             // initialise test data
             activeUser = new User("karsten");
+            selectedProject = new Project("test", activeUser, new List<User>());
 
             root = Storage.GetHierachy(selectedProject.Id);
 
@@ -83,7 +84,7 @@ namespace GUI
             userLabel.Text = "Logged in as: " + activeUser.ToString();
 
             // Initialize the treeView with the folders and docs
-            BuildDocumentTree(treeView.Nodes, root);
+            //BuildDocumentTree(treeView.Nodes, root);
 
 
         }
