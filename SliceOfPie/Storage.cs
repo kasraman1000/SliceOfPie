@@ -221,7 +221,7 @@ namespace SliceOfPie
             {
 
                 // Creates a new reader
-                TextReader tr = new StreamReader("root\\"+fileName);
+                TextReader tr = new StreamReader(fileName);
 
                 // Gets the title from the string and 
                 string title = tr.ReadLine();

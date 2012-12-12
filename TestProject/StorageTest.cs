@@ -108,9 +108,11 @@ namespace TestProject
         {
             Document documentToBeWritten = new Document("text", "title", new User("owner"), "documentID");
 
-            Storage.WriteToFile(documentToBeWritten);
+            Project proj = new Project("Project", new User("owner"), new List<User>(), "Project1");
 
-            Document readDocument = Storage.ReadFromFile("documentID");
+            Storage.WriteToFile(proj, documentToBeWritten);
+
+            Document readDocument = Storage.ReadFromFile("Project1","documentID");
 
             bool textBool = String.Compare(documentToBeWritten.Text, readDocument.Text) == 0;
             bool titleBool = String.Compare(documentToBeWritten.Title, readDocument.Title) == 0;
@@ -148,10 +150,11 @@ namespace TestProject
         {
             Document documentToBeWritten = new Document("", "", new User("owner"), "documentID");
 
+            Project proj = new Project("Project", new User("owner"), new List<User>(), "Project1");
 
-            Storage.WriteToFile(documentToBeWritten);
+            Storage.WriteToFile(proj, documentToBeWritten);
 
-            Document readDocument = Storage.ReadFromFile("documentID");
+            Document readDocument = Storage.ReadFromFile("Project1", "documentID");
 
             bool textBool = String.Compare(documentToBeWritten.Text, readDocument.Text) == 0;
             bool titleBool = String.Compare(documentToBeWritten.Title, readDocument.Title) == 0;

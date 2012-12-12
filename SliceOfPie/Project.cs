@@ -25,6 +25,15 @@ namespace SliceOfPie
             CreateId();
         }
 
+        public Project(string title, User owner, List<User> sharedWith, string id) : base(title)
+        {
+            this.owner = owner;
+            this.sharedWith = sharedWith;
+            base.fileType = DocType.Project;
+            this.sharedWith = sharedWith;
+            this.id = id;
+        }
+
         private void CreateId()
         {
             TimeSpan t = DateTime.UtcNow - new DateTime(1991, 12, 2);
