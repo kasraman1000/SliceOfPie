@@ -209,5 +209,10 @@ namespace GUI
 
         }
 
+        private void renameButton_Click(object sender, EventArgs e)
+        {
+
+        }
+
     }
 }

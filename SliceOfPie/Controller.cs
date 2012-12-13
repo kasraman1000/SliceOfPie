@@ -52,6 +52,17 @@ namespace SliceOfPie
             
         }
 
+        public static void CreateProject(string title, User owner, List<User> sharedWith)
+        {
+            UpdateProject(title, owner, sharedWith);
+        }
+
+        public static void UpdateProject(string title, User owner, List<User> sharedWith)
+        {
+            Project project = new Project(title, owner, sharedWith);
+            Storage.SaveProjectToFile(project);
+        }
+
         public static void SyncWithServer()
         {
             Console.WriteLine("yay, the syncbutton was pressed!");
