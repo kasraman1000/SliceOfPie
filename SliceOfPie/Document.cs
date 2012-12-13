@@ -275,6 +275,7 @@ namespace SliceOfPie
         [DataContract]
         public class DocumentLog
         {
+            [DataMember]
             public List<Entry> entries;
 
             public DocumentLog(User user)

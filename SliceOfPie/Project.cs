@@ -2,17 +2,24 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
+using System.Runtime.Serialization;
 namespace SliceOfPie
 {
+    [DataContract]
     public class Project : Folder
     {
+        
+ 
+
+        [DataMember]
         private User owner;
         public User Owner { get { return owner; } }
 
+        [DataMember]
         private string id;
         public string Id { get { return id; } }
 
+        [DataMember]
         private List<User> sharedWith;
         public List<User> SharedWith { get { return sharedWith; } }
 

@@ -2,17 +2,19 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
+using System.Runtime.Serialization;
 namespace SliceOfPie
 {
+    [DataContract]
     public class Folder : IFileSystemComponent
     {
+        [DataMember]
         private string title;
         public string Title{ get { return title; } set { title = value;} }
-
+        [DataMember]
         protected DocType fileType;
         public DocType FileType { get { return fileType; } }
-
+        [DataMember]
         private List<IFileSystemComponent> children;
         public List<IFileSystemComponent> Children { get { return children; } } 
 
