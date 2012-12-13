@@ -196,9 +196,9 @@ namespace SliceOfPie
                     int j = 1;
                     foreach (string s in userNames)
                     {
-                    if (!(j == userNames.Length))
+                        if (!(j == userNames.Length))
                         {
-                        sb.AppendFormat(s + ", ");
+                            sb.AppendFormat(s + ", ");
                         }
                         else
                         {
@@ -211,38 +211,40 @@ namespace SliceOfPie
             }
             else
             {
-                TextWriter tw = new StreamWriter(p.Id + "\\MetaInfo.txt", false);
-                tw.WriteLine(p.Title);
-                tw.WriteLine(p.Owner.ToString());
-
-                List<User> userList = p.SharedWith;
-                User[] users = userList.ToArray();
-                string[] userNames = new string[users.Length];
-
-                int i = 0;
-                foreach (User u in users)
+                using (TextWriter tw = new StreamWriter(p.Id + "\\MetaInfo.txt", false))
                 {
-                    userNames[i] = u.ToString();
-                    i++;
-                }
-                StringBuilder sb = new StringBuilder();
-                int j = 1;
-                foreach (string s in userNames)
-                {
-                    if (!(j == userNames.Length))
+                    tw.WriteLine(p.Title);
+                    tw.WriteLine(p.Owner.ToString());
+
+                    List<User> userList = p.SharedWith;
+                    User[] users = userList.ToArray();
+                    string[] userNames = new string[users.Length];
+
+                    int i = 0;
+                    foreach (User u in users)
                     {
-                        sb.AppendFormat(s + ", ");
+                        userNames[i] = u.ToString();
+                        i++;
                     }
-                    else
+                    StringBuilder sb = new StringBuilder();
+                    int j = 1;
+                    foreach (string s in userNames)
                     {
-                        sb.AppendFormat(s);
+                        if (!(j == userNames.Length))
+                        {
+                            sb.AppendFormat(s + ", ");
+                        }
+                        else
+                        {
+                            sb.AppendFormat(s);
+                        }
+                        j++;
                     }
-                    j++;
+                    tw.WriteLine(sb.ToString());
+                    tw.Close();
                 }
-                tw.WriteLine(sb.ToString());
-                tw.Close();
+
             }
-
         }
 
 
@@ -255,7 +257,8 @@ namespace SliceOfPie
             try
             {
                 // Creates a new reader
-                using (TextReader tr = new StreamReader(fileName))
+                StreamReader sr = new StreamReader(fileName);
+                using (TextReader tr = sr)
                 {
                     // Gets the title from the string and 
                     string title = tr.ReadLine();
@@ -267,7 +270,7 @@ namespace SliceOfPie
                     string ownerString = tr.ReadLine();
                     User owner = new User(ownerString);
 
-                    // Create a StringBilder and append the rest of the file to it, it will contain both the log and the text of the document.
+                    // Create a StringBuilder and append the rest of the file to it, it will contain both the log and the text of the document.
                     StringBuilder rest = new StringBuilder();
                     while (tr.Peek() != -1)
                     {
@@ -334,15 +337,22 @@ namespace SliceOfPie
                         log.RemoveAt(0);
                         // Created the Entry object, and add it to the entryList.
                         entryList.Add(new Document.DocumentLog.Entry(user, description, log, time));
-
+                        
+                        
                     }
 
 
-
-
+                    tr.ReadToEnd();
+                    sr.DiscardBufferedData();
+                    tr.Dispose();
                     // Finally makes the document to return
                     finalDoc = Document.CreateDocumentFromFile(did, text, title, owner, path, new Document.DocumentLog(entryList));
                 }
+                //sr.ReadToEnd();
+                sr.Dispose();
+                sr.Close();
+                
+                object o = sr.GetLifetimeService();
                 return finalDoc;
             }
             catch (FileNotFoundException)
@@ -462,7 +472,8 @@ namespace SliceOfPie
                             }
                             
                         }
-                      
+                        tr.Close();
+                        tr.Dispose();
                     }
                 }
                 if (folders.Count == 0)
@@ -488,6 +499,8 @@ namespace SliceOfPie
 
                 Project finalProject = new Project(ti, us, sha, Path.GetFileNameWithoutExtension(pid));
                 finalProject.AddChild(finalFolder);
+                mr.Close();
+                mr.Dispose();
                 return finalProject;
                 }
 
@@ -503,7 +516,7 @@ namespace SliceOfPie
         {
             string creldesPath = "\\Users\\Crelde\\git\\SliceOfPie\\SliceOfPie\\SliceOfPie\\bin\\Debug";
             string kasraPath = @"\Users\DE\git\SliceOfPie\GUI\bin\Debug";
-            string kewinsPath = @"D:\Git\SliceOfPie\SliceOfPie\bin\Debug";
+            string kewinsPath = @"D:\Git\SliceOfPie\GUI\bin\Debug";
             List<Project> projs = new List<Project>();
 
             IEnumerable<string> projects = Directory.EnumerateDirectories(kewinsPath);
