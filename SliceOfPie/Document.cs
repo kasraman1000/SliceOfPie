@@ -40,6 +40,18 @@ namespace SliceOfPie
         public Document.DocumentLog Log { get { return log; } }
 
         // Default constructor for creating a document object.
+        public Document(string text, string title, string path, User owner)
+        {
+            this.text = text;
+            this.title = title;
+            this.owner = owner;
+            this.path = path;
+            Path = "root";
+            log = new Document.DocumentLog(owner);
+            CreateId();
+        }
+
+        // This is primarily used by tests.
         public Document(string text, string title, User owner)
         {
             this.text = text;
