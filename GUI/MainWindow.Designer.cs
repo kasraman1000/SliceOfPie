@@ -46,20 +46,20 @@
             this.treeView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.treeView.Location = new System.Drawing.Point(12, 47);
-            this.treeView.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.treeView.Location = new System.Drawing.Point(9, 38);
+            this.treeView.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.treeView.Name = "treeView";
-            this.treeView.Size = new System.Drawing.Size(319, 262);
+            this.treeView.Size = new System.Drawing.Size(240, 248);
             this.treeView.TabIndex = 0;
             this.treeView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeView_AfterSelect);
             // 
             // createDocumentButton
             // 
             this.createDocumentButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.createDocumentButton.Location = new System.Drawing.Point(12, 316);
-            this.createDocumentButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.createDocumentButton.Location = new System.Drawing.Point(9, 291);
+            this.createDocumentButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.createDocumentButton.Name = "createDocumentButton";
-            this.createDocumentButton.Size = new System.Drawing.Size(159, 30);
+            this.createDocumentButton.Size = new System.Drawing.Size(119, 24);
             this.createDocumentButton.TabIndex = 11;
             this.createDocumentButton.Text = "New document";
             this.createDocumentButton.UseVisualStyleBackColor = true;
@@ -68,10 +68,10 @@
             // openButton
             // 
             this.openButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.openButton.Location = new System.Drawing.Point(177, 316);
-            this.openButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.openButton.Location = new System.Drawing.Point(133, 291);
+            this.openButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.openButton.Name = "openButton";
-            this.openButton.Size = new System.Drawing.Size(153, 30);
+            this.openButton.Size = new System.Drawing.Size(115, 24);
             this.openButton.TabIndex = 12;
             this.openButton.Text = "Open document";
             this.openButton.UseVisualStyleBackColor = true;
@@ -80,10 +80,10 @@
             // createFolderButton
             // 
             this.createFolderButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.createFolderButton.Location = new System.Drawing.Point(12, 352);
-            this.createFolderButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.createFolderButton.Location = new System.Drawing.Point(9, 320);
+            this.createFolderButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.createFolderButton.Name = "createFolderButton";
-            this.createFolderButton.Size = new System.Drawing.Size(98, 30);
+            this.createFolderButton.Size = new System.Drawing.Size(74, 24);
             this.createFolderButton.TabIndex = 16;
             this.createFolderButton.Text = "New Folder";
             this.createFolderButton.UseVisualStyleBackColor = true;
@@ -92,10 +92,10 @@
             // moveButton
             // 
             this.moveButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.moveButton.Location = new System.Drawing.Point(116, 352);
-            this.moveButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.moveButton.Location = new System.Drawing.Point(87, 320);
+            this.moveButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.moveButton.Name = "moveButton";
-            this.moveButton.Size = new System.Drawing.Size(55, 30);
+            this.moveButton.Size = new System.Drawing.Size(41, 24);
             this.moveButton.TabIndex = 13;
             this.moveButton.Text = "Move";
             this.moveButton.UseVisualStyleBackColor = true;
@@ -103,10 +103,10 @@
             // renameButton
             // 
             this.renameButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.renameButton.Location = new System.Drawing.Point(176, 352);
-            this.renameButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.renameButton.Location = new System.Drawing.Point(132, 320);
+            this.renameButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.renameButton.Name = "renameButton";
-            this.renameButton.Size = new System.Drawing.Size(83, 30);
+            this.renameButton.Size = new System.Drawing.Size(62, 24);
             this.renameButton.TabIndex = 15;
             this.renameButton.Text = "Rename";
             this.renameButton.UseVisualStyleBackColor = true;
@@ -115,10 +115,10 @@
             // deleteButton
             // 
             this.deleteButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.deleteButton.Location = new System.Drawing.Point(264, 352);
-            this.deleteButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.deleteButton.Location = new System.Drawing.Point(198, 320);
+            this.deleteButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.deleteButton.Name = "deleteButton";
-            this.deleteButton.Size = new System.Drawing.Size(67, 30);
+            this.deleteButton.Size = new System.Drawing.Size(50, 24);
             this.deleteButton.TabIndex = 14;
             this.deleteButton.Text = "Delete";
             this.deleteButton.UseVisualStyleBackColor = true;
@@ -127,19 +127,20 @@
             // 
             this.userLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.userLabel.AutoSize = true;
-            this.userLabel.Location = new System.Drawing.Point(12, 393);
+            this.userLabel.Location = new System.Drawing.Point(9, 353);
+            this.userLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.userLabel.Name = "userLabel";
-            this.userLabel.Size = new System.Drawing.Size(98, 17);
+            this.userLabel.Size = new System.Drawing.Size(74, 13);
             this.userLabel.TabIndex = 17;
             this.userLabel.Text = "Logged in as: ";
             // 
             // syncButton
             // 
             this.syncButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.syncButton.Location = new System.Drawing.Point(12, 413);
-            this.syncButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.syncButton.Location = new System.Drawing.Point(9, 370);
+            this.syncButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.syncButton.Name = "syncButton";
-            this.syncButton.Size = new System.Drawing.Size(168, 30);
+            this.syncButton.Size = new System.Drawing.Size(126, 24);
             this.syncButton.TabIndex = 18;
             this.syncButton.Text = "Synchronize with server";
             this.syncButton.UseVisualStyleBackColor = true;
@@ -150,26 +151,28 @@
             this.projectBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.projectBox.FormattingEnabled = true;
-            this.projectBox.Location = new System.Drawing.Point(124, 15);
+            this.projectBox.Location = new System.Drawing.Point(93, 12);
+            this.projectBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.projectBox.Name = "projectBox";
-            this.projectBox.Size = new System.Drawing.Size(206, 24);
+            this.projectBox.Size = new System.Drawing.Size(156, 21);
             this.projectBox.TabIndex = 19;
             this.projectBox.SelectedIndexChanged += new System.EventHandler(this.projectBox_SelectedIndexChanged);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 18);
+            this.label1.Location = new System.Drawing.Point(9, 15);
+            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(106, 17);
+            this.label1.Size = new System.Drawing.Size(81, 13);
             this.label1.TabIndex = 20;
             this.label1.Text = "Select a project";
             // 
             // MainWindow
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(344, 455);
+            this.ClientSize = new System.Drawing.Size(258, 404);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.projectBox);
             this.Controls.Add(this.syncButton);
@@ -181,9 +184,9 @@
             this.Controls.Add(this.renameButton);
             this.Controls.Add(this.deleteButton);
             this.Controls.Add(this.treeView);
-            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.MaximizeBox = false;
-            this.MinimumSize = new System.Drawing.Size(359, 45);
+            this.MinimumSize = new System.Drawing.Size(273, 44);
             this.Name = "MainWindow";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

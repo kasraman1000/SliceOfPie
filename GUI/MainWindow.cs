@@ -80,7 +80,7 @@ namespace GUI
 
             userLabel.Text = "Logged in as: " + activeUser.ToString();
 
-            projects = Controller.GetAllProjects();
+            projects = Controller.GetAllProjectsForUser(activeUser);
 
             // Fill up with projects
             foreach (Project p in projects)
