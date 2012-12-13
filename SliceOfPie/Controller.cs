@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 
 namespace SliceOfPie
 {
@@ -20,6 +21,7 @@ namespace SliceOfPie
         public static void SaveDocument(Project proj, Document doc, User user)
         {
             Document docInStorage = Storage.ReadFromFile(proj.Id, doc.Id);
+            Thread.Sleep(3000);
             if (docInStorage == null)
                 Storage.WriteToFile(proj, doc);
             else

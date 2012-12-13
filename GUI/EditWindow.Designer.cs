@@ -43,7 +43,7 @@
             this.titleField.Location = new System.Drawing.Point(12, 29);
             this.titleField.Name = "titleField";
             this.titleField.Size = new System.Drawing.Size(473, 22);
-            this.titleField.TabIndex = 1;
+            this.titleField.TabIndex = 0;
             this.titleField.Text = "Input Document Title Here";
             this.titleField.TextChanged += new System.EventHandler(this.titleField_TextChanged);
             // 
@@ -57,7 +57,7 @@
             this.textField.Name = "textField";
             this.textField.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.textField.Size = new System.Drawing.Size(473, 251);
-            this.textField.TabIndex = 2;
+            this.textField.TabIndex = 1;
             this.textField.Text = "Input Document Contents Here";
             this.textField.TextChanged += new System.EventHandler(this.textField_TextChanged);
             // 
@@ -96,7 +96,7 @@
             this.viewLogButton.Location = new System.Drawing.Point(15, 331);
             this.viewLogButton.Name = "viewLogButton";
             this.viewLogButton.Size = new System.Drawing.Size(160, 33);
-            this.viewLogButton.TabIndex = 6;
+            this.viewLogButton.TabIndex = 2;
             this.viewLogButton.Text = "View document history";
             this.viewLogButton.UseVisualStyleBackColor = true;
             this.viewLogButton.Click += new System.EventHandler(this.viewLogButton_Click);
@@ -114,7 +114,7 @@
             this.Controls.Add(this.textField);
             this.Controls.Add(this.titleField);
             this.Name = "EditWindow";
-            this.Text = "Edit Document";
+            this.Text = "3";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.EditWindow_FormClosing);
             this.Load += new System.EventHandler(this.EditWindow_Load);
             this.ResumeLayout(false);
