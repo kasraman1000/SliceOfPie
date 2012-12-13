@@ -16,6 +16,8 @@ namespace GUI
         private User activeUser;
 
         private EditWindow editWindow;
+
+        private List<Project> projects;
         
         private Folder selectedFolder;
         private DocumentStruct selectedDocument;
@@ -68,9 +70,6 @@ namespace GUI
          */
         private void MainWindow_Load(object sender, EventArgs e)
         {
-            List<Project> projs = Controller.GetAllProjects();
-            selectedProject = projs.FirstOrDefault();
-
             // Ask for who the user is
             InputDialog inputDialog = new InputDialog("Hello and welcome! Who are you? (Input username)",
                 "",
@@ -80,10 +79,15 @@ namespace GUI
 
             userLabel.Text = "Logged in as: " + activeUser.ToString();
 
-            // Initialize the treeView with the folders and docs
-            BuildDocumentTree(treeView.Nodes, selectedProject);
+            projects = Controller.GetAllProjects();
 
+            // Fill up with projects
+            foreach (Project p in projects)
+            {
+                projectBox.Items.Add(p);
+            }
 
+            projectBox.SelectedItem = projects.FirstOrDefault(); 
         }
 
         /**
@@ -212,6 +216,15 @@ namespace GUI
         private void renameButton_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void projectBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            selectedProject = (Project) projectBox.SelectedItem;
+
+            // Initialize the treeView with the folders and docs
+            treeView.Nodes.Clear();
+            BuildDocumentTree(treeView.Nodes, selectedProject);
         }
 
     }
