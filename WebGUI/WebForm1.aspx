@@ -16,8 +16,9 @@
         &nbsp;</p>
     <p>
         <asp:TreeView ID="TreeView1" runat="server" Height="233px" 
-            ImageSet="XPFileExplorer" NodeIndent="15" style="margin-left: 434px" 
-            Width="245px">
+            ImageSet="XPFileExplorer" NodeIndent="15" 
+            onselectednodechanged="TreeView1_SelectedNodeChanged1" 
+            style="margin-left: 434px" Width="245px">
             <HoverNodeStyle Font-Underline="True" ForeColor="#6666AA" />
             <NodeStyle Font-Names="Tahoma" Font-Size="8pt" ForeColor="Black" 
                 HorizontalPadding="2px" NodeSpacing="0px" VerticalPadding="2px" />

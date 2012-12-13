@@ -519,7 +519,7 @@ namespace SliceOfPie
             string kewinsPath = @"D:\Git\SliceOfPie\GUI\bin\Debug";
             List<Project> projs = new List<Project>();
 
-            IEnumerable<string> projects = Directory.EnumerateDirectories(kewinsPath);
+            IEnumerable<string> projects = Directory.EnumerateDirectories(creldesPath);
 
             foreach (String p in projects)
             {
