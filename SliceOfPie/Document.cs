@@ -99,6 +99,8 @@ namespace SliceOfPie
 
         // This functions takes a newer version of this document, and merges it with this one
         // acording to "Simple Merge Policy" given in slice-of-pie.pdf.
+        // It also updated all other fields in the document according to the new version
+        // and generates a log based on the changes.
         // MergeWith returns a bool as well, it returns false if the ID of the updated
         // document is not the same as this documents ID, otherwise it returns true
         public bool MergeWith(Document doc, User user)

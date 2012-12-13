@@ -171,19 +171,21 @@ namespace SliceOfPie
             tw.Close();
         }
 
+        // Saves a project to the file system if it doesnt already exist.
+        // If it is already there, update its MetaInfo file.
         public static void SaveProjectToFile(Project p)
         {
             if (!Directory.Exists(p.Id))
             {
                 Directory.CreateDirectory(p.Id);
-                TextWriter tw = new StreamWriter(p.Id+"\\MetaInfo.txt", false);
+                TextWriter tw = new StreamWriter(p.Id + "\\MetaInfo.txt", false);
                 tw.WriteLine(p.Title);
                 tw.WriteLine(p.Owner.ToString());
 
                 List<User> userList = p.SharedWith;
                 User[] users = userList.ToArray();
                 string[] userNames = new string[users.Length];
-                
+
                 int i = 0;
                 foreach (User u in users)
                 {
@@ -194,9 +196,9 @@ namespace SliceOfPie
                 int j = 1;
                 foreach (string s in userNames)
                 {
-                    if (!(j==userNames.Length))
+                    if (!(j == userNames.Length))
                     {
-                        sb.AppendFormat(s+", ");
+                        sb.AppendFormat(s + ", ");
                     }
                     else
                     {
@@ -206,7 +208,39 @@ namespace SliceOfPie
                 }
                 tw.WriteLine(sb.ToString());
                 tw.Close();
+            }
+            else
+            {
+                TextWriter tw = new StreamWriter(p.Id + "\\MetaInfo.txt", false);
+                tw.WriteLine(p.Title);
+                tw.WriteLine(p.Owner.ToString());
 
+                List<User> userList = p.SharedWith;
+                User[] users = userList.ToArray();
+                string[] userNames = new string[users.Length];
+
+                int i = 0;
+                foreach (User u in users)
+                {
+                    userNames[i] = u.ToString();
+                    i++;
+                }
+                StringBuilder sb = new StringBuilder();
+                int j = 1;
+                foreach (string s in userNames)
+                {
+                    if (!(j == userNames.Length))
+                    {
+                        sb.AppendFormat(s + ", ");
+                    }
+                    else
+                    {
+                        sb.AppendFormat(s);
+                    }
+                    j++;
+                }
+                tw.WriteLine(sb.ToString());
+                tw.Close();
             }
 
         }

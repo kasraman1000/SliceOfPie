@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<useCaseModelRoot xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/ModelStore" xmlns:dm9="http://schemas.microsoft.com/dsltools/SimpleShapesModel" dslVersion="1.0.0.0" Id="4bce26e1-8c3f-4792-a549-35f3af5882b4" name="UMLUseCaseDiagram" linkedPackageId="8c98faad-6a54-4d49-aaf6-d44483dc08e9" xmlns="http://schemas.microsoft.com/dsltools/UseCaseModel">
+<useCaseModelRoot xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/ModelStore" xmlns:dm9="http://schemas.microsoft.com/VisualStudio/TeamArchitect/SequenceDesigner" xmlns:dm10="http://schemas.microsoft.com/dsltools/SimpleShapesModel" dslVersion="1.0.0.0" Id="4bce26e1-8c3f-4792-a549-35f3af5882b4" name="UMLUseCaseDiagram" linkedPackageId="8c98faad-6a54-4d49-aaf6-d44483dc08e9" xmlns="http://schemas.microsoft.com/dsltools/UseCaseModel">
   <packagedElements>
     <useCaseModelRootHasTypes>
       <actor Id="e3524e94-15aa-447d-82bd-cce6f0f2bea3" name="User 1" isAbstract="false" isLeaf="false">
@@ -21,21 +21,69 @@
             </relationshipOwnedElementsInternal>
             <elementDefinition Id="0f51e2d3-541f-4dc3-8567-d25ffa7b7ce4" />
           </association>
-          <association Id="03da8d0f-265b-46a4-a14f-9c5c8805feee" isDerived="false" sourceEndRoleName="User 1" targetEndRoleName="Change the name of the document" isLeaf="false" isAbstract="false">
-            <useCaseMoniker Id="80699856-3abe-4a78-8a4e-77f54730bcd8" LastKnownName="Change the name of the document" />
+          <association Id="4712c81b-868c-467a-945a-2a2074c51cd3" isDerived="false" sourceEndRoleName="User 1" targetEndRoleName="Delete a document" isLeaf="false" isAbstract="false">
+            <useCaseMoniker Id="56b5a4ba-19df-4ae3-9196-2f869e51734a" LastKnownName="Delete a document" />
             <relationshipOwnedElementsInternal>
               <associationHasOwnedEnds>
-                <memberEnd Id="78ea50f6-bf94-417b-8cb4-49d3dda089f1" name="User 1" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
-                  <elementDefinition Id="608bd66e-a2ff-43dc-b3f9-10365a282dfa" />
+                <memberEnd Id="8b57fdd2-0409-4653-9f94-56b5938aed4b" name="User 1" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="2ce2a3cb-a9cc-4356-9bc6-24ac31560a94" />
                 </memberEnd>
               </associationHasOwnedEnds>
               <associationHasOwnedEnds>
-                <memberEnd Id="218f397c-b66d-40a9-a0c7-848698d32b14" name="Change the name of the document" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
-                  <elementDefinition Id="25a1251b-1433-4296-9048-c997db9bd35e" />
+                <memberEnd Id="33f1ab41-5504-44f7-95eb-3856983a777e" name="Delete a document" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="d8ebe8f1-9ce1-41cf-893b-0ec9f5f42be4" />
                 </memberEnd>
               </associationHasOwnedEnds>
             </relationshipOwnedElementsInternal>
-            <elementDefinition Id="8dbb7fce-8e0a-4939-8b79-13b578279807" />
+            <elementDefinition Id="760d806a-8e4d-4637-814b-e58c22714382" />
+          </association>
+          <association Id="6b3c555d-90a8-468d-9c17-141bc315f3e7" isDerived="false" sourceEndRoleName="User 1" targetEndRoleName="Open a document" isLeaf="false" isAbstract="false">
+            <useCaseMoniker Id="6415234b-838d-48d0-883b-23c66b660484" LastKnownName="Open a document" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="5c179e31-d137-4211-8d00-61721e59e438" name="User 1" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="c2e5546b-e3ca-4cb9-8ccd-52f71d62f070" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="d43cb533-324e-4109-a751-f38d8d789a98" name="Open a document" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="3071b5dc-17e3-4ce7-bbc1-371ab714dda0" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="fd886187-94ec-4912-814b-d9717a77052a" />
+          </association>
+          <association Id="0b336738-5b36-47ea-bd6d-557c865f2213" isDerived="false" sourceEndRoleName="User 1" targetEndRoleName="Create a project" isLeaf="false" isAbstract="false">
+            <useCaseMoniker Id="45b1c41d-0a55-4f9b-add3-f68333a9a41a" LastKnownName="Create a project" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="d950bf67-a987-426b-92ce-11237a39e8f2" name="User 1" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="2169a0a0-5efc-4059-8853-40b33fa4e03c" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="d0c68127-c6c1-4b70-b98a-60d138544990" name="Create a project" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="e2ca7275-f10c-46d3-8dbc-8a9bc4f5afcb" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="d92b29db-e775-4b26-b7d0-b29d5dd46ae7" />
+          </association>
+          <association Id="7a58fb13-f65b-40af-95f3-301bcb4d8409" isDerived="false" sourceEndRoleName="User 1" targetEndRoleName="Update a project" isLeaf="false" isAbstract="false">
+            <useCaseMoniker Id="0d8fa210-3cef-4323-8b21-a8bd83f28928" LastKnownName="Update a project" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="1fc4f9a6-d545-45b1-8ab6-8912c02bbfd1" name="User 1" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="677d2b9f-b761-4f2a-8291-733c03b97661" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="9eec5976-740c-4e0e-aa04-6710b3741f95" name="Update a project" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="94707493-b4a5-47ce-ab32-eecdf1eed8a6" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="52c4910f-37b0-47a7-98ac-e4f1c18e7af4" />
           </association>
         </targetEnds>
       </actor>
@@ -76,22 +124,6 @@
             </relationshipOwnedElementsInternal>
             <elementDefinition Id="a9d4ad75-7ac9-4ae7-81e7-242e146743bd" />
           </association>
-          <association Id="bc807412-1974-49d7-a35c-f220c7fe2ab5" isDerived="false" sourceEndRoleName="Create a new Document" targetEndRoleName="Create/Update visual presentation of the document" isLeaf="false" isAbstract="false">
-            <artifactMoniker Id="5b339678-f341-4847-86a3-1781b844352f" LastKnownName="Create/Update visual presentation of the document" />
-            <relationshipOwnedElementsInternal>
-              <associationHasOwnedEnds>
-                <memberEnd Id="a91dbc91-e7ea-4abe-bafb-fd0e2e3da922" name="Create a new Document" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
-                  <elementDefinition Id="91145add-6cb9-4ce3-8f61-7eef71c19062" />
-                </memberEnd>
-              </associationHasOwnedEnds>
-              <associationHasOwnedEnds>
-                <memberEnd Id="976b19cb-8324-44d4-b24e-52d45990dba8" name="Create/Update visual presentation of the document" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
-                  <elementDefinition Id="de743ac7-704f-4033-923a-cb0c331a9716" />
-                </memberEnd>
-              </associationHasOwnedEnds>
-            </relationshipOwnedElementsInternal>
-            <elementDefinition Id="39e3c50f-e615-40fd-b157-2c1a6a12629b" />
-          </association>
         </targetEnds>
         <subjects>
           <subsystemMoniker Id="530fc996-2619-48b4-8790-182386997a98" LastKnownName="Explorer" />
@@ -111,43 +143,45 @@
     <useCaseModelRootHasTypes>
       <artifact Id="ca22d731-54e6-4a42-9726-22a2f48f213a" name="Update the underlying data storage" isAbstract="false" isLeaf="false">
         <elementDefinition Id="abe17337-1ef9-4506-a7cf-2b175046c834" />
-      </artifact>
-    </useCaseModelRootHasTypes>
-    <packageHasNamedElement>
-      <useCase Id="80699856-3abe-4a78-8a4e-77f54730bcd8" name="Change the name of the document" isAbstract="false" isLeaf="false">
-        <elementDefinition Id="000dcc10-d9c3-48c4-8b52-357f7a9811b9" />
         <targetEnds>
-          <association Id="adc066c4-8ae5-4fe0-b173-74e464094dd7" isDerived="false" sourceEndRoleName="Change the name of the document" targetEndRoleName="Update the underlying data storage" isLeaf="false" isAbstract="false">
-            <artifactMoniker Id="ca22d731-54e6-4a42-9726-22a2f48f213a" LastKnownName="Update the underlying data storage" />
-            <relationshipOwnedElementsInternal>
-              <associationHasOwnedEnds>
-                <memberEnd Id="c0d4c84e-f4d5-4fe0-a4bb-649d822fac01" name="Change the name of the document" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
-                  <elementDefinition Id="a9bbc1cc-759c-497b-b319-8e8d58ba2f02" />
-                </memberEnd>
-              </associationHasOwnedEnds>
-              <associationHasOwnedEnds>
-                <memberEnd Id="0a3ca1b4-dfb8-42af-b9c6-966b81244694" name="Update the underlying data storage" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
-                  <elementDefinition Id="a18f5e99-e14a-4256-817e-b442bb3407d7" />
-                </memberEnd>
-              </associationHasOwnedEnds>
-            </relationshipOwnedElementsInternal>
-            <elementDefinition Id="6962eab6-25b1-4a70-b631-83adbe2f4afe" />
-          </association>
-          <association Id="15789a0c-b892-4993-b1e3-e148fc1d9b23" isDerived="false" sourceEndRoleName="Change the name of the document" targetEndRoleName="Create/Update visual presentation of the document" isLeaf="false" isAbstract="false">
+          <association Id="83b0f790-029b-44d3-a97b-b5f1a562f72f" isDerived="false" sourceEndRoleName="Update the underlying data storage" targetEndRoleName="Create/Update visual presentation of the document" isLeaf="false" isAbstract="false">
             <artifactMoniker Id="5b339678-f341-4847-86a3-1781b844352f" LastKnownName="Create/Update visual presentation of the document" />
             <relationshipOwnedElementsInternal>
               <associationHasOwnedEnds>
-                <memberEnd Id="9fb0e606-09ea-4362-b3a5-5c8be06480db" name="Change the name of the document" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
-                  <elementDefinition Id="5d1ff4ca-3c2f-4c68-b2bd-bd3ad915dcaf" />
+                <memberEnd Id="73dfe828-4a66-404c-8157-26b15f2c61ad" name="Update the underlying data storage" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="67056cb8-5146-460c-8de8-cb83e56401bb" />
                 </memberEnd>
               </associationHasOwnedEnds>
               <associationHasOwnedEnds>
-                <memberEnd Id="dee8a21d-6511-4a52-a4e1-443874782f46" name="Create/Update visual presentation of the document" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
-                  <elementDefinition Id="116feae3-0115-4694-b3fa-7f5a1607e2e7" />
+                <memberEnd Id="807b3850-bf00-47ff-a17f-c20695c903ae" name="Create/Update visual presentation of the document" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="3375635a-d6af-4a26-acb5-eeebccd99633" />
                 </memberEnd>
               </associationHasOwnedEnds>
             </relationshipOwnedElementsInternal>
-            <elementDefinition Id="5451d3e9-ef2b-4914-837b-321c49b3da1a" />
+            <elementDefinition Id="b4e48c5d-d191-4b99-b73c-ac3c7e0dd247" />
+          </association>
+        </targetEnds>
+      </artifact>
+    </useCaseModelRootHasTypes>
+    <packageHasNamedElement>
+      <useCase Id="80699856-3abe-4a78-8a4e-77f54730bcd8" name="Change a documents name." isAbstract="false" isLeaf="false">
+        <elementDefinition Id="000dcc10-d9c3-48c4-8b52-357f7a9811b9" />
+        <targetEnds>
+          <association Id="69dc8ec9-70d7-49e3-a6b0-fa5ffaf33ece" isDerived="false" sourceEndRoleName="Change a documents name." targetEndRoleName="Save changes." isLeaf="false" isAbstract="false">
+            <useCaseMoniker Id="02eb41bb-382b-46a5-a6e9-36d0c70069d5" LastKnownName="Save changes." />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="c1ee673a-531a-4d27-a9fc-0bbb15c3fcb2" name="Change a documents name." isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="be52b6c0-0287-4f89-afac-399463423b8d" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="451b77ab-6624-420f-a7f1-711021541afe" name="Save changes." isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="4faa8384-bf07-40e4-b7c8-5987a73fb93f" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="942e56f0-004a-4745-99aa-b7ae03d0097e" />
           </association>
         </targetEnds>
         <subjects>
@@ -159,6 +193,220 @@
       <artifact Id="5b339678-f341-4847-86a3-1781b844352f" name="Create/Update visual presentation of the document" isAbstract="false" isLeaf="false">
         <elementDefinition Id="480e8110-6b2c-4911-b856-bdacb1bbe718" />
       </artifact>
+    </useCaseModelRootHasTypes>
+    <useCaseModelRootHasTypes>
+      <useCase Id="56b5a4ba-19df-4ae3-9196-2f869e51734a" name="Delete a document" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="5862bf20-0d9a-4387-b5d7-1dea0429ab24" />
+        <targetEnds>
+          <association Id="5f2e334d-c76a-4b0c-aef2-e794544d0fec" isDerived="false" sourceEndRoleName="Delete a document" targetEndRoleName="Update the underlying data storage" isLeaf="false" isAbstract="false">
+            <artifactMoniker Id="ca22d731-54e6-4a42-9726-22a2f48f213a" LastKnownName="Update the underlying data storage" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="6cfb14a0-44a3-474d-bd5b-6003ecc4ba21" name="Delete a document" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="bef1d5aa-4b5f-4424-9b19-ed60d6084e3e" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="b5fed002-c9d6-4ff5-b566-ce208723f5ac" name="Update the underlying data storage" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="56920fc7-3f12-40c7-9583-02a0decef3e4" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="32ce112c-9f54-43a8-93e0-8fd09a4afba0" />
+          </association>
+        </targetEnds>
+        <subjects>
+          <subsystemMoniker Id="530fc996-2619-48b4-8790-182386997a98" LastKnownName="Explorer" />
+        </subjects>
+      </useCase>
+    </useCaseModelRootHasTypes>
+    <useCaseModelRootHasTypes>
+      <useCase Id="a51c50c2-5503-4252-9cd6-3e22f2d3e5de" name="Edit a documents text." isAbstract="false" isLeaf="false">
+        <elementDefinition Id="6109ea8f-4120-454e-b6f7-c376cc9dcc8f" />
+        <targetEnds>
+          <association Id="b6fb1180-7839-40ea-a079-cf83361775f3" isDerived="false" sourceEndRoleName="Edit a documents text." targetEndRoleName="Save changes." isLeaf="false" isAbstract="false">
+            <useCaseMoniker Id="02eb41bb-382b-46a5-a6e9-36d0c70069d5" LastKnownName="Save changes." />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="473ef571-38f2-419b-b32f-a5056fb93ffa" name="Edit a documents text." isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="3ea101fc-63c8-4b2f-9bd5-5d5861884f03" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="56df728a-65e4-4f95-852c-6f9b5f6c69e4" name="Save changes." isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="0d3432a0-852b-457c-96c2-0306cd1cd956" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="081cbf5a-136a-4ec4-b792-185cfac8b472" />
+          </association>
+        </targetEnds>
+        <subjects>
+          <subsystemMoniker Id="530fc996-2619-48b4-8790-182386997a98" LastKnownName="Explorer" />
+        </subjects>
+      </useCase>
+    </useCaseModelRootHasTypes>
+    <useCaseModelRootHasTypes>
+      <useCase Id="743f25b0-d0f3-4124-86c7-9375cca32ed6" name="Edit a documents path." isAbstract="false" isLeaf="false">
+        <elementDefinition Id="d039ff95-025a-4b8c-b70f-173b8f27acc4" />
+        <targetEnds>
+          <association Id="2d7b4c65-2ea9-4015-b926-5d6b7355127c" isDerived="false" sourceEndRoleName="Edit a documents path." targetEndRoleName="Save changes." isLeaf="false" isAbstract="false">
+            <useCaseMoniker Id="02eb41bb-382b-46a5-a6e9-36d0c70069d5" LastKnownName="Save changes." />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="51a9d87c-e777-4631-bdbe-ee49019b6e84" name="Edit a documents path." isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="8e5765ab-40e7-4096-94d9-1137acd517e8" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="b35f7897-f5c5-488e-935d-4866626e8128" name="Save changes." isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="c5674e0d-6305-4bf0-b695-a6e8c38ab37b" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="1c57602b-079c-40de-ae49-42e6e04f3a59" />
+          </association>
+        </targetEnds>
+        <subjects>
+          <subsystemMoniker Id="530fc996-2619-48b4-8790-182386997a98" LastKnownName="Explorer" />
+        </subjects>
+      </useCase>
+    </useCaseModelRootHasTypes>
+    <useCaseModelRootHasTypes>
+      <useCase Id="02eb41bb-382b-46a5-a6e9-36d0c70069d5" name="Save changes." isAbstract="false" isLeaf="false">
+        <elementDefinition Id="e206b24f-b728-42e2-84ba-0f22ab148fc0" />
+        <targetEnds>
+          <association Id="262e0a1e-4d5d-4fb4-85a9-c11339565dbc" isDerived="false" sourceEndRoleName="Save changes." targetEndRoleName="Update the underlying data storage" isLeaf="false" isAbstract="false">
+            <artifactMoniker Id="ca22d731-54e6-4a42-9726-22a2f48f213a" LastKnownName="Update the underlying data storage" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="9e5de667-f92c-4634-bee7-45a8b8ea7165" name="Save changes." isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="e03cfe14-3c5a-418a-bac2-f1e70bab2bfe" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="8fbbfa58-281f-4696-b365-f69b46357b69" name="Update the underlying data storage" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="59fbc860-9574-42c9-a569-fe5bada6b054" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="a800eeb7-755b-41fd-b2ed-5a0df8f4abdd" />
+          </association>
+        </targetEnds>
+        <subjects>
+          <subsystemMoniker Id="530fc996-2619-48b4-8790-182386997a98" LastKnownName="Explorer" />
+        </subjects>
+      </useCase>
+    </useCaseModelRootHasTypes>
+    <useCaseModelRootHasTypes>
+      <useCase Id="6415234b-838d-48d0-883b-23c66b660484" name="Open a document" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="97cb5aab-e557-4444-8935-90032357682a" />
+        <targetEnds>
+          <association Id="f8f5ee04-e06e-455d-af5c-af27d1eb42f3" isDerived="false" sourceEndRoleName="Open a document" targetEndRoleName="Change a documents name." isLeaf="false" isAbstract="false">
+            <useCaseMoniker Id="80699856-3abe-4a78-8a4e-77f54730bcd8" LastKnownName="Change a documents name." />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="7b0c9df1-7803-44fd-aff0-4b27f2d3777a" name="Open a document" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="a987f00f-9df9-4bbb-9d90-3f1a8953ba2e" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="a630683c-7e13-46cd-9131-8c7ba76ec984" name="Change a documents name." isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="d9275a7f-a7f0-47ac-96cc-73fdf59e84ac" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="bdf7a4b3-ba0b-4b62-a41b-6b7d132a7a6b" />
+          </association>
+          <association Id="ccf2fd26-f9a6-44a8-8276-695673c38d1d" isDerived="false" sourceEndRoleName="Open a document" targetEndRoleName="Edit a documents text." isLeaf="false" isAbstract="false">
+            <useCaseMoniker Id="a51c50c2-5503-4252-9cd6-3e22f2d3e5de" LastKnownName="Edit a documents text." />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="e68560ac-fea9-42ee-b20d-a7a967b91c1d" name="Open a document" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="929fcc57-f953-40e2-8378-109ede8c0a39" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="18f3f87c-6440-47d3-b5d8-124319212f64" name="Edit a documents text." isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="da44fc30-b3ed-44e8-9556-918d8454ff99" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="e1dfa105-dc24-4583-a5f4-6ce925463af6" />
+          </association>
+          <association Id="fd3718f0-c9e3-425c-bf42-95b81fa525a4" isDerived="false" sourceEndRoleName="Open a document" targetEndRoleName="Edit a documents path." isLeaf="false" isAbstract="false">
+            <useCaseMoniker Id="743f25b0-d0f3-4124-86c7-9375cca32ed6" LastKnownName="Edit a documents path." />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="29b4afac-8074-4b0a-a474-4759c70b1aa4" name="Open a document" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="04b6251d-03ac-4591-8bf5-fe5ebc53201f" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="0dc2920e-4e97-4be6-8045-e185adc28712" name="Edit a documents path." isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="c7e3013c-a5f0-4688-a307-e9f25298eb87" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="159aff00-9199-46fc-abc7-97dbafbe3971" />
+          </association>
+        </targetEnds>
+        <subjects>
+          <subsystemMoniker Id="530fc996-2619-48b4-8790-182386997a98" LastKnownName="Explorer" />
+        </subjects>
+      </useCase>
+    </useCaseModelRootHasTypes>
+    <useCaseModelRootHasTypes>
+      <useCase Id="45b1c41d-0a55-4f9b-add3-f68333a9a41a" name="Create a project" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="68ddcc6d-a952-4512-8d14-8f84804f9447" />
+        <targetEnds>
+          <association Id="88f5d1f3-154a-46d4-a3c0-5a9657efefc0" isDerived="false" sourceEndRoleName="Create a project" targetEndRoleName="Update the underlying data storage" isLeaf="false" isAbstract="false">
+            <artifactMoniker Id="ca22d731-54e6-4a42-9726-22a2f48f213a" LastKnownName="Update the underlying data storage" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="05384778-c824-444c-886e-e4f151f505f8" name="Create a project" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="56b50680-7f85-4327-a36d-36c574da29e4" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="b43bc2f7-7992-4f4a-8921-d50cb8b37bdf" name="Update the underlying data storage" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="4a95d888-6e91-4fdf-a7cb-9bf2f30ed3d5" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="ea1867c1-a235-403f-ba80-0d34ccead970" />
+          </association>
+        </targetEnds>
+        <subjects>
+          <subsystemMoniker Id="530fc996-2619-48b4-8790-182386997a98" LastKnownName="Explorer" />
+        </subjects>
+      </useCase>
+    </useCaseModelRootHasTypes>
+    <useCaseModelRootHasTypes>
+      <useCase Id="0d8fa210-3cef-4323-8b21-a8bd83f28928" name="Update a project" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="ec165d95-6c9a-47f1-8e76-297a82a1237a" />
+        <targetEnds>
+          <association Id="9f29fe6b-9f68-4c94-86bb-7a0e989e9752" isDerived="false" sourceEndRoleName="Update a project" targetEndRoleName="Update the underlying data storage" isLeaf="false" isAbstract="false">
+            <artifactMoniker Id="ca22d731-54e6-4a42-9726-22a2f48f213a" LastKnownName="Update the underlying data storage" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="b2751a39-0a2f-469a-8f4b-4bf00ef0d40b" name="Update a project" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="aca67216-30f4-4b79-89ca-615a400358f4" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="04f97aed-0a1c-4e8b-8a6c-1721ee11c618" name="Update the underlying data storage" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="1703d771-0f22-45c4-aba9-b8784c099a6a" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="9291f5da-9a1b-475f-8436-aa7bd70c75f8" />
+          </association>
+        </targetEnds>
+        <subjects>
+          <subsystemMoniker Id="530fc996-2619-48b4-8790-182386997a98" LastKnownName="Explorer" />
+        </subjects>
+      </useCase>
     </useCaseModelRootHasTypes>
   </packagedElements>
   <package Id="8c98faad-6a54-4d49-aaf6-d44483dc08e9" name="UML Slice of Pie">

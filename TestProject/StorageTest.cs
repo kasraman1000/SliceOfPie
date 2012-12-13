@@ -196,7 +196,7 @@ namespace TestProject
         {
             //Storage.WriteToFile(testDoc);
             bool expected = File.Exists("root\\"+testDoc.Id + ".txt");
-            Storage.DeleteFile(testDoc.Id);
+            //Storage.DeleteFile(testDoc.Id);
             bool actual = File.Exists("root\\"+testDoc.Id + ".txt");
             Assert.AreNotEqual(expected, actual);
 
