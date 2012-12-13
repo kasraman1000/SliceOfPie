@@ -13,15 +13,29 @@ namespace SliceOfPie
         Folder rootFolder;
         */
 
-        public static List<Project> GetAllProjects()
+        public static List<Project> GetAllProjectsForUser(User user)
         {
-            return Storage.GetAllProjects();
+            List <Project> allProjects = Storage.GetAllProjects();
+            List <Project> projectsToReturn = new List<Project>();
+            foreach (Project p in allProjects)
+            {
+                if (String.Compare(p.Owner.ToString(),user.ToString())==0)          
+                    projectsToReturn.Add(p);
+                else
+                {
+                    foreach (User u in p.SharedWith)
+                    {
+                        if (String.Compare(u.ToString(),user.ToString())==0)
+                            projectsToReturn.Add(p);
+                    }
+                }
+            }
+            return projectsToReturn; 
         }
 
         public static void SaveDocument(Project proj, Document doc, User user)
         {
             Document docInStorage = Storage.ReadFromFile(proj.Id, doc.Id);
-            Thread.Sleep(3000);
             if (docInStorage == null)
                 Storage.WriteToFile(proj, doc);
             else
@@ -45,11 +59,6 @@ namespace SliceOfPie
         {
             Document newDocument = new Document("Insxert tet here.", "Title", path, user);
             SaveDocument(proj, newDocument, user);
-        }
-
-        public static void ShareDocument(Document doc)
-        {
-            
         }
 
         public static void CreateProject(string title, User owner, List<User> sharedWith)
