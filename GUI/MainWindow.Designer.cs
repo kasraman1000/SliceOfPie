@@ -83,7 +83,7 @@
             this.createFolderButton.Location = new System.Drawing.Point(12, 352);
             this.createFolderButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.createFolderButton.Name = "createFolderButton";
-            this.createFolderButton.Size = new System.Drawing.Size(75, 30);
+            this.createFolderButton.Size = new System.Drawing.Size(98, 30);
             this.createFolderButton.TabIndex = 16;
             this.createFolderButton.Text = "New Folder";
             this.createFolderButton.UseVisualStyleBackColor = true;
@@ -92,10 +92,10 @@
             // moveButton
             // 
             this.moveButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.moveButton.Location = new System.Drawing.Point(92, 352);
+            this.moveButton.Location = new System.Drawing.Point(116, 352);
             this.moveButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.moveButton.Name = "moveButton";
-            this.moveButton.Size = new System.Drawing.Size(79, 30);
+            this.moveButton.Size = new System.Drawing.Size(55, 30);
             this.moveButton.TabIndex = 13;
             this.moveButton.Text = "Move";
             this.moveButton.UseVisualStyleBackColor = true;
