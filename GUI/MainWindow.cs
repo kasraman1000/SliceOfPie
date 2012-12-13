@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.Diagnostics;
 using SliceOfPie;
 
 
@@ -103,6 +104,7 @@ namespace GUI
                 TreeNode n = new TreeNode(fsc.Title);
                 n.Tag = fsc;
                 nodes.Add(n);
+                Debug.Print(n.FullPath);
             }
             else // else, if it's a folder
             {
@@ -225,6 +227,7 @@ namespace GUI
             // Initialize the treeView with the folders and docs
             treeView.Nodes.Clear();
             BuildDocumentTree(treeView.Nodes, selectedProject);
+            treeView.ExpandAll();
         }
 
     }
