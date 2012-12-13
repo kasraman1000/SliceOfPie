@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 
 namespace SliceOfPie
 {
@@ -11,10 +12,16 @@ namespace SliceOfPie
         User activeUser;
         Folder rootFolder;
         */
-          
+
+        public static List<Project> GetAllProjects()
+        {
+            return Storage.GetAllProjects();
+        }
+
         public static void SaveDocument(Project proj, Document doc, User user)
         {
             Document docInStorage = Storage.ReadFromFile(proj.Id, doc.Id);
+            Thread.Sleep(3000);
             if (docInStorage == null)
                 Storage.WriteToFile(proj, doc);
             else
@@ -36,7 +43,7 @@ namespace SliceOfPie
 
         public static void CreateDocument(User user, string path, Project proj)
         {
-            Document newDocument = new Document("Insert text here.", "Title", path, user);
+            Document newDocument = new Document("Insxert tet here.", "Title", path, user);
             SaveDocument(proj, newDocument, user);
         }
 

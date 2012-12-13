@@ -21,17 +21,12 @@ namespace GUI
         private DocumentStruct selectedDocument;
         private Project selectedProject;
         private bool isDocument;
-        
-        private Folder root;
 
         public MainWindow()
         {
             InitializeComponent();
 
             // initialise test data
-            activeUser = new User("karsten");
-
-            root = Storage.GetHierachy(selectedProject.Id);
 
 
             /*
@@ -73,6 +68,9 @@ namespace GUI
          */
         private void MainWindow_Load(object sender, EventArgs e)
         {
+            List<Project> projs = Controller.GetAllProjects();
+            selectedProject = projs.FirstOrDefault();
+
             // Ask for who the user is
             InputDialog inputDialog = new InputDialog("Hello and welcome! Who are you? (Input username)",
                 "",
@@ -83,7 +81,7 @@ namespace GUI
             userLabel.Text = "Logged in as: " + activeUser.ToString();
 
             // Initialize the treeView with the folders and docs
-            BuildDocumentTree(treeView.Nodes, root);
+            BuildDocumentTree(treeView.Nodes, selectedProject);
 
 
         }
@@ -156,8 +154,7 @@ namespace GUI
         {
             if (editWindow == null)
             {
-                editWindow = new EditWindow(Controller.OpenDocument(selectedProject.Id, selectedDocument.Id));
-                editWindow.Show();
+                OpenDocument();
             }
             else if (editWindow.Modified)
             {
@@ -167,10 +164,17 @@ namespace GUI
             else
             {
                 editWindow.Hide();
-                editWindow = new EditWindow(Controller.OpenDocument(selectedProject.Id, selectedDocument.Id));
-                editWindow.Show();
+                OpenDocument();
             }
 
+        }
+
+        private void OpenDocument()
+        {
+            editWindow = new EditWindow(selectedProject, 
+                Controller.OpenDocument(selectedProject.Id, selectedDocument.Id), 
+                activeUser);
+            editWindow.Show();
         }
 
         private void syncButton_Click(object sender, EventArgs e)

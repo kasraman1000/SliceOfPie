@@ -149,26 +149,25 @@ namespace SliceOfPie
             string fileName = pro.Id+"\\"+doc.Id + ".txt";
 
             // False means that it will overwrite an existing file with the same id.
-            TextWriter tw = new StreamWriter(fileName, false);
-            // Writes the first line in the document file which should be the title
-            tw.WriteLine(doc.Title);
+            using (TextWriter tw = new StreamWriter(fileName, false))
+            {
+                // Writes the first line in the document file which should be the title
+                tw.WriteLine(doc.Title);
 
-            // Writes the second line in the document which should be the path (for gui representation)
-            tw.WriteLine(doc.Path);
+                // Writes the second line in the document which should be the path (for gui representation)
+                tw.WriteLine(doc.Path);
 
-            // Writes the third line in the file which is the owner of the document
-            tw.WriteLine(doc.Owner.ToString());
-                                  
-            // Write the documents log
-            tw.WriteLine("");
-            tw.Write(doc.Log);
+                // Writes the third line in the file which is the owner of the document
+                tw.WriteLine(doc.Owner.ToString());
 
-            // Writes the users text into the document
-            tw.WriteLine("");
-            tw.Write(doc.Text);
+                // Write the documents log
+                tw.WriteLine("");
+                tw.Write(doc.Log);
 
-            // Closes the writer
-            tw.Close();
+                // Writes the users text into the document
+                tw.WriteLine("");
+                tw.Write(doc.Text);
+            }
         }
 
         // Saves a project to the file system if it doesnt already exist.
@@ -177,37 +176,38 @@ namespace SliceOfPie
         {
             if (!Directory.Exists(p.Id))
             {
-                Directory.CreateDirectory(p.Id);
-                TextWriter tw = new StreamWriter(p.Id + "\\MetaInfo.txt", false);
-                tw.WriteLine(p.Title);
-                tw.WriteLine(p.Owner.ToString());
-
-                List<User> userList = p.SharedWith;
-                User[] users = userList.ToArray();
-                string[] userNames = new string[users.Length];
-
-                int i = 0;
-                foreach (User u in users)
+                using (TextWriter tw = new StreamWriter(p.Id + "\\MetaInfo.txt", false))
                 {
-                    userNames[i] = u.ToString();
-                    i++;
-                }
-                StringBuilder sb = new StringBuilder();
-                int j = 1;
-                foreach (string s in userNames)
-                {
+                    Directory.CreateDirectory(p.Id);
+                    tw.WriteLine(p.Title);
+                    tw.WriteLine(p.Owner.ToString());
+
+                    List<User> userList = p.SharedWith;
+                    User[] users = userList.ToArray();
+                    string[] userNames = new string[users.Length];
+
+                    int i = 0;
+                    foreach (User u in users)
+                    {
+                        userNames[i] = u.ToString();
+                        i++;
+                    }
+                    StringBuilder sb = new StringBuilder();
+                    int j = 1;
+                    foreach (string s in userNames)
+                    {
                     if (!(j == userNames.Length))
-                    {
+                        {
                         sb.AppendFormat(s + ", ");
+                        }
+                        else
+                        {
+                            sb.AppendFormat(s);
+                        }
+                        j++;
                     }
-                    else
-                    {
-                        sb.AppendFormat(s);
-                    }
-                    j++;
+                    tw.WriteLine(sb.ToString());
                 }
-                tw.WriteLine(sb.ToString());
-                tw.Close();
             }
             else
             {
@@ -247,106 +247,105 @@ namespace SliceOfPie
 
 
 
-        public static Document ReadFromFile(string fid, string did)
+        public static Document ReadFromFile(string pid, string did)
         {
-            string fileName = fid+"\\"+ did + ".txt";
-           
+            string fileName = pid+"\\"+ did + ".txt";
+            Document finalDoc;
+
             try
             {
-
                 // Creates a new reader
-                TextReader tr = new StreamReader(fileName);
-
-                // Gets the title from the string and 
-                string title = tr.ReadLine();
-
-                // Gets the path from the string 
-                string path = tr.ReadLine();
-
-                // Gets the name of the owner from the string and makes a user
-                string ownerString = tr.ReadLine();
-                User owner = new User(ownerString);
-
-                // Create a StringBilder and append the rest of the file to it, it will contain both the log and the text of the document.
-                StringBuilder rest = new StringBuilder();
-                while (tr.Peek() != -1)
+                using (TextReader tr = new StreamReader(fileName))
                 {
-                    rest.AppendLine(tr.ReadLine());
-                }
-                string restString = rest.ToString();
+                    // Gets the title from the string and 
+                    string title = tr.ReadLine();
 
-                // Splitting on the string "---------------ENDOFLOG------------------", by this we assume the user will NEVER write this exact
-                // string in his document, if he does, our program will not work.
-                string[] restArray = restString.Split(new string[] { "---------------ENDOFLOG------------------" }, StringSplitOptions.None);
+                    // Gets the path from the string 
+                    string path = tr.ReadLine();
 
-                if (restArray.Length!=2)
-                    throw new Exception("The user wrote the string \"---------------ENDOFLOG------------------\", as part of his text");
+                    // Gets the name of the owner from the string and makes a user
+                    string ownerString = tr.ReadLine();
+                    User owner = new User(ownerString);
 
-                // Remove the Mac line feed character from the text string.
-                string textString = Regex.Replace(restArray[1], "\r", "");
-                // Remove normal line feed at start of text.
-                string textS = textString.Substring(1);
-                // Remove normal line feed at end of text.
-                string text = "";
-                if (textS.Length!=0)
-                    text = textS.Substring(0, textS.Length - 1);
-
-                // The list of entries the Document's Log will receive
-                List<Document.DocumentLog.Entry> entryList = new List<Document.DocumentLog.Entry>();
-                // Remove Mac line feed from Log.
-                string logWithoutMacLineFeed = Regex.Replace(restArray[0], "\r", "");
-                // Split the log into separate strings for each Entry.
-                string[] entryArray = logWithoutMacLineFeed.Split(new string[] { "Entry" }, StringSplitOptions.None);
-               
-                // This loop takes each string in entryArray ( excluding the first, which is just "Log:" ), and creates an Entry from it.
-                for (int index = 1; index < entryArray.Length; index++)
-                {
-                    // Create the Entrys log ( first line being the description, which will be removed before the Entry is created).
-                    List<string> log = new List<string>();
-                    string[] entry = entryArray[index].Split(new string[] { "\n" }, StringSplitOptions.None);
-                    for (int index2 = 1; index2 < entry.Length; index2++)
+                    // Create a StringBilder and append the rest of the file to it, it will contain both the log and the text of the document.
+                    StringBuilder rest = new StringBuilder();
+                    while (tr.Peek() != -1)
                     {
-                        if (!(String.Compare(entry[index2],"")==0))
-                            log.Add(entry[index2]);
+                        rest.AppendLine(tr.ReadLine());
+                    }
+                    string restString = rest.ToString();
+
+                    // Splitting on the string "---------------ENDOFLOG------------------", by this we assume the user will NEVER write this exact
+                    // string in his document, if he does, our program will not work.
+                    string[] restArray = restString.Split(new string[] { "---------------ENDOFLOG------------------" }, StringSplitOptions.None);
+
+                    if (restArray.Length != 2)
+                        throw new Exception("The user wrote the string \"---------------ENDOFLOG------------------\", as part of his text");
+
+                    // Remove the Mac line feed character from the text string.
+                    string textString = Regex.Replace(restArray[1], "\r", "");
+                    // Remove normal line feed at start of text.
+                    string textS = textString.Substring(1);
+                    // Remove normal line feed at end of text.
+                    string text = "";
+                    if (textS.Length != 0)
+                        text = textS.Substring(0, textS.Length - 1);
+
+                    // The list of entries the Document's Log will receive
+                    List<Document.DocumentLog.Entry> entryList = new List<Document.DocumentLog.Entry>();
+                    // Remove Mac line feed from Log.
+                    string logWithoutMacLineFeed = Regex.Replace(restArray[0], "\r", "");
+                    // Split the log into separate strings for each Entry.
+                    string[] entryArray = logWithoutMacLineFeed.Split(new string[] { "Entry" }, StringSplitOptions.None);
+
+                    // This loop takes each string in entryArray ( excluding the first, which is just "Log:" ), and creates an Entry from it.
+                    for (int index = 1; index < entryArray.Length; index++)
+                    {
+                        // Create the Entrys log ( first line being the description, which will be removed before the Entry is created).
+                        List<string> log = new List<string>();
+                        string[] entry = entryArray[index].Split(new string[] { "\n" }, StringSplitOptions.None);
+                        for (int index2 = 1; index2 < entry.Length; index2++)
+                        {
+                            if (!(String.Compare(entry[index2], "") == 0))
+                                log.Add(entry[index2]);
                         }
-                    // Find the first word in the description, which is the Users name.
-                    string pattern = @"^\S*";
-                    Match m = Regex.Match(log[0],pattern);
-                    // Create the User object.
-                    User user = new User(m.ToString());
-                    // Get all remaining characters untill a number is found ( this being the description ).
-                    string stringWithoutOwner = log[0].Substring(m.Index + m.Length);
-                    pattern = @"\D*";
-                    Match m2 = Regex.Match(stringWithoutOwner, pattern);
-                    // Trim for whitespaces at start and end of string.
-                    string desc = m2.ToString().Trim(); 
-                    // Remove last 7 characters in string ( this part of the string is auto generated by the log, and not actually
-                    // part of the description.
-                    string description = desc.Substring(0,desc.Length-7);
-                    // Finally get the last part of the string, which is the DateTime of the Entry.
-                    string dateString = stringWithoutOwner.Substring(m2.Index + m2.Length);
-                    // Remove line feed from date string.
-                    string dateStringWithoutLineFeed = Regex.Replace(dateString, "\n", "");
-                    // Convert date string into DateTime object.
-                    DateTime time = Convert.ToDateTime(dateString);
-                    // As mentioned above, first entry in the log was the description, and that should not be part
-                    // of the log, so it is removed.
-                    log.RemoveAt(0);
-                    // Created the Entry object, and add it to the entryList.
-                    entryList.Add(new Document.DocumentLog.Entry(user, description, log, time));
+                        // Find the first word in the description, which is the Users name.
+                        string pattern = @"^\S*";
+                        Match m = Regex.Match(log[0], pattern);
+                        // Create the User object.
+                        User user = new User(m.ToString());
+                        // Get all remaining characters untill a number is found ( this being the description ).
+                        string stringWithoutOwner = log[0].Substring(m.Index + m.Length);
+                        pattern = @"\D*";
+                        Match m2 = Regex.Match(stringWithoutOwner, pattern);
+                        // Trim for whitespaces at start and end of string.
+                        string desc = m2.ToString().Trim();
+                        // Remove last 7 characters in string ( this part of the string is auto generated by the log, and not actually
+                        // part of the description.
+                        string description = desc.Substring(0, desc.Length - 7);
+                        // Finally get the last part of the string, which is the DateTime of the Entry.
+                        string dateString = stringWithoutOwner.Substring(m2.Index + m2.Length);
+                        // Remove line feed from date string.
+                        string dateStringWithoutLineFeed = Regex.Replace(dateString, "\n", "");
+                        // Convert date string into DateTime object.
+                        DateTime time = Convert.ToDateTime(dateString);
+                        // As mentioned above, first entry in the log was the description, and that should not be part
+                        // of the log, so it is removed.
+                        log.RemoveAt(0);
+                        // Created the Entry object, and add it to the entryList.
+                        entryList.Add(new Document.DocumentLog.Entry(user, description, log, time));
 
+                    }
+
+
+
+
+                    // Finally makes the document to return
+                    finalDoc = Document.CreateDocumentFromFile(did, text, title, owner, path, new Document.DocumentLog(entryList));
                 }
-                
-
-                
-
-                // Finally makes the document to return
-                Document finalDoc = Document.CreateDocumentFromFile(did, text, title, owner, path, new Document.DocumentLog(entryList));
-                // Closes the reader
-                tr.Close();
                 return finalDoc;
             }
-            catch(FileNotFoundException)
+            catch (FileNotFoundException)
             {
                 Console.WriteLine("No file exists by that name");
                 return null;
@@ -386,28 +385,27 @@ namespace SliceOfPie
 
                 foreach (string s in filesInRoot)
                 {
-                    
-                    TextReader tr = new StreamReader(s);
 
-                    string title = tr.ReadLine();
-                    string path = tr.ReadLine();
-                    User user = new User(tr.ReadLine());
-               
-                    string[] filePath = path.Split('/');
-                    
-                    foreach (string st in filePath)
+                    using (TextReader tr = new StreamReader(s))
                     {
-                        toBeFolders.Add(st);
-                        
+
+                        string title = tr.ReadLine();
+                        string path = tr.ReadLine();
+                        User user = new User(tr.ReadLine());
+
+                        string[] filePath = path.Split('/');
+
+                        foreach (string st in filePath)
+                        {
+                            toBeFolders.Add(st);
+
+                        }
+
+                        string id = Path.GetFileNameWithoutExtension(s);
+
+                        structs.Add(new DocumentStruct(title, user, id, path));
                     }
-                   
-                    tr.Close();
 
-                    string id = Path.GetFileNameWithoutExtension(s);
-
-                    structs.Add(new DocumentStruct(title, user, id, path));  
-                    
-        
                 }
                 distinctFolderNames = toBeFolders.Distinct();
                 foreach (string folderName in distinctFolderNames)
@@ -488,7 +486,7 @@ namespace SliceOfPie
                     sha.Add(new User(str.Trim()));
                 }
 
-                Project finalProject = new Project(ti, us, sha);
+                Project finalProject = new Project(ti, us, sha, Path.GetFileNameWithoutExtension(pid));
                 finalProject.AddChild(finalFolder);
                 return finalProject;
                 }
@@ -504,7 +502,7 @@ namespace SliceOfPie
         public static List<Project> GetAllProjects()
         {
             string creldesPath = "\\Users\\Crelde\\git\\SliceOfPie\\SliceOfPie\\SliceOfPie\\bin\\Debug";
-            string kasraPath = "??";
+            string kasraPath = @"\Users\DE\git\SliceOfPie\GUI\bin\Debug";
             string kewinsPath = @"D:\Git\SliceOfPie\SliceOfPie\bin\Debug";
             List<Project> projs = new List<Project>();
 
