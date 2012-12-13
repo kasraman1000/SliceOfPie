@@ -505,9 +505,10 @@ namespace SliceOfPie
         {
             string creldesPath = "\\Users\\Crelde\\git\\SliceOfPie\\SliceOfPie\\SliceOfPie\\bin\\Debug";
             string kasraPath = "??";
+            string kewinsPath = @"D:\Git\SliceOfPie\SliceOfPie\bin\Debug";
             List<Project> projs = new List<Project>();
 
-            IEnumerable<string> projects = Directory.EnumerateDirectories(creldesPath);
+            IEnumerable<string> projects = Directory.EnumerateDirectories(kewinsPath);
 
             foreach (String p in projects)
             {
