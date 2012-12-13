@@ -514,31 +514,29 @@ namespace SliceOfPie
                 else
                 {
                     Folder finalFolder = folders.ElementAt(0);
-                
 
-                
-                TextReader mr = new StreamReader(folderPath+"\\MetaInfo.txt");
-                string ti = mr.ReadLine();
-                User us = new User(mr.ReadLine());
-                List<User> sha = new List<User>();
-                string[] userNames = (mr.ReadLine().Split(','));
-                foreach (string str in userNames)
-                {
-                    sha.Add(new User(str.Trim()));
+
+
+                    TextReader mr = new StreamReader(folderPath + "\\MetaInfo.txt");
+                    string ti = mr.ReadLine();
+                    User us = new User(mr.ReadLine());
+                    List<User> sha = new List<User>();
+                    string[] userNames = (mr.ReadLine().Split(','));
+                    foreach (string str in userNames)
+                    {
+                        sha.Add(new User(str.Trim()));
+                    }
+
+                    Project finalProject = new Project(ti, us, sha, Path.GetFileNameWithoutExtension(folderPath));
+                    finalProject.AddChild(finalFolder);
+                    mr.Close();
+                    mr.Dispose();
+                    return finalProject;
                 }
-
-                Project finalProject = new Project(ti, us, sha, Path.GetFileNameWithoutExtension(folderPath));
-                finalProject.AddChild(finalFolder);
-                mr.Close();
-                mr.Dispose();
-                return finalProject;
-                }
-
             }
 
             Console.WriteLine("No Project exists by that id");
             return null;
-
         }
 
         public static List<Project> GetAllProjects(bool server = false)
@@ -557,15 +555,18 @@ namespace SliceOfPie
             else
                 path = correctPath;
 
-
             IEnumerable<string> projects = Directory.EnumerateDirectories(path);
 
             foreach (String p in projects)
             {
                 if (server)
-                    projs.Add(GetHierachy(p,true));
+                    projs.Add(GetHierachy(p, true));
                 else
-                    projs.Add(GetHierachy(p));
+                {
+                    if (!(String.Compare(p, "Server")==0))
+                        projs.Add(GetHierachy(p));
+                }
+
             }
 
             return projs;
@@ -591,12 +592,12 @@ namespace SliceOfPie
             DeleteFile(pid, did, true);
         }
 
-        private static Project ServerGetHierachy(string pid)
+        public static Project ServerGetHierachy(string pid)
         {
             return GetHierachy(pid, true);
         }
 
-        private static List<Project> ServerGetAllProjects()
+        public static List<Project> ServerGetAllProjects()
         {
             return GetAllProjects(true);
         }
