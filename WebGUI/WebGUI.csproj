@@ -58,6 +58,7 @@
       <DependentUpon>Web.config</DependentUpon>
     </Content>
     <Content Include="WebForm1.aspx" />
+    <Content Include="WelcomeForm.aspx" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -67,6 +68,13 @@
     </Compile>
     <Compile Include="WebForm1.aspx.designer.cs">
       <DependentUpon>WebForm1.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="WelcomeForm.aspx.cs">
+      <DependentUpon>WelcomeForm.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WelcomeForm.aspx.designer.cs">
+      <DependentUpon>WelcomeForm.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

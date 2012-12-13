@@ -10,11 +10,17 @@
     <form id="form1" runat="server">
     <p>
         <asp:TextBox ID="TextBox1" runat="server" Font-Bold="True" 
-            ontextchanged="TextBox1_TextChanged" style="margin-left: 501px" Width="198px">Hello and welcome!!</asp:TextBox>
+            ontextchanged="TextBox1_TextChanged" 
+            style="margin-left: 279px; margin-right: 472px; margin-top: 26px;" 
+            Width="627px" BorderStyle="None" Font-Names="Century Gothic" 
+            Font-Size="XX-Large" Font-Strikeout="False" Font-Underline="True" Height="45px">Welcome to SliceOfPie!</asp:TextBox>
     </p>
     <p>
-        &nbsp;</p>
-    <p>
+        <asp:TextBox ID="TextBox3" runat="server" Font-Bold="False" 
+            ontextchanged="TextBox1_TextChanged" 
+            style="margin-left: 171px; margin-right: 472px; margin-top: 26px;" 
+            Width="627px" BorderStyle="None" Font-Names="Georgia" Font-Size="Medium" 
+            Font-Strikeout="False" Font-Underline="False" Height="35px">These are the projects that you have access to at the moment:</asp:TextBox>
         <asp:TreeView ID="TreeView1" runat="server" Height="233px" 
             ImageSet="XPFileExplorer" NodeIndent="15" 
             onselectednodechanged="TreeView1_SelectedNodeChanged1" 
@@ -28,12 +34,6 @@
         </asp:TreeView>
         <asp:SiteMapDataSource ID="SiteMapDataSource1" runat="server" />
     </p>
-    <p>
-        &nbsp;</p>
-    <p>
-        &nbsp;</p>
-    <p>
-        &nbsp;</p>
     <p>
         &nbsp;</p>
     <p>

@@ -29,6 +29,8 @@ namespace WebGUI
             }
         }
 
+
+
         protected void TextBox1_TextChanged(object sender, EventArgs e)
         {
 
@@ -51,8 +53,7 @@ namespace WebGUI
             //TreeNode childNode1 = new TreeNode("Child1");
             //TreeNode parentNode2 = new TreeNode("Parent2");
             //TreeNode childNode2 = new TreeNode("Child2");
-            projects = SliceOfPie.Controller.GetAllProjectsForUser(activeUser);
-            Project proj = SliceOfPie.Storage.GetHierachy("p663555625Crelde");
+            projects = SliceOfPie. Controller.GetAllProjectsForUser(activeUser);
             //TreeView1.Nodes.Add(parentNode1);
             TreeNode parentNode1;
 
