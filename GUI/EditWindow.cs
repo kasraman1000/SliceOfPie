@@ -14,15 +14,18 @@ namespace GUI
     {
         private Document currentDoc;
         private Project currentProj;
+        private User currentUser;
         private bool modified; // Does this document have unsaved changes?
         public bool Modified
         {
             get { return modified; }
         }
 
-        public EditWindow(Document doc)
+        public EditWindow(Project proj, Document doc, User user)
         {
+            currentProj = proj;
             currentDoc = doc;
+            currentUser = user;
             InitializeComponent();
         }
 
@@ -53,6 +56,9 @@ namespace GUI
             modified = true;
         }
 
+        /**
+         * Make sure the user does not leave behind any unsaved changes
+         */
         private void EditWindow_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (modified)
@@ -77,6 +83,11 @@ namespace GUI
 
             }
 
+        }
+
+        private void viewLogButton_Click(object sender, EventArgs e)
+        {
+            new LogWindow(currentDoc).Show();
         }
     }
 }

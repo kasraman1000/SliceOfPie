@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 
 namespace SliceOfPie
 {
@@ -11,7 +12,27 @@ namespace SliceOfPie
         User activeUser;
         Folder rootFolder;
         */
-          
+
+        public static List<Project> GetAllProjectsForUser(User user)
+        {
+            List <Project> allProjects = Storage.GetAllProjects();
+            List <Project> projectsToReturn = new List<Project>();
+            foreach (Project p in allProjects)
+            {
+                if (String.Compare(p.Owner.ToString().ToLower(),user.ToString().ToLower())==0)          
+                    projectsToReturn.Add(p);
+                else
+                {
+                    foreach (User u in p.SharedWith)    
+                    {
+                        if (String.Compare(u.ToString().ToLower(),user.ToString().ToLower())==0)
+                            projectsToReturn.Add(p);
+                    }
+                }
+            }
+            return projectsToReturn; 
+        }
+
         public static void SaveDocument(Project proj, Document doc, User user)
         {
             Document docInStorage = Storage.ReadFromFile(proj.Id, doc.Id);
@@ -36,13 +57,19 @@ namespace SliceOfPie
 
         public static void CreateDocument(User user, string path, Project proj)
         {
-            Document newDocument = new Document("Insert text here.", "Title", path, user);
+            Document newDocument = new Document("Insxert tet here.", "Title", path, user);
             SaveDocument(proj, newDocument, user);
         }
 
-        public static void ShareDocument(Document doc)
+        public static void CreateProject(string title, User owner, List<User> sharedWith)
         {
-            
+            UpdateProject(title, owner, sharedWith);
+        }
+
+        public static void UpdateProject(string title, User owner, List<User> sharedWith)
+        {
+            Project project = new Project(title, owner, sharedWith);
+            Storage.SaveProjectToFile(project);
         }
 
         public static void SyncWithServer()

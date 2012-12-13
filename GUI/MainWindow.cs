@@ -16,22 +16,19 @@ namespace GUI
         private User activeUser;
 
         private EditWindow editWindow;
+
+        private List<Project> projects;
         
         private Folder selectedFolder;
         private DocumentStruct selectedDocument;
         private Project selectedProject;
         private bool isDocument;
-        
-        private Folder root;
 
         public MainWindow()
         {
             InitializeComponent();
 
             // initialise test data
-            activeUser = new User("karsten");
-
-            root = Storage.GetHierachy(selectedProject.Id);
 
 
             /*
@@ -82,10 +79,15 @@ namespace GUI
 
             userLabel.Text = "Logged in as: " + activeUser.ToString();
 
-            // Initialize the treeView with the folders and docs
-            BuildDocumentTree(treeView.Nodes, root);
+            projects = Controller.GetAllProjectsForUser(activeUser);
 
+            // Fill up with projects
+            foreach (Project p in projects)
+            {
+                projectBox.Items.Add(p);
+            }
 
+            projectBox.SelectedItem = projects.FirstOrDefault(); 
         }
 
         /**
@@ -156,8 +158,7 @@ namespace GUI
         {
             if (editWindow == null)
             {
-                editWindow = new EditWindow(Controller.OpenDocument(selectedProject.Id, selectedDocument.Id));
-                editWindow.Show();
+                OpenDocument();
             }
             else if (editWindow.Modified)
             {
@@ -167,10 +168,17 @@ namespace GUI
             else
             {
                 editWindow.Hide();
-                editWindow = new EditWindow(Controller.OpenDocument(selectedProject.Id, selectedDocument.Id));
-                editWindow.Show();
+                OpenDocument();
             }
 
+        }
+
+        private void OpenDocument()
+        {
+            editWindow = new EditWindow(selectedProject, 
+                Controller.OpenDocument(selectedProject.Id, selectedDocument.Id), 
+                activeUser);
+            editWindow.Show();
         }
 
         private void syncButton_Click(object sender, EventArgs e)
@@ -203,6 +211,20 @@ namespace GUI
         private void createFolderButton_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void renameButton_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void projectBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            selectedProject = (Project) projectBox.SelectedItem;
+
+            // Initialize the treeView with the folders and docs
+            treeView.Nodes.Clear();
+            BuildDocumentTree(treeView.Nodes, selectedProject);
         }
 
     }

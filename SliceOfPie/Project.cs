@@ -50,5 +50,10 @@ namespace SliceOfPie
         {
             this.sharedWith.Remove(user);
         }
+
+        public override string ToString()
+        {
+            return Title;
+        }
     }
 }
