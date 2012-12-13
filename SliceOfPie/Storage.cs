@@ -44,7 +44,7 @@ namespace SliceOfPie
 
                         Document testDoc = new Document(docText, "Fuckfacess", new User("Karsten"));
                         testDoc.Path = "root\\cuteanimalsxoxo";
-             * */
+             * 
                         List<User> sh = new List<User>();
                         sh.Add(new User("ForeverAloneGuy"));
                         sh.Add(new User("Captain Haddoc"));
@@ -56,9 +56,9 @@ namespace SliceOfPie
                         WriteToFile(proj, doc5);
                         WriteToFile(proj, doc2);
                         GetHierachy(proj.Id);
-
-
-                       //testDoc.ShareWith(new User("ForeverAloneGuy"));
+            */
+                        GetAllProjects();
+            //testDoc.ShareWith(new User("ForeverAloneGuy"));
                        // testDoc.ShareWith(new User("Captain Haddoc"));
                        // testDoc.ShareWith(new User("Motor-Bjarne"));
                         
@@ -221,7 +221,7 @@ namespace SliceOfPie
             {
 
                 // Creates a new reader
-                TextReader tr = new StreamReader("root\\"+fileName);
+                TextReader tr = new StreamReader(fileName);
 
                 // Gets the title from the string and 
                 string title = tr.ReadLine();
@@ -323,15 +323,15 @@ namespace SliceOfPie
         /*
          * Deletes the file given the file name 
          */
-        public static void DeleteFile(string id)
+        public static void DeleteFile(string pid, string did)
         {
             // Decides which file the document is associated with
-            string fileName = id + ".txt";
+            string fileName = pid+"\\"+did + ".txt";
 
             // Checks if a filename that matches the string exists and deletes it
-            if(File.Exists("root\\" + fileName))
+            if(File.Exists(fileName))
             {
-                File.Delete("root\\" + fileName);
+                File.Delete(fileName);
             }
             else
             {
@@ -461,9 +461,26 @@ namespace SliceOfPie
 
             }
 
-            Console.WriteLine("No file exists by that name");
+            Console.WriteLine("No Project exists by that id");
             return null;
 
+        }
+
+
+        public static List<Project> GetAllProjects()
+        {
+            string creldesPath = "\\Users\\Crelde\\git\\SliceOfPie\\SliceOfPie\\SliceOfPie\\bin\\Debug";
+            string kasraPath = "??";
+            List<Project> projs = new List<Project>();
+
+            IEnumerable<string> projects = Directory.EnumerateDirectories(creldesPath);
+
+            foreach (String p in projects)
+            {
+                projs.Add(GetHierachy(p));
+            }
+
+            return projs;
         }
     }
 }

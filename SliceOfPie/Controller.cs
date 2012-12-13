@@ -12,14 +12,21 @@ namespace SliceOfPie
         Folder rootFolder;
         */
           
-        public static void SaveDocument(Project proj, Document doc)
+        public static void SaveDocument(Project proj, Document doc, User user)
         {
-            Storage.WriteToFile(proj, doc);
+            Document docInStorage = Storage.ReadFromFile(proj.Id, doc.Id);
+            if (docInStorage == null)
+                Storage.WriteToFile(proj, doc);
+            else
+            {
+                docInStorage.MergeWith(doc, user);
+                Storage.WriteToFile(proj, docInStorage);
+            }
         }
 
-        public static void DeleteDocument(string id)
+        public static void DeleteDocument(string pid, string id)
         {
-            Storage.DeleteFile(id);
+            Storage.DeleteFile(pid,id);
         }
 
         public static Document OpenDocument(string pid, string did)
@@ -27,12 +34,13 @@ namespace SliceOfPie
             return Storage.ReadFromFile(pid,did);    
         }
 
-        public static void CreateDocument(Document doc)
+        public static void CreateDocument(User user, string path, Project proj)
         {
-
+            Document newDocument = new Document("Insert text here.", "Title", path, user);
+            SaveDocument(proj, newDocument, user);
         }
 
-        public static void ShareDocument(Document doc, User user)
+        public static void ShareDocument(Document doc)
         {
             
         }
