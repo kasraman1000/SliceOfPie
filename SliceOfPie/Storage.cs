@@ -461,7 +461,7 @@ namespace SliceOfPie
 
             }
 
-            Console.WriteLine("No file exists by that name");
+            Console.WriteLine("No Project exists by that id");
             return null;
 
         }
