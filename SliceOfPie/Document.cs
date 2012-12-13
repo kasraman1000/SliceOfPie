@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Runtime.Serialization;
 
 namespace SliceOfPie
 {
@@ -11,23 +12,30 @@ namespace SliceOfPie
     // The class itself contains inforamation relevant to the document, and functions
     // to change data in the object, as well as functions to merge the document newer
     // versions of the same document.
+    [DataContract]
     public class Document
     {
+        [DataMember]
         private string id;
         public string Id { get { return id; } }
 
+        [DataMember]
         private string path;
         public string Path { get { return path; } set { path = value; } }
 
+        [DataMember]
         private string text;
         public string Text { get { return text; } set { text = value; } }
 
+        [DataMember]
         private User owner;
         public User Owner { get { return owner; } set { owner = value; } }
-    
+
+        [DataMember]
         private string title;
         public string Title { get { return title; } set { title = value; } }
 
+        [DataMember]
         private Document.DocumentLog log;
         public Document.DocumentLog Log { get { return log; } }
 
@@ -70,8 +78,6 @@ namespace SliceOfPie
             return doc;
         }
 
-        
-        
         private void CreateId()
         {           
             TimeSpan t = DateTime.UtcNow - new DateTime(1991, 12, 2);
@@ -82,8 +88,7 @@ namespace SliceOfPie
         // This functions takes a newer version of this document, and merges it with this one
         // acording to "Simple Merge Policy" given in slice-of-pie.pdf.
         // MergeWith returns a bool as well, it returns false if the ID of the updated
-        // document is not the same as this documents ID, otherwise it returns true.
-        
+        // document is not the same as this documents ID, otherwise it returns true
         public bool MergeWith(Document doc, User user)
         {
             if (this.id != doc.id)
@@ -253,6 +258,7 @@ namespace SliceOfPie
         
         // Every Document has its own DocumentLog, which holds logs all information of when 
         // there has been changes to the document.
+        [DataContract]
         public class DocumentLog
         {
             public List<Entry> entries;
@@ -298,20 +304,27 @@ namespace SliceOfPie
                 return temp.ToString();
             }
 
+            [DataContract]
             public class Entry
             {
+                [DataMember]
                 private User user;
                 public User User { get { return user; } }
-                
+
+                [DataMember]
                 private DateTime time;
                 public DateTime Time { get { return time; }}
 
+                [DataMember]
                 private string description;
                 public string Description { get { return description; }}
 
+                [DataMember]
                 private List<string> changeLog;
                 public List<string> ChangeLog { get { return changeLog; } }
 
+                // Constructor that creates an Entry with the parameters specified, as well 
+                // as defining the DateTime to be the second the entry object was created.
                 public Entry(User u, string desc, List<string> log)
                 {
                     time = DateTime.Now;
@@ -320,6 +333,7 @@ namespace SliceOfPie
                     changeLog = log;
                 }
 
+                // Constructor that allows specifying when the Entry is from.
                 public Entry(User u, string desc, List<string> log, DateTime time)
                 {
                     user = u;
@@ -333,6 +347,7 @@ namespace SliceOfPie
                     return (user + " " + description + " on the " + time+"\n");
                 }
 
+                // The ToStringWithLog is usedwhen writing the Entry to the file system.
                 public string ToStringWithLog()
                 {
                     StringBuilder temp = new StringBuilder();
@@ -346,7 +361,6 @@ namespace SliceOfPie
                         else
                             temp.AppendFormat(entry+"\n");
                     }
-
                     return temp.ToString();
                 }
             }
