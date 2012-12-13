@@ -114,7 +114,7 @@
             this.Controls.Add(this.textField);
             this.Controls.Add(this.titleField);
             this.Name = "EditWindow";
-            this.Text = "3";
+            this.Text = "Edit document";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.EditWindow_FormClosing);
             this.Load += new System.EventHandler(this.EditWindow_Load);
             this.ResumeLayout(false);
