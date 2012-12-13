@@ -20,8 +20,9 @@ namespace GUI
             get { return modified; }
         }
 
-        public EditWindow(Document doc)
+        public EditWindow(Project proj, Document doc)
         {
+            currentProj = proj;
             currentDoc = doc;
             InitializeComponent();
         }
@@ -53,6 +54,9 @@ namespace GUI
             modified = true;
         }
 
+        /**
+         * Make sure the user does not leave behind any unsaved changes
+         */
         private void EditWindow_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (modified)
@@ -77,6 +81,11 @@ namespace GUI
 
             }
 
+        }
+
+        private void viewLogButton_Click(object sender, EventArgs e)
+        {
+            new LogWindow(currentDoc).Show();
         }
     }
 }

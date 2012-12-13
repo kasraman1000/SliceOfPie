@@ -33,6 +33,7 @@
             this.saveButton = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.viewLogButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // titleField
@@ -67,7 +68,7 @@
             this.saveButton.Name = "saveButton";
             this.saveButton.Size = new System.Drawing.Size(115, 33);
             this.saveButton.TabIndex = 3;
-            this.saveButton.Text = "Save Changes";
+            this.saveButton.Text = "Save changes";
             this.saveButton.UseVisualStyleBackColor = true;
             this.saveButton.Click += new System.EventHandler(this.saveButton_Click);
             // 
@@ -89,12 +90,24 @@
             this.label2.TabIndex = 5;
             this.label2.Text = "Document Contents";
             // 
+            // viewLogButton
+            // 
+            this.viewLogButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.viewLogButton.Location = new System.Drawing.Point(15, 331);
+            this.viewLogButton.Name = "viewLogButton";
+            this.viewLogButton.Size = new System.Drawing.Size(160, 33);
+            this.viewLogButton.TabIndex = 6;
+            this.viewLogButton.Text = "View document history";
+            this.viewLogButton.UseVisualStyleBackColor = true;
+            this.viewLogButton.Click += new System.EventHandler(this.viewLogButton_Click);
+            // 
             // EditWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.ClientSize = new System.Drawing.Size(497, 376);
+            this.Controls.Add(this.viewLogButton);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.saveButton);
@@ -116,6 +129,7 @@
         private System.Windows.Forms.Button saveButton;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Button viewLogButton;
 
     }
 }

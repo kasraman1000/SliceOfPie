@@ -157,8 +157,7 @@ namespace GUI
         {
             if (editWindow == null)
             {
-                editWindow = new EditWindow(Controller.OpenDocument(selectedProject.Id, selectedDocument.Id));
-                editWindow.Show();
+                OpenDocument();
             }
             else if (editWindow.Modified)
             {
@@ -168,10 +167,15 @@ namespace GUI
             else
             {
                 editWindow.Hide();
-                editWindow = new EditWindow(Controller.OpenDocument(selectedProject.Id, selectedDocument.Id));
-                editWindow.Show();
+                OpenDocument();
             }
 
+        }
+
+        private void OpenDocument()
+        {
+            editWindow = new EditWindow(selectedProject, Controller.OpenDocument(selectedProject.Id, selectedDocument.Id));
+            editWindow.Show();
         }
 
         private void syncButton_Click(object sender, EventArgs e)
