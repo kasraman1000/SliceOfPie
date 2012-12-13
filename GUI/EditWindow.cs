@@ -14,16 +14,18 @@ namespace GUI
     {
         private Document currentDoc;
         private Project currentProj;
+        private User currentUser;
         private bool modified; // Does this document have unsaved changes?
         public bool Modified
         {
             get { return modified; }
         }
 
-        public EditWindow(Project proj, Document doc)
+        public EditWindow(Project proj, Document doc, User user)
         {
             currentProj = proj;
             currentDoc = doc;
+            currentUser = user;
             InitializeComponent();
         }
 
@@ -39,7 +41,7 @@ namespace GUI
             currentDoc.Title = titleField.Text;
             currentDoc.Text = textField.Text;
 
-            Controller.SaveDocument(currentProj, currentDoc);
+            Controller.SaveDocument(currentProj, currentDoc, currentUser);
 
             modified = false;
         }

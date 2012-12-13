@@ -37,23 +37,23 @@
             this.deleteButton = new System.Windows.Forms.Button();
             this.userLabel = new System.Windows.Forms.Label();
             this.syncButton = new System.Windows.Forms.Button();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // treeView
             // 
-            this.treeView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
+            this.treeView.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.treeView.Location = new System.Drawing.Point(12, 12);
+            this.treeView.Location = new System.Drawing.Point(12, 55);
             this.treeView.Name = "treeView";
-            this.treeView.Size = new System.Drawing.Size(318, 300);
+            this.treeView.Size = new System.Drawing.Size(318, 324);
             this.treeView.TabIndex = 0;
             this.treeView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeView_AfterSelect);
             // 
             // createDocumentButton
             // 
             this.createDocumentButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.createDocumentButton.Location = new System.Drawing.Point(12, 318);
+            this.createDocumentButton.Location = new System.Drawing.Point(12, 385);
             this.createDocumentButton.Name = "createDocumentButton";
             this.createDocumentButton.Size = new System.Drawing.Size(159, 30);
             this.createDocumentButton.TabIndex = 11;
@@ -64,7 +64,7 @@
             // openButton
             // 
             this.openButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.openButton.Location = new System.Drawing.Point(177, 318);
+            this.openButton.Location = new System.Drawing.Point(177, 385);
             this.openButton.Name = "openButton";
             this.openButton.Size = new System.Drawing.Size(153, 30);
             this.openButton.TabIndex = 12;
@@ -75,7 +75,7 @@
             // createFolderButton
             // 
             this.createFolderButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.createFolderButton.Location = new System.Drawing.Point(12, 354);
+            this.createFolderButton.Location = new System.Drawing.Point(12, 421);
             this.createFolderButton.Name = "createFolderButton";
             this.createFolderButton.Size = new System.Drawing.Size(90, 30);
             this.createFolderButton.TabIndex = 16;
@@ -86,7 +86,7 @@
             // moveButton
             // 
             this.moveButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.moveButton.Location = new System.Drawing.Point(108, 354);
+            this.moveButton.Location = new System.Drawing.Point(108, 421);
             this.moveButton.Name = "moveButton";
             this.moveButton.Size = new System.Drawing.Size(72, 30);
             this.moveButton.TabIndex = 13;
@@ -96,7 +96,7 @@
             // renameButton
             // 
             this.renameButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.renameButton.Location = new System.Drawing.Point(186, 354);
+            this.renameButton.Location = new System.Drawing.Point(186, 421);
             this.renameButton.Name = "renameButton";
             this.renameButton.Size = new System.Drawing.Size(72, 30);
             this.renameButton.TabIndex = 15;
@@ -106,7 +106,7 @@
             // deleteButton
             // 
             this.deleteButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.deleteButton.Location = new System.Drawing.Point(264, 354);
+            this.deleteButton.Location = new System.Drawing.Point(264, 421);
             this.deleteButton.Name = "deleteButton";
             this.deleteButton.Size = new System.Drawing.Size(66, 30);
             this.deleteButton.TabIndex = 14;
@@ -117,7 +117,7 @@
             // 
             this.userLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.userLabel.AutoSize = true;
-            this.userLabel.Location = new System.Drawing.Point(12, 395);
+            this.userLabel.Location = new System.Drawing.Point(12, 462);
             this.userLabel.Name = "userLabel";
             this.userLabel.Size = new System.Drawing.Size(98, 17);
             this.userLabel.TabIndex = 17;
@@ -126,7 +126,7 @@
             // syncButton
             // 
             this.syncButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.syncButton.Location = new System.Drawing.Point(12, 415);
+            this.syncButton.Location = new System.Drawing.Point(12, 482);
             this.syncButton.Name = "syncButton";
             this.syncButton.Size = new System.Drawing.Size(168, 30);
             this.syncButton.TabIndex = 18;
@@ -134,11 +134,20 @@
             this.syncButton.UseVisualStyleBackColor = true;
             this.syncButton.Click += new System.EventHandler(this.syncButton_Click);
             // 
+            // comboBox1
+            // 
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Location = new System.Drawing.Point(186, 25);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(144, 24);
+            this.comboBox1.TabIndex = 19;
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(342, 457);
+            this.ClientSize = new System.Drawing.Size(342, 524);
+            this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.syncButton);
             this.Controls.Add(this.userLabel);
             this.Controls.Add(this.createDocumentButton);
@@ -171,6 +180,7 @@
         private System.Windows.Forms.Button deleteButton;
         private System.Windows.Forms.Label userLabel;
         private System.Windows.Forms.Button syncButton;
+        private System.Windows.Forms.ComboBox comboBox1;
     }
 }
 

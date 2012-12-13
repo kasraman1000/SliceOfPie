@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.Text.RegularExpressions;
 using SliceOfPie;
 
 namespace GUI
@@ -32,8 +33,7 @@ namespace GUI
 
             foreach(Document.DocumentLog.Entry entry in currentDocument.Log.entries)
             {
-                // ListViewItem item = new ListViewItem(entry.ToString());
-                listView.Items.Insert(i, entry.ToString()).Tag = entry;
+                listView.Items.Insert(i++, entry.ToString()).Tag = entry;
             }
             listView.Items[i].Selected = true;
         }
@@ -43,8 +43,15 @@ namespace GUI
          */
         private void listView_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Document.DocumentLog.Entry entry = (Document.DocumentLog.Entry) listView.SelectedItems[0].Tag;
-            textBox.Text = entry.ToStringWithLog();
+            Document.DocumentLog.Entry entry = (Document.DocumentLog.Entry)listView.SelectedItems[0].Tag;
+            textBox.Text = Regex.Replace(entry.ToStringWithLog(), "\n", Environment.NewLine);
+
+
+        }
+
+        private void textBox_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
