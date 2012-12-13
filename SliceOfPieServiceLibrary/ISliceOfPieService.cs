@@ -19,5 +19,16 @@ namespace SliceOfPieServiceLibrary
     {
         [OperationContract]
         List<Document> SyncAll(List<Document> docs);
+        [OperationContract]
+        void DeleteDocument(string projectId, string documentId);
+        List<Project> GetAllProjectsOnServer();
+        [OperationContract]
+        Project GetHierachy(string projectId);
+        [OperationContract]
+        Document OpenDocumentOnServer(string projectId, string documentId);
+        [OperationContract]
+        void SaveProjectOnServer(Project p);
+        [OperationContract]
+        void SaveDocumentOnServer(Project p, Document d);
     }
 }

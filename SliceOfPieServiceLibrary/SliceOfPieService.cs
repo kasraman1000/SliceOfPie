@@ -22,8 +22,37 @@ namespace SliceOfPieServiceLibrary
         {
             List<Document> result = new List<Document>();
             result.Add(new Document("Little Red Riding Nigga", "Niggerhood", new User("Mister nigger")));
-
             return result;
+        }
+
+        public void DeleteDocument(string projectId, string documentId)
+        {
+            Storage.ServerDeleteFile(projectId, documentId);
+        }
+
+        public List<Project> GetAllProjectsOnServer()
+        {
+            return Storage.ServerGetAllProjects();
+        }
+
+        public Project GetHierachy(string projectId)
+        {
+            return Storage.ServerGetHierachy(projectId);
+        }
+
+        public Document OpenDocumentOnServer(string projectId, string documentId)
+        {
+            return Storage.ServerReadFromFile(projectId, documentId);
+        }
+
+        public void SaveProjectOnServer(Project p)
+        {
+            Storage.ServerSaveProjectToFile(p);
+        }
+
+        public void SaveDocumentOnServer(Project p, Document d)
+        {
+            Storage.ServerWriteToFile(p, d);
         }
     }
 }
