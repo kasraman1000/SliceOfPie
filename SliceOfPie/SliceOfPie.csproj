@@ -103,7 +103,13 @@
     <None Include="Service References\SliceOfPieServer\item2.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Service References\SliceOfPieServer\item3.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Service References\SliceOfPieServer\SliceOfPie.SliceOfPieServer.Document.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\SliceOfPieServer\SliceOfPie.SliceOfPieServer.Project.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Service References\SliceOfPieServer\SliceOfPieService.wsdl" />
