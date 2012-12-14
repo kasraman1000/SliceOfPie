@@ -14,6 +14,33 @@ namespace WebGUI
         private List<Project> projects;
         static bool firstVisit = true;
 
+        // We make a Dictionary to keep track of which documents belong to which projects by their Id.
+        private static Dictionary<string, string> projectDictionary = new Dictionary<string, string>();
+        protected void InitiateDictionary()
+        {
+            foreach (Project p in projects)
+            {
+                FillDictionary(p, p.Id, projectDictionary);
+
+            }
+        }
+
+        protected void FillDictionary(IFileSystemComponent fsc, string pid, Dictionary<string, string> dic)
+        {
+            if (fsc.FileType == DocType.Document)
+            {
+                dic.Add(((DocumentStruct)fsc).Id, pid);
+            }
+            else
+            {
+                foreach (IFileSystemComponent f in ((Folder)fsc).Children)
+                {
+                    FillDictionary(f, pid, dic);
+                }
+            }
+        }
+
+
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -33,7 +60,9 @@ namespace WebGUI
                 projects = SliceOfPie.Controller.GetAllProjectsForUser(WelcomeForm.active);
                 BuildFullTree(projects);
                 TreeView1.CollapseAll();
+                InitiateDictionary();
             }
+            
         }
 
 
@@ -84,12 +113,17 @@ namespace WebGUI
             {
                 TreeNode n = new TreeNode(fsc.Title);
                 nodes.Add(n);
+                n.Value = ((DocumentStruct)fsc).Id;
 
             }
             else
             {
                 TreeNode n = new TreeNode(fsc.Title);
                 nodes.Add(n);
+                if (fsc.FileType == DocType.Project)
+                {
+                    n.Value = ((Project)fsc).Id;
+                }
 
             
                 SliceOfPie.Folder folder = (SliceOfPie.Folder)fsc;
@@ -108,16 +142,37 @@ namespace WebGUI
 
         protected void TreeView1_SelectedNodeChanged1(object sender, EventArgs e)
         {
+            
+            TreeView tw = (TreeView)sender;
+            if (tw.SelectedNode.ChildNodes.Count == 0)
+            {
+                Document selectedDoc = SliceOfPie.Controller.OpenDocument(projectDictionary[tw.SelectedNode.Value], tw.SelectedNode.Value);
+                TextBox5.Text = selectedDoc.Text;
+                TextBox4.Text = selectedDoc.Title;
+                Panel2.Visible = true;
+            }
+            
 
-        
         }
 
+        // Change user button redirects to the welcome form.
         protected void Button4_Click(object sender, EventArgs e)
         {
+            projectDictionary.Clear();
             Response.Redirect("WelcomeForm.aspx");
         }
 
+        protected void TextBox4_TextChanged1(object sender, EventArgs e)
+        {
+            
+        }
+
         protected void TextBox4_TextChanged(object sender, EventArgs e)
+        {
+            
+        }
+
+        protected void TextBox5_TextChanged(object sender, EventArgs e)
         {
 
         }
