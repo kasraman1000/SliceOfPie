@@ -562,19 +562,17 @@ namespace SliceOfPie
 
         public static List<Project> GetAllProjects(bool server = false)
         {
-            string creldesPath = "\\Users\\Crelde\\git\\SliceOfPie\\SliceOfPie\\SliceOfPie\\bin\\Debug";
-            string kasraPath = @"\Users\DE\git\SliceOfPie\GUI\bin\Debug";
-            string kewinsPath = @"D:\Git\SliceOfPie\GUI\bin\Debug";
             List<Project> projs = new List<Project>();
-
-            string correctPath = kewinsPath;
+            // The currnt directory
+            string currentDir = Directory.GetCurrentDirectory();
 
             string path;
 
             if (server)
-                path = "Server\\" + correctPath;
+                path = "Server\\" + currentDir;
             else
-                path = correctPath;
+                path = currentDir;
+            
 
             IEnumerable<string> projects = Directory.EnumerateDirectories(path);
 
