@@ -1,6 +1,6 @@
 ﻿namespace GUI
 {
-    partial class InputDialog
+    partial class DropdownDialog<T>
     {
         /// <summary>
         /// Required designer variable.
@@ -29,14 +29,13 @@
         private void InitializeComponent()
         {
             this.okButton = new System.Windows.Forms.Button();
-            this.textBox = new System.Windows.Forms.TextBox();
             this.questionLabel = new System.Windows.Forms.Label();
             this.cancelButton = new System.Windows.Forms.Button();
+            this.comboBox = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // okButton
             // 
-            this.okButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.okButton.Location = new System.Drawing.Point(12, 60);
             this.okButton.Name = "okButton";
             this.okButton.Size = new System.Drawing.Size(80, 23);
@@ -45,18 +44,9 @@
             this.okButton.UseVisualStyleBackColor = true;
             this.okButton.Click += new System.EventHandler(this.okButton_Click);
             // 
-            // textBox
-            // 
-            this.textBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox.Location = new System.Drawing.Point(12, 32);
-            this.textBox.Name = "textBox";
-            this.textBox.Size = new System.Drawing.Size(287, 22);
-            this.textBox.TabIndex = 1;
-            // 
             // questionLabel
             // 
-            this.questionLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.questionLabel.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.questionLabel.AutoSize = true;
             this.questionLabel.Location = new System.Drawing.Point(12, 9);
             this.questionLabel.Name = "questionLabel";
@@ -66,7 +56,6 @@
             // 
             // cancelButton
             // 
-            this.cancelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.cancelButton.Location = new System.Drawing.Point(98, 60);
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Size = new System.Drawing.Size(82, 23);
@@ -75,19 +64,30 @@
             this.cancelButton.UseVisualStyleBackColor = true;
             this.cancelButton.Click += new System.EventHandler(this.cancelButton_Click);
             // 
-            // InputDialog
+            // comboBox
+            // 
+            this.comboBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.comboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox.FormattingEnabled = true;
+            this.comboBox.Location = new System.Drawing.Point(12, 29);
+            this.comboBox.Name = "comboBox";
+            this.comboBox.Size = new System.Drawing.Size(287, 24);
+            this.comboBox.TabIndex = 4;
+            // 
+            // DropdownDialog
             // 
             this.AcceptButton = this.okButton;
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.ClientSize = new System.Drawing.Size(311, 95);
             this.ControlBox = false;
+            this.Controls.Add(this.comboBox);
             this.Controls.Add(this.cancelButton);
             this.Controls.Add(this.okButton);
-            this.Controls.Add(this.textBox);
             this.Controls.Add(this.questionLabel);
             this.MaximumSize = new System.Drawing.Size(1000, 140);
             this.MinimumSize = new System.Drawing.Size(210, 140);
-            this.Name = "InputDialog";
+            this.Name = "DropdownDialog";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Input Dialog";
@@ -101,8 +101,8 @@
         #endregion
 
         private System.Windows.Forms.Button okButton;
-        private System.Windows.Forms.TextBox textBox;
         private System.Windows.Forms.Label questionLabel;
         private System.Windows.Forms.Button cancelButton;
+        private System.Windows.Forms.ComboBox comboBox;
     }
 }

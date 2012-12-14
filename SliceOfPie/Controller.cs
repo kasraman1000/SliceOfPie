@@ -55,20 +55,22 @@ namespace SliceOfPie
             return Storage.ReadFromFile(pid,did);    
         }
 
-        public static void CreateDocument(User user, string path, Project proj)
+        public static void CreateDocument(User user, string path, Project proj, string title)
         {
-            Document newDocument = new Document("Insxert tet here.", "Title", path, user);
+            Document newDocument = new Document("Insxert tet here.", title, path, user);
             SaveDocument(proj, newDocument, user);
         }
 
+
         public static void CreateProject(string title, User owner, List<User> sharedWith)
         {
-            UpdateProject(title, owner, sharedWith);
+            Project project = new Project(title, owner, sharedWith);
+            UpdateProject(project);
         }
 
-        public static void UpdateProject(string title, User owner, List<User> sharedWith)
+        public static void UpdateProject(Project p)
         {
-            Project project = new Project(title, owner, sharedWith);
+            Project project = new Project(p.Title, p.Owner, p.SharedWith, p.Id);
             Storage.SaveProjectToFile(project);
         }
 
@@ -76,11 +78,11 @@ namespace SliceOfPie
         {
             Console.WriteLine("yay, the syncbutton was pressed!");
             //TODO DO THEMOTHERFUCKING EVERYTHING HERE :<
-            using (SliceOfPieServer.SliceOfPieServiceClient serviceClient = new SliceOfPieServer.SliceOfPieServiceClient())
-            {
-                // Actually calling the service here
-                serviceClient.SyncAll(null);
-            }
+            //using (SliceOfPieServer.SliceOfPieServiceClient serviceClient = new SliceOfPieServer.SliceOfPieServiceClient())
+            //{
+            //    // Actually calling the service here
+            //    serviceClient.SyncAll(null);
+            //}
 
 
 
