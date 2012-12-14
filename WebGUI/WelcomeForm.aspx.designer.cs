@@ -10,7 +10,7 @@
 namespace WebGUI {
     
     
-    public partial class WebForm2 {
+    public partial class WelcomeForm {
         
         /// <summary>
         /// form1 control.
