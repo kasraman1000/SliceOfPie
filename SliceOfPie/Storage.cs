@@ -143,10 +143,16 @@ namespace SliceOfPie
         // Second parameter is optional for now, chooses where to put the file
         
         
-        public static void WriteToFile(Project pro, Document doc)
+        public static void WriteToFile(Project pro, Document doc, bool server = false)
         {
-            // Creates a fileName for the file based on the files title
-            string fileName = pro.Id+"\\"+doc.Id + ".txt";
+            string fileName;
+            // Creates a fileName for the file based on the files title, if it is the server
+            // that is invoking the method, specify that it should be put in the server directory.
+            if (server)
+                fileName = "Server\\" + pro.Id + "\\" + doc.Id + ".txt";
+            else
+                fileName = pro.Id + "\\" + doc.Id + ".txt";
+            
 
             // False means that it will overwrite an existing file with the same id.
             using (TextWriter tw = new StreamWriter(fileName, false))
@@ -172,13 +178,20 @@ namespace SliceOfPie
 
         // Saves a project to the file system if it doesnt already exist.
         // If it is already there, update its MetaInfo file.
-        public static void SaveProjectToFile(Project p)
+        public static void SaveProjectToFile(Project p, bool server = false)
         {
+
+            string path;
+
+            if (server)
+                path = "Server\\" + p.Id;
+            else
+                path = p.Id;
             if (!Directory.Exists(p.Id))
             {
-                using (TextWriter tw = new StreamWriter(p.Id + "\\MetaInfo.txt", false))
+                using (TextWriter tw = new StreamWriter(path + "\\MetaInfo.txt", false))
                 {
-                    Directory.CreateDirectory(p.Id);
+                    Directory.CreateDirectory(path);
                     tw.WriteLine(p.Title);
                     tw.WriteLine(p.Owner.ToString());
 
@@ -211,7 +224,7 @@ namespace SliceOfPie
             }
             else
             {
-                using (TextWriter tw = new StreamWriter(p.Id + "\\MetaInfo.txt", false))
+                using (TextWriter tw = new StreamWriter(path, false))
                 {
                     tw.WriteLine(p.Title);
                     tw.WriteLine(p.Owner.ToString());
@@ -247,11 +260,15 @@ namespace SliceOfPie
             }
         }
 
-
-
-        public static Document ReadFromFile(string pid, string did)
+        public static Document ReadFromFile(string pid, string did, bool server = false)
         {
-            string fileName = pid+"\\"+ did + ".txt";
+            string fileName;
+            // Defines the fileName for the file based on the files title, if it is the server
+            // that is invoking the method, specify that it is in the server directory.
+            if (server)
+                fileName = "Server\\" + pid + "\\" + did + ".txt";
+            else
+                fileName = pid + "\\" + did + ".txt";
             Document finalDoc;
 
             try
@@ -366,11 +383,17 @@ namespace SliceOfPie
         /*
          * Deletes the file given the file name 
          */
-        public static void DeleteFile(string pid, string did)
+        public static void DeleteFile(string pid, string did, bool server = false)
         {
-            // Decides which file the document is associated with
-            string fileName = pid+"\\"+did + ".txt";
 
+            string fileName;
+            // Decides which file the document is associated with, if it is the server
+            // that is invoking the method, specify that it is in the server directory.
+            if (server)
+                fileName = "Server\\" + pid + "\\" + did + ".txt";
+            else
+                fileName = pid + "\\" + did + ".txt";
+            
             // Checks if a filename that matches the string exists and deletes it
             if(File.Exists(fileName))
             {
@@ -383,14 +406,21 @@ namespace SliceOfPie
 
         }
 
-        public static Project GetHierachy(string pid)
+        public static Project GetHierachy(string pid, bool server = false)
         {
-            if(Directory.Exists(pid))
+            string folderPath;
+
+            if (server)
+                folderPath = "Server\\" + pid;
+            else
+                folderPath = pid;
+
+            if(Directory.Exists(folderPath))
             {
                 IEnumerable<string> distinctFolderNames;
                 List<Folder> folders = new List<Folder>();
                 List<string> toBeFolders = new List<string>();
-                IEnumerable<string> filesInRoot = Directory.EnumerateFiles(pid);
+                IEnumerable<string> filesInRoot = Directory.EnumerateFiles(folderPath);
                 List<DocumentStruct> structs = new List<DocumentStruct>();
 
                 foreach (string s in filesInRoot)
@@ -484,49 +514,93 @@ namespace SliceOfPie
                 else
                 {
                     Folder finalFolder = folders.ElementAt(0);
-                
 
-                
-                TextReader mr = new StreamReader(pid+"\\MetaInfo.txt");
-                string ti = mr.ReadLine();
-                User us = new User(mr.ReadLine());
-                List<User> sha = new List<User>();
-                string[] userNames = (mr.ReadLine().Split(','));
-                foreach (string str in userNames)
-                {
-                    sha.Add(new User(str.Trim()));
+
+
+                    TextReader mr = new StreamReader(folderPath + "\\MetaInfo.txt");
+                    string ti = mr.ReadLine();
+                    User us = new User(mr.ReadLine());
+                    List<User> sha = new List<User>();
+                    string[] userNames = (mr.ReadLine().Split(','));
+                    foreach (string str in userNames)
+                    {
+                        sha.Add(new User(str.Trim()));
+                    }
+
+                    Project finalProject = new Project(ti, us, sha, Path.GetFileNameWithoutExtension(folderPath));
+                    finalProject.AddChild(finalFolder);
+                    mr.Close();
+                    mr.Dispose();
+                    return finalProject;
                 }
-
-                Project finalProject = new Project(ti, us, sha, Path.GetFileNameWithoutExtension(pid));
-                finalProject.AddChild(finalFolder);
-                mr.Close();
-                mr.Dispose();
-                return finalProject;
-                }
-
             }
 
             Console.WriteLine("No Project exists by that id");
             return null;
-
         }
 
-
-        public static List<Project> GetAllProjects()
+        public static List<Project> GetAllProjects(bool server = false)
         {
             string creldesPath = "\\Users\\Crelde\\git\\SliceOfPie\\SliceOfPie\\SliceOfPie\\bin\\Debug";
             string kasraPath = @"\Users\DE\git\SliceOfPie\GUI\bin\Debug";
             string kewinsPath = @"D:\Git\SliceOfPie\GUI\bin\Debug";
             List<Project> projs = new List<Project>();
 
-            IEnumerable<string> projects = Directory.EnumerateDirectories(kewinsPath);
+            string correctPath = creldesPath;
+
+            string path;
+
+            if (server)
+                path = "Server\\" + correctPath;
+            else
+                path = correctPath;
+
+            IEnumerable<string> projects = Directory.EnumerateDirectories(path);
 
             foreach (String p in projects)
             {
-                projs.Add(GetHierachy(p));
+                if (server)
+                    projs.Add(GetHierachy(p, true));
+                else
+                {
+                    if (!(String.Compare(p, "Server")==0))
+                        projs.Add(GetHierachy(p));
+                }
+
             }
 
             return projs;
         }
+
+        public static void ServerWriteToFile(Project pro, Document doc)
+        {
+            WriteToFile(pro, doc, true);
+        }
+
+        public static void ServerSaveProjectToFile(Project p)
+        {
+            SaveProjectToFile(p, true);
+        }
+
+        public static Document ServerReadFromFile(string pid, string did)
+        {
+            return ReadFromFile(pid, did, true);
+        }
+
+        public static void ServerDeleteFile(string pid, string did)
+        {
+            DeleteFile(pid, did, true);
+        }
+
+        public static Project ServerGetHierachy(string pid)
+        {
+            return GetHierachy(pid, true);
+        }
+
+        public static List<Project> ServerGetAllProjects()
+        {
+            return GetAllProjects(true);
+        }
+
     }
 }

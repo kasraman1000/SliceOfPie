@@ -14,6 +14,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SliceOfPieServiceLibrary", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Server", "Server\Server.csproj", "{A21B1B4C-C20B-40B6-B1C9-3AC01AA1ED09}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebGUI", "WebGUI\WebGUI.csproj", "{64EE6DCD-CB0B-468E-8425-702C0BEFABD1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -115,6 +117,18 @@ Global
 		{A21B1B4C-C20B-40B6-B1C9-3AC01AA1ED09}.Release|x64.ActiveCfg = Release|x86
 		{A21B1B4C-C20B-40B6-B1C9-3AC01AA1ED09}.Release|x86.ActiveCfg = Release|x86
 		{A21B1B4C-C20B-40B6-B1C9-3AC01AA1ED09}.Release|x86.Build.0 = Release|x86
+		{64EE6DCD-CB0B-468E-8425-702C0BEFABD1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{64EE6DCD-CB0B-468E-8425-702C0BEFABD1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{64EE6DCD-CB0B-468E-8425-702C0BEFABD1}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{64EE6DCD-CB0B-468E-8425-702C0BEFABD1}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{64EE6DCD-CB0B-468E-8425-702C0BEFABD1}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{64EE6DCD-CB0B-468E-8425-702C0BEFABD1}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{64EE6DCD-CB0B-468E-8425-702C0BEFABD1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{64EE6DCD-CB0B-468E-8425-702C0BEFABD1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{64EE6DCD-CB0B-468E-8425-702C0BEFABD1}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{64EE6DCD-CB0B-468E-8425-702C0BEFABD1}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{64EE6DCD-CB0B-468E-8425-702C0BEFABD1}.Release|x64.ActiveCfg = Release|Any CPU
+		{64EE6DCD-CB0B-468E-8425-702C0BEFABD1}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

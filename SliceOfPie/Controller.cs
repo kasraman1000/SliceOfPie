@@ -19,13 +19,13 @@ namespace SliceOfPie
             List <Project> projectsToReturn = new List<Project>();
             foreach (Project p in allProjects)
             {
-                if (String.Compare(p.Owner.ToString(),user.ToString())==0)          
+                if (String.Compare(p.Owner.ToString().ToLower(),user.ToString().ToLower())==0)          
                     projectsToReturn.Add(p);
                 else
                 {
-                    foreach (User u in p.SharedWith)
+                    foreach (User u in p.SharedWith)    
                     {
-                        if (String.Compare(u.ToString(),user.ToString())==0)
+                        if (String.Compare(u.ToString().ToLower(),user.ToString().ToLower())==0)
                             projectsToReturn.Add(p);
                     }
                 }
