@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Runtime.Serialization;
+using System.Drawing;
 
 namespace SliceOfPie
 {
@@ -36,6 +37,10 @@ namespace SliceOfPie
         public string Title { get { return title; } set { title = value; } }
 
         [DataMember]
+        private List<Picture> images;
+        public List<Picture> Images { get { return images; } set { images = value; } }
+
+        [DataMember]
         private Document.DocumentLog log;
         public Document.DocumentLog Log { get { return log; } }
 
@@ -56,7 +61,6 @@ namespace SliceOfPie
             this.text = text;
             this.title = title;
             this.owner = owner;
-            Path = "root";
             log = new Document.DocumentLog(owner);
             CreateId();
         }
@@ -68,7 +72,6 @@ namespace SliceOfPie
             this.text = text;
             this.title = title;
             this.owner = owner;
-            Path = "root";
             log = new Document.DocumentLog(owner);
             this.id = id;
         }
@@ -77,7 +80,7 @@ namespace SliceOfPie
         private Document(){}
 
         // Creates and returns a document in it's complete version from a file on the file system.
-        public static Document CreateDocumentFromFile(string id, string text, string title, User owner, string path, Document.DocumentLog log)
+        public static Document CreateDocumentFromFile(string id, string text, string title, User owner, List<Picture> pictures, string path, Document.DocumentLog log)
         {
             Document doc = new Document();
             doc.id = id;
@@ -86,6 +89,7 @@ namespace SliceOfPie
             doc.owner = owner;
             doc.path = path;
             doc.log = log;
+            doc.images = pictures;
             return doc;
         }
 
