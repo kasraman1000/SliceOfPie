@@ -211,6 +211,7 @@ namespace GUI
         private void createFolderButton_Click(object sender, EventArgs e)
         {
 
+
         }
 
         private void renameButton_Click(object sender, EventArgs e)
@@ -227,5 +228,58 @@ namespace GUI
             BuildDocumentTree(treeView.Nodes, selectedProject);
         }
 
+        private void DeleteDocument(string projectId, string documentId)
+        {
+            Controller.DeleteDocument(projectId, documentId);
+
+        }
+
+        private void DeleteFolder(Folder folder, Project project)
+        {
+            foreach (IFileSystemComponent component in folder.Children)
+            {
+                if (component.FileType == DocType.Document)
+                {
+                    DocumentStruct doc = (DocumentStruct)component;
+                    DeleteDocument(project.Id, doc.Id);
+                }
+                else if (component.FileType == DocType.Folder)
+                {
+                    Folder fold = (Folder)component;
+                    DeleteFolder(fold, project);
+                }
+            }
+        }
+
+        private void DeleteProject(Project project)
+        {
+            foreach (IFileSystemComponent component in project.Children)
+            {
+                if (component.FileType == DocType.Document)
+                {
+                    DocumentStruct doc = (DocumentStruct)component;
+                    DeleteDocument(project.Id, doc.Id);
+                }
+                else if (component.FileType == DocType.Folder)
+                {
+                    Folder fold = (Folder)component;
+                    DeleteFolder(fold, project);
+                }
+            }
+        }
+
+        private void deleteButton_Click(object sender, EventArgs e)
+        {
+            if (isDocument)
+                DeleteDocument(selectedProject.Id, selectedDocument.Id);
+
+            else if (!(isDocument))
+            {
+                if (selectedFolder.FileType == DocType.Folder)
+                    DeleteFolder(selectedFolder, selectedProject);
+                else if (selectedFolder.FileType == DocType.Project)
+                    DeleteProject(selectedProject);
+            }
+        }
     }
 }

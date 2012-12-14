@@ -122,6 +122,7 @@
             this.deleteButton.TabIndex = 14;
             this.deleteButton.Text = "Delete";
             this.deleteButton.UseVisualStyleBackColor = true;
+            this.deleteButton.Click += new System.EventHandler(this.deleteButton_Click);
             // 
             // userLabel
             // 
