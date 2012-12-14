@@ -368,8 +368,51 @@ namespace GUI
             Refresh();
         }
 
+        private List<Folder> GetFoldersInFolder(Folder folder, List<Folder> folders)
+        {
+            foreach (IFileSystemComponent component in folder.Children)
+            {
+                if (component.FileType == DocType.Folder)
+                {
+                    folders.Add((Folder)component);
+                    List<Folder> nestedFolders = GetFoldersInFolder((Folder)component, folders);
+                }
+            }
+            return folders;
+        }
+
         private void moveButton_Click(object sender, EventArgs e)
         {
+            List<Folder> folders = new List<Folder>();
+            
+            List<Folder> foldersInProject = GetFoldersInFolder(selectedProject, folders);
+
+            Folder[] folderArray = new Folder[foldersInProject.Count];
+
+            foldersInProject.CopyTo(folderArray);
+
+            foreach (Folder folder in folderArray)
+            {
+                folders.Add(folder);
+            }
+            folders.Add(selectedProject);
+            Folder folderToMoveTo = folders[1]; // KASRAS BOX
+
+            string path;
+
+            if (folderToMoveTo == selectedProject)
+                path = "";
+            else
+            {
+                DocumentStruct neighbour = (DocumentStruct)folderToMoveTo.Children[0];
+                path = neighbour.Path;
+            }
+            Document doc = Controller.OpenDocument(selectedProject.Id, selectedDocument.Id);
+
+            doc.Path = path;
+
+            Controller.SaveDocument(selectedProject, doc, activeUser);
+
 
         }
 	}
