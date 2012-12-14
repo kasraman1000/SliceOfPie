@@ -61,6 +61,7 @@ namespace SliceOfPie
             SaveDocument(proj, newDocument, user);
         }
 
+
         public static void CreateProject(string title, User owner, List<User> sharedWith)
         {
             Project project = new Project(title, owner, sharedWith);
