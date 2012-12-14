@@ -78,11 +78,11 @@ namespace SliceOfPie
         {
             Console.WriteLine("yay, the syncbutton was pressed!");
             //TODO DO THEMOTHERFUCKING EVERYTHING HERE :<
-            using (SliceOfPieServer.SliceOfPieServiceClient serviceClient = new SliceOfPieServer.SliceOfPieServiceClient())
-            {
-                // Actually calling the service here
-                serviceClient.SyncAll(null);
-            }
+            //using (SliceOfPieServer.SliceOfPieServiceClient serviceClient = new SliceOfPieServer.SliceOfPieServiceClient())
+            //{
+            //    // Actually calling the service here
+            //    serviceClient.SyncAll(null);
+            //}
 
 
 

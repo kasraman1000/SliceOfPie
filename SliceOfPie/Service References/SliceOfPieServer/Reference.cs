@@ -146,6 +146,9 @@ namespace SliceOfPie.SliceOfPieServer {
             [System.NonSerializedAttribute()]
             private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
             
+            [System.Runtime.Serialization.OptionalFieldAttribute()]
+            private System.Collections.Generic.List<SliceOfPie.SliceOfPieServer.Document.DocumentLog.Entry> entriesField;
+            
             public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
                 get {
                     return this.extensionDataField;
@@ -155,12 +158,117 @@ namespace SliceOfPie.SliceOfPieServer {
                 }
             }
             
+            [System.Runtime.Serialization.DataMemberAttribute()]
+            public System.Collections.Generic.List<SliceOfPie.SliceOfPieServer.Document.DocumentLog.Entry> entries {
+                get {
+                    return this.entriesField;
+                }
+                set {
+                    if ((object.ReferenceEquals(this.entriesField, value) != true)) {
+                        this.entriesField = value;
+                        this.RaisePropertyChanged("entries");
+                    }
+                }
+            }
+            
             public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
             
             protected void RaisePropertyChanged(string propertyName) {
                 System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
                 if ((propertyChanged != null)) {
                     propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+                }
+            }
+            
+            [System.Diagnostics.DebuggerStepThroughAttribute()]
+            [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+            [System.Runtime.Serialization.DataContractAttribute(Name="Document.DocumentLog.Entry", Namespace="http://schemas.datacontract.org/2004/07/SliceOfPie")]
+            [System.SerializableAttribute()]
+            public partial class Entry : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+                
+                [System.NonSerializedAttribute()]
+                private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+                
+                [System.Runtime.Serialization.OptionalFieldAttribute()]
+                private System.Collections.Generic.List<string> changeLogField;
+                
+                [System.Runtime.Serialization.OptionalFieldAttribute()]
+                private string descriptionField;
+                
+                [System.Runtime.Serialization.OptionalFieldAttribute()]
+                private System.DateTime timeField;
+                
+                [System.Runtime.Serialization.OptionalFieldAttribute()]
+                private SliceOfPie.SliceOfPieServer.User userField;
+                
+                public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+                    get {
+                        return this.extensionDataField;
+                    }
+                    set {
+                        this.extensionDataField = value;
+                    }
+                }
+                
+                [System.Runtime.Serialization.DataMemberAttribute()]
+                public System.Collections.Generic.List<string> changeLog {
+                    get {
+                        return this.changeLogField;
+                    }
+                    set {
+                        if ((object.ReferenceEquals(this.changeLogField, value) != true)) {
+                            this.changeLogField = value;
+                            this.RaisePropertyChanged("changeLog");
+                        }
+                    }
+                }
+                
+                [System.Runtime.Serialization.DataMemberAttribute()]
+                public string description {
+                    get {
+                        return this.descriptionField;
+                    }
+                    set {
+                        if ((object.ReferenceEquals(this.descriptionField, value) != true)) {
+                            this.descriptionField = value;
+                            this.RaisePropertyChanged("description");
+                        }
+                    }
+                }
+                
+                [System.Runtime.Serialization.DataMemberAttribute()]
+                public System.DateTime time {
+                    get {
+                        return this.timeField;
+                    }
+                    set {
+                        if ((this.timeField.Equals(value) != true)) {
+                            this.timeField = value;
+                            this.RaisePropertyChanged("time");
+                        }
+                    }
+                }
+                
+                [System.Runtime.Serialization.DataMemberAttribute()]
+                public SliceOfPie.SliceOfPieServer.User user {
+                    get {
+                        return this.userField;
+                    }
+                    set {
+                        if ((object.ReferenceEquals(this.userField, value) != true)) {
+                            this.userField = value;
+                            this.RaisePropertyChanged("user");
+                        }
+                    }
+                }
+                
+                public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+                
+                protected void RaisePropertyChanged(string propertyName) {
+                    System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+                    if ((propertyChanged != null)) {
+                        propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+                    }
                 }
             }
         }
@@ -211,12 +319,188 @@ namespace SliceOfPie.SliceOfPieServer {
         }
     }
     
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Project", Namespace="http://schemas.datacontract.org/2004/07/SliceOfPie")]
+    [System.SerializableAttribute()]
+    public partial class Project : SliceOfPie.SliceOfPieServer.Folder {
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string idField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private SliceOfPie.SliceOfPieServer.User ownerField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Collections.Generic.List<SliceOfPie.SliceOfPieServer.User> sharedWithField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string id {
+            get {
+                return this.idField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.idField, value) != true)) {
+                    this.idField = value;
+                    this.RaisePropertyChanged("id");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public SliceOfPie.SliceOfPieServer.User owner {
+            get {
+                return this.ownerField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ownerField, value) != true)) {
+                    this.ownerField = value;
+                    this.RaisePropertyChanged("owner");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Collections.Generic.List<SliceOfPie.SliceOfPieServer.User> sharedWith {
+            get {
+                return this.sharedWithField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.sharedWithField, value) != true)) {
+                    this.sharedWithField = value;
+                    this.RaisePropertyChanged("sharedWith");
+                }
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Folder", Namespace="http://schemas.datacontract.org/2004/07/SliceOfPie")]
+    [System.SerializableAttribute()]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(SliceOfPie.SliceOfPieServer.Project))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<SliceOfPie.SliceOfPieServer.Document>))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(SliceOfPie.SliceOfPieServer.Document))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(SliceOfPie.SliceOfPieServer.Document.DocumentLog))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<SliceOfPie.SliceOfPieServer.Document.DocumentLog.Entry>))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(SliceOfPie.SliceOfPieServer.Document.DocumentLog.Entry))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(SliceOfPie.SliceOfPieServer.User))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<SliceOfPie.SliceOfPieServer.Project>))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(SliceOfPie.SliceOfPieServer.DocType))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<SliceOfPie.SliceOfPieServer.User>))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<string>))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<object>))]
+    public partial class Folder : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Collections.Generic.List<object> childrenField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private SliceOfPie.SliceOfPieServer.DocType fileTypeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string titleField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Collections.Generic.List<object> children {
+            get {
+                return this.childrenField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.childrenField, value) != true)) {
+                    this.childrenField = value;
+                    this.RaisePropertyChanged("children");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public SliceOfPie.SliceOfPieServer.DocType fileType {
+            get {
+                return this.fileTypeField;
+            }
+            set {
+                if ((this.fileTypeField.Equals(value) != true)) {
+                    this.fileTypeField = value;
+                    this.RaisePropertyChanged("fileType");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string title {
+            get {
+                return this.titleField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.titleField, value) != true)) {
+                    this.titleField = value;
+                    this.RaisePropertyChanged("title");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="DocType", Namespace="http://schemas.datacontract.org/2004/07/SliceOfPie")]
+    public enum DocType : int {
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        Document = 0,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        Folder = 1,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        Project = 2,
+    }
+    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="SliceOfPieServer.ISliceOfPieService")]
     public interface ISliceOfPieService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISliceOfPieService/SyncAll", ReplyAction="http://tempuri.org/ISliceOfPieService/SyncAllResponse")]
-        SliceOfPie.SliceOfPieServer.Document[] SyncAll(SliceOfPie.SliceOfPieServer.Document[] docs);
+        System.Collections.Generic.List<SliceOfPie.SliceOfPieServer.Document> SyncAll(System.Collections.Generic.List<SliceOfPie.SliceOfPieServer.Document> docs);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISliceOfPieService/DeleteDocument", ReplyAction="http://tempuri.org/ISliceOfPieService/DeleteDocumentResponse")]
+        void DeleteDocument(string projectId, string documentId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISliceOfPieService/GetAllProjectsOnServer", ReplyAction="http://tempuri.org/ISliceOfPieService/GetAllProjectsOnServerResponse")]
+        System.Collections.Generic.List<SliceOfPie.SliceOfPieServer.Project> GetAllProjectsOnServer();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISliceOfPieService/GetHierachy", ReplyAction="http://tempuri.org/ISliceOfPieService/GetHierachyResponse")]
+        SliceOfPie.SliceOfPieServer.Project GetHierachy(string projectId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISliceOfPieService/OpenDocumentOnServer", ReplyAction="http://tempuri.org/ISliceOfPieService/OpenDocumentOnServerResponse")]
+        SliceOfPie.SliceOfPieServer.Document OpenDocumentOnServer(string projectId, string documentId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISliceOfPieService/SaveProjectOnServer", ReplyAction="http://tempuri.org/ISliceOfPieService/SaveProjectOnServerResponse")]
+        void SaveProjectOnServer(SliceOfPie.SliceOfPieServer.Project p);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISliceOfPieService/SaveDocumentOnServer", ReplyAction="http://tempuri.org/ISliceOfPieService/SaveDocumentOnServerResponse")]
+        void SaveDocumentOnServer(SliceOfPie.SliceOfPieServer.Project p, SliceOfPie.SliceOfPieServer.Document d);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -246,8 +530,32 @@ namespace SliceOfPie.SliceOfPieServer {
                 base(binding, remoteAddress) {
         }
         
-        public SliceOfPie.SliceOfPieServer.Document[] SyncAll(SliceOfPie.SliceOfPieServer.Document[] docs) {
+        public System.Collections.Generic.List<SliceOfPie.SliceOfPieServer.Document> SyncAll(System.Collections.Generic.List<SliceOfPie.SliceOfPieServer.Document> docs) {
             return base.Channel.SyncAll(docs);
+        }
+        
+        public void DeleteDocument(string projectId, string documentId) {
+            base.Channel.DeleteDocument(projectId, documentId);
+        }
+        
+        public System.Collections.Generic.List<SliceOfPie.SliceOfPieServer.Project> GetAllProjectsOnServer() {
+            return base.Channel.GetAllProjectsOnServer();
+        }
+        
+        public SliceOfPie.SliceOfPieServer.Project GetHierachy(string projectId) {
+            return base.Channel.GetHierachy(projectId);
+        }
+        
+        public SliceOfPie.SliceOfPieServer.Document OpenDocumentOnServer(string projectId, string documentId) {
+            return base.Channel.OpenDocumentOnServer(projectId, documentId);
+        }
+        
+        public void SaveProjectOnServer(SliceOfPie.SliceOfPieServer.Project p) {
+            base.Channel.SaveProjectOnServer(p);
+        }
+        
+        public void SaveDocumentOnServer(SliceOfPie.SliceOfPieServer.Project p, SliceOfPie.SliceOfPieServer.Document d) {
+            base.Channel.SaveDocumentOnServer(p, d);
         }
     }
 }
