@@ -43,10 +43,11 @@ namespace GUI
          */
         private void listView_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Document.DocumentLog.Entry entry = (Document.DocumentLog.Entry)listView.SelectedItems[0].Tag;
-            textBox.Text = Regex.Replace(entry.ToStringWithLog(), "\n", Environment.NewLine);
-
-
+            if (listView.SelectedItems.Count > 0)
+            {
+                Document.DocumentLog.Entry entry = (Document.DocumentLog.Entry)listView.SelectedItems[0].Tag;
+                textBox.Text = Regex.Replace(entry.ToStringWithLog(), "\n", Environment.NewLine);
+            }
         }
 
         private void textBox_TextChanged(object sender, EventArgs e)
