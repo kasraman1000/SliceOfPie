@@ -50,7 +50,7 @@
             this.treeView.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.treeView.Name = "treeView";
             this.treeView.Size = new System.Drawing.Size(319, 304);
-            this.treeView.TabIndex = 0;
+            this.treeView.TabIndex = 1;
             this.treeView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeView_AfterSelect);
             // 
             // createDocumentButton
@@ -60,7 +60,7 @@
             this.createDocumentButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.createDocumentButton.Name = "createDocumentButton";
             this.createDocumentButton.Size = new System.Drawing.Size(159, 30);
-            this.createDocumentButton.TabIndex = 11;
+            this.createDocumentButton.TabIndex = 2;
             this.createDocumentButton.Text = "New document";
             this.createDocumentButton.UseVisualStyleBackColor = true;
             this.createDocumentButton.Click += new System.EventHandler(this.createDocumentButton_Click);
@@ -72,7 +72,7 @@
             this.openButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.openButton.Name = "openButton";
             this.openButton.Size = new System.Drawing.Size(153, 30);
-            this.openButton.TabIndex = 12;
+            this.openButton.TabIndex = 3;
             this.openButton.Text = "Open document";
             this.openButton.UseVisualStyleBackColor = true;
             this.openButton.Click += new System.EventHandler(this.openButton_Click);
@@ -84,7 +84,7 @@
             this.createFolderButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.createFolderButton.Name = "createFolderButton";
             this.createFolderButton.Size = new System.Drawing.Size(99, 30);
-            this.createFolderButton.TabIndex = 16;
+            this.createFolderButton.TabIndex = 4;
             this.createFolderButton.Text = "New Folder";
             this.createFolderButton.UseVisualStyleBackColor = true;
             this.createFolderButton.Click += new System.EventHandler(this.createFolderButton_Click);
@@ -96,7 +96,7 @@
             this.moveButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.moveButton.Name = "moveButton";
             this.moveButton.Size = new System.Drawing.Size(55, 30);
-            this.moveButton.TabIndex = 13;
+            this.moveButton.TabIndex = 5;
             this.moveButton.Text = "Move";
             this.moveButton.UseVisualStyleBackColor = true;
             this.moveButton.Click += new System.EventHandler(this.moveButton_Click);
@@ -108,7 +108,7 @@
             this.renameButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.renameButton.Name = "renameButton";
             this.renameButton.Size = new System.Drawing.Size(83, 30);
-            this.renameButton.TabIndex = 15;
+            this.renameButton.TabIndex = 6;
             this.renameButton.Text = "Rename";
             this.renameButton.UseVisualStyleBackColor = true;
             this.renameButton.Click += new System.EventHandler(this.renameButton_Click);
@@ -120,7 +120,7 @@
             this.deleteButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.deleteButton.Name = "deleteButton";
             this.deleteButton.Size = new System.Drawing.Size(67, 30);
-            this.deleteButton.TabIndex = 14;
+            this.deleteButton.TabIndex = 7;
             this.deleteButton.Text = "Delete";
             this.deleteButton.UseVisualStyleBackColor = true;
             this.deleteButton.Click += new System.EventHandler(this.deleteButton_Click);
@@ -142,7 +142,7 @@
             this.syncButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.syncButton.Name = "syncButton";
             this.syncButton.Size = new System.Drawing.Size(168, 30);
-            this.syncButton.TabIndex = 18;
+            this.syncButton.TabIndex = 8;
             this.syncButton.Text = "Synchronize with server";
             this.syncButton.UseVisualStyleBackColor = true;
             this.syncButton.Click += new System.EventHandler(this.syncButton_Click);
@@ -157,7 +157,7 @@
             this.projectBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.projectBox.Name = "projectBox";
             this.projectBox.Size = new System.Drawing.Size(207, 24);
-            this.projectBox.TabIndex = 19;
+            this.projectBox.TabIndex = 0;
             this.projectBox.SelectedIndexChanged += new System.EventHandler(this.projectBox_SelectedIndexChanged);
             // 
             // label1
@@ -171,6 +171,7 @@
             // 
             // MainWindow
             // 
+            this.AcceptButton = this.openButton;
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.ClientSize = new System.Drawing.Size(344, 497);
             this.Controls.Add(this.label1);

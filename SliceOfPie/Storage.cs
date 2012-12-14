@@ -567,7 +567,7 @@ namespace SliceOfPie
             string kewinsPath = @"D:\Git\SliceOfPie\GUI\bin\Debug";
             List<Project> projs = new List<Project>();
 
-            string correctPath = kewinsPath;
+            string correctPath = kasraPath;
 
             string path;
 

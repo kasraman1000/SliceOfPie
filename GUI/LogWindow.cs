@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.Diagnostics;
 using System.Text.RegularExpressions;
 using SliceOfPie;
 
@@ -33,25 +34,18 @@ namespace GUI
 
             foreach(Document.DocumentLog.Entry entry in currentDocument.Log.entries)
             {
-                listView.Items.Insert(i++, entry.ToString()).Tag = entry;
+                listBox.Items.Insert(i++, entry.ToString());
             }
-            listView.Items[i].Selected = true;
+            listBox.SelectedItem = currentDocument.Log.GetNewestEntry();
         }
 
         /**
          * Show the selected log entry in the textBox
          */
-        private void listView_SelectedIndexChanged(object sender, EventArgs e)
+        private void listBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (listView.SelectedItems.Count > 0)
-            {
-                Document.DocumentLog.Entry entry = (Document.DocumentLog.Entry)listView.SelectedItems[0].Tag;
-                textBox.Text = Regex.Replace(entry.ToStringWithLog(), "\n", Environment.NewLine);
-            }
-        }
-
-        private void textBox_TextChanged(object sender, EventArgs e)
-        {
+            Document.DocumentLog.Entry entry = currentDocument.Log.entries[listBox.SelectedIndex];
+            textBox.Text = Regex.Replace(entry.ToStringWithLog(), "\n", Environment.NewLine);
 
         }
     }

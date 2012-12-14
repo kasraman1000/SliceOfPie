@@ -31,30 +31,28 @@ namespace GUI
         }
 
         private void EditWindow_Load(object sender, EventArgs e)
-        {
-            titleField.Text = currentDoc.Title;
+        {   
+
             textField.Text = Regex.Replace(currentDoc.Text, "\n", Environment.NewLine);
+            this.Text = currentDoc.Title;
             modified = false;
+            saveButton.Enabled = false;
         }
 
         private void saveButton_Click(object sender, EventArgs e)
         {
-            currentDoc.Title = titleField.Text;
             currentDoc.Text = textField.Text;
 
             Controller.SaveDocument(currentProj, currentDoc, currentUser);
 
             modified = false;
-        }
-
-        private void titleField_TextChanged(object sender, EventArgs e)
-        {
-            modified = true;
+            saveButton.Enabled = false;
         }
 
         private void textField_TextChanged(object sender, EventArgs e)
         {
             modified = true;
+            saveButton.Enabled = true;
         }
 
         /**
@@ -90,5 +88,6 @@ namespace GUI
         {
             new LogWindow(currentDoc).Show();
         }
+
     }
 }
