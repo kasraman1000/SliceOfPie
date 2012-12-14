@@ -81,7 +81,7 @@ namespace GUI
 
 			userLabel.Text = "Logged in as: " + activeUser.ToString();
 
-			Refresh(); 
+			RefreshTreeView(); 
 		}
 
 		/**
@@ -213,7 +213,7 @@ namespace GUI
 
                     Controller.CreateDocument(activeUser, path, selectedProject, title);
 
-                    Refresh();
+                    RefreshTreeView();
 
                 }
             }
@@ -269,7 +269,7 @@ namespace GUI
                 }
             }
 
-            Refresh();
+            RefreshTreeView();
 
 		}
 
@@ -315,7 +315,7 @@ namespace GUI
 			treeView.ExpandAll();
 		}
 
-		private void Refresh()
+		private void RefreshTreeView()
 		{
 			projects = Controller.GetAllProjectsForUser(activeUser);
 
