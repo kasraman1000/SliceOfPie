@@ -232,9 +232,12 @@ namespace GUI
                 InputDialog inputDialog = new InputDialog("Input new name for Document", selectedDocument.Title);
                 inputDialog.ShowDialog();
 
-                Document doc = Controller.OpenDocument(selectedProject.Id, selectedDocument.Id);
-                doc.Title = inputDialog.Input;
-                Controller.SaveDocument(selectedProject, doc, activeUser);
+                if (!inputDialog.Canceled)
+                {
+                    Document doc = Controller.OpenDocument(selectedProject.Id, selectedDocument.Id);
+                    doc.Title = inputDialog.Input;
+                    Controller.SaveDocument(selectedProject, doc, activeUser);
+                }
             }
             // or if a folder was selected
             else if (selectedFolder.FileType == DocType.Folder)
@@ -242,34 +245,28 @@ namespace GUI
                 InputDialog inputDialog = new InputDialog("Input new name for Folder", selectedFolder.Title);
                 inputDialog.ShowDialog();
 
-                // If the new foldername contains forward/backward slashes, it's going to break
-                // our current system, so let's prevent that
-                if (inputDialog.Input.Contains("/") || inputDialog.Input.Contains(@"\")) 
+                if (!inputDialog.Canceled)
                 {
-                    MessageBox.Show(@"Folder names cannot contain forward (/) or backward slashes (\)");
-                    return;
+
+                    // If the new foldername contains forward/backward slashes, it's going to break
+                    // our current system, so let's prevent that
+                    if (inputDialog.Input.Contains("/") || inputDialog.Input.Contains(@"\"))
+                    {
+                        MessageBox.Show(@"Folder names cannot contain forward (/) or backward slashes (\)");
+                        return;
+                    }
+
+
+                    // Build the old and new part of the path for documents
+                    string fullpath = treeView.SelectedNode.FullPath;
+                    string oldpath = fullpath.Substring(selectedProject.ToString().Count() + 1);
+                    oldpath = Regex.Replace(oldpath, @"\\", "/");
+
+                    string newpath = oldpath.Substring(0, oldpath.Count() - selectedFolder.Title.Count());
+                    newpath += inputDialog.Input;
+
+                    RenameFolderChildren(selectedFolder, oldpath, newpath);
                 }
-
-
-                // Build the old and new part of the path for documents
-                string fullpath = treeView.SelectedNode.FullPath;
-                string oldpath = fullpath.Substring(selectedProject.ToString().Count() + 1);
-                oldpath = Regex.Replace(oldpath, @"\\", "/");
-
-                Debug.Print(oldpath);
-
-                string newpath = oldpath.Substring(0, oldpath.Count() - selectedFolder.Title.Count());
-                
-
-                newpath += inputDialog.Input;
-
-                Debug.Print(newpath);
-
-                RenameFolderChildren(selectedFolder, oldpath, newpath);
-            }
-            else if (selectedFolder.FileType == DocType.Project)
-            {
-                    
             }
 
             Refresh();

@@ -61,14 +61,16 @@ namespace SliceOfPie
             SaveDocument(proj, newDocument, user);
         }
 
+
         public static void CreateProject(string title, User owner, List<User> sharedWith)
         {
-            UpdateProject(title, owner, sharedWith);
+            Project project = new Project(title, owner, sharedWith);
+            UpdateProject(project);
         }
 
-        public static void UpdateProject(string title, User owner, List<User> sharedWith)
+        public static void UpdateProject(Project p)
         {
-            Project project = new Project(title, owner, sharedWith);
+            Project project = new Project(p.Title, p.Owner, p.SharedWith, p.Id);
             Storage.SaveProjectToFile(project);
         }
 
