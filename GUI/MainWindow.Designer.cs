@@ -47,7 +47,7 @@
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.treeView.Location = new System.Drawing.Point(9, 38);
-            this.treeView.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.treeView.Margin = new System.Windows.Forms.Padding(2);
             this.treeView.Name = "treeView";
             this.treeView.Size = new System.Drawing.Size(240, 248);
             this.treeView.TabIndex = 0;
@@ -57,7 +57,7 @@
             // 
             this.createDocumentButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.createDocumentButton.Location = new System.Drawing.Point(9, 291);
-            this.createDocumentButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.createDocumentButton.Margin = new System.Windows.Forms.Padding(2);
             this.createDocumentButton.Name = "createDocumentButton";
             this.createDocumentButton.Size = new System.Drawing.Size(119, 24);
             this.createDocumentButton.TabIndex = 11;
@@ -69,7 +69,7 @@
             // 
             this.openButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.openButton.Location = new System.Drawing.Point(133, 291);
-            this.openButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.openButton.Margin = new System.Windows.Forms.Padding(2);
             this.openButton.Name = "openButton";
             this.openButton.Size = new System.Drawing.Size(115, 24);
             this.openButton.TabIndex = 12;
@@ -81,7 +81,7 @@
             // 
             this.createFolderButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.createFolderButton.Location = new System.Drawing.Point(9, 320);
-            this.createFolderButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.createFolderButton.Margin = new System.Windows.Forms.Padding(2);
             this.createFolderButton.Name = "createFolderButton";
             this.createFolderButton.Size = new System.Drawing.Size(74, 24);
             this.createFolderButton.TabIndex = 16;
@@ -93,18 +93,19 @@
             // 
             this.moveButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.moveButton.Location = new System.Drawing.Point(87, 320);
-            this.moveButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.moveButton.Margin = new System.Windows.Forms.Padding(2);
             this.moveButton.Name = "moveButton";
             this.moveButton.Size = new System.Drawing.Size(41, 24);
             this.moveButton.TabIndex = 13;
             this.moveButton.Text = "Move";
             this.moveButton.UseVisualStyleBackColor = true;
+            this.moveButton.Click += new System.EventHandler(this.moveButton_Click);
             // 
             // renameButton
             // 
             this.renameButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.renameButton.Location = new System.Drawing.Point(132, 320);
-            this.renameButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.renameButton.Margin = new System.Windows.Forms.Padding(2);
             this.renameButton.Name = "renameButton";
             this.renameButton.Size = new System.Drawing.Size(62, 24);
             this.renameButton.TabIndex = 15;
@@ -116,7 +117,7 @@
             // 
             this.deleteButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.deleteButton.Location = new System.Drawing.Point(198, 320);
-            this.deleteButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.deleteButton.Margin = new System.Windows.Forms.Padding(2);
             this.deleteButton.Name = "deleteButton";
             this.deleteButton.Size = new System.Drawing.Size(50, 24);
             this.deleteButton.TabIndex = 14;
@@ -139,7 +140,7 @@
             // 
             this.syncButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.syncButton.Location = new System.Drawing.Point(9, 370);
-            this.syncButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.syncButton.Margin = new System.Windows.Forms.Padding(2);
             this.syncButton.Name = "syncButton";
             this.syncButton.Size = new System.Drawing.Size(126, 24);
             this.syncButton.TabIndex = 18;
@@ -153,7 +154,7 @@
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.projectBox.FormattingEnabled = true;
             this.projectBox.Location = new System.Drawing.Point(93, 12);
-            this.projectBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.projectBox.Margin = new System.Windows.Forms.Padding(2);
             this.projectBox.Name = "projectBox";
             this.projectBox.Size = new System.Drawing.Size(156, 21);
             this.projectBox.TabIndex = 19;
@@ -185,7 +186,7 @@
             this.Controls.Add(this.renameButton);
             this.Controls.Add(this.deleteButton);
             this.Controls.Add(this.treeView);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.MaximizeBox = false;
             this.MinimumSize = new System.Drawing.Size(273, 44);
             this.Name = "MainWindow";

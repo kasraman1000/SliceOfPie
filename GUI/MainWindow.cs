@@ -205,8 +205,10 @@ namespace GUI
                         path = fullpath.Substring(
                             selectedProject.ToString().Count() + 1,
                             fullpath.Count() - selectedDocument.Title.Count() - selectedProject.ToString().Count() - 2);
-                    else
+                    else if (selectedDocument.FileType == DocType.Folder)
                         path = fullpath.Substring(selectedProject.ToString().Count() + 1);
+                    else 
+                        path = "";
 
 
                     path = Regex.Replace(path, @"\\", "/");
@@ -306,9 +308,6 @@ namespace GUI
 
         }
 
-
-
-
 		private void projectBox_SelectedIndexChanged(object sender, EventArgs e)
 		{
 			selectedProject = (Project) projectBox.SelectedItem;
@@ -356,23 +355,6 @@ namespace GUI
             }
         }
 
-        private void DeleteProject(Project project)
-        {
-            foreach (IFileSystemComponent component in project.Children)
-            {
-                if (component.FileType == DocType.Document)
-                {
-                    DocumentStruct doc = (DocumentStruct)component;
-                    DeleteDocument(project.Id, doc.Id);
-                }
-                else if (component.FileType == DocType.Folder)
-                {
-                    Folder fold = (Folder)component;
-                    DeleteFolder(fold, project);
-                }
-            }
-        }
-
         private void deleteButton_Click(object sender, EventArgs e)
         {
             if (isDocument)
@@ -382,9 +364,13 @@ namespace GUI
             {
                 if (selectedFolder.FileType == DocType.Folder)
                     DeleteFolder(selectedFolder, selectedProject);
-                else if (selectedFolder.FileType == DocType.Project)
-                    DeleteProject(selectedProject);
             }
+            Refresh();
+        }
+
+        private void moveButton_Click(object sender, EventArgs e)
+        {
+
         }
 	}
 }
