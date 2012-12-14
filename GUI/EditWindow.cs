@@ -41,7 +41,7 @@ namespace GUI
             currentDoc.Title = titleField.Text;
             currentDoc.Text = textField.Text;
 
-            Controller.SaveDocument(currentProj, currentDoc, currentUser);
+            //Controller.SaveDocument(currentProj, currentDoc);
 
             modified = false;
         }

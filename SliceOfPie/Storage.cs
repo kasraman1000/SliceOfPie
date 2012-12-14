@@ -406,7 +406,7 @@ namespace SliceOfPie
 
         }
 
-        private static Project GetHierachy(string pid, bool server = false)
+        public static Project GetHierachy(string pid, bool server = false)
         {
             string folderPath;
 
@@ -546,7 +546,7 @@ namespace SliceOfPie
             string kewinsPath = @"D:\Git\SliceOfPie\GUI\bin\Debug";
             List<Project> projs = new List<Project>();
 
-            string correctPath = kewinsPath;
+            string correctPath = creldesPath;
 
             string path;
 

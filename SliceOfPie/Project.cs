@@ -2,17 +2,24 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
+using System.Runtime.Serialization;
 namespace SliceOfPie
 {
+    [DataContract]
     public class Project : Folder
     {
+        
+ 
+
+        [DataMember]
         private User owner;
         public User Owner { get { return owner; } }
 
+        [DataMember]
         private string id;
         public string Id { get { return id; } }
 
+        [DataMember]
         private List<User> sharedWith;
         public List<User> SharedWith { get { return sharedWith; } }
 
@@ -54,6 +61,18 @@ namespace SliceOfPie
         public override string ToString()
         {
             return Title;
+        }
+
+		public override bool Equals(object obj)
+		{
+			if (!(obj is Project))
+				return false;
+			Project p = (Project)obj;
+			if (!(this.FileType == p.FileType 
+                && this.id == p.Id))
+				return false;
+            return true;
+
         }
     }
 }

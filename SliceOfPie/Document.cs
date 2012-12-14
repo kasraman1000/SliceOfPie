@@ -46,7 +46,6 @@ namespace SliceOfPie
             this.title = title;
             this.owner = owner;
             this.path = path;
-            Path = "root";
             log = new Document.DocumentLog(owner);
             CreateId();
         }
@@ -275,6 +274,7 @@ namespace SliceOfPie
         [DataContract]
         public class DocumentLog
         {
+            [DataMember]
             public List<Entry> entries;
 
             public DocumentLog(User user)
