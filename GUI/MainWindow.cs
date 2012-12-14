@@ -117,7 +117,8 @@ namespace GUI
 		 */
 		private void treeView_AfterSelect(object sender, TreeViewEventArgs e)
 		{
-			IFileSystemComponent fsc = (IFileSystemComponent) e.Node.Tag;
+            Debug.Print("{0}: {1}", e.Action, e.Node.Tag);
+            IFileSystemComponent fsc = (IFileSystemComponent) e.Node.Tag;
 			if (fsc.FileType == DocType.Document) // If it's a document
 			{
 				isDocument = true;
@@ -139,6 +140,21 @@ namespace GUI
 			{
 				openButton.Enabled = false;
 			}
+
+            // You can't rename, move or delete projects in this client
+            if (selectedFolder.FileType == DocType.Project)
+            {
+                renameButton.Enabled = false;
+                moveButton.Enabled = false;
+                deleteButton.Enabled = false;
+            }
+            else
+            {
+                renameButton.Enabled = true;
+                moveButton.Enabled = true;
+                deleteButton.Enabled = true;
+            }
+
 
 			createDocumentButton.Enabled = true;
 		}
@@ -315,6 +331,8 @@ namespace GUI
 			treeView.ExpandAll();
 		}
 
+        /**
+         */
 		private void RefreshTreeView()
 		{
 			projects = Controller.GetAllProjectsForUser(activeUser);
