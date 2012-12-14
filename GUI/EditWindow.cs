@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using SliceOfPie;
+using System.Text.RegularExpressions;
 
 namespace GUI
 {
@@ -32,7 +33,7 @@ namespace GUI
         private void EditWindow_Load(object sender, EventArgs e)
         {
             titleField.Text = currentDoc.Title;
-            textField.Text = currentDoc.Text;
+            textField.Text = Regex.Replace(currentDoc.Text, "\n", Environment.NewLine);
             modified = false;
         }
 
