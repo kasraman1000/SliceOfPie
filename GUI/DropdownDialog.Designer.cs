@@ -50,7 +50,7 @@
             this.questionLabel.AutoSize = true;
             this.questionLabel.Location = new System.Drawing.Point(12, 9);
             this.questionLabel.Name = "questionLabel";
-            this.questionLabel.Size = new System.Drawing.Size(46, 17);
+            this.questionLabel.Size = new System.Drawing.Size(35, 13);
             this.questionLabel.TabIndex = 0;
             this.questionLabel.Text = "label1";
             // 
@@ -72,14 +72,14 @@
             this.comboBox.FormattingEnabled = true;
             this.comboBox.Location = new System.Drawing.Point(12, 29);
             this.comboBox.Name = "comboBox";
-            this.comboBox.Size = new System.Drawing.Size(287, 24);
+            this.comboBox.Size = new System.Drawing.Size(287, 21);
             this.comboBox.TabIndex = 4;
             // 
             // DropdownDialog
             // 
             this.AcceptButton = this.okButton;
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            this.ClientSize = new System.Drawing.Size(311, 95);
+            this.ClientSize = new System.Drawing.Size(311, 102);
             this.ControlBox = false;
             this.Controls.Add(this.comboBox);
             this.Controls.Add(this.cancelButton);
