@@ -46,7 +46,6 @@ namespace SliceOfPie
             this.title = title;
             this.owner = owner;
             this.path = path;
-            Path = "root";
             log = new Document.DocumentLog(owner);
             CreateId();
         }

@@ -55,5 +55,17 @@ namespace SliceOfPie
         {
             return Title;
         }
+
+		public override bool Equals(object obj)
+		{
+			if (!(obj is Project))
+				return false;
+			Project p = (Project)obj;
+			if (!(this.FileType == p.FileType 
+                && this.id == p.Id))
+				return false;
+            return true;
+
+        }
     }
 }

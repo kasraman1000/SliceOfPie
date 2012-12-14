@@ -55,9 +55,9 @@ namespace SliceOfPie
             return Storage.ReadFromFile(pid,did);    
         }
 
-        public static void CreateDocument(User user, string path, Project proj)
+        public static void CreateDocument(User user, string path, Project proj, string title)
         {
-            Document newDocument = new Document("Insxert tet here.", "Title", path, user);
+            Document newDocument = new Document("Insxert tet here.", title, path, user);
             SaveDocument(proj, newDocument, user);
         }
 
