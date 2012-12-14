@@ -216,6 +216,7 @@ namespace SliceOfPie
             bool titleChanged = false;
             bool pathChanged = false;
             bool textChanged = (!(changes.Count==0));
+
                                     
             // Has title been changed?
             if (String.Compare(doc.Title, this.Title) != 0)
@@ -234,7 +235,8 @@ namespace SliceOfPie
             }
 
             // Finally, add changes to the text to the changelog.
-            changeLog.Add("Changes to the documents text:");
+            if (textChanged)
+                changeLog.Add("Changes to the documents text:");
 
             foreach (string change in changes)
             {
@@ -255,7 +257,7 @@ namespace SliceOfPie
                 pathString = "Path. ";
             
             
-            this.Log.AddEntry(new DocumentLog.Entry(user, "Made changes to the following fields : " +titleString+textString+pathString,changeLog));
+            this.Log.AddEntry(new DocumentLog.Entry(user, "Changed the document's: " +titleString+textString+pathString,changeLog));
             return true;
         }
 

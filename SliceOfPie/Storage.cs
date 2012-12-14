@@ -419,31 +419,34 @@ namespace SliceOfPie
             {
                 IEnumerable<string> distinctFolderNames;
                 List<Folder> folders = new List<Folder>();
+                List<string> foldersInRoot = new List<string>();
                 List<string> toBeFolders = new List<string>();
                 IEnumerable<string> filesInRoot = Directory.EnumerateFiles(folderPath);
                 List<DocumentStruct> structs = new List<DocumentStruct>();
 
                 foreach (string s in filesInRoot)
                 {
-
-                    using (TextReader tr = new StreamReader(s))
+                    if (!(s.Contains("MetaInfo.txt")))
                     {
-
-                        string title = tr.ReadLine();
-                        string path = tr.ReadLine();
-                        User user = new User(tr.ReadLine());
-
-                        string[] filePath = path.Split('/');
-
-                        foreach (string st in filePath)
+                        using (TextReader tr = new StreamReader(s))
                         {
-                            toBeFolders.Add(st);
 
+                            string title = tr.ReadLine();
+                            string path = tr.ReadLine();
+                            User user = new User(tr.ReadLine());
+
+                            string[] filePath = path.Split('/');
+
+                            foreach (string st in filePath)
+                            {
+                                toBeFolders.Add(st);
+
+                            }
+
+                            string id = Path.GetFileNameWithoutExtension(s);
+
+                            structs.Add(new DocumentStruct(title, user, id, path));
                         }
-
-                        string id = Path.GetFileNameWithoutExtension(s);
-
-                        structs.Add(new DocumentStruct(title, user, id, path));
                     }
 
                 }
@@ -451,12 +454,13 @@ namespace SliceOfPie
                 foreach (string folderName in distinctFolderNames)
                 {
                     folders.Add(new Folder(folderName));
+                    foldersInRoot.Add(folderName);
                 }
 
                 foreach (DocumentStruct d in structs)
                 {
                     string[] folder = d.Path.Split('/');
-                    foreach(Folder fo in folders)
+                    foreach (Folder fo in folders)
                     {
                         if (fo.Title.Equals(folder.Last()))
                         {
@@ -496,6 +500,8 @@ namespace SliceOfPie
                                  if (!derp1.Contains(derp3) && !derp1.Equals(derp3))
                                  {
                                      r2.FirstOrDefault().AddChild(r1.FirstOrDefault());
+                                     Folder fold = (Folder)r1.FirstOrDefault();
+                                     foldersInRoot.Remove(fold.ToString());
                                  }
                                     
                                 }
@@ -513,10 +519,6 @@ namespace SliceOfPie
                 }
                 else
                 {
-                    Folder finalFolder = folders.ElementAt(0);
-
-
-
                     TextReader mr = new StreamReader(folderPath + "\\MetaInfo.txt");
                     string ti = mr.ReadLine();
                     User us = new User(mr.ReadLine());
@@ -528,7 +530,26 @@ namespace SliceOfPie
                     }
 
                     Project finalProject = new Project(ti, us, sha, Path.GetFileNameWithoutExtension(folderPath));
-                    finalProject.AddChild(finalFolder);
+
+                    foreach (Folder fol in folders)
+                    {
+                        if (foldersInRoot.Contains(fol.ToString()))
+                        {
+                            if (String.Compare(fol.Title, "") == 0)
+                            {
+                                foreach (DocumentStruct docStruct in fol.Children)
+                                    finalProject.AddChild(docStruct);
+
+                            }
+                            else
+                                finalProject.AddChild(fol);
+                        }
+                    }
+	
+
+               
+
+
                     mr.Close();
                     mr.Dispose();
                     return finalProject;
@@ -541,19 +562,17 @@ namespace SliceOfPie
 
         public static List<Project> GetAllProjects(bool server = false)
         {
-            string creldesPath = "\\Users\\Crelde\\git\\SliceOfPie\\SliceOfPie\\SliceOfPie\\bin\\Debug";
-            string kasraPath = @"\Users\DE\git\SliceOfPie\GUI\bin\Debug";
-            string kewinsPath = @"D:\Git\SliceOfPie\GUI\bin\Debug";
             List<Project> projs = new List<Project>();
-
-            string correctPath = creldesPath;
+            // The currnt directory
+            string currentDir = Directory.GetCurrentDirectory();
 
             string path;
 
             if (server)
-                path = "Server\\" + correctPath;
+                path = "Server\\" + currentDir;
             else
-                path = correctPath;
+                path = currentDir;
+            
 
             IEnumerable<string> projects = Directory.EnumerateDirectories(path);
 

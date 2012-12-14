@@ -117,7 +117,8 @@ namespace GUI
 		 */
 		private void treeView_AfterSelect(object sender, TreeViewEventArgs e)
 		{
-			IFileSystemComponent fsc = (IFileSystemComponent) e.Node.Tag;
+            Debug.Print("{0}: {1}", e.Action, e.Node.Tag);
+            IFileSystemComponent fsc = (IFileSystemComponent) e.Node.Tag;
 			if (fsc.FileType == DocType.Document) // If it's a document
 			{
 				isDocument = true;
@@ -139,6 +140,21 @@ namespace GUI
 			{
 				openButton.Enabled = false;
 			}
+
+            // You can't rename, move or delete projects in this client
+            if (selectedFolder.FileType == DocType.Project)
+            {
+                renameButton.Enabled = false;
+                moveButton.Enabled = false;
+                deleteButton.Enabled = false;
+            }
+            else
+            {
+                renameButton.Enabled = true;
+                moveButton.Enabled = true;
+                deleteButton.Enabled = true;
+            }
+
 
 			createDocumentButton.Enabled = true;
 		}
@@ -315,6 +331,8 @@ namespace GUI
 			treeView.ExpandAll();
 		}
 
+        /**
+         */
 		private void RefreshTreeView()
 		{
 			projects = Controller.GetAllProjectsForUser(activeUser);
@@ -365,9 +383,94 @@ namespace GUI
             Refresh();
         }
 
+        private List<Folder> GetFoldersInFolder(Folder folder, List<Folder> folders)
+        {
+            foreach (IFileSystemComponent component in folder.Children)
+            {
+                if (component.FileType == DocType.Folder)
+                {
+                    folders.Add((Folder)component);
+                    List<Folder> nestedFolders = GetFoldersInFolder((Folder)component, folders);
+                }
+            }
+            return folders;
+        }
+
+
+        private void moveDocument(string path, string id)
+        {
+            Document doc = Controller.OpenDocument(selectedProject.Id, id);
+            doc.Path = path;
+            Controller.SaveDocument(selectedProject, doc, activeUser);
+        }
+
+        private void MoveFolder(Folder folder ,string path)
+        {
+            foreach (IFileSystemComponent component in folder.Children)
+            {
+                if (component.FileType == DocType.Document)
+                {
+                    DocumentStruct docStruct = (DocumentStruct)component;
+                    moveDocument(path, docStruct.Id);
+                }
+                else if (component.FileType == DocType.Folder)
+                {
+                    Folder fold = (Folder)component;
+                    MoveFolder(fold, path + @"/" + component.Title);
+                }
+
+            }
+        }
+
         private void moveButton_Click(object sender, EventArgs e)
         {
+            List<Folder> folders = new List<Folder>();
+            
+            GetFoldersInFolder(selectedProject, folders);
 
+            folders.Add(selectedProject);
+
+            if (isDocument)
+            {
+                DropdownDialog<Folder> folderDialog = new DropdownDialog<Folder>("Which folder should the document be moved to?", folders, true);
+                folderDialog.ShowDialog();
+                if (folderDialog.Canceled)
+                    return;
+
+                Folder folderToMoveTo = folderDialog.Selected;
+
+                string path;
+
+                if (folderToMoveTo == selectedProject)
+                    path = "";
+                else
+                {
+                    DocumentStruct neighbour = (DocumentStruct)folderToMoveTo.Children[0];
+                    path = neighbour.Path;
+                }
+
+                moveDocument(path, selectedDocument.Id);
+            }
+            else
+            {
+                DropdownDialog<Folder> folderDialog = new DropdownDialog<Folder>("Which folder should the folder be moved to?", folders, true);
+                folderDialog.ShowDialog();
+                if (folderDialog.Canceled)
+                    return;
+                Folder folderToMoveTo = folderDialog.Selected;
+
+                string path;
+
+                if (folderToMoveTo == selectedProject)
+                    path = selectedFolder.Title;
+                else
+                {
+                    DocumentStruct neighbour = (DocumentStruct)folderToMoveTo.Children[0];
+                    path = neighbour.Path+"/"+selectedFolder.Title;
+                }
+                MoveFolder(selectedFolder, path);
+            }
+            RefreshTreeView();
         }
 	}
 }
