@@ -12,20 +12,27 @@ namespace WebGUI
     public partial class WebForm1 : System.Web.UI.Page
     {
         private List<Project> projects;
-        private User activeUser = new User("Crelde");
+        static bool firstVisit = true;
 
 
         protected void Page_Load(object sender, EventArgs e)
         {
             // Checks if its a postback call
-            if (Page.IsPostBack)
+            if (firstVisit == false)
             {
-                string trwe = "";
+                  
             }
-            else
+            else if(firstVisit == true)
             {
+                firstVisit = false;
+                Response.Redirect("WelcomeForm.aspx");
 
-
+            }
+            if (!Page.IsPostBack)
+            {
+                projects = SliceOfPie.Controller.GetAllProjectsForUser(WelcomeForm.active);
+                BuildFullTree(projects);
+                TreeView1.CollapseAll();
             }
         }
 
@@ -38,52 +45,86 @@ namespace WebGUI
 
         protected void Button1_Click(object sender, EventArgs e)
         {
-            TreeViewSomething();
+    
+
         }
 
         protected void TreeView1_SelectedNodeChanged(object sender, EventArgs e)
         {
 
+
+
         }
 
-        protected void TreeViewSomething()
+        protected void BuildFullTree(List<Project> fsc)
         {
-            TreeView1.Nodes.Clear();
-            //TreeNode parentNode1 = new TreeNode("Parent1");
-            //TreeNode childNode1 = new TreeNode("Child1");
-            //TreeNode parentNode2 = new TreeNode("Parent2");
-            //TreeNode childNode2 = new TreeNode("Child2");
-            projects = SliceOfPie.Controller.GetAllProjectsForUser(activeUser);
-            //TreeView1.Nodes.Add(parentNode1);
-            TreeNode parentNode1;
-
-
-            Int32 x=0;
-            foreach (Project myproj in projects)
+            if (fsc.Count != 0)
             {
-                parentNode1 = new TreeNode(myproj.Id);
-                TreeView1.Nodes.Add(parentNode1);
-                //TreeView1.Nodes[x].ChildNodes.Add(parentNode1);
-                //x++;
+                TextBox3.Text = "Your Accesible projects: ";
+                foreach (IFileSystemComponent comp in fsc)
+                {
+                    BuildTreeView(comp, TreeView1.Nodes);
+                }
+                Panel1.Visible = true;
+            }
+            else
+            {
+                TextBox3.Text = "No Accesible projects, why don't you create a new one?";
+                Panel1.Visible = false;
             }
 
-
-            //TreeView1.Nodes[0].ChildNodes.Add(parentNode2);
-            //TreeView1.Nodes[0].ChildNodes.Add(childNode1);
-            //TreeView1.Nodes[0].ChildNodes[0].ChildNodes.Add(childNode2);
             
-
-
         }
+
+        protected void BuildTreeView(IFileSystemComponent fsc, TreeNodeCollection nodes)
+        {
+
+            
+            if (fsc.FileType == SliceOfPie.DocType.Document)
+            {
+                TreeNode n = new TreeNode(fsc.Title);
+                nodes.Add(n);
+
+            }
+            else
+            {
+                TreeNode n = new TreeNode(fsc.Title);
+                nodes.Add(n);
+
+            
+                SliceOfPie.Folder folder = (SliceOfPie.Folder)fsc;
+                foreach (SliceOfPie.IFileSystemComponent f in (folder.Children))
+                {
+                    
+                    BuildTreeView(f,n.ChildNodes);
+                    
+                }
+            }
+        }
+
+       
+
+            
 
         protected void TreeView1_SelectedNodeChanged1(object sender, EventArgs e)
         {
-            TreeView mytreeview = (TreeView)sender;
-            string mystring = mytreeview.SelectedValue.ToString();
 
+        
+        }
+
+        protected void Button4_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("WelcomeForm.aspx");
+        }
+
+        protected void TextBox4_TextChanged(object sender, EventArgs e)
+        {
 
         }
 
+        }
+
+        
+
 
     }
-}

@@ -16,15 +16,17 @@
             Font-Size="XX-Large" Font-Strikeout="False" Font-Underline="True" Height="45px">Welcome to SliceOfPie!</asp:TextBox>
     </p>
     <p>
-        <asp:TextBox ID="TextBox3" runat="server" Font-Bold="False" 
-            ontextchanged="TextBox1_TextChanged" 
-            style="margin-left: 171px; margin-right: 472px; margin-top: 26px;" 
-            Width="627px" BorderStyle="None" Font-Names="Georgia" Font-Size="Medium" 
-            Font-Strikeout="False" Font-Underline="False" Height="35px">These are the projects that you have access to at the moment:</asp:TextBox>
-        <asp:TreeView ID="TreeView1" runat="server" Height="233px" 
+        <asp:TextBox ID="TextBox3" runat="server" BorderStyle="None" Font-Bold="True" 
+            Font-Size="Medium" Height="35px" Width="651px"></asp:TextBox>
+    </p>
+    <asp:Panel ID="Panel1" runat="server" Direction="LeftToRight" Height="381px" 
+        HorizontalAlign="Left" ScrollBars="Vertical" style="margin-right: 1013px" 
+        Width="345px">
+        <asp:TreeView ID="TreeView1" runat="server" Height="375px" 
             ImageSet="XPFileExplorer" NodeIndent="15" 
             onselectednodechanged="TreeView1_SelectedNodeChanged1" 
-            style="margin-left: 434px" Width="245px">
+            style="margin-left: 0px; margin-right: 0px; margin-top: 0px;" 
+    Width="280px" ShowLines="True">
             <HoverNodeStyle Font-Underline="True" ForeColor="#6666AA" />
             <NodeStyle Font-Names="Tahoma" Font-Size="8pt" ForeColor="Black" 
                 HorizontalPadding="2px" NodeSpacing="0px" VerticalPadding="2px" />
@@ -32,19 +34,21 @@
             <SelectedNodeStyle BackColor="#B5B5B5" Font-Underline="False" 
                 HorizontalPadding="0px" VerticalPadding="0px" />
         </asp:TreeView>
-        <asp:SiteMapDataSource ID="SiteMapDataSource1" runat="server" />
-    </p>
-    <p>
-        &nbsp;</p>
+    </asp:Panel>
     <p>
         <asp:Button ID="Button2" runat="server" onclick="Button1_Click" 
-            style="margin-left: 244px; margin-top: 49px" Text="Create New Document" 
+            style="margin-left: 59px; margin-top: 0px" Text="Create New Document" 
             Width="164px" />
         <asp:Button ID="Button1" runat="server" onclick="Button1_Click" 
-            style="margin-left: 28px; margin-top: 49px" Text="Open Document" 
-            Width="156px" />
+            style="margin-left: 28px; margin-top: 0px" Text="Open Document" 
+            Width="164px" />
+    </p>
+    <p>
+        <asp:Button ID="Button4" runat="server" onclick="Button4_Click" 
+            style="margin-left: 58px" Text="Change User" Width="165px" />
         <asp:Button ID="Button3" runat="server" onclick="Button1_Click" 
-            style="margin-left: 31px; margin-top: 49px" Text="Delete Document" />
+            style="margin-left: 28px; margin-top: 0px; margin-bottom: 0px;" 
+            Text="Delete Document" Width="163px" />
     </p>
     <p>
         &nbsp;</p>
