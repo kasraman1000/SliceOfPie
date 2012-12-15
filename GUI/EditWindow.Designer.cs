@@ -62,12 +62,13 @@
             // saveButton
             // 
             this.saveButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.saveButton.Location = new System.Drawing.Point(413, 366);
+            this.saveButton.Location = new System.Drawing.Point(412, 366);
             this.saveButton.Name = "saveButton";
             this.saveButton.Size = new System.Drawing.Size(115, 33);
             this.saveButton.TabIndex = 8;
             this.saveButton.Text = "Save changes";
             this.saveButton.UseVisualStyleBackColor = true;
+            this.saveButton.Click += new System.EventHandler(this.saveButton_Click);
             // 
             // textField
             // 
@@ -78,7 +79,7 @@
             this.textField.Multiline = true;
             this.textField.Name = "textField";
             this.textField.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textField.Size = new System.Drawing.Size(513, 331);
+            this.textField.Size = new System.Drawing.Size(512, 331);
             this.textField.TabIndex = 6;
             this.textField.Text = "Input Document Contents Here";
             this.textField.TextChanged += new System.EventHandler(this.textField_TextChanged);
@@ -91,19 +92,22 @@
             // 
             // listView
             // 
+            this.listView.Activation = System.Windows.Forms.ItemActivation.TwoClick;
             this.listView.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.listView.LargeImageList = this.imageList;
-            this.listView.Location = new System.Drawing.Point(534, 29);
+            this.listView.Location = new System.Drawing.Point(533, 29);
             this.listView.Name = "listView";
             this.listView.Size = new System.Drawing.Size(212, 331);
             this.listView.TabIndex = 10;
             this.listView.UseCompatibleStateImageBehavior = false;
+            this.listView.ItemActivate += new System.EventHandler(this.listView_ItemActivate);
             // 
             // label1
             // 
+            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(571, 9);
+            this.label1.Location = new System.Drawing.Point(530, 9);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(113, 17);
             this.label1.TabIndex = 11;
@@ -112,7 +116,7 @@
             // addImageButton
             // 
             this.addImageButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.addImageButton.Location = new System.Drawing.Point(631, 366);
+            this.addImageButton.Location = new System.Drawing.Point(630, 366);
             this.addImageButton.Name = "addImageButton";
             this.addImageButton.Size = new System.Drawing.Size(115, 33);
             this.addImageButton.TabIndex = 12;
@@ -124,7 +128,7 @@
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.ClientSize = new System.Drawing.Size(758, 411);
+            this.ClientSize = new System.Drawing.Size(757, 411);
             this.Controls.Add(this.addImageButton);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.listView);

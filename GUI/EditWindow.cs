@@ -112,11 +112,11 @@ namespace GUI
             fileDialog.CheckFileExists = true;
             fileDialog.CheckPathExists = true;
             // Only find compatible images
-            fileDialog.Filter = "BMP (*.BMP;*.DIB;*.RLE)|*.BMP;*.DIB;*.RLE|"+
+            fileDialog.Filter = "PNG(*.PNG)|*.PNG|" +
                 "JPEG (*.JPG;*.JPEG;*.JPE;*.JFIF)|*.JPG;*.JPEG;*.JPE;*.JFIF|"+
                 "GIF (*.GIF)|*.GIF|"+
-                "TIFF (*.TIF;*.TIFF)|*.TIF;*.TIFF|"+
-                "PNG(*.PNG)|*.PNG";
+                "BMP (*.BMP;*.DIB;*.RLE)|*.BMP;*.DIB;*.RLE|" +
+                "TIFF (*.TIF;*.TIFF)|*.TIF;*.TIFF";
 
             
             if (fileDialog.ShowDialog() == DialogResult.OK)
@@ -133,6 +133,16 @@ namespace GUI
             }
 
 
+        }
+
+        private void listView_ItemActivate(object sender, EventArgs e)
+        {
+            if (listView.SelectedItems.Count > 0)
+            {
+                Picture pic = (Picture)listView.SelectedItems[0].Tag;
+                new ImageViewer(pic.Image).Show(); ;
+
+            }
         }
 
     }

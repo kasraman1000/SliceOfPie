@@ -349,6 +349,7 @@ namespace GUI
          */
 		private void RefreshTreeView()
 		{
+            openButton.Enabled = false;
 			projects = Controller.GetAllProjectsForUser(activeUser);
 
             // Fill up with projects
