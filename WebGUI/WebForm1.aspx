@@ -117,10 +117,10 @@
              TextMode="MultiLine" Width="611px" 
                 style="margin-top: 7px"></asp:TextBox>
             <asp:Panel ID="ButtonPanel1" runat="server" Direction="LeftToRight" 
-                Height="82px" HorizontalAlign="Left" 
-                style="margin-right: 1013px; margin-left: 0px; margin-top: 26px;" 
-                Width="699px">
-                <p style="margin-top: 21px">
+                Height="99px" HorizontalAlign="Left" 
+                style="margin-right: 1013px; margin-left: 0px; margin-top: 5px;" 
+                Width="738px">
+                <p style="margin-top: 33px; height: 56px; width: 1067px;">
                     <asp:Button ID="CreateNewDocumentButton" runat="server" Height="40px" 
                         onclick="CreateNewDocumentButton_Click" 
                         style="margin-left: 29px; margin-top: 0px" Text="Create New Document" 
@@ -137,19 +137,36 @@
         </asp:Panel>
     </div>
     <div style="height: 138px; width: 764px; margin-left: 392px">
-        <div style="height: 47px; width: 757px">
+        <asp:Panel ID="DynamicPanel" runat="server" Height="137px" Visible="False" 
+            Width="766px">
             <asp:TextBox ID="ClickFolderBox" runat="server" BorderStyle="None" 
-                Height="21px" style="margin-top: 6px" Visible="False" Width="359px">Click on the Folder you want to add your new document to! </asp:TextBox>
+                Height="21px" style="margin-top: 6px" Visible="False" 
+    Width="359px">Click on the Folder you want to add your new document to! </asp:TextBox>
             <asp:TextBox ID="FolderBox" runat="server" BorderStyle="Dotted" 
                 style="margin-top: 0px" Visible="False" Width="180px"></asp:TextBox>
-        </div>
-        <asp:TextBox ID="NewTitleTextbox" runat="server" BorderStyle="None" 
-            Height="24px" Visible="False" 
-            Width="324px" style="margin-top: 60px">Please enter the title for you new document here:</asp:TextBox>
-        <asp:TextBox ID="TitleBox" runat="server" Height="27px" 
-            Visible="False" Width="186px"></asp:TextBox>
-        <asp:Button ID="SubmitTitle" runat="server" onclick="SubmitTitle_Click" 
-            style="margin-left: 30px" Text="Submit" Width="79px" Visible="False" />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <asp:TextBox ID="AreYouSureBox" runat="server" BorderStyle="None" Height="24px" 
+                ontextchanged="AreYouSureBox_TextChanged" style="margin-left: 0px" 
+                Visible="False" Width="322px">Are you sure you want to delete this document?</asp:TextBox>
+            &nbsp;
+            <asp:Button ID="AcceptDeleteButton" runat="server" 
+                onclick="AcceptDeleteButton_Click" Text="Yes" Visible="False" Width="89px" />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <asp:Button ID="DeclineDeleteButton" runat="server" 
+                onclick="DeclineDeleteButton_Click" Text="No" Visible="False" Width="89px" />
+            &nbsp;
+            <br />
+            <br />
+            <asp:TextBox ID="NewTitleTextbox" runat="server" BorderStyle="None" 
+                Height="25px" style="margin-top: 7px" Visible="False" Width="255px">Enter the title for you new document:</asp:TextBox>
+            <asp:TextBox ID="TitleBox" runat="server" Height="28px" Visible="False" 
+                Width="186px"></asp:TextBox>
+            <asp:Button ID="SubmitTitle" runat="server" onclick="SubmitTitle_Click" 
+                style="margin-left: 30px" Text="Submit" Visible="False" Width="79px" />
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <asp:Button ID="CancelCreateButton" runat="server" 
+                onclick="CancelCreateButton_Click" Text="Cancel" Visible="False" Width="72px" />
+        </asp:Panel>
     </div>
     </form>
 </body>
