@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.listView = new System.Windows.Forms.ListView();
+            this.listBox = new System.Windows.Forms.ListBox();
             this.textBox = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -46,28 +46,26 @@
             // 
             // splitContainer1.Panel1
             // 
-            this.splitContainer1.Panel1.Controls.Add(this.listView);
+            this.splitContainer1.Panel1.Controls.Add(this.listBox);
             // 
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.textBox);
-            this.splitContainer1.Size = new System.Drawing.Size(549, 431);
-            this.splitContainer1.SplitterDistance = 230;
+            this.splitContainer1.Size = new System.Drawing.Size(1275, 492);
+            this.splitContainer1.SplitterDistance = 631;
             this.splitContainer1.TabIndex = 0;
             // 
-            // listView
+            // listBox
             // 
-            this.listView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.listView.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
-            this.listView.Location = new System.Drawing.Point(0, 0);
-            this.listView.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.listView.MultiSelect = false;
-            this.listView.Name = "listView";
-            this.listView.Size = new System.Drawing.Size(230, 431);
-            this.listView.TabIndex = 0;
-            this.listView.UseCompatibleStateImageBehavior = false;
-            this.listView.View = System.Windows.Forms.View.List;
-            this.listView.SelectedIndexChanged += new System.EventHandler(this.listView_SelectedIndexChanged);
+            this.listBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.listBox.FormattingEnabled = true;
+            this.listBox.ItemHeight = 16;
+            this.listBox.Location = new System.Drawing.Point(0, 0);
+            this.listBox.Name = "listBox";
+            this.listBox.ScrollAlwaysVisible = true;
+            this.listBox.Size = new System.Drawing.Size(631, 492);
+            this.listBox.TabIndex = 1;
+            this.listBox.SelectedIndexChanged += new System.EventHandler(this.listBox_SelectedIndexChanged);
             // 
             // textBox
             // 
@@ -78,15 +76,14 @@
             this.textBox.Name = "textBox";
             this.textBox.ReadOnly = true;
             this.textBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBox.Size = new System.Drawing.Size(315, 431);
+            this.textBox.Size = new System.Drawing.Size(640, 492);
             this.textBox.TabIndex = 0;
-            this.textBox.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
             // LogWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(549, 431);
+            this.ClientSize = new System.Drawing.Size(1275, 492);
             this.Controls.Add(this.splitContainer1);
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "LogWindow";
@@ -104,8 +101,8 @@
         #endregion
 
         private System.Windows.Forms.SplitContainer splitContainer1;
-        private System.Windows.Forms.ListView listView;
         private System.Windows.Forms.TextBox textBox;
+        private System.Windows.Forms.ListBox listBox;
 
     }
 }

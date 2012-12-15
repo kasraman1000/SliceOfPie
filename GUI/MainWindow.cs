@@ -117,7 +117,6 @@ namespace GUI
 		 */
 		private void treeView_AfterSelect(object sender, TreeViewEventArgs e)
 		{
-            Debug.Print("{0}: {1}", e.Action, e.Node.Tag);
             IFileSystemComponent fsc = (IFileSystemComponent) e.Node.Tag;
 			if (fsc.FileType == DocType.Document) // If it's a document
 			{
@@ -142,7 +141,7 @@ namespace GUI
 			}
 
             // You can't rename, move or delete projects in this client
-            if (selectedFolder.FileType == DocType.Project)
+            if (selectedFolder.FileType == DocType.Project && !isDocument)
             {
                 renameButton.Enabled = false;
                 moveButton.Enabled = false;
