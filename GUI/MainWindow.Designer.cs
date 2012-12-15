@@ -131,7 +131,7 @@
             this.userLabel.AutoSize = true;
             this.userLabel.Location = new System.Drawing.Point(12, 434);
             this.userLabel.Name = "userLabel";
-            this.userLabel.Size = new System.Drawing.Size(98, 17);
+            this.userLabel.Size = new System.Drawing.Size(74, 13);
             this.userLabel.TabIndex = 17;
             this.userLabel.Text = "Logged in as: ";
             // 
@@ -156,7 +156,7 @@
             this.projectBox.Location = new System.Drawing.Point(124, 15);
             this.projectBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.projectBox.Name = "projectBox";
-            this.projectBox.Size = new System.Drawing.Size(207, 24);
+            this.projectBox.Size = new System.Drawing.Size(207, 21);
             this.projectBox.TabIndex = 19;
             this.projectBox.SelectedIndexChanged += new System.EventHandler(this.projectBox_SelectedIndexChanged);
             // 
@@ -165,7 +165,7 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(12, 18);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(106, 17);
+            this.label1.Size = new System.Drawing.Size(81, 13);
             this.label1.TabIndex = 20;
             this.label1.Text = "Select a project";
             // 

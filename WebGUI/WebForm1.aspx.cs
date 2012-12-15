@@ -6,16 +6,21 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using SliceOfPie;
 
-
 namespace WebGUI
 {
     public partial class WebForm1 : System.Web.UI.Page
     {
-        private List<Project> projects;
+        private static List<Project> projects = null;
+        private static Project activeProject;
+        private static Document activeDoc;
+        private static string currentPath;
+
         static bool firstVisit = true;
 
         // We make a Dictionary to keep track of which documents belong to which projects by their Id.
+        /*
         private static Dictionary<string, string> projectDictionary = new Dictionary<string, string>();
+        
         protected void InitiateDictionary()
         {
             foreach (Project p in projects)
@@ -39,7 +44,7 @@ namespace WebGUI
                 }
             }
         }
-
+        */
 
 
         protected void Page_Load(object sender, EventArgs e)
@@ -47,34 +52,38 @@ namespace WebGUI
             // Checks if its a postback call
             if (firstVisit == false)
             {
-                  
             }
-            else if(firstVisit == true)
+            else if (firstVisit == true)
             {
                 firstVisit = false;
                 Response.Redirect("WelcomeForm.aspx");
 
             }
+
             if (!Page.IsPostBack)
             {
-                projects = SliceOfPie.Controller.GetAllProjectsForUser(WelcomeForm.active);
-                BuildFullTree(projects);
-                TreeView1.CollapseAll();
-                InitiateDictionary();
+                UpdateProjects();               
             }
-            
+
+        }
+        private void UpdateProjects()
+        {
+            ProjectDropDown.Items.Clear();
+            projects = SliceOfPie.Controller.GetAllProjectsForUser(WelcomeForm.active);
+            foreach (Project p in projects)
+            {
+                ListItem li = new ListItem(p.Title, p.Id);
+                ProjectDropDown.Items.Add(li);
+            }
+            AccessTextBox.Text = "Choose one of your projects";
         }
 
 
 
-        protected void TextBox1_TextChanged(object sender, EventArgs e)
+        protected void Button4_Click(object sender, EventArgs e)
         {
-
-        }
-
-        protected void Button1_Click(object sender, EventArgs e)
-        {
-    
+            //projectDictionary.Clear();
+            Response.Redirect("WelcomeForm.aspx");
 
         }
 
@@ -84,12 +93,13 @@ namespace WebGUI
 
 
         }
-
+        // NO NEED TO BUILD FULL TREE :(
+/*
         protected void BuildFullTree(List<Project> fsc)
         {
             if (fsc.Count != 0)
             {
-                TextBox3.Text = "Your Accesible projects: ";
+                AccessTextBox.Text = "Your Accesible projects: ";
                 foreach (IFileSystemComponent comp in fsc)
                 {
                     BuildTreeView(comp, TreeView1.Nodes);
@@ -98,17 +108,17 @@ namespace WebGUI
             }
             else
             {
-                TextBox3.Text = "No Accesible projects, why don't you create a new one?";
+                AccessTextBox.Text = "No Accesible projects, why don't you create a new one?";
                 Panel1.Visible = false;
             }
 
-            
-        }
 
+        }
+*/
         protected void BuildTreeView(IFileSystemComponent fsc, TreeNodeCollection nodes)
         {
 
-            
+
             if (fsc.FileType == SliceOfPie.DocType.Document)
             {
                 TreeNode n = new TreeNode(fsc.Title);
@@ -125,61 +135,137 @@ namespace WebGUI
                     n.Value = ((Project)fsc).Id;
                 }
 
-            
+
                 SliceOfPie.Folder folder = (SliceOfPie.Folder)fsc;
                 foreach (SliceOfPie.IFileSystemComponent f in (folder.Children))
                 {
-                    
-                    BuildTreeView(f,n.ChildNodes);
-                    
+
+                    BuildTreeView(f, n.ChildNodes);
+
                 }
             }
         }
 
-       
-
-            
-
         protected void TreeView1_SelectedNodeChanged1(object sender, EventArgs e)
         {
-            
+
             TreeView tw = (TreeView)sender;
             if (tw.SelectedNode.ChildNodes.Count == 0)
             {
-                Document selectedDoc = SliceOfPie.Controller.OpenDocument(projectDictionary[tw.SelectedNode.Value], tw.SelectedNode.Value);
-                TextBox5.Text = selectedDoc.Text;
-                TextBox4.Text = selectedDoc.Title;
+                Document selectedDoc = SliceOfPie.Controller.OpenDocument(activeProject.Id, tw.SelectedNode.Value);
+                DocumentTextBox.Text = selectedDoc.Text;
+                DocumentNameBox.Text = selectedDoc.Title;
+                activeDoc = selectedDoc;
                 Panel2.Visible = true;
             }
+            else
+            {
+                FolderBox.Text = tw.SelectedNode.Value;
+            }
+            string path = tw.SelectedNode.ValuePath;
+            currentPath = path.Substring(activeProject.Id.Length + 1);
+        
             
+   
 
         }
+          
 
-        // Change user button redirects to the welcome form.
-        protected void Button4_Click(object sender, EventArgs e)
+        protected void ChangeUserButton_Click(object sender, EventArgs e)
         {
-            projectDictionary.Clear();
+            //projectDictionary.Clear();
             Response.Redirect("WelcomeForm.aspx");
         }
 
-        protected void TextBox4_TextChanged1(object sender, EventArgs e)
+        protected void NewProjectButton_Click(object sender, EventArgs e)
         {
+
+        }
+
+        protected void DeleteProjectButton_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void ShareProjectButton_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void RenameProjectButton_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void CreateNewDocumentButton_Click(object sender, EventArgs e)
+        {
+            NewTitleTextbox.Visible = true;
+            TitleBox.Visible = true;
+            SubmitTitle.Visible = true;
+            FolderBox.Visible = true;
+            ClickFolderBox.Visible = true;
             
         }
 
-        protected void TextBox4_TextChanged(object sender, EventArgs e)
+        protected void SaveDocumentButton_Click(object sender, EventArgs e)
+        {
+            activeDoc.Text = DocumentTextBox.Text;
+            Controller.SaveDocument(activeProject, activeDoc, WelcomeForm.active);
+        }
+
+        protected void DeleteDocumentButton_Click(object sender, EventArgs e)
+        {
+
+        }
+
+
+        protected void SubmitTitle_Click(object sender, EventArgs e)
+        {
+            string title = TitleBox.Text;
+            NewTitleTextbox.Visible = false;
+            TitleBox.Visible = false;
+            SubmitTitle.Visible = false;
+            FolderBox.Visible = false;
+            ClickFolderBox.Visible = false;
+            CreateNewDocument(WelcomeForm.active, currentPath, activeProject, TitleBox.Text);
+            UpdateProjects();
+        }
+
+        protected string GetPath()
+        {
+
+            string path = FolderBox.Text;
+
+            return path;  
+        }
+
+        protected void CreateNewDocument(User user, string path, Project proj, string title)
+        {
+            Controller.CreateDocument(user, path, proj, title);
+        }
+
+        protected void ProjectDropDown_SelectedIndexChanged(object sender, EventArgs e)
         {
             
+            TreeView1.Nodes.Clear();
+            //Find project where this is the title
+            string pid = ((DropDownList)sender).SelectedValue;
+
+            var project = from p in projects
+                           where p.Id == pid
+                           select p;
+
+            activeProject = project.FirstOrDefault();
+            BuildTreeView(project.FirstOrDefault(), TreeView1.Nodes);
         }
 
-        protected void TextBox5_TextChanged(object sender, EventArgs e)
-        {
 
-        }
 
-        }
+        // Change user button redirects to the welcome form.
 
-        
 
 
     }
+
+
+}

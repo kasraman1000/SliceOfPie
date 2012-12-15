@@ -57,7 +57,7 @@ namespace SliceOfPie
 
         public static void CreateDocument(User user, string path, Project proj, string title)
         {
-            Document newDocument = new Document("Insxert tet here.", title, path, user);
+            Document newDocument = new Document("Insert your text here.", title, path, user);
             SaveDocument(proj, newDocument, user);
         }
 
