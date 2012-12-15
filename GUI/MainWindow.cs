@@ -192,7 +192,7 @@ namespace GUI
 
 		private void syncButton_Click(object sender, EventArgs e)
 		{
-			Controller.SyncWithServer();
+			Controller.SyncWithServer(activeUser);
 		}
 
 		/**

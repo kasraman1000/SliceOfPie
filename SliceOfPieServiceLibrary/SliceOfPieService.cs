@@ -20,14 +20,12 @@ namespace SliceOfPieServiceLibrary
          */
         public List<Document> SyncAll(List<Document> docs)
         {
-            List<Document> result = new List<Document>();
-            result.Add(new Document("Little Red Riding Nigga", "Niggerhood", new User("Mister nigger")));
-            return result;
+            return null;
         }
 
         public void DeleteDocument(string projectId, string documentId)
         {
-            Storage.ServerDeleteFile(projectId, documentId);
+            Storage.ServerDeleteDocument(projectId, documentId);
         }
 
         public List<Project> GetAllProjectsOnServer()
@@ -53,6 +51,11 @@ namespace SliceOfPieServiceLibrary
         public void SaveDocumentOnServer(Project p, Document d)
         {
             Storage.ServerWriteToFile(p, d);
+        }
+
+        public void DeleteProject(string projectId)
+        {
+            Storage.DeleteProject(projectId, true);
         }
     }
 }
