@@ -246,21 +246,24 @@ namespace SliceOfPie
             }
 
             // Are there any new pictures?
-            foreach (Picture pic in this.Images)
-            {
-                if (!(doc.Images.Contains(pic)))
-                {
-                    picturesAdded = true;
-                    imagesAdded.Add(pic);
-                }
-            }
-
-            // Are any of the old pictures removed?
             foreach (Picture pic in doc.Images)
             {
                 if (!(this.Images.Contains(pic)))
                 {
+                    picturesAdded = true;
+                    images.Add(pic);
+                    imagesAdded.Add(pic);
+                }
+            }
+          
+
+            // Are any of the old pictures removed?
+            foreach (Picture pic in this.Images)
+            {
+                if (!(doc.Images.Contains(pic)))
+                {
                     picturesRemoved = true;
+                    images.Remove(pic);
                     imagesRemoved.Add(pic);
                 }
             }

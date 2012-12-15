@@ -47,7 +47,12 @@ namespace SliceOfPie
 
         public static void DeleteDocument(string pid, string id)
         {
-            Storage.DeleteFile(pid,id);
+            Storage.DeleteDocument(pid,id);
+        }
+
+        public static void DeletePicture(string projectId, string pictureId)
+        {
+            Storage.DeletePicture(projectId, pictureId);
         }
 
         public static Document OpenDocument(string pid, string did)
