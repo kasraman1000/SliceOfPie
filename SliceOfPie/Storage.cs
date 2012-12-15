@@ -198,7 +198,7 @@ namespace SliceOfPie
             }
         }
 
-        public static void SavePictureToFile(Picture pic, string path)
+        private static void SavePictureToFile(Picture pic, string path)
         {            
             try
             {
@@ -208,6 +208,27 @@ namespace SliceOfPie
             catch (Exception)
             {
                 Console.WriteLine("Could not save Image");
+            }
+        }
+
+        public static void DeletePicture(string projectId, string pictureId, bool server = false)
+        {
+            string fileName;
+            // Decides which file the document is associated with, if it is the server
+            // that is invoking the method, specify that it is in the server directory.
+            if (server)
+                fileName = "Server\\" + projectId + "\\" + pictureId + ".JPG";
+            else
+                fileName = projectId + "\\" + pictureId + ".JPG";
+
+            // Checks if a filename that matches the string exists and deletes it
+            if (File.Exists(fileName))
+            {
+                File.Delete(fileName);
+            }
+            else
+            {
+                Console.WriteLine("No file exists by that name");
             }
         }
 
@@ -434,7 +455,7 @@ namespace SliceOfPie
         /*
          * Deletes the file given the file name 
          */
-        public static void DeleteFile(string pid, string did, bool server = false)
+        public static void DeleteDocument(string pid, string did, bool server = false)
         {
 
             string fileName;
@@ -659,7 +680,7 @@ namespace SliceOfPie
 
         public static void ServerDeleteFile(string pid, string did)
         {
-            DeleteFile(pid, did, true);
+            DeleteDocument(pid, did, true);
         }
 
         public static Project ServerGetHierachy(string pid)
