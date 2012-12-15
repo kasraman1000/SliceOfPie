@@ -678,7 +678,7 @@ namespace SliceOfPie
                     projs.Add(GetHierachy(p, true));
                 else
                 {
-                    if (!(String.Compare(p, "Server")==0))
+                    if (!(p.Contains("Server")))
                         projs.Add(GetHierachy(p));
                 }
 

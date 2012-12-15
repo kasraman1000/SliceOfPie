@@ -20,9 +20,7 @@ namespace SliceOfPieServiceLibrary
          */
         public List<Document> SyncAll(List<Document> docs)
         {
-            List<Document> result = new List<Document>();
-            result.Add(new Document("Little Red Riding Nigga", "Niggerhood", new User("Mister nigger")));
-            return result;
+            return null;
         }
 
         public void DeleteDocument(string projectId, string documentId)
