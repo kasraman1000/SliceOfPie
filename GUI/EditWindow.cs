@@ -8,6 +8,8 @@ using System.Text;
 using System.Windows.Forms;
 using SliceOfPie;
 using System.Text.RegularExpressions;
+using System.Diagnostics;
+using System.IO;
 
 namespace GUI
 {
@@ -27,14 +29,34 @@ namespace GUI
             currentProj = proj;
             currentDoc = doc;
             currentUser = user;
+
+            // Test stuff
+            currentDoc.Images.Add(new Picture(new Bitmap(@"C:\Users\DE\Pictures\1341703288087.jpg")));
+            currentDoc.Images.Add(new Picture(new Bitmap(@"C:\Users\DE\Pictures\greendango.png")));
+
+
+
             InitializeComponent();
         }
 
         private void EditWindow_Load(object sender, EventArgs e)
         {   
-
             textField.Text = Regex.Replace(currentDoc.Text, "\n", Environment.NewLine);
             this.Text = currentDoc.Title;
+
+            // Add document pictures to imagelist
+            // and show images in listview
+            int i = 0;
+            foreach (Picture p in currentDoc.Images)
+            {
+                imageList.Images.Add(p.Image);
+
+                ListViewItem item = new ListViewItem();
+                item.ImageIndex = i++;
+                item.Tag = p;
+                listView.Items.Add(item);
+            }
+
             modified = false;
             saveButton.Enabled = false;
         }
@@ -87,6 +109,36 @@ namespace GUI
         private void viewLogButton_Click(object sender, EventArgs e)
         {
             new LogWindow(currentDoc).Show();
+        }
+
+        private void addImageButton_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog fileDialog = new OpenFileDialog();
+            fileDialog.Multiselect = false;
+            fileDialog.CheckFileExists = true;
+            fileDialog.CheckPathExists = true;
+            // Only find compatible images
+            fileDialog.Filter = "BMP (*.BMP;*.DIB;*.RLE)|*.BMP;*.DIB;*.RLE|"+
+                "JPEG (*.JPG;*.JPEG;*.JPE;*.JFIF)|*.JPG;*.JPEG;*.JPE;*.JFIF|"+
+                "GIF (*.GIF)|*.GIF|"+
+                "TIFF (*.TIF;*.TIFF)|*.TIF;*.TIFF|"+
+                "PNG(*.PNG)|*.PNG";
+
+            
+            if (fileDialog.ShowDialog() == DialogResult.OK)
+            {
+                Picture pic = new Picture(new Bitmap(fileDialog.FileName));
+                currentDoc.Images.Add(pic);
+                imageList.Images.Add(pic.Image);
+
+                ListViewItem item = new ListViewItem();
+                item.ImageIndex = imageList.Images.Count -1;
+                item.Tag = pic;
+                listView.Items.Add(item);
+
+            }
+
+
         }
 
     }

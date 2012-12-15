@@ -34,8 +34,9 @@
             this.saveButton = new System.Windows.Forms.Button();
             this.textField = new System.Windows.Forms.TextBox();
             this.imageList = new System.Windows.Forms.ImageList(this.components);
-            this.listView1 = new System.Windows.Forms.ListView();
+            this.listView = new System.Windows.Forms.ListView();
             this.label1 = new System.Windows.Forms.Label();
+            this.addImageButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // viewLogButton
@@ -61,7 +62,7 @@
             // saveButton
             // 
             this.saveButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.saveButton.Location = new System.Drawing.Point(453, 366);
+            this.saveButton.Location = new System.Drawing.Point(413, 366);
             this.saveButton.Name = "saveButton";
             this.saveButton.Size = new System.Drawing.Size(115, 33);
             this.saveButton.TabIndex = 8;
@@ -77,7 +78,7 @@
             this.textField.Multiline = true;
             this.textField.Name = "textField";
             this.textField.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textField.Size = new System.Drawing.Size(553, 331);
+            this.textField.Size = new System.Drawing.Size(513, 331);
             this.textField.TabIndex = 6;
             this.textField.Text = "Input Document Contents Here";
             this.textField.TextChanged += new System.EventHandler(this.textField_TextChanged);
@@ -85,19 +86,19 @@
             // imageList
             // 
             this.imageList.ColorDepth = System.Windows.Forms.ColorDepth.Depth32Bit;
-            this.imageList.ImageSize = new System.Drawing.Size(32, 32);
+            this.imageList.ImageSize = new System.Drawing.Size(64, 64);
             this.imageList.TransparentColor = System.Drawing.Color.Transparent;
             // 
-            // listView1
+            // listView
             // 
-            this.listView1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            this.listView.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.listView1.LargeImageList = this.imageList;
-            this.listView1.Location = new System.Drawing.Point(574, 29);
-            this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(172, 331);
-            this.listView1.TabIndex = 10;
-            this.listView1.UseCompatibleStateImageBehavior = false;
+            this.listView.LargeImageList = this.imageList;
+            this.listView.Location = new System.Drawing.Point(534, 29);
+            this.listView.Name = "listView";
+            this.listView.Size = new System.Drawing.Size(212, 331);
+            this.listView.TabIndex = 10;
+            this.listView.UseCompatibleStateImageBehavior = false;
             // 
             // label1
             // 
@@ -108,13 +109,25 @@
             this.label1.TabIndex = 11;
             this.label1.Text = "Attached Images";
             // 
+            // addImageButton
+            // 
+            this.addImageButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.addImageButton.Location = new System.Drawing.Point(631, 366);
+            this.addImageButton.Name = "addImageButton";
+            this.addImageButton.Size = new System.Drawing.Size(115, 33);
+            this.addImageButton.TabIndex = 12;
+            this.addImageButton.Text = "Add Image";
+            this.addImageButton.UseVisualStyleBackColor = true;
+            this.addImageButton.Click += new System.EventHandler(this.addImageButton_Click);
+            // 
             // EditWindow
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.ClientSize = new System.Drawing.Size(758, 411);
+            this.Controls.Add(this.addImageButton);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.listView1);
+            this.Controls.Add(this.listView);
             this.Controls.Add(this.textField);
             this.Controls.Add(this.saveButton);
             this.Controls.Add(this.label2);
@@ -136,8 +149,9 @@
         private System.Windows.Forms.Button saveButton;
         private System.Windows.Forms.TextBox textField;
         private System.Windows.Forms.ImageList imageList;
-        private System.Windows.Forms.ListView listView1;
+        private System.Windows.Forms.ListView listView;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button addImageButton;
 
 
     }
