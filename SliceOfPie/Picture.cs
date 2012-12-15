@@ -3,14 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Drawing;
+using System.Runtime.Serialization;
 
 namespace SliceOfPie
 {
+    [DataContract]
     public class Picture  
     {
+        [DataMember]
         private string id;
         public string Id { get { return id; } set { id = value; } }
 
+        [DataMember]
         private Bitmap image;
         public Bitmap Image { get { return image; } set { image = value; } }
 
