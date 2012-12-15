@@ -15,7 +15,7 @@
         clear: both;
             top: 0px;
             left: 0px;
-            height: 709px;
+            height: 712px;
         }
     
     div.InnerLeft
@@ -41,7 +41,7 @@
 
 
 </head>
-<body style="width: 1158px">
+<body style="width: 1179px; height: 704px;">
     <form id="form1" runat="server">
     <div class="Outer">
         <div class ="InnerLeft">
@@ -83,9 +83,9 @@
      </asp:Panel>
             <br />
             <asp:Panel ID="ButtonPanel2" runat="server" Direction="LeftToRight" 
-                Height="227px" HorizontalAlign="Left" 
+                Height="111px" HorizontalAlign="Left" 
                 style="margin-right: 0px; margin-left: 0px; margin-top: 0px;" 
-                Width="380px">
+                Width="365px">
                 <p>
                     <asp:Button ID="NewProjectButton" runat="server" Height="40px" 
                         style="margin-left: 12px" Text="New Project" Width="150px" 
@@ -101,10 +101,48 @@
                     <asp:Button ID="RenameProjectButton" runat="server" Height="40px" onclick="RenameProjectButton_Click" 
                         style="margin-left: 32px; margin-bottom: 1px;" Text="Rename Project" 
                         Width="150px" />
-                    <p>
-                    </p>
                 </p>
             </asp:Panel>
+
+       
+            <div style="height: 198px; width: 376px; margin-top: 9px">
+                <asp:Panel ID="DynamicProjectPanel" runat="server" Height="175px" 
+                    Visible="False" Width="371px">
+                    <asp:TextBox ID="ProjectNameBox" runat="server" BorderStyle="None" 
+                        Height="22px" Visible="False" Width="91px">Project name:</asp:TextBox>
+                    <asp:TextBox ID="NewProjectNameBox" runat="server" Height="24px" 
+                        style="margin-top: 0px; margin-left: 70px;" Width="199px"></asp:TextBox>
+                    <br />
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <asp:Button ID="SubmitProjectButton" runat="server" Height="27px" 
+                        onclick="SubmitProjectButton_Click" style="margin-left: 102px" Text="Submit" 
+                        Visible="False" Width="90px" />
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <asp:Button ID="CancelProjectButton" runat="server" Height="27px" 
+                        onclick="CancelProjectButton_Click" style="margin-left: 0px" Text="Cancel" 
+                        Visible="False" Width="90px" />
+                    <asp:Panel ID="SharePanel" runat="server" Height="61px" Width="383px">
+                        <asp:TextBox ID="EnterNameButton" runat="server" BorderStyle="None" 
+                            Height="16px" ontextchanged="EnterNameButton_TextChanged" Visible="False" 
+                            Width="157px">Enter a users name:</asp:TextBox>
+                        <asp:TextBox ID="UserNameBox" runat="server" Height="28px" 
+                            style="margin-left: 5px" Visible="False" Width="201px"></asp:TextBox>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <asp:Button ID="SubmitUserButton" runat="server" Height="27px" 
+                            onclick="SubmitProjectButton_Click" Text="Submit" Visible="False" 
+                            Width="90px" />
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <asp:Button ID="CancelSharingButton" runat="server" Height="27px" 
+                            onclick="CancelProjectButton_Click" Text="Cancel" Visible="False" 
+                            Width="90px" />
+                    </asp:Panel>
+                    <br />
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <br />
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                </asp:Panel>
+            </div>
+            <br />
 
        
         </div>
@@ -120,7 +158,7 @@
                 Height="99px" HorizontalAlign="Left" 
                 style="margin-right: 1013px; margin-left: 0px; margin-top: 5px;" 
                 Width="738px">
-                <p style="margin-top: 33px; height: 56px; width: 1067px;">
+                <p style="margin-top: 2px; height: 101px; width: 738px;">
                     <asp:Button ID="CreateNewDocumentButton" runat="server" Height="40px" 
                         onclick="CreateNewDocumentButton_Click" 
                         style="margin-left: 29px; margin-top: 0px" Text="Create New Document" 
@@ -132,29 +170,42 @@
                         onclick="DeleteDocumentButton_Click" 
                         style="margin-left: 65px; margin-top: 0px; margin-bottom: 0px;" 
                         Text="Delete Document" Width="150px" />
+                    <br />
+                    <asp:Button ID="CreateNewFolderButton" runat="server" Height="40px" 
+                        onclick="CreateNewDocumentButton_Click" 
+                        style="margin-left: 29px; margin-top: 8px" Text="Create New Folder" 
+                        Width="150px" />
+                    <asp:Button ID="AddPictureButton" runat="server" Height="40px" 
+                        onclick="CreateNewDocumentButton_Click" 
+                        style="margin-left: 68px; margin-top: 8px" Text="Add a Picture" Width="150px" />
+                    <asp:Button ID="MoveButton" runat="server" Height="40px" 
+                        onclick="CreateNewDocumentButton_Click" 
+                        style="margin-left: 65px; margin-top: 8px" Text="Move" Width="150px" />
                 </p>
             </asp:Panel>
         </asp:Panel>
     </div>
-    <div style="height: 138px; width: 764px; margin-left: 392px">
-        <asp:Panel ID="DynamicPanel" runat="server" Height="137px" Visible="False" 
-            Width="766px">
+    <div style="height: 202px; width: 1168px; margin-left: 385px">
+        <asp:Panel ID="DynamicPanel" runat="server" Height="198px" Visible="False" 
+            Width="782px">
             <asp:TextBox ID="ClickFolderBox" runat="server" BorderStyle="None" 
-                Height="21px" style="margin-top: 6px" Visible="False" 
-    Width="359px">Click on the Folder you want to add your new document to! </asp:TextBox>
+                Height="27px" style="margin-top: 6px" Visible="False" 
+    Width="362px">Click on the Folder you want to add your new document to! </asp:TextBox>
             <asp:TextBox ID="FolderBox" runat="server" BorderStyle="Dotted" 
                 style="margin-top: 0px" Visible="False" Width="180px"></asp:TextBox>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br />
+            <br />
             <asp:TextBox ID="AreYouSureBox" runat="server" BorderStyle="None" Height="24px" 
                 ontextchanged="AreYouSureBox_TextChanged" style="margin-left: 0px" 
                 Visible="False" Width="322px">Are you sure you want to delete this document?</asp:TextBox>
             &nbsp;
             <asp:Button ID="AcceptDeleteButton" runat="server" 
-                onclick="AcceptDeleteButton_Click" Text="Yes" Visible="False" Width="89px" />
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                onclick="AcceptDeleteButton_Click" Text="Yes" Visible="False" Width="89px" 
+                Height="32px" style="margin-left: 0px; margin-top: 0px" />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;
             <asp:Button ID="DeclineDeleteButton" runat="server" 
-                onclick="DeclineDeleteButton_Click" Text="No" Visible="False" Width="89px" />
-            &nbsp;
+                onclick="DeclineDeleteButton_Click" Text="No" Visible="False" Width="89px" 
+                Height="32px" />
             <br />
             <br />
             <asp:TextBox ID="NewTitleTextbox" runat="server" BorderStyle="None" 

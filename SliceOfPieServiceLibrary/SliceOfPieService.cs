@@ -18,7 +18,7 @@ namespace SliceOfPieServiceLibrary
          * merges these new changes in, and then returns all the new
          * and updated documents back to the user.
          */
-        public List<Document> SyncAll(List<Document> docs)
+        public List<Document> SyncAll(List<SliceOfPie.Document> docs)
         {
             List<Document> result = new List<Document>();
             result.Add(new Document("Little Red Riding Nigga", "Niggerhood", new User("Mister nigger")));
@@ -45,13 +45,15 @@ namespace SliceOfPieServiceLibrary
             return Storage.ServerReadFromFile(projectId, documentId);
         }
 
-        public void SaveProjectOnServer(Project p)
+        public void SaveProjectOnServer(SliceOfPie.Project p)
         {
             Storage.ServerSaveProjectToFile(p);
         }
 
-        public void SaveDocumentOnServer(Project p, Document d)
+        public void SaveDocumentOnServer(SliceOfPie.Project p, SliceOfPie.Document d)
         {
+            
+
             Storage.ServerWriteToFile(p, d);
         }
     }
