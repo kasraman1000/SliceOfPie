@@ -239,7 +239,22 @@ namespace GUI
 		private void createFolderButton_Click(object sender, EventArgs e)
 		{
 
+                InputDialog inputDialog = new InputDialog("What should your new folder be called?", "name");
+                inputDialog.ShowDialog();
+                if (!inputDialog.Canceled)
+                {
+                    string path = treeView.SelectedNode.FullPath;
+                    string fixedPath = Regex.Replace(path, @"\\", "/");
+                    string finalPath;
+                    if (isDocument)
+                        finalPath = Regex.Replace(fixedPath, "/" + selectedDocument.Title, "");
+                    else
+                        finalPath = fixedPath;
 
+
+                    Controller.CreateDocument(activeUser, finalPath + "/" + inputDialog.Input, selectedProject, "readme");
+                }
+                RefreshTreeView();
 		}
 
 		private void renameButton_Click(object sender, EventArgs e)

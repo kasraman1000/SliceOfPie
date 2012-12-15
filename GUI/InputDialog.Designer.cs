@@ -50,7 +50,7 @@ namespace GUI
             this.textBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.textBox.Location = new System.Drawing.Point(12, 32);
             this.textBox.Name = "textBox";
-            this.textBox.Size = new System.Drawing.Size(488, 22);
+            this.textBox.Size = new System.Drawing.Size(488, 20);
             this.textBox.TabIndex = 1;
             // 
             // questionLabel
@@ -59,7 +59,7 @@ namespace GUI
             this.questionLabel.AutoSize = true;
             this.questionLabel.Location = new System.Drawing.Point(12, 9);
             this.questionLabel.Name = "questionLabel";
-            this.questionLabel.Size = new System.Drawing.Size(46, 17);
+            this.questionLabel.Size = new System.Drawing.Size(35, 13);
             this.questionLabel.TabIndex = 0;
             this.questionLabel.Text = "label1";
             // 
@@ -78,7 +78,7 @@ namespace GUI
             // 
             this.AcceptButton = this.okButton;
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            this.ClientSize = new System.Drawing.Size(512, 95);
+            this.ClientSize = new System.Drawing.Size(512, 102);
             this.ControlBox = false;
             this.Controls.Add(this.cancelButton);
             this.Controls.Add(this.okButton);

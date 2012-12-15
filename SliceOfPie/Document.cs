@@ -51,6 +51,7 @@ namespace SliceOfPie
             this.title = title;
             this.owner = owner;
             this.path = path;
+            this.images = new List<Picture>();
             log = new Document.DocumentLog(owner);
             CreateId();
         }
@@ -61,6 +62,7 @@ namespace SliceOfPie
             this.text = text;
             this.title = title;
             this.owner = owner;
+            this.images = new List<Picture>();
             log = new Document.DocumentLog(owner);
             CreateId();
         }
@@ -72,6 +74,7 @@ namespace SliceOfPie
             this.text = text;
             this.title = title;
             this.owner = owner;
+            this.images = new List<Picture>();
             log = new Document.DocumentLog(owner);
             this.id = id;
         }

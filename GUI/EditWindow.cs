@@ -30,12 +30,6 @@ namespace GUI
             currentDoc = doc;
             currentUser = user;
 
-            // Test stuff
-            currentDoc.Images.Add(new Picture(new Bitmap(@"C:\Users\DE\Pictures\1341703288087.jpg")));
-            currentDoc.Images.Add(new Picture(new Bitmap(@"C:\Users\DE\Pictures\greendango.png")));
-
-
-
             InitializeComponent();
         }
 
