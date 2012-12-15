@@ -17,36 +17,6 @@ namespace WebGUI
 
         static bool firstVisit = true;
 
-        // We make a Dictionary to keep track of which documents belong to which projects by their Id.
-        /*
-        private static Dictionary<string, string> projectDictionary = new Dictionary<string, string>();
-        
-        protected void InitiateDictionary()
-        {
-            foreach (Project p in projects)
-            {
-                FillDictionary(p, p.Id, projectDictionary);
-
-            }
-        }
-
-        protected void FillDictionary(IFileSystemComponent fsc, string pid, Dictionary<string, string> dic)
-        {
-            if (fsc.FileType == DocType.Document)
-            {
-                dic.Add(((DocumentStruct)fsc).Id, pid);
-            }
-            else
-            {
-                foreach (IFileSystemComponent f in ((Folder)fsc).Children)
-                {
-                    FillDictionary(f, pid, dic);
-                }
-            }
-        }
-        */
-
-
         protected void Page_Load(object sender, EventArgs e)
         {
             // Checks if its a postback call
@@ -83,7 +53,7 @@ namespace WebGUI
 
         protected void Button4_Click(object sender, EventArgs e)
         {
-            //projectDictionary.Clear();
+
             Response.Redirect("WelcomeForm.aspx");
 
         }
@@ -94,28 +64,7 @@ namespace WebGUI
 
 
         }
-        // NO NEED TO BUILD FULL TREE :(
-/*
-        protected void BuildFullTree(List<Project> fsc)
-        {
-            if (fsc.Count != 0)
-            {
-                AccessTextBox.Text = "Your Accesible projects: ";
-                foreach (IFileSystemComponent comp in fsc)
-                {
-                    BuildTreeView(comp, TreeView1.Nodes);
-                }
-                Panel1.Visible = true;
-            }
-            else
-            {
-                AccessTextBox.Text = "No Accesible projects, why don't you create a new one?";
-                Panel1.Visible = false;
-            }
 
-
-        }
-*/
         protected void BuildTreeView(IFileSystemComponent fsc, TreeNodeCollection nodes)
         {
 
@@ -159,13 +108,14 @@ namespace WebGUI
                 DocumentNameBox.Text = selectedDoc.Title;
                 activeDoc = selectedDoc;
                 Panel2.Visible = true;
+                string path = tw.SelectedNode.ValuePath;
+                currentPath = path.Substring(activeProject.Id.Length + 1);
             }
             else
             {
                 FolderBox.Text = tw.SelectedNode.Value;
             }
-            string path = tw.SelectedNode.ValuePath;
-            currentPath = path.Substring(activeProject.Id.Length + 1);
+
         
             
    
@@ -175,33 +125,81 @@ namespace WebGUI
 
         protected void ChangeUserButton_Click(object sender, EventArgs e)
         {
-            //projectDictionary.Clear();
+            DynamicPanelInvisible();
+            DynamicProjectPanelInvisible();
             Response.Redirect("WelcomeForm.aspx");
         }
 
         protected void NewProjectButton_Click(object sender, EventArgs e)
         {
+            DynamicPanelInvisible();
+            DynamicProjectPanelInvisible();
+            DynamicProjectPanel.Visible = true;
+            NewProjectNameBox.Visible = true;
+            ProjectNameBox.Visible = true;
+            SubmitProjectButton.Visible = true;
+            CancelProjectButton.Visible = true;
+
+        }
+
+        protected void DynamicProjectPanelInvisible()
+        {
+            DynamicProjectPanel.Visible = false;
+            NewProjectNameBox.Visible = false;
+            ProjectNameBox.Visible = false;
+            SubmitProjectButton.Visible = false;
+            CancelProjectButton.Visible = false;
+            SharePanel.Visible = false;
+            EnterNameButton.Visible = false;
+            SubmitUserButton.Visible = false;
+            CancelSharingButton.Visible = false;
+            UserNameBox.Visible = false;
 
         }
 
         protected void DeleteProjectButton_Click(object sender, EventArgs e)
         {
-
+            DynamicPanelInvisible();
+            DynamicProjectPanelInvisible();
         }
 
         protected void ShareProjectButton_Click(object sender, EventArgs e)
         {
+            DynamicPanelInvisible();
+            DynamicProjectPanelInvisible();
+            DynamicProjectPanel.Visible = true;
+            EnterNameButton.Visible = true;
+            SharePanel.Visible = true;
+            SubmitUserButton.Visible = true;
+            CancelSharingButton.Visible = true;
+            UserNameBox.Visible = true;
 
         }
 
         protected void RenameProjectButton_Click(object sender, EventArgs e)
         {
+            DynamicPanelInvisible();
+            DynamicProjectPanelInvisible();
+            DynamicProjectPanel.Visible = true;
+            NewProjectNameBox.Visible = true;
+            ProjectNameBox.Visible = true;
+            SubmitProjectButton.Visible = true;
+            CancelProjectButton.Visible = true;
 
+            /*
+            using(SliceOfPie.SliceOfPieServer.SliceOfPieServiceClient client = new SliceOfPie.SliceOfPieServer.SliceOfPieServiceClient())
+            {
+
+               // client.SaveProjectOnServer(activeProject);
+
+            }
+             */
         }
 
         protected void CreateNewDocumentButton_Click(object sender, EventArgs e)
         {
             DynamicPanelInvisible();
+            DynamicProjectPanelInvisible();
             DynamicPanel.Visible = true;
             NewTitleTextbox.Visible = true;
             TitleBox.Visible = true;
@@ -221,6 +219,7 @@ namespace WebGUI
         protected void DeleteDocumentButton_Click(object sender, EventArgs e)
         {
             DynamicPanelInvisible();
+            DynamicProjectPanelInvisible();
             DynamicPanel.Visible = true;
             AreYouSureBox.Visible = true;
             AcceptDeleteButton.Visible = true;
@@ -233,6 +232,7 @@ namespace WebGUI
         {
             string title = TitleBox.Text;
             DynamicPanelInvisible();
+            DynamicProjectPanelInvisible();
             CreateNewDocument(WelcomeForm.active, currentPath, activeProject, TitleBox.Text);
             UpdateProjects();
         }
@@ -249,20 +249,19 @@ namespace WebGUI
         {
             Controller.CreateDocument(user, path, proj, title);
         }
-
-        protected void ProjectDropDown_SelectedIndexChanged(object sender, EventArgs e)
+        protected void UpdateTreeView(string pid)
         {
-            
+
             TreeView1.Nodes.Clear();
             //Find project where this is the title
-            string pid = ((DropDownList)sender).SelectedValue;
+            
 
             var project = from p in projects
-                           where p.Id == pid
-                           select p;
+                          where p.Id == pid
+                          select p;
 
             activeProject = project.FirstOrDefault();
-            if (((DropDownList)sender).SelectedItem.Text == (""))
+            if (pid == (""))
             {
                 TreeView1.Nodes.Clear();
             }
@@ -270,6 +269,12 @@ namespace WebGUI
             {
                 BuildTreeView(project.FirstOrDefault(), TreeView1.Nodes);
             }
+        }
+        protected void ProjectDropDown_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string pid = ((DropDownList)sender).SelectedValue;
+            UpdateTreeView(pid);
+           
         }
 
         protected void AreYouSureBox_TextChanged(object sender, EventArgs e)
@@ -281,12 +286,16 @@ namespace WebGUI
         {
             Controller.DeleteDocument(activeProject.Id,activeDoc.Id);
             DynamicPanelInvisible();
+            DynamicProjectPanelInvisible();
+            UpdateProjects();   
+            UpdateTreeView(activeProject.Id);
             
         }
 
         protected void DeclineDeleteButton_Click(object sender, EventArgs e)
         {
             DynamicPanelInvisible();
+            DynamicProjectPanelInvisible();
         }
 
         // Hides every element in dynamic panel
@@ -309,6 +318,32 @@ namespace WebGUI
         {
             TitleBox.Text = "";
             DynamicPanelInvisible();
+        }
+
+        protected void TextBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void SubmitProjectButton_Click(object sender, EventArgs e)
+        {
+            //using(SliceOfPie.SliceOfPie.SliceOfPieServiceClient client = new SliceOfPie.SliceOfPie.SliceOfPieServiceClient())
+            //{
+
+            //    client.SaveProjectOnServer(activeProject);
+
+            //}
+        }
+
+        protected void CancelProjectButton_Click(object sender, EventArgs e)
+        {
+            DynamicProjectPanelInvisible();
+            DynamicPanelInvisible();
+        }
+
+        protected void EnterNameButton_TextChanged(object sender, EventArgs e)
+        {
+
         }
 
 

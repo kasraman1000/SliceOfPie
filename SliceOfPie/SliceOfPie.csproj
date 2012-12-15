@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -82,54 +82,9 @@
     <Compile Include="IFileSystemComponent.cs" />
     <Compile Include="Picture.cs" />
     <Compile Include="Project.cs" />
-    <Compile Include="Service References\SliceOfPieServer\Reference.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </Compile>
     <Compile Include="Storage.cs" />
     <Compile Include="User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <WCFMetadata Include="Service References\" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="app.config" />
-    <None Include="Service References\SliceOfPieServer\item.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\SliceOfPieServer\item1.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\SliceOfPieServer\item2.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\SliceOfPieServer\item3.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\SliceOfPieServer\SliceOfPie.SliceOfPieServer.Document.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\SliceOfPieServer\SliceOfPie.SliceOfPieServer.Project.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\SliceOfPieServer\SliceOfPieService.wsdl" />
-  </ItemGroup>
-  <ItemGroup>
-    <WCFMetadataStorage Include="Service References\SliceOfPieServer\" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\SliceOfPieServer\configuration91.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\SliceOfPieServer\configuration.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\SliceOfPieServer\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

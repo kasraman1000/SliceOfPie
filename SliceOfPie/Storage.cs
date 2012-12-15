@@ -688,7 +688,7 @@ namespace SliceOfPie
             // The path to look for projects (directories)
             string path;
             if (server)
-                path = "Server\\" + currentDir;
+                path = currentDir +"\\Server";
             else
                 path = currentDir;
             
