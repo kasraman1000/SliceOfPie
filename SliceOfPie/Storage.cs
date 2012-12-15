@@ -6,6 +6,7 @@ using System.IO;
 using System.Threading;
 using System.Text.RegularExpressions;
 using System.Drawing;
+using System.Diagnostics;
 
 namespace SliceOfPie
 {
@@ -211,8 +212,10 @@ namespace SliceOfPie
             }
         }
 
-        public static void DeletePicture(string projectId, string pictureId, bool server = false)
+        public static void DeletePicture(string projectId, Picture picture, bool server = false)
         {
+            string pictureId = picture.Id;
+            picture.Image.Dispose();
             string fileName;
             // Decides which file the document is associated with, if it is the server
             // that is invoking the method, specify that it is in the server directory.
@@ -224,7 +227,14 @@ namespace SliceOfPie
             // Checks if a filename that matches the string exists and deletes it
             if (File.Exists(fileName))
             {
-                File.Delete(fileName);
+                try
+                {
+                    File.Delete(fileName);
+                }
+                catch (IOException)
+                {
+                    Debug.Print("Could not Delete picture named " + fileName + " because the program could not access the file.");
+                }
             }
             else
             {

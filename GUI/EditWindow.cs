@@ -167,12 +167,15 @@ namespace GUI
 
                 imageList.Images.RemoveAt(listView.SelectedIndices[0]);
                 listView.Items.Remove(listView.SelectedItems[0]);
-
-                currentDoc.Images.Remove(pic);
-
-                Controller.DeletePicture(currentProj.Id, pic.Id);
+                
                 // gotta save the image change immediatly
+                currentDoc.Images.Remove(pic);
                 Controller.SaveDocument(currentProj, currentDoc, currentUser);
+                pic.Image.Dispose();
+                Controller.DeletePicture(currentProj.Id, pic);
+                
+                
+                
             }
             
 
