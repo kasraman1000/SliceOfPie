@@ -70,6 +70,7 @@ namespace WebGUI
         {
             ProjectDropDown.Items.Clear();
             projects = SliceOfPie.Controller.GetAllProjectsForUser(WelcomeForm.active);
+            ProjectDropDown.Items.Add("");
             foreach (Project p in projects)
             {
                 ListItem li = new ListItem(p.Title, p.Id);
@@ -118,7 +119,7 @@ namespace WebGUI
         protected void BuildTreeView(IFileSystemComponent fsc, TreeNodeCollection nodes)
         {
 
-
+            
             if (fsc.FileType == SliceOfPie.DocType.Document)
             {
                 TreeNode n = new TreeNode(fsc.Title);
@@ -126,6 +127,7 @@ namespace WebGUI
                 n.Value = ((DocumentStruct)fsc).Id;
 
             }
+          
             else
             {
                 TreeNode n = new TreeNode(fsc.Title);
@@ -199,11 +201,14 @@ namespace WebGUI
 
         protected void CreateNewDocumentButton_Click(object sender, EventArgs e)
         {
+            DynamicPanelInvisible();
+            DynamicPanel.Visible = true;
             NewTitleTextbox.Visible = true;
             TitleBox.Visible = true;
             SubmitTitle.Visible = true;
             FolderBox.Visible = true;
             ClickFolderBox.Visible = true;
+            CancelCreateButton.Visible = true;
             
         }
 
@@ -215,6 +220,11 @@ namespace WebGUI
 
         protected void DeleteDocumentButton_Click(object sender, EventArgs e)
         {
+            DynamicPanelInvisible();
+            DynamicPanel.Visible = true;
+            AreYouSureBox.Visible = true;
+            AcceptDeleteButton.Visible = true;
+            DeclineDeleteButton.Visible = true;
 
         }
 
@@ -222,11 +232,7 @@ namespace WebGUI
         protected void SubmitTitle_Click(object sender, EventArgs e)
         {
             string title = TitleBox.Text;
-            NewTitleTextbox.Visible = false;
-            TitleBox.Visible = false;
-            SubmitTitle.Visible = false;
-            FolderBox.Visible = false;
-            ClickFolderBox.Visible = false;
+            DynamicPanelInvisible();
             CreateNewDocument(WelcomeForm.active, currentPath, activeProject, TitleBox.Text);
             UpdateProjects();
         }
@@ -256,7 +262,53 @@ namespace WebGUI
                            select p;
 
             activeProject = project.FirstOrDefault();
-            BuildTreeView(project.FirstOrDefault(), TreeView1.Nodes);
+            if (((DropDownList)sender).SelectedItem.Text == (""))
+            {
+                TreeView1.Nodes.Clear();
+            }
+            else
+            {
+                BuildTreeView(project.FirstOrDefault(), TreeView1.Nodes);
+            }
+        }
+
+        protected void AreYouSureBox_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void AcceptDeleteButton_Click(object sender, EventArgs e)
+        {
+            Controller.DeleteDocument(activeProject.Id,activeDoc.Id);
+            DynamicPanelInvisible();
+            
+        }
+
+        protected void DeclineDeleteButton_Click(object sender, EventArgs e)
+        {
+            DynamicPanelInvisible();
+        }
+
+        // Hides every element in dynamic panel
+        protected void DynamicPanelInvisible()
+        {
+            AreYouSureBox.Visible = false;
+            AcceptDeleteButton.Visible = false;
+            DeclineDeleteButton.Visible = false;
+            NewTitleTextbox.Visible = false;
+            TitleBox.Visible = false;
+            SubmitTitle.Visible = false;
+            FolderBox.Visible = false;
+            ClickFolderBox.Visible = false;
+            CancelCreateButton.Visible = false;
+
+            DynamicPanel.Visible = false;
+        }
+
+        protected void CancelCreateButton_Click(object sender, EventArgs e)
+        {
+            TitleBox.Text = "";
+            DynamicPanelInvisible();
         }
 
 

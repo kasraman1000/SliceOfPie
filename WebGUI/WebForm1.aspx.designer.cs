@@ -184,6 +184,15 @@ namespace WebGUI {
         protected global::System.Web.UI.WebControls.Button DeleteDocumentButton;
         
         /// <summary>
+        /// DynamicPanel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel DynamicPanel;
+        
+        /// <summary>
         /// ClickFolderBox control.
         /// </summary>
         /// <remarks>
@@ -200,6 +209,33 @@ namespace WebGUI {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox FolderBox;
+        
+        /// <summary>
+        /// AreYouSureBox control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox AreYouSureBox;
+        
+        /// <summary>
+        /// AcceptDeleteButton control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button AcceptDeleteButton;
+        
+        /// <summary>
+        /// DeclineDeleteButton control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button DeclineDeleteButton;
         
         /// <summary>
         /// NewTitleTextbox control.
@@ -227,5 +263,14 @@ namespace WebGUI {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button SubmitTitle;
+        
+        /// <summary>
+        /// CancelCreateButton control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button CancelCreateButton;
     }
 }
