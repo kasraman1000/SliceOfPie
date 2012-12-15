@@ -110,17 +110,7 @@ namespace SliceOfPie
 
             }
             
-
-
-           
-            using (SliceOfPieServer.SliceOfPieServiceClient serviceClient = new SliceOfPieServer.SliceOfPieServiceClient())
-            {
-                serviceClient.SyncAll(null);
-
-            }
-
-
-
+            // add serverconnection here
         }
 
         /*

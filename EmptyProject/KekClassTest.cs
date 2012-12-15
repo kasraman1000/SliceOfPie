@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using SliceOfPie;
 using SliceOfPieClient.Service;
+using System.Threading;
 
 
 namespace EmptyProject
@@ -12,12 +13,16 @@ namespace EmptyProject
     {
         public static void Main(String[] args)
         {
-            SliceOfPieServiceClient serviceClient = new SliceOfPieServiceClient();
+            Thread.Sleep(1000);
+            using (SliceOfPieServiceClient serviceClient = new SliceOfPieServiceClient())
+            {
+                Project p = new Project("SERVERTEST", new User("servertestuserman"), new List<User>());
+                List<SliceOfPie.Project> list = serviceClient.GetAllProjectsOnServer();
 
-            var response = serviceClient.SyncAll(new List<SliceOfPie.Document>());
+                Console.ReadKey();
+            }
 
-            Console.WriteLine(response);
-            Console.ReadKey();
+           
         }
     }
 }

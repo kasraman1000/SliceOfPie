@@ -506,9 +506,6 @@ namespace SliceOfPie
         {
             string folderPath;
 
-            if (server)
-                folderPath = "Server\\" + pid;
-            else
                 folderPath = pid;
 
             if(Directory.Exists(folderPath))
@@ -665,7 +662,7 @@ namespace SliceOfPie
             string path;
 
             if (server)
-                path = "Server\\" + currentDir;
+                path = currentDir +"\\Server";
             else
                 path = currentDir;
             
