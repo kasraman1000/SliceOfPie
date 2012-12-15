@@ -79,15 +79,45 @@ namespace SliceOfPie
             Storage.SaveProjectToFile(project);
         }
 
-        public static void SyncWithServer()
+
+        private static List<DocumentStruct> getStructsInFoler(Folder folder, List<DocumentStruct> structs)
         {
-            Console.WriteLine("yay, the syncbutton was pressed!");
-            //TODO DO THEMOTHERFUCKING EVERYTHING HERE :<
-            //using (SliceOfPieServer.SliceOfPieServiceClient serviceClient = new SliceOfPieServer.SliceOfPieServiceClient())
-            //{
-            //    // Actually calling the service here
-            //    serviceClient.SyncAll(null);
-            //}
+            foreach (IFileSystemComponent component in folder.Children)
+            {
+
+                if (component.FileType == DocType.Folder)
+                {
+                    getStructsInFoler((Folder)component, structs);
+                }
+                if (component.FileType == DocType.Document)
+                {
+                    structs.Add((DocumentStruct)component);
+                }
+            }
+            return structs;
+        }
+
+        public static void SyncWithServer(User user)
+        {
+            List<Project> projects = GetAllProjectsForUser(user);
+
+           
+
+            foreach (Project project in projects)
+            {
+                List<DocumentStruct> structs = new List<DocumentStruct>();
+                getStructsInFoler(project, structs);
+
+            }
+            
+
+
+           
+            using (SliceOfPieServer.SliceOfPieServiceClient serviceClient = new SliceOfPieServer.SliceOfPieServiceClient())
+            {
+                serviceClient.SyncAll(null);
+
+            }
 
 
 

@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using SliceOfPie;
+using SliceOfPieClient.Service;
+
 
 namespace EmptyProject
 {
@@ -9,9 +12,12 @@ namespace EmptyProject
     {
         public static void Main(String[] args)
         {
-            Console.WriteLine("Kasra do a dance");
-            String kek = "Kewin";
-            Console.WriteLine(kek + " sucks bawls!!!! Crelde desktop agrees");
+            SliceOfPieServiceClient serviceClient = new SliceOfPieServiceClient();
+
+            var response = serviceClient.SyncAll(new List<SliceOfPie.Document>());
+
+            Console.WriteLine(response);
+            Console.ReadKey();
         }
     }
 }
