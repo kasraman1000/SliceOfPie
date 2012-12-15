@@ -37,5 +37,8 @@ namespace SliceOfPieServiceLibrary
         
         [OperationContract]
         void SaveDocumentOnServer(Project p, Document d);
+
+        [OperationContract]
+        void DeleteProject(string projectId);
     }
 }

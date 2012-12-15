@@ -27,7 +27,7 @@ namespace SliceOfPieServiceLibrary
 
         public void DeleteDocument(string projectId, string documentId)
         {
-            Storage.ServerDeleteFile(projectId, documentId);
+            Storage.ServerDeleteDocument(projectId, documentId);
         }
 
         public List<Project> GetAllProjectsOnServer()
@@ -53,6 +53,11 @@ namespace SliceOfPieServiceLibrary
         public void SaveDocumentOnServer(Project p, Document d)
         {
             Storage.ServerWriteToFile(p, d);
+        }
+
+        public void DeleteProject(string projectId)
+        {
+            Storage.DeleteProject(projectId, true);
         }
     }
 }

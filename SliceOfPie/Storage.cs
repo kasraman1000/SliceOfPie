@@ -326,6 +326,20 @@ namespace SliceOfPie
             }
         }
 
+        public static void DeleteProject(string projectId, bool server = false)
+        {
+            string path;
+
+            if (server)
+                path = "Server\\" + projectId;
+            else
+                path = projectId;
+            if (Directory.Exists(path))
+                Directory.Delete(path,true);
+
+
+        }
+
         public static Document ReadFromFile(string pid, string did, bool server = false)
         {
             string fileName;
@@ -688,7 +702,7 @@ namespace SliceOfPie
             return ReadFromFile(pid, did, true);
         }
 
-        public static void ServerDeleteFile(string pid, string did)
+        public static void ServerDeleteDocument(string pid, string did)
         {
             DeleteDocument(pid, did, true);
         }
