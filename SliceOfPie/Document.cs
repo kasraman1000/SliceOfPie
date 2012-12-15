@@ -251,7 +251,6 @@ namespace SliceOfPie
                 if (!(this.Images.Contains(pic)))
                 {
                     picturesAdded = true;
-                    images.Add(pic);
                     imagesAdded.Add(pic);
                 }
             }
@@ -263,11 +262,19 @@ namespace SliceOfPie
                 if (!(doc.Images.Contains(pic)))
                 {
                     picturesRemoved = true;
-                    images.Remove(pic);
                     imagesRemoved.Add(pic);
                 }
             }
+            foreach (Picture pic in imagesRemoved)
+            {
+                images.Remove(pic);
+                pic.Image.Dispose();
+            }
 
+            foreach (Picture pic in imagesAdded)
+            {
+                images.Add(pic);
+            }
             // If there were pictures added, add it to the changelog.
             if (picturesAdded)
             {
@@ -323,7 +330,7 @@ namespace SliceOfPie
                 pathString = "Path. ";
 
             if ((picturesAdded || picturesRemoved)&&textChanged)
-                pictureString = " and changed attached pictures";
+                pictureString = " And changed attached pictures";
             else if ((picturesAdded || picturesRemoved) && textChanged == false)
             {
                 masterString = "";
