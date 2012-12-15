@@ -117,7 +117,6 @@ namespace GUI
 		 */
 		private void treeView_AfterSelect(object sender, TreeViewEventArgs e)
 		{
-            Debug.Print("{0}: {1}", e.Action, e.Node.Tag);
             IFileSystemComponent fsc = (IFileSystemComponent) e.Node.Tag;
 			if (fsc.FileType == DocType.Document) // If it's a document
 			{
@@ -142,7 +141,7 @@ namespace GUI
 			}
 
             // You can't rename, move or delete projects in this client
-            if (selectedFolder.FileType == DocType.Project)
+            if (selectedFolder.FileType == DocType.Project && !isDocument)
             {
                 renameButton.Enabled = false;
                 moveButton.Enabled = false;
@@ -240,7 +239,22 @@ namespace GUI
 		private void createFolderButton_Click(object sender, EventArgs e)
 		{
 
+                InputDialog inputDialog = new InputDialog("What should your new folder be called?", "name");
+                inputDialog.ShowDialog();
+                if (!inputDialog.Canceled)
+                {
+                    string path = treeView.SelectedNode.FullPath;
+                    string fixedPath = Regex.Replace(path, @"\\", "/");
+                    string finalPath;
+                    if (isDocument)
+                        finalPath = Regex.Replace(fixedPath, "/" + selectedDocument.Title, "");
+                    else
+                        finalPath = fixedPath;
 
+
+                    Controller.CreateDocument(activeUser, finalPath + "/" + inputDialog.Input, selectedProject, "readme");
+                }
+                RefreshTreeView();
 		}
 
 		private void renameButton_Click(object sender, EventArgs e)
@@ -335,6 +349,7 @@ namespace GUI
          */
 		private void RefreshTreeView()
 		{
+            openButton.Enabled = false;
 			projects = Controller.GetAllProjectsForUser(activeUser);
 
             // Fill up with projects

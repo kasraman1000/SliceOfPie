@@ -5,6 +5,7 @@ using System.Text;
 using System.IO;
 using System.Threading;
 using System.Text.RegularExpressions;
+using System.Drawing;
 
 namespace SliceOfPie
 {
@@ -145,13 +146,16 @@ namespace SliceOfPie
         
         public static void WriteToFile(Project pro, Document doc, bool server = false)
         {
+            string path;
             string fileName;
             // Creates a fileName for the file based on the files title, if it is the server
             // that is invoking the method, specify that it should be put in the server directory.
             if (server)
-                fileName = "Server\\" + pro.Id + "\\" + doc.Id + ".txt";
+                path = "Server\\" + pro.Id;
             else
-                fileName = pro.Id + "\\" + doc.Id + ".txt";
+                path = pro.Id;
+
+            fileName = path + "\\" + doc.Id + ".txt";
             
 
             // False means that it will overwrite an existing file with the same id.
@@ -166,6 +170,24 @@ namespace SliceOfPie
                 // Writes the third line in the file which is the owner of the document
                 tw.WriteLine(doc.Owner.ToString());
 
+                // Writes the 4th line, which is the pictures that are attached to the docmuent.
+                // If the pictures are not saved already, save them.
+                IEnumerable<string> filesInRoot = Directory.EnumerateFiles(path);
+                StringBuilder imageLineBuilder = new StringBuilder();
+                for (int i = 0; i < doc.Images.Count; i++)
+                {
+                    string picPath = pro.Id + @"\" + doc.Images[i].Id + ".JPG";
+                    string currentDir = Directory.GetCurrentDirectory();
+                    if (!(filesInRoot.Contains(picPath)))
+                        SavePictureToFile(doc.Images[i], currentDir + @"\" + picPath);
+                    if (i == doc.Images.Count - 1)
+                        imageLineBuilder.AppendFormat(doc.Images[i].Id);
+                    else
+                        imageLineBuilder.AppendFormat(doc.Images[i].Id + ",");
+                }
+			   
+                tw.WriteLine(imageLineBuilder.ToString());
+
                 // Write the documents log
                 tw.WriteLine("");
                 tw.Write(doc.Log);
@@ -173,6 +195,40 @@ namespace SliceOfPie
                 // Writes the users text into the document
                 tw.WriteLine("");
                 tw.Write(doc.Text);
+            }
+        }
+
+        private static void SavePictureToFile(Picture pic, string path)
+        {            
+            try
+            {
+                Bitmap b = new Bitmap(pic.Image);
+                b.Save(path);
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("Could not save Image");
+            }
+        }
+
+        public static void DeletePicture(string projectId, string pictureId, bool server = false)
+        {
+            string fileName;
+            // Decides which file the document is associated with, if it is the server
+            // that is invoking the method, specify that it is in the server directory.
+            if (server)
+                fileName = "Server\\" + projectId + "\\" + pictureId + ".JPG";
+            else
+                fileName = projectId + "\\" + pictureId + ".JPG";
+
+            // Checks if a filename that matches the string exists and deletes it
+            if (File.Exists(fileName))
+            {
+                File.Delete(fileName);
+            }
+            else
+            {
+                Console.WriteLine("No file exists by that name");
             }
         }
 
@@ -286,7 +342,23 @@ namespace SliceOfPie
                     // Gets the name of the owner from the string and makes a user
                     string ownerString = tr.ReadLine();
                     User owner = new User(ownerString);
+                    
+                    // Gets the images id from the file, and add them as picture elements to the list of pictures.
+                    string imageString = tr.ReadLine();
+                    string[] imageArray = imageString.Split(new string[] { "," }, StringSplitOptions.None);
 
+                    List<Picture> pictures = new List<Picture>();
+                    foreach (string s in imageArray)
+                    {
+                        if ((String.Compare(s,"")!=0))
+                        {
+                            string dir = Directory.GetCurrentDirectory();
+                            string pathToPicture = dir + @"\" + pid + @"\" + s + ".JPG"; 
+                            Bitmap picture = new Bitmap(pathToPicture);
+                            pictures.Add(new Picture(picture,s));
+                        }
+                    }
+                    
                     // Create a StringBuilder and append the rest of the file to it, it will contain both the log and the text of the document.
                     StringBuilder rest = new StringBuilder();
                     while (tr.Peek() != -1)
@@ -363,7 +435,7 @@ namespace SliceOfPie
                     sr.DiscardBufferedData();
                     tr.Dispose();
                     // Finally makes the document to return
-                    finalDoc = Document.CreateDocumentFromFile(did, text, title, owner, path, new Document.DocumentLog(entryList));
+                    finalDoc = Document.CreateDocumentFromFile(did, text, title, owner, pictures, path, new Document.DocumentLog(entryList));
                 }
                 //sr.ReadToEnd();
                 sr.Dispose();
@@ -383,7 +455,7 @@ namespace SliceOfPie
         /*
          * Deletes the file given the file name 
          */
-        public static void DeleteFile(string pid, string did, bool server = false)
+        public static void DeleteDocument(string pid, string did, bool server = false)
         {
 
             string fileName;
@@ -426,7 +498,7 @@ namespace SliceOfPie
 
                 foreach (string s in filesInRoot)
                 {
-                    if (!(s.Contains("MetaInfo.txt")))
+                    if (!(s.Contains("MetaInfo.txt")) && (!(s.Contains(".JPG"))))
                     {
                         using (TextReader tr = new StreamReader(s))
                         {
@@ -608,7 +680,7 @@ namespace SliceOfPie
 
         public static void ServerDeleteFile(string pid, string did)
         {
-            DeleteFile(pid, did, true);
+            DeleteDocument(pid, did, true);
         }
 
         public static Project ServerGetHierachy(string pid)

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Runtime.Serialization;
+using System.Drawing;
 
 namespace SliceOfPie
 {
@@ -36,6 +37,10 @@ namespace SliceOfPie
         public string Title { get { return title; } set { title = value; } }
 
         [DataMember]
+        private List<Picture> images;
+        public List<Picture> Images { get { return images; } set { images = value; } }
+
+        [DataMember]
         private Document.DocumentLog log;
         public Document.DocumentLog Log { get { return log; } }
 
@@ -46,6 +51,7 @@ namespace SliceOfPie
             this.title = title;
             this.owner = owner;
             this.path = path;
+            this.images = new List<Picture>();
             log = new Document.DocumentLog(owner);
             CreateId();
         }
@@ -56,7 +62,7 @@ namespace SliceOfPie
             this.text = text;
             this.title = title;
             this.owner = owner;
-            Path = "root";
+            this.images = new List<Picture>();
             log = new Document.DocumentLog(owner);
             CreateId();
         }
@@ -68,7 +74,7 @@ namespace SliceOfPie
             this.text = text;
             this.title = title;
             this.owner = owner;
-            Path = "root";
+            this.images = new List<Picture>();
             log = new Document.DocumentLog(owner);
             this.id = id;
         }
@@ -77,7 +83,7 @@ namespace SliceOfPie
         private Document(){}
 
         // Creates and returns a document in it's complete version from a file on the file system.
-        public static Document CreateDocumentFromFile(string id, string text, string title, User owner, string path, Document.DocumentLog log)
+        public static Document CreateDocumentFromFile(string id, string text, string title, User owner, List<Picture> pictures, string path, Document.DocumentLog log)
         {
             Document doc = new Document();
             doc.id = id;
@@ -86,6 +92,7 @@ namespace SliceOfPie
             doc.owner = owner;
             doc.path = path;
             doc.log = log;
+            doc.images = pictures;
             return doc;
         }
 
@@ -216,7 +223,11 @@ namespace SliceOfPie
             bool titleChanged = false;
             bool pathChanged = false;
             bool textChanged = (!(changes.Count==0));
+            bool picturesAdded = false;
+            bool picturesRemoved = false;
 
+            List<Picture> imagesAdded = new List<Picture>();
+            List<Picture> imagesRemoved = new List<Picture>();
                                     
             // Has title been changed?
             if (String.Compare(doc.Title, this.Title) != 0)
@@ -234,6 +245,59 @@ namespace SliceOfPie
                 pathChanged = true;
             }
 
+            // Are there any new pictures?
+            foreach (Picture pic in doc.Images)
+            {
+                if (!(this.Images.Contains(pic)))
+                {
+                    picturesAdded = true;
+                    images.Add(pic);
+                    imagesAdded.Add(pic);
+                }
+            }
+          
+
+            // Are any of the old pictures removed?
+            foreach (Picture pic in this.Images)
+            {
+                if (!(doc.Images.Contains(pic)))
+                {
+                    picturesRemoved = true;
+                    images.Remove(pic);
+                    imagesRemoved.Add(pic);
+                }
+            }
+
+            // If there were pictures added, add it to the changelog.
+            if (picturesAdded)
+            {
+                StringBuilder imageLineBuilder = new StringBuilder();
+
+                for (int i = 0; i < imagesAdded.Count; i++)
+                {
+                    if (i == imagesAdded.Count - 1)
+                        imageLineBuilder.AppendFormat(imagesAdded[i].Id);
+                    else
+                        imageLineBuilder.AppendFormat(imagesAdded[i].Id + ",");
+                }
+                changeLog.Add("Following pictures were added: " + imageLineBuilder.ToString());
+            }
+
+            // If there were pictures removed, add it to the changelog.
+            if (picturesRemoved)
+            {
+                StringBuilder imageLineBuilder = new StringBuilder();
+
+                for (int i = 0; i < imagesRemoved.Count; i++)
+                {
+                    if (i == imagesRemoved.Count - 1)
+                        imageLineBuilder.AppendFormat(imagesRemoved[i].Id);
+                    else
+                        imageLineBuilder.AppendFormat(imagesRemoved[i].Id + ", ");
+                }
+                changeLog.Add("Following pictures were removed: " + imageLineBuilder.ToString());
+            }
+
             // Finally, add changes to the text to the changelog.
             if (textChanged)
                 changeLog.Add("Changes to the documents text:");
@@ -246,6 +310,8 @@ namespace SliceOfPie
             string titleString = "";
             string pathString = "";
             string textString = "";
+            string pictureString = "";
+            string masterString = "Changed the document's: ";
 
             if (titleChanged)
                 titleString = "Title. ";
@@ -255,9 +321,19 @@ namespace SliceOfPie
                       
             if (pathChanged)
                 pathString = "Path. ";
+
+            if ((picturesAdded || picturesRemoved)&&textChanged)
+                pictureString = " and changed attached pictures";
+            else if ((picturesAdded || picturesRemoved) && textChanged == false)
+            {
+                masterString = "";
+                pictureString = "Changed the attached pictures";
+            }
+
+
             
-            
-            this.Log.AddEntry(new DocumentLog.Entry(user, "Changed the document's: " +titleString+textString+pathString,changeLog));
+            this.Log.AddEntry(new DocumentLog.Entry(user, masterString + titleString + textString + pathString + pictureString, changeLog));
+
             return true;
         }
 

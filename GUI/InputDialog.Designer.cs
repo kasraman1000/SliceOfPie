@@ -1,4 +1,4 @@
-﻿namespace GUI
+namespace GUI
 {
     partial class InputDialog
     {
@@ -36,7 +36,7 @@
             // 
             // okButton
             // 
-            this.okButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.okButton.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.okButton.Location = new System.Drawing.Point(12, 60);
             this.okButton.Name = "okButton";
             this.okButton.Size = new System.Drawing.Size(80, 23);
@@ -47,16 +47,15 @@
             // 
             // textBox
             // 
-            this.textBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.textBox.Location = new System.Drawing.Point(12, 32);
             this.textBox.Name = "textBox";
-            this.textBox.Size = new System.Drawing.Size(287, 20);
+            this.textBox.Size = new System.Drawing.Size(488, 20);
             this.textBox.TabIndex = 1;
             // 
             // questionLabel
             // 
-            this.questionLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.questionLabel.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.questionLabel.AutoSize = true;
             this.questionLabel.Location = new System.Drawing.Point(12, 9);
             this.questionLabel.Name = "questionLabel";
@@ -66,7 +65,7 @@
             // 
             // cancelButton
             // 
-            this.cancelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.cancelButton.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.cancelButton.Location = new System.Drawing.Point(98, 60);
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Size = new System.Drawing.Size(82, 23);
@@ -79,7 +78,7 @@
             // 
             this.AcceptButton = this.okButton;
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            this.ClientSize = new System.Drawing.Size(311, 102);
+            this.ClientSize = new System.Drawing.Size(512, 102);
             this.ControlBox = false;
             this.Controls.Add(this.cancelButton);
             this.Controls.Add(this.okButton);

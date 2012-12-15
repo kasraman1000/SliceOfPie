@@ -8,6 +8,8 @@ using System.Text;
 using System.Windows.Forms;
 using SliceOfPie;
 using System.Text.RegularExpressions;
+using System.Diagnostics;
+using System.IO;
 
 namespace GUI
 {
@@ -27,34 +29,47 @@ namespace GUI
             currentProj = proj;
             currentDoc = doc;
             currentUser = user;
+
             InitializeComponent();
         }
 
         private void EditWindow_Load(object sender, EventArgs e)
-        {
-            titleField.Text = currentDoc.Title;
+        {   
             textField.Text = Regex.Replace(currentDoc.Text, "\n", Environment.NewLine);
+            this.Text = currentDoc.Title;
+
+            // Add document pictures to imagelist
+            // and show images in listview
+            int i = 0;
+            foreach (Picture p in currentDoc.Images)
+            {
+                imageList.Images.Add(p.Image);
+
+                ListViewItem item = new ListViewItem();
+                item.ImageIndex = i++;
+                item.Tag = p;
+                listView.Items.Add(item);
+            }
+
             modified = false;
+            saveButton.Enabled = false;
+            removeImageButton.Enabled = false;
         }
 
         private void saveButton_Click(object sender, EventArgs e)
         {
-            currentDoc.Title = titleField.Text;
             currentDoc.Text = textField.Text;
 
             Controller.SaveDocument(currentProj, currentDoc, currentUser);
 
             modified = false;
-        }
-
-        private void titleField_TextChanged(object sender, EventArgs e)
-        {
-            modified = true;
+            saveButton.Enabled = false;
         }
 
         private void textField_TextChanged(object sender, EventArgs e)
         {
             modified = true;
+            saveButton.Enabled = true;
         }
 
         /**
@@ -90,5 +105,78 @@ namespace GUI
         {
             new LogWindow(currentDoc).Show();
         }
+
+        private void addImageButton_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog fileDialog = new OpenFileDialog();
+            fileDialog.Multiselect = false;
+            fileDialog.CheckFileExists = true;
+            fileDialog.CheckPathExists = true;
+            // Only find compatible images
+            fileDialog.Filter = "PNG(*.PNG)|*.PNG|" +
+                "JPEG (*.JPG;*.JPEG;*.JPE;*.JFIF)|*.JPG;*.JPEG;*.JPE;*.JFIF|"+
+                "GIF (*.GIF)|*.GIF|"+
+                "BMP (*.BMP;*.DIB;*.RLE)|*.BMP;*.DIB;*.RLE|" +
+                "TIFF (*.TIF;*.TIFF)|*.TIF;*.TIFF";
+
+            
+            if (fileDialog.ShowDialog() == DialogResult.OK)
+            {
+                Picture pic = new Picture(new Bitmap(fileDialog.FileName));
+                currentDoc.Images.Add(pic);
+                imageList.Images.Add(pic.Image);
+
+                ListViewItem item = new ListViewItem();
+                item.ImageIndex = imageList.Images.Count -1;
+                item.Tag = pic;
+                listView.Items.Add(item);
+
+                modified = true;
+                saveButton.Enabled = true;
+            }
+
+
+        }
+
+        private void listView_ItemActivate(object sender, EventArgs e)
+        {
+            if (listView.SelectedItems.Count > 0)
+            {
+                Picture pic = (Picture)listView.SelectedItems[0].Tag;
+                new ImageViewer(pic.Image).Show(); ;
+
+            }
+        }
+
+        private void listView_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (listView.SelectedItems.Count > 0)
+            {
+                removeImageButton.Enabled = true;
+            }
+            else removeImageButton.Enabled = false;
+        }
+
+        private void removeImageButton_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("Are you sure you want to remove this image?",
+                "Remove Image?",
+                MessageBoxButtons.OKCancel) == DialogResult.OK)
+            {
+                Picture pic = (Picture)listView.SelectedItems[0].Tag;
+
+                imageList.Images.RemoveAt(listView.SelectedIndices[0]);
+                listView.Items.Remove(listView.SelectedItems[0]);
+
+                currentDoc.Images.Remove(pic);
+
+                Controller.DeletePicture(currentProj.Id, pic.Id);
+                // gotta save the image change immediatly
+                Controller.SaveDocument(currentProj, currentDoc, currentUser);
+            }
+            
+
+        }
+
     }
 }
