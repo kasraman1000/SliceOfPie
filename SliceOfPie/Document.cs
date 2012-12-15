@@ -220,7 +220,11 @@ namespace SliceOfPie
             bool titleChanged = false;
             bool pathChanged = false;
             bool textChanged = (!(changes.Count==0));
+            bool picturesAdded = false;
+            bool picturesRemoved = false;
 
+            List<Picture> imagesAdded = new List<Picture>();
+            List<Picture> imagesRemoved = new List<Picture>();
                                     
             // Has title been changed?
             if (String.Compare(doc.Title, this.Title) != 0)
@@ -238,6 +242,56 @@ namespace SliceOfPie
                 pathChanged = true;
             }
 
+            // Are there any new pictures?
+            foreach (Picture pic in this.Images)
+            {
+                if (!(doc.Images.Contains(pic)))
+                {
+                    picturesAdded = true;
+                    imagesAdded.Add(pic);
+                }
+            }
+
+            // Are any of the old pictures removed?
+            foreach (Picture pic in doc.Images)
+            {
+                if (!(this.Images.Contains(pic)))
+                {
+                    picturesRemoved = true;
+                    imagesRemoved.Add(pic);
+                }
+            }
+
+            // If there were pictures added, add it to the changelog.
+            if (picturesAdded)
+            {
+                StringBuilder imageLineBuilder = new StringBuilder();
+
+                for (int i = 0; i < imagesAdded.Count; i++)
+                {
+                    if (i == imagesAdded.Count - 1)
+                        imageLineBuilder.AppendFormat(imagesAdded[i].Id);
+                    else
+                        imageLineBuilder.AppendFormat(imagesAdded[i].Id + ",");
+                }
+                changeLog.Add("Following pictures were added: " + imageLineBuilder.ToString());
+            }
+
+            // If there were pictures removed, add it to the changelog.
+            if (picturesRemoved)
+            {
+                StringBuilder imageLineBuilder = new StringBuilder();
+
+                for (int i = 0; i < imagesRemoved.Count; i++)
+                {
+                    if (i == imagesRemoved.Count - 1)
+                        imageLineBuilder.AppendFormat(imagesRemoved[i].Id);
+                    else
+                        imageLineBuilder.AppendFormat(imagesRemoved[i].Id + ", ");
+                }
+                changeLog.Add("Following pictures were removed: " + imageLineBuilder.ToString());
+            }
+
             // Finally, add changes to the text to the changelog.
             if (textChanged)
                 changeLog.Add("Changes to the documents text:");
@@ -250,6 +304,8 @@ namespace SliceOfPie
             string titleString = "";
             string pathString = "";
             string textString = "";
+            string pictureString = "";
+            string masterString = "Changed the document's: ";
 
             if (titleChanged)
                 titleString = "Title. ";
@@ -259,9 +315,19 @@ namespace SliceOfPie
                       
             if (pathChanged)
                 pathString = "Path. ";
+
+            if ((picturesAdded || picturesRemoved)&&textChanged)
+                pictureString = " and changed attached pictures";
+            else if ((picturesAdded || picturesRemoved) && textChanged == false)
+            {
+                masterString = "";
+                pictureString = "Changed the attached pictures";
+            }
+
+
             
-            
-            this.Log.AddEntry(new DocumentLog.Entry(user, "Changed the document's: " +titleString+textString+pathString,changeLog));
+            this.Log.AddEntry(new DocumentLog.Entry(user, masterString + titleString + textString + pathString + pictureString, changeLog));
+
             return true;
         }
 
