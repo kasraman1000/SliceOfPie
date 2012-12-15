@@ -170,7 +170,9 @@ namespace GUI
 
                 currentDoc.Images.Remove(pic);
 
-                // Call controller now
+                Controller.DeletePicture(currentProj.Id, pic.Id);
+                // gotta save the image change immediatly
+                Controller.SaveDocument(currentProj, currentDoc, currentUser);
             }
             
 
