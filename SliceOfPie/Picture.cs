@@ -32,5 +32,29 @@ namespace SliceOfPie
             int secondsSinceImportantDay = (int)t.TotalSeconds;
             id = ("p"+secondsSinceImportantDay.ToString());
         }
+
+        public override string ToString()
+        {
+            return id;
+        }
+
+        public override bool Equals(object obj)
+        {
+            Picture pic;
+            try
+            {
+                pic = (Picture)obj;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+
+
+            if (String.Compare(this.id, pic.Id) == 0)
+                return true;
+            else
+                return false;
+        }
     }
 }
