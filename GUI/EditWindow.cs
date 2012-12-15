@@ -53,6 +53,7 @@ namespace GUI
 
             modified = false;
             saveButton.Enabled = false;
+            removeImageButton.Enabled = false;
         }
 
         private void saveButton_Click(object sender, EventArgs e)
@@ -130,6 +131,8 @@ namespace GUI
                 item.Tag = pic;
                 listView.Items.Add(item);
 
+                modified = true;
+                saveButton.Enabled = true;
             }
 
 
@@ -143,6 +146,34 @@ namespace GUI
                 new ImageViewer(pic.Image).Show(); ;
 
             }
+        }
+
+        private void listView_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (listView.SelectedItems.Count > 0)
+            {
+                removeImageButton.Enabled = true;
+            }
+            else removeImageButton.Enabled = false;
+        }
+
+        private void removeImageButton_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("Are you sure you want to remove this image?",
+                "Remove Image?",
+                MessageBoxButtons.OKCancel) == DialogResult.OK)
+            {
+                Picture pic = (Picture)listView.SelectedItems[0].Tag;
+
+                imageList.Images.RemoveAt(listView.SelectedIndices[0]);
+                listView.Items.Remove(listView.SelectedItems[0]);
+
+                currentDoc.Images.Remove(pic);
+
+                // Call controller now
+            }
+            
+
         }
 
     }
