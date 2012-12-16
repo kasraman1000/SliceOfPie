@@ -73,7 +73,7 @@ namespace SliceOfPieServiceLibrary
             List<Project> UserProjects = new List<Project>();
             foreach(Project p in projects)
             {
-                if (user.ToString().CompareTo(p.ToString()) == 0 || p.SharedWith.Contains(user))
+                if (user.ToString().CompareTo(p.Owner.ToString()) == 0 || p.SharedWith.Contains(user))
                 {
                     UserProjects.Add(p);
                 }
@@ -92,14 +92,37 @@ namespace SliceOfPieServiceLibrary
             Storage.SaveProjectToFile(p);
         }
 
+        public static void SaveDocument(Project proj, Document doc, User user)
+        {
+            // If the document exists in the storage, merge old version with newer verion.
+            // Otherwise just save it to the storage.
+            Document docInStorage = Storage.ReadFromFile(proj.Id, doc.Id);
+            if (docInStorage == null)
+                Storage.WriteToFile(proj, doc);
+            else
+            {
+                docInStorage.MergeWith(doc, user);
+                Storage.WriteToFile(proj, docInStorage);
+            }
+        }
+
         public void SaveDocumentOnServer(SliceOfPie.Project p, SliceOfPie.Document d, User user)
         {
-            Storage.WriteToFile(p, d);
+
+            Document docInStorage = Storage.ReadFromFile(p.Id, d.Id);
+            if (docInStorage == null)
+                Storage.WriteToFile(p, d);
+            else
+            {
+                docInStorage.MergeWith(d, user);
+                Storage.WriteToFile(p, docInStorage);
+            }
         }
 
         public void DeleteProject(string projectId, User user)
         {
             Storage.DeleteProject(projectId);
         }
+
     }
 }

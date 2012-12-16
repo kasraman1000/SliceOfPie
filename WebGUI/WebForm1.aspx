@@ -122,13 +122,22 @@
                             onclick="RenameProjectButton_Click" 
                             style="margin-left: 32px; margin-bottom: 1px;" Text="Rename Project" 
                             Width="150px" />
+                        <asp:Button ID="RenameDocButton" runat="server" Height="40px" 
+                             style="margin-left: 68px; margin-top: 8px" 
+                            Text="Rename Document" Width="150px" onclick="RenameDocButton_Click" />
                         <asp:Button ID="CreateNewFolderButton" runat="server" Height="40px" 
                             onclick="CreateNewFolderButton_Click" 
-                            style="margin-left: 144px; margin-top: 8px" Text="Create New Folder" 
+                            style="margin-left: 27px; margin-top: 8px" Text="Create New Folder" 
                             Width="150px" />
                         <asp:Button ID="AddPictureButton" runat="server" Height="40px" 
                             onclick="AddPictureButton_Click" style="margin-left: 68px; margin-top: 8px" 
                             Text="Add a Picture" Width="150px" />
+                    </p>
+                    <p>
+                    </p>
+                    <p>
+                    </p>
+                    <p>
                     </p>
                     <p>
                     </p>
@@ -141,10 +150,10 @@
             <div style="height: 198px; width: 376px; margin-top: 9px">
                 <asp:Panel ID="DynamicProjectPanel" runat="server" Height="175px" 
                     Visible="False" Width="371px">
-                    <asp:Label ID="ProjectNameBox" runat="server" Text="Project name:" 
-                        Visible="False"></asp:Label>
+                    &nbsp;&nbsp;&nbsp;
+                    <asp:Label ID="ProjectNameBox" runat="server" Text="Name:" Visible="False"></asp:Label>
                     <asp:TextBox ID="NewProjectNameBox" runat="server" Height="24px" 
-                        style="margin-top: 0px; margin-left: 70px;" Width="199px"></asp:TextBox>
+                        style="margin-left: 70px;" Width="199px"></asp:TextBox>
                     <br />
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <asp:Button ID="SubmitProjectButton" runat="server" Height="27px" 

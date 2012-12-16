@@ -181,7 +181,7 @@ namespace WebGUI
                             // Keeps track of the current path
                             path = tw.SelectedNode.Text;
                             currentPath = path;
-                            path = "";
+                            
                         }
                 
                     }
@@ -363,18 +363,20 @@ namespace WebGUI
 
                             if (FolderBox.Text.CompareTo(activeProject.Title) == 0)
                             {
-                                Document doc = new Document("Insert your text here", TitleBox.Text, currentPath + "/" + TitleBox.Text, WelcomeForm.active);
+                                Document doc = new Document("Insert your text here", "New Document", TitleBox.Text, WelcomeForm.active);
                                 serv.SaveDocumentOnServer(activeProject, doc, WelcomeForm.active);
                             }
                             else
                             {
-                                Document doc = new Document("Insert your text here", TitleBox.Text, currentPath +  "/" + TitleBox.Text, WelcomeForm.active);
+                                Document doc = new Document("Insert your text here","New Document", currentPath +"/"+ TitleBox.Text, WelcomeForm.active);
                                 serv.SaveDocumentOnServer(activeProject, doc, WelcomeForm.active);
                             }
+
                         }
+                        UpdateProjects();
+                        UpdateTreeView(activeProject.Id);
                     }
-                    UpdateProjects();
-                    UpdateTreeView(activeProject.Id);
+
                 }
                 DynamicPanelInvisible();
                 DynamicProjectPanelInvisible();
@@ -398,15 +400,18 @@ namespace WebGUI
         //The Delete was accepted
         protected void AcceptDeleteButton_Click(object sender, EventArgs e)
         {
-            Controller.DeleteDocument(activeProject.Id,activeDoc.Id);
-            // Turns the panels invisible
-            DynamicPanelInvisible();
-            DynamicProjectPanelInvisible();
-            // Updates the view
-            UpdateProjects();   
-            UpdateTreeView(activeProject.Id);
-            // And expands the tree for the user
-            TreeView1.ExpandAll();
+            using (SliceOfPieClient.Service.SliceOfPieServiceClient serv = new SliceOfPieClient.Service.SliceOfPieServiceClient())
+            {
+                serv.DeleteDocument(activeProject.Id, activeDoc.Id, WelcomeForm.active);
+                // Turns the panels invisible
+                DynamicPanelInvisible();
+                DynamicProjectPanelInvisible();
+                // Updates the view
+                UpdateProjects();
+                UpdateTreeView(activeProject.Id);
+                // And expands the tree for the user
+                TreeView1.ExpandAll();
+            }
             
         }
 
@@ -427,31 +432,47 @@ namespace WebGUI
         // Submit Button was pressed for either a new project or rename a project
         protected void SubmitProjectButton_Click(object sender, EventArgs e)
         {
-            if (activeProject != null)
+            using (SliceOfPieClient.Service.SliceOfPieServiceClient serv = new SliceOfPieClient.Service.SliceOfPieServiceClient())
             {
-                //rename project
-                if (SubmitProjectButton.Text.CompareTo("Submit") == 0)
+                if (activeProject != null)
                 {
-                    activeProject.Title = NewProjectNameBox.Text;
-                    Controller.UpdateProject(activeProject);
+                    //rename project
+                    if (SubmitProjectButton.Text.CompareTo("Submit") == 0)
+                    {
+                        activeProject.Title = NewProjectNameBox.Text;
+                        serv.SaveProjectOnServer(activeProject, WelcomeForm.active);
+                        UpdateProjects();
+                        UpdateTreeView(activeProject.Id);
+                        DynamicPanelInvisible();
+                        DynamicProjectPanelInvisible();
+                    }
+                    //Create new Project
+                    else if (SubmitProjectButton.Text.CompareTo("Enter") == 0)
+                    {
+                        // Empty list for the users the document is shared with
+                        List<User> l = new List<User>();
+                        Project p = new Project(NewProjectNameBox.Text, WelcomeForm.active, l);
+                        serv.SaveProjectOnServer(p, WelcomeForm.active) ;
+                    }
+                     // Rename a single document
+                    else if (SubmitProjectButton.Text.CompareTo("Rename") == 0)
+                    {
+                        activeDoc.Title = NewProjectNameBox.Text;
+                        serv.SaveDocumentOnServer(activeProject ,activeDoc , WelcomeForm.active);
+                        UpdateProjects();
+                        UpdateTreeView(activeProject.Id);
+                        DynamicPanelInvisible();
+                        DynamicProjectPanelInvisible();
+
+                    }
+                    // Everything turns invisble again and the view is updated
                     UpdateProjects();
-                    UpdateTreeView(activeProject.Id);
-                    DynamicPanelInvisible();
-                    DynamicProjectPanelInvisible();
+                    TreeView1.ExpandAll();
                 }
-                //Create new Project
-                else if (SubmitProjectButton.Text.CompareTo("Enter") == 0)
-                {
-                    // Empty list for the users the document is shared with
-                    List<User> l = new List<User>();
-                    Controller.CreateProject(NewProjectNameBox.Text, WelcomeForm.active, l);
-                }
-                // Everything turns invisble again and the view is updated
-                UpdateProjects();
-                TreeView1.ExpandAll();
             }
-            DynamicPanelInvisible();
-            DynamicProjectPanelInvisible();
+                DynamicPanelInvisible();
+                DynamicProjectPanelInvisible();
+            
         }
 
         // The creation of a new item was cancelled
@@ -474,27 +495,30 @@ namespace WebGUI
         // The upload picture buttonw as pressed
         protected void UploadButton_Click(object sender, EventArgs e)
         {
-            //First it check if a file was selected
-            if (FileUploadControl.HasFile)
+            using (SliceOfPieClient.Service.SliceOfPieServiceClient serv = new SliceOfPieClient.Service.SliceOfPieServiceClient())
             {
-                // gets the file name
-                string ImgName = System.IO.Path.GetFileName(FileUploadControl.FileName);
-                // It saves the picture on the filesystem
-                string ThisImg = Server.MapPath("~/images/" + ImgName);
-                FileUploadControl.SaveAs(ThisImg);
-                // It creates a new bitmap, and then a new object of our own Picture class
-                Bitmap bm = new Bitmap(@"C:\Users\Crelde\git\SliceOfPie\SliceOfPie\WebGUI\images\"+ImgName);
-                Picture pic = new Picture(bm);
-                // Finally adds the image to the documents imagelist
-                if (activeDoc != null)
+                //First it check if a file was selected
+                if (FileUploadControl.HasFile)
                 {
-                    activeDoc.Images.Add(pic);
+                    // gets the file name
+                    string ImgName = System.IO.Path.GetFileName(FileUploadControl.FileName);
+                    // It saves the picture on the filesystem
+                    string ThisImg = Server.MapPath("~/images/" + ImgName);
+                    FileUploadControl.SaveAs(ThisImg);
+                    // It creates a new bitmap, and then a new object of our own Picture class
+                    Bitmap bm = new Bitmap(@"C:\Users\Crelde\git\SliceOfPie\SliceOfPie\WebGUI\images\" + ImgName);
+                    Picture pic = new Picture(bm);
+                    // Finally adds the image to the documents imagelist
+                    if (activeDoc != null)
+                    {
+                        activeDoc.Images.Add(pic);
+                    }
                 }
+                // It also saves the document to the server, after the picture is added
+                serv.SaveDocumentOnServer(activeProject, activeDoc, WelcomeForm.active);
+                // Updates the panel in which you can see which pictures are added, so you can see it as soon as you click upload
+                UpdateImagePanel();
             }
-            // It also saves the document to the server, after the picture is added
-            Controller.SaveDocument(activeProject, activeDoc, WelcomeForm.active);
-            // Updates the panel in which you can see which pictures are added, so you can see it as soon as you click upload
-            UpdateImagePanel();   
        }
 
         // This method prints out all the ids of the pictures that is included in the document in the panel
@@ -538,26 +562,33 @@ namespace WebGUI
         // The delete was confirmed and a call to the server is made to delete the activeProject
         protected void ConfirmDeleteProj_Click(object sender, EventArgs e)
         {
-            Controller.DeleteProject(activeProject.Id);
-            UpdateProjects();
-            UpdateTreeView("");
-            DynamicPanelInvisible();
-            DynamicProjectPanelInvisible();
-            TreeView1.ExpandAll();
+            using (SliceOfPieClient.Service.SliceOfPieServiceClient serv = new SliceOfPieClient.Service.SliceOfPieServiceClient())
+            {
+                serv.DeleteProject(activeProject.Id,WelcomeForm.active);
+                UpdateProjects();
+                UpdateTreeView("");
+                DynamicPanelInvisible();
+                DynamicProjectPanelInvisible();
+                TreeView1.ExpandAll();
+            }
         }
 
         // The user submitted a username to share the project with
         protected void SubmitUserButton_Click(object sender, EventArgs e)
         {
-            if (activeProject != null)
+            using (SliceOfPieClient.Service.SliceOfPieServiceClient serv = new SliceOfPieClient.Service.SliceOfPieServiceClient())
             {
-                // creates a new user and adds it to the activeProject and calls the UpdateProject method
-                User u = new User(UserNameBox.Text);
-                activeProject.SharedWith.Add(u);
-                Controller.UpdateProject(activeProject);
+                if (activeProject != null)
+                {
+                    // creates a new user and adds it to the activeProject and calls the UpdateProject method
+                    User u = new User(UserNameBox.Text);
+                    activeProject.SharedWith.Add(u);
+
+                    serv.SaveProjectOnServer(activeProject, WelcomeForm.active);
+                }
+                DynamicPanelInvisible();
+                DynamicProjectPanelInvisible();
             }
-            DynamicPanelInvisible();
-            DynamicProjectPanelInvisible();
         }
 
         protected void TextButton_Click(object sender, EventArgs e)
@@ -575,6 +606,34 @@ namespace WebGUI
             ButtonPanel2.Visible = false;
             DynamicPanelInvisible();
             DynamicProjectPanelInvisible();
+        }
+
+        protected void MoveButton_Click(object sender, EventArgs e)
+        {
+            DynamicPanelInvisible();
+            DynamicProjectPanelInvisible();
+            DynamicPanel.Visible = true;
+            FolderBox.Visible = true;
+            TitleBox.Visible = true;
+            ClickFolderBox.Visible = true;
+            NewTitleTextBox.Visible = true;
+            SubmitTitle.Visible = true;
+            CancelCreateButton.Visible = true;
+
+        }
+
+        protected void RenameDocButton_Click(object sender, EventArgs e)
+        {
+            DynamicPanelInvisible();
+            DynamicProjectPanelInvisible();
+            DynamicProjectPanel.Visible = true;
+            NewProjectNameBox.Visible = true;
+            ProjectNameBox.Visible = true;
+            SubmitProjectButton.Text = "Rename";
+            SubmitProjectButton.Visible = true;
+            CancelProjectButton.Visible = true;
+
+
         }
 
     }

@@ -576,43 +576,43 @@ namespace SliceOfPie
                     {
                         using (TextReader tr = new StreamReader(s))
                         {
-                        // Gets to the correct line where the paths are located
+                            // Gets to the correct line where the paths are located
                             tr.ReadLine();
                             string path = tr.ReadLine();
                             string[] splitPath = path.Split('/');
-                        // Reverse for loop to put the folders together in a "backwards"-fashion
+                            // Reverse for loop to put the folders together in a "backwards"-fashion
                             for (int i = splitPath.Length; i != 0; i--)
                             {
 
                                 foreach (Folder fol in folders)
                                 {
-                                // takes the lower levels first
-                                // it checks if its the top level  
-                                if (!splitPath[i - 1].Equals(splitPath[0]))
+                                    // takes the lower levels first
+                                    // it checks if its the top level  
+                                    if (!splitPath[i - 1].Equals(splitPath[0]))
                                     {
 
-                                    if (fol.Title.Equals(splitPath[i - 1]))
-                                    {
-                                        // We use linq to find the correct folders
-                                        var result1 = from f in folders
-                                                      where f.Title.Equals(splitPath[i - 1])
-                                                      select f;
-
-                                        var result2 = from f in folders
-                                                      where f.Title.Equals(splitPath[i - 2])
-                                                      select f;
-
-                                        // We put the folders in their respectible folder
-                                        List<IFileSystemComponent> ParentFolder = result2.FirstOrDefault().Children;
-                                        Folder Child = result1.FirstOrDefault();
-                                        if (!ParentFolder.Contains(Child) && !ParentFolder.Equals(Child))
+                                        if (fol.Title.Equals(splitPath[i - 1]))
                                         {
-                                            result2.FirstOrDefault().AddChild(result1.FirstOrDefault());
-                                            Folder fold = (Folder)result1.FirstOrDefault();
-                                            // Remove the folder from the list of potential root folders, as it was added
-                                            // to another folder.
-                                            potentialFoldersInRoot.Remove(fold.ToString());
-                                        }
+                                            // We use linq to find the correct folders
+                                            var result1 = from f in folders
+                                                          where f.Title.Equals(splitPath[i - 1])
+                                                          select f;
+
+                                            var result2 = from f in folders
+                                                          where f.Title.Equals(splitPath[i - 2])
+                                                          select f;
+
+                                            // We put the folders in their respectible folder
+                                            List<IFileSystemComponent> ParentFolder = result2.FirstOrDefault().Children;
+                                            Folder Child = result1.FirstOrDefault();
+                                            if (!ParentFolder.Contains(Child) && !ParentFolder.Equals(Child))
+                                            {
+                                                result2.FirstOrDefault().AddChild(result1.FirstOrDefault());
+                                                Folder fold = (Folder)result1.FirstOrDefault();
+                                                // Remove the folder from the list of potential root folders, as it was added
+                                                // to another folder.
+                                                potentialFoldersInRoot.Remove(fold.ToString());
+                                            }
 
                                         }
                                     }
@@ -622,61 +622,62 @@ namespace SliceOfPie
                         }
                     }
                 }
-                    // Read the info from the MetaInfo file.
-                    Project finalProject;
-                    using (TextReader mr = new StreamReader(folderPath + "\\MetaInfo.txt"))
+                // Read the info from the MetaInfo file.
+                Project finalProject;
+                using (TextReader mr = new StreamReader(folderPath + "\\MetaInfo.txt"))
+                {
+                    // Read title.
+                    string ti = mr.ReadLine();
+                    // Read owner.
+                    User us = new User(mr.ReadLine());
+                    // Read list of users the project is shared with.
+                    List<User> sha = new List<User>();
+                    string[] userNames = (mr.ReadLine().Split(','));
+                    foreach (string str in userNames)
                     {
-                        // Read title.
-                        string ti = mr.ReadLine();
-                        // Read owner.
-                        User us = new User(mr.ReadLine());
-                        // Read list of users the project is shared with.
-                        List<User> sha = new List<User>();
-                        string[] userNames = (mr.ReadLine().Split(','));
-                        foreach (string str in userNames)
-                        {
-                            sha.Add(new User(str.Trim()));
-                        }
-                        // Create the project object with the paramerters read.
-                        finalProject = new Project(ti, us, sha, Path.GetFileNameWithoutExtension(folderPath));
-
-
-                        // Add all remaining folders to root of project, and add all
-                        // structs with "" as their folder to root as well.
-                        foreach (Folder fol in folders)
-                        {
-                            if (potentialFoldersInRoot.Contains(fol.ToString()))
-                            {
-                                if (String.Compare(fol.Title, "") == 0)
-                                {
-                                    // Add the documentstruct.
-                                    foreach (IFileSystemComponent component in fol.Children)
-                                        finalProject.AddChild(component);
-
-                                }
-                                // Add the folder.
-                                else
-                                    finalProject.AddChild(fol);
-                            }
-                        }
-
-                        if (finalProject.Children.Count == 0)
-                        {
-                            Document doc = new Document("Here is your new project", "Welcome", us);
-                            WriteToFile(finalProject, doc);
-                            finalProject.Children.Add(new DocumentStruct("Welcome", us, doc.Id, "", true, false));
-                        }
-
-                        return finalProject;
+                        sha.Add(new User(str.Trim()));
                     }
-                
+                    // Create the project object with the paramerters read.
+                    finalProject = new Project(ti, us, sha, Path.GetFileNameWithoutExtension(folderPath));
+
+
+                    // Add all remaining folders to root of project, and add all
+                    // structs with "" as their folder to root as well.
+                    foreach (Folder fol in folders)
+                    {
+                        if (potentialFoldersInRoot.Contains(fol.ToString()))
+                        {
+                            if (String.Compare(fol.Title, "") == 0)
+                            {
+                                // Add the documentstruct.
+                                foreach (IFileSystemComponent component in fol.Children)
+                                    finalProject.AddChild(component);
+
+                            }
+                            // Add the folder.
+                            else
+                                finalProject.AddChild(fol);
+                        }
+                    }
+
+                    if (finalProject.Children.Count == 0)
+                    {
+                        Document doc = new Document("Here is your new project", "Welcome", us);
+                        WriteToFile(finalProject, doc);
+                        finalProject.Children.Add(new DocumentStruct("Welcome", us, doc.Id, "", true, false));
+                    }
+
+                    return finalProject;
+                }
+
             }
 
-                Console.WriteLine("No Project exists by that id");
+            Console.WriteLine("No Project exists by that id");
 
-            }
-                return null;
+
+            return null;
         }
+
 
         public static List<Project> GetAllProjects()
         {

@@ -50,5 +50,7 @@ namespace SliceOfPieServiceLibrary
 
         [OperationContract]
         void DeleteProject(string projectId, User user);
+
+
     }
 }
