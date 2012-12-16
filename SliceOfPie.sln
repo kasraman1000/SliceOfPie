@@ -35,6 +35,7 @@ Global
 		{DBBA9D0E-E773-47D1-BF52-5532BF235160}.Debug|Mixed Platforms.Build.0 = Debug|x86
 		{DBBA9D0E-E773-47D1-BF52-5532BF235160}.Debug|x64.ActiveCfg = Debug|x64
 		{DBBA9D0E-E773-47D1-BF52-5532BF235160}.Debug|x86.ActiveCfg = Debug|x86
+		{DBBA9D0E-E773-47D1-BF52-5532BF235160}.Debug|x86.Build.0 = Debug|x86
 		{DBBA9D0E-E773-47D1-BF52-5532BF235160}.Release|Any CPU.ActiveCfg = Release|x86
 		{DBBA9D0E-E773-47D1-BF52-5532BF235160}.Release|Mixed Platforms.ActiveCfg = Release|x86
 		{DBBA9D0E-E773-47D1-BF52-5532BF235160}.Release|Mixed Platforms.Build.0 = Release|x86

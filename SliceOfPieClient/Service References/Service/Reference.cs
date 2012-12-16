@@ -16,10 +16,7 @@ namespace SliceOfPieClient.Service {
     public interface ISliceOfPieService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISliceOfPieService/StartSync", ReplyAction="http://tempuri.org/ISliceOfPieService/StartSyncResponse")]
-        bool StartSync(SliceOfPie.User user, string projectId);
-        
-        [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/ISliceOfPieService/UpdateProject", ReplyAction="http://tempuri.org/ISliceOfPieService/UpdateProjectResponse")]
-        SliceOfPie.Project UpdateProject(SliceOfPie.Project Project);
+        SliceOfPie.Project StartSync(SliceOfPie.User user, string projectId);
         
         [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/ISliceOfPieService/SendDocument", ReplyAction="http://tempuri.org/ISliceOfPieService/SendDocumentResponse")]
         void SendDocument(SliceOfPie.Document doc);
@@ -76,12 +73,8 @@ namespace SliceOfPieClient.Service {
                 base(binding, remoteAddress) {
         }
         
-        public bool StartSync(SliceOfPie.User user, string projectId) {
+        public SliceOfPie.Project StartSync(SliceOfPie.User user, string projectId) {
             return base.Channel.StartSync(user, projectId);
-        }
-        
-        public SliceOfPie.Project UpdateProject(SliceOfPie.Project Project) {
-            return base.Channel.UpdateProject(Project);
         }
         
         public void SendDocument(SliceOfPie.Document doc) {

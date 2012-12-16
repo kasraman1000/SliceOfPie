@@ -17,31 +17,38 @@ namespace SliceOfPieServiceLibrary
     public class SliceOfPieService : ISliceOfPieService
     {
         private Project currentProj;
+        private User currentUser;
 
         /**
          * This is called when an user from the offline client
-         * wants to start syncronizing a project with the server
+         * wants to start syncronizing a project with the server.
+         * We also make sure the users copy of the project info is up to date
          */
-        public bool StartSync(User user, string projectId)
+        public Project StartSync(User user, string projectId)
         {
             Console.WriteLine("New user connected to sync offline content");
+            currentUser = user;
             currentProj = Storage.GetHierachy(projectId);
             if (currentProj != null)
             {
                 if (currentProj.Owner.Equals(user) || currentProj.SharedWith.Contains(user))
                 {
                     Console.WriteLine("{0} is now syncing with project: {1},",user,projectId);
-                    return true;
+                    return currentProj;
                 }
             }
 
-            Console.WriteLine("Access Denied: {0} wanted to sync with: {1}", user, projectId);
-            return false;            
+            Console.WriteLine("Access Denied: {0} wanted to sync with: {1},"
+                +"\n\tMaking client delete local copy of project", user, projectId);
+            return null;            
         }
 
-        public Project UpdateProject(Project Project) { return null; }
+        public void SendDocument(Document doc) 
+        {
+            // SESSION TEST
+            Console.WriteLine("{0} wants to sync document \t{1} \tfrom project \t{2}", currentUser, doc.Title, currentProj);
 
-        public void SendDocument(Document doc) { }
+        }
 
         public Document GetUpdatedDocument() { return null; }
 

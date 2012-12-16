@@ -24,13 +24,19 @@ namespace EmptyProject
                 //List<SliceOfPie.Project> list = serviceClient.GetAllProjectsOnServer();
                 //var herp = serviceClient.GetHierachy("p663555625Crelde");
 
-                bool bool1 = serviceClient.StartSync(new User("Crelde"), "p663555625Crelde");
-                bool fool2 = serviceClient.StartSync(new User("Creldz"), "p663555625Crelde");
-                bool fool3 = serviceClient.StartSync(new User("Crelde"), "p3555625Crelde");
-                bool bool4 = serviceClient.StartSync(new User("Motor-Bjarne"), "p663555625Crelde");
+                Project bool1 = serviceClient.StartSync(new User("Crelde"), "p663555625Crelde");
+                //Project fool2 = serviceClient.StartSync(new User("Creldz"), "p663555625Crelde");
+                //Project fool3 = serviceClient.StartSync(new User("Crelde"), "p3555625Crelde");
+                //Project bool4 = serviceClient.StartSync(new User("Motor-Bjarne"), "p663555625Crelde");
 
 
-
+                serviceClient.SendDocument(new Document("", "Document first", new User("Crelde")));
+                serviceClient.SendDocument(new Document("", "Document 2", new User("Crelde")));
+                serviceClient.SendDocument(new Document("", "Document third", new User("Crelde")));
+                serviceClient.SendDocument(new Document("", "4th document", new User("Crelde")));
+                serviceClient.SendDocument(new Document("", "half tenth doc", new User("Crelde")));
+                serviceClient.SendDocument(new Document("", "sexy doc", new User("Crelde")));
+                serviceClient.SendDocument(new Document("", "doc triple 7", new User("Crelde")));
 
                 Console.ReadKey();
             }

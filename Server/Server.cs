@@ -20,7 +20,10 @@ namespace Server
                 host.Open();
 
                 Console.WriteLine("SliceOfPie Service now running!");
-                Console.ReadKey();
+                while (true)
+                {
+                    Console.ReadKey();
+                }
             }
         }
     }

@@ -44,12 +44,6 @@
   <wsdl:message name="ISliceOfPieService_StartSync_OutputMessage">
     <wsdl:part name="parameters" element="tns:StartSyncResponse" />
   </wsdl:message>
-  <wsdl:message name="ISliceOfPieService_UpdateProject_InputMessage">
-    <wsdl:part name="parameters" element="tns:UpdateProject" />
-  </wsdl:message>
-  <wsdl:message name="ISliceOfPieService_UpdateProject_OutputMessage">
-    <wsdl:part name="parameters" element="tns:UpdateProjectResponse" />
-  </wsdl:message>
   <wsdl:message name="ISliceOfPieService_SendDocument_InputMessage">
     <wsdl:part name="parameters" element="tns:SendDocument" />
   </wsdl:message>
@@ -109,10 +103,6 @@
       <wsdl:input wsaw:Action="http://tempuri.org/ISliceOfPieService/StartSync" message="tns:ISliceOfPieService_StartSync_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ISliceOfPieService/StartSyncResponse" message="tns:ISliceOfPieService_StartSync_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation msc:isInitiating="false" msc:isTerminating="false" name="UpdateProject">
-      <wsdl:input wsaw:Action="http://tempuri.org/ISliceOfPieService/UpdateProject" message="tns:ISliceOfPieService_UpdateProject_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/ISliceOfPieService/UpdateProjectResponse" message="tns:ISliceOfPieService_UpdateProject_OutputMessage" />
-    </wsdl:operation>
     <wsdl:operation msc:isInitiating="false" msc:isTerminating="false" name="SendDocument">
       <wsdl:input wsaw:Action="http://tempuri.org/ISliceOfPieService/SendDocument" message="tns:ISliceOfPieService_SendDocument_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ISliceOfPieService/SendDocumentResponse" message="tns:ISliceOfPieService_SendDocument_OutputMessage" />
@@ -155,15 +145,6 @@
     <soap12:binding transport="http://schemas.microsoft.com/soap/tcp" />
     <wsdl:operation name="StartSync">
       <soap12:operation soapAction="http://tempuri.org/ISliceOfPieService/StartSync" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="UpdateProject">
-      <soap12:operation soapAction="http://tempuri.org/ISliceOfPieService/UpdateProject" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

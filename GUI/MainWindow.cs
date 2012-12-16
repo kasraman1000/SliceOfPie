@@ -9,10 +9,14 @@ using System.Windows.Forms;
 using System.Diagnostics;
 using System.Text.RegularExpressions;
 using SliceOfPie;
+using SliceOfPieClient;
 
 
 namespace GUI
 {
+    /**
+     * The main screen for the offline client.
+     */
     public partial class MainWindow : Form
     {
         private EditWindow editWindow;
@@ -140,7 +144,7 @@ namespace GUI
                 openButton.Enabled = false;
             }
 
-            // You can't rename, move or delete projects in this client
+            // You can't rename, move or delete projects in the offline client
             if (selectedFolder.FileType == DocType.Project && !isDocument)
             {
                 renameButton.Enabled = false;
@@ -182,6 +186,9 @@ namespace GUI
 
         }
 
+        /**
+         * Open selected doc in new window
+         */
         private void OpenDocument()
         {
             editWindow = new EditWindow(selectedProject,
@@ -192,15 +199,16 @@ namespace GUI
 
         private void syncButton_Click(object sender, EventArgs e)
         {
-            Controller.SyncWithServer(activeUser);
+            ServerController.SyncWithServer(selectedProject, activeUser); // probably make a new window for this
         }
 
         /**
          * When the user hits the new doc button, it asks for the name and then
-         * should save it to the storage.
+         * saves it to the storage.
          */
         private void createDocumentButton_Click(object sender, EventArgs e)
         {
+            // Make sure a destination is selected
             if (treeView.SelectedNode == null)
                 MessageBox.Show("Please select destination of new document");
             else
@@ -238,37 +246,42 @@ namespace GUI
 
         private void createFolderButton_Click(object sender, EventArgs e)
         {
-
-            InputDialog inputDialog = new InputDialog("What should your new folder be called?", "name");
-            inputDialog.ShowDialog();
-            if (!inputDialog.Canceled)
+            // Make sure a destination is selected
+            if (treeView.SelectedNode == null)
+                MessageBox.Show("Please select destination of new folder");
+            else
             {
-                if (!CheckName(inputDialog.Input))
-                    return;
-
-                string path;
-                // If the project root itself is selected, just discard the whole path
-                if (selectedFolder.FileType == DocType.Project && !isDocument)
-                    path = "";
-                else
+                InputDialog inputDialog = new InputDialog("What should your new folder be called?", "name");
+                inputDialog.ShowDialog();
+                if (!inputDialog.Canceled)
                 {
-                    path = treeView.SelectedNode.FullPath;
-                    path = path.Substring(selectedProject.ToString().Count() + 1);
+                    if (!CheckName(inputDialog.Input))
+                        return;
+
+                    string path;
+                    // If the project root itself is selected, just discard the whole path
+                    if (selectedFolder.FileType == DocType.Project && !isDocument)
+                        path = "";
+                    else
+                    {
+                        path = treeView.SelectedNode.FullPath;
+                        path = path.Substring(selectedProject.ToString().Count() + 1);
+                    }
+                    path = Regex.Replace(path, @"\\", "/");
+
+                    if (isDocument)
+                        path = path.Substring(0, path.Count() - selectedDocument.Title.Count() - 1);
+
+                    // append the folder name to the end of the path
+                    if (path.Count() == 0)
+                        path = inputDialog.Input;
+                    else
+                        path += "/" + inputDialog.Input;
+
+                    Controller.CreateDocument(activeUser, path, selectedProject, "Welcome to your new folder!");
                 }
-                path = Regex.Replace(path, @"\\", "/");
-
-                if (isDocument)
-                    path = path.Substring(0, path.Count() - selectedDocument.Title.Count() - 1);
-
-                // append the folder name to the end of the path
-                if (path.Count() == 0)
-                    path = inputDialog.Input;
-                else
-                    path += "/" + inputDialog.Input;
-
-                Controller.CreateDocument(activeUser, path, selectedProject, "Welcome to your new folder!");
+                RefreshTreeView();
             }
-            RefreshTreeView();
         }
 
         private void renameButton_Click(object sender, EventArgs e)
@@ -353,6 +366,7 @@ namespace GUI
         }
 
         /**
+         * Load in the contents of the projects and refresh the treeView
          */
         private void RefreshTreeView()
         {
@@ -364,7 +378,7 @@ namespace GUI
             foreach (Project p in projects)
             {
                 projectBox.Items.Add(p);
-                if (p.Equals(selectedProject))
+                if (selectedProject != null && p.Id == selectedProject.Id)
                     projectBox.SelectedItem = p;
             }
         }
@@ -375,6 +389,9 @@ namespace GUI
 
         }
 
+        /**
+         * Recursively call delete on the contents of a folder
+         */
         private void DeleteFolder(Folder folder, Project project)
         {
             foreach (IFileSystemComponent component in folder.Children)
@@ -405,11 +422,15 @@ namespace GUI
             RefreshTreeView();
         }
 
+        /**
+         * Recursively get a list of names of all the folders in this project
+         * (including the project folder)
+         */
         private List<string> GetFoldersInFolder(TreeNode node, List<string> folders)
         {
             foreach (TreeNode component in node.Nodes)
             {
-                if (((IFileSystemComponent)component).FileType == DocType.Folder)
+                if (((IFileSystemComponent)component.Tag).FileType == DocType.Folder)
                 {
                     folders.Add(component.FullPath);
                     GetFoldersInFolder(component, folders);
@@ -426,6 +447,9 @@ namespace GUI
             Controller.SaveDocument(selectedProject, doc, activeUser);
         }
 
+        /**
+         * Recursively move the contents of a folder to somewhere new
+         */
         private void MoveFolder(Folder folder, string path)
         {
             foreach (IFileSystemComponent component in folder.Children)
@@ -449,13 +473,13 @@ namespace GUI
             List<string> folders = new List<string>();
 
             TreeNode projectNode = treeView.Nodes[0];
-
+            
             folders.Add(projectNode.FullPath);
 
             GetFoldersInFolder(projectNode, folders);
 
 
-
+            // Move diffrently depending on whether it's a folder or document being moved
             if (isDocument)
             {
                 DropdownDialog<string> folderDialog = new DropdownDialog<string>("Which folder should the document be moved to?", folders, true);
@@ -463,12 +487,13 @@ namespace GUI
                 if (folderDialog.Canceled)
                     return;
 
-                string pathToMoveTo = folderDialog.Selected;
-
-                string oldpath = pathToMoveTo.Substring(selectedProject.ToString().Count() + 1);
-                oldpath = Regex.Replace(oldpath, @"\\", "/");
-
-                string path = oldpath;
+                // Figure out new path
+                string path = folderDialog.Selected;
+                if (selectedProject.ToString() == path)
+                    path = "";
+                else
+                    path = path.Substring(selectedProject.ToString().Count() + 1);
+                path = Regex.Replace(path, @"\\", "/");
 
                 moveDocument(path, selectedDocument.Id);
             }
@@ -479,12 +504,14 @@ namespace GUI
                 if (folderDialog.Canceled)
                     return;
 
-                string pathToMoveTo = folderDialog.Selected;
+                // Figure out new path
+                string path = folderDialog.Selected;
+                if (selectedProject.ToString() == path)
+                    path = "";
+                else
+                    path = path.Substring(selectedProject.ToString().Count() + 1);
+                path = Regex.Replace(path, @"\\", "/");
 
-                string oldpath = pathToMoveTo.Substring(selectedProject.ToString().Count() + 1);
-                oldpath = Regex.Replace(oldpath, @"\\", "/");
-
-                string path = oldpath;
                 MoveFolder(selectedFolder, path);
             }
             RefreshTreeView();
