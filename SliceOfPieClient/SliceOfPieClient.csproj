@@ -65,7 +65,7 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
+    <Content Include="app.config" />
     <None Include="Properties\DataSources\SliceOfPie.Document.datasource" />
     <None Include="Properties\DataSources\SliceOfPie.Project.datasource" />
     <None Include="Service References\Service\item.xsd">
