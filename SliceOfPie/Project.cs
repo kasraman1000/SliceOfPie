@@ -6,6 +6,9 @@ using System.Runtime.Serialization;
 namespace SliceOfPie
 {
     [DataContract]
+    [KnownType(typeof(Project))]
+    [KnownType(typeof(Folder))]
+    [KnownType(typeof(DocumentStruct))]
     public class Project : Folder
     {
         

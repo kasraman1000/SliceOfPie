@@ -6,6 +6,8 @@ using System.Runtime.Serialization;
 namespace SliceOfPie
 {
     [DataContract]
+    [KnownType(typeof(Folder))]
+    [KnownType(typeof(DocumentStruct))]
     public class Folder : IFileSystemComponent
     {
         [DataMember]

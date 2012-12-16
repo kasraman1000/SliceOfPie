@@ -145,16 +145,10 @@ namespace SliceOfPie
         // Second parameter is optional for now, chooses where to put the file
         
         
-        public static void WriteToFile(Project pro, Document doc, bool server = false)
+        public static void WriteToFile(Project pro, Document doc)
         {
-            string path;
+            string path = pro.Id;
             string fileName;
-            // Creates a fileName for the file based on the files title, if it is the server
-            // that is invoking the method, specify that it should be put in the server directory.
-            if (server)
-                path = "Server\\" + pro.Id;
-            else
-                path = pro.Id;
 
             fileName = path + "\\" + doc.Id + ".txt";
             
@@ -186,7 +180,7 @@ namespace SliceOfPie
                     else
                         imageLineBuilder.AppendFormat(doc.Images[i].Id + ",");
                 }
-			   
+               
                 tw.WriteLine(imageLineBuilder.ToString());
 
                 // Write the documents log
@@ -212,17 +206,11 @@ namespace SliceOfPie
             }
         }
 
-        public static void DeletePicture(string projectId, Picture picture, bool server = false)
+        public static void DeletePicture(string projectId, Picture picture)
         {
             string pictureId = picture.Id;
             picture.Image.Dispose();
-            string fileName;
-            // Decides which file the document is associated with, if it is the server
-            // that is invoking the method, specify that it is in the server directory.
-            if (server)
-                fileName = "Server\\" + projectId + "\\" + pictureId + ".JPG";
-            else
-                fileName = projectId + "\\" + pictureId + ".JPG";
+            string fileName = projectId + "\\" + pictureId + ".JPG";
 
             // Checks if a filename that matches the string exists and deletes it
             if (File.Exists(fileName))
@@ -244,15 +232,10 @@ namespace SliceOfPie
 
         // Saves a project to the file system if it doesnt already exist.
         // If it is already there, update its MetaInfo file.
-        public static void SaveProjectToFile(Project p, bool server = false)
+        public static void SaveProjectToFile(Project p)
         {
 
-            string path;
-
-            if (server)
-                path = "Server\\" + p.Id;
-            else
-                path = p.Id;
+            string path = p.Id;
             if (!Directory.Exists(p.Id))
             {
                 using (TextWriter tw = new StreamWriter(path + "\\MetaInfo.txt", false))
@@ -322,33 +305,19 @@ namespace SliceOfPie
                     tw.WriteLine(sb.ToString());
                     tw.Close();
                 }
-
             }
         }
 
-        public static void DeleteProject(string projectId, bool server = false)
+        public static void DeleteProject(string projectId)
         {
-            string path;
-
-            if (server)
-                path = "Server\\" + projectId;
-            else
-                path = projectId;
+            string path = projectId;
             if (Directory.Exists(path))
                 Directory.Delete(path,true);
-
-
         }
 
-        public static Document ReadFromFile(string pid, string did, bool server = false)
+        public static Document ReadFromFile(string pid, string did)
         {
-            string fileName;
-            // Defines the fileName for the file based on the files title, if it is the server
-            // that is invoking the method, specify that it is in the server directory.
-            if (server)
-                fileName = "Server\\" + pid + "\\" + did + ".txt";
-            else
-                fileName = pid + "\\" + did + ".txt";
+            string fileName = pid + "\\" + did + ".txt";
             Document finalDoc;
 
             try
@@ -479,16 +448,9 @@ namespace SliceOfPie
         /*
          * Deletes the file given the file name 
          */
-        public static void DeleteDocument(string pid, string did, bool server = false)
+        public static void DeleteDocument(string pid, string did)
         {
-
-            string fileName;
-            // Decides which file the document is associated with, if it is the server
-            // that is invoking the method, specify that it is in the server directory.
-            if (server)
-                fileName = "Server\\" + pid + "\\" + did + ".txt";
-            else
-                fileName = pid + "\\" + did + ".txt";
+            string fileName = pid + "\\" + did + ".txt";
             
             // Checks if a filename that matches the string exists and deletes it
             if(File.Exists(fileName))
@@ -502,11 +464,9 @@ namespace SliceOfPie
 
         }
 
-        public static Project GetHierachy(string pid, bool server = false)
+        public static Project GetHierachy(string pid)
         {
-            string folderPath;
-
-                folderPath = pid;
+            string folderPath = pid;
 
             if(Directory.Exists(folderPath))
             {
@@ -638,11 +598,7 @@ namespace SliceOfPie
                                 finalProject.AddChild(fol);
                         }
                     }
-	
-
-               
-
-
+    
                     mr.Close();
                     mr.Dispose();
                     return finalProject;
@@ -653,66 +609,20 @@ namespace SliceOfPie
             return null;
         }
 
-        public static List<Project> GetAllProjects(bool server = false)
+        public static List<Project> GetAllProjects()
         {
             List<Project> projs = new List<Project>();
             // The currnt directory
-            string currentDir = Directory.GetCurrentDirectory();
-
-            string path;
-
-            if (server)
-                path = currentDir +"\\Server";
-            else
-                path = currentDir;
-            
+            string path = Directory.GetCurrentDirectory();
 
             IEnumerable<string> projects = Directory.EnumerateDirectories(path);
 
             foreach (String p in projects)
             {
-                if (server)
-                    projs.Add(GetHierachy(p, true));
-                else
-                {
-                    if (!(p.Contains("Server")))
-                        projs.Add(GetHierachy(p));
-                }
-
+                projs.Add(GetHierachy(p));
             }
 
             return projs;
         }
-
-        public static void ServerWriteToFile(Project pro, Document doc)
-        {
-            WriteToFile(pro, doc, true);
-        }
-
-        public static void ServerSaveProjectToFile(Project p)
-        {
-            SaveProjectToFile(p, true);
-        }
-
-        public static Document ServerReadFromFile(string pid, string did)
-        {
-            return ReadFromFile(pid, did, true);
-        }
-
-        public static void ServerDeleteDocument(string pid, string did)
-        {
-            DeleteDocument(pid, did, true);
-        }
-
-        public static Project ServerGetHierachy(string pid)
-        {
-            return GetHierachy(pid, true);
-        }
-
-        public static List<Project> ServerGetAllProjects()
-        {
-            return GetAllProjects(true);
-        }
-
     }
 }

@@ -11,6 +11,9 @@ namespace SliceOfPieServiceLibrary
     /**
      * This is where the server behavior goes.
      */
+    [ServiceBehavior(
+        InstanceContextMode=InstanceContextMode.Single,
+        ConcurrencyMode=ConcurrencyMode.Single)]
     public class SliceOfPieService : ISliceOfPieService
     {
         /**
@@ -25,39 +28,39 @@ namespace SliceOfPieServiceLibrary
 
         public void DeleteDocument(string projectId, string documentId)
         {
-            Storage.ServerDeleteDocument(projectId, documentId);
+            Storage.DeleteDocument(projectId, documentId);
         }
 
         public List<Project> GetAllProjectsOnServer()
         {
-            return Storage.ServerGetAllProjects();
+            return Storage.GetAllProjects();
         }
 
         public Project GetHierachy(string projectId)
         {
-            return Storage.ServerGetHierachy(projectId);
+            return Storage.GetHierachy(projectId);
         }
 
         public Document OpenDocumentOnServer(string projectId, string documentId)
         {
-            return Storage.ServerReadFromFile(projectId, documentId);
+            return Storage.ReadFromFile(projectId, documentId);
         }
 
         public void SaveProjectOnServer(SliceOfPie.Project p)
         {
-            Storage.ServerSaveProjectToFile(p);
+            Storage.SaveProjectToFile(p);
         }
 
         public void SaveDocumentOnServer(SliceOfPie.Project p, SliceOfPie.Document d)
         {
             
 
-            Storage.ServerWriteToFile(p, d);
+            Storage.WriteToFile(p, d);
         }
 
         public void DeleteProject(string projectId)
         {
-            Storage.DeleteProject(projectId, true);
+            Storage.DeleteProject(projectId);
         }
     }
 }
