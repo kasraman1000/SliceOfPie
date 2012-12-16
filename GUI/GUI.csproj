@@ -142,6 +142,7 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <None Include="app.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -153,6 +154,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\SliceOfPieClient\SliceOfPieClient.csproj">
+      <Project>{6D6823F4-B00A-4054-91E4-2DB474ACBE74}</Project>
+      <Name>SliceOfPieClient</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SliceOfPie\SliceOfPie.csproj">
       <Project>{1F35C9E2-48E9-4986-8F49-8542CC2CB1AC}</Project>
       <Name>SliceOfPie</Name>

@@ -20,10 +20,7 @@ namespace SliceOfPieServiceLibrary
 
         // Offline synchronization methods
         [OperationContract(IsInitiating = true)]
-        bool StartSync(User user, string projectId);
-
-        [OperationContract(IsInitiating = false)]
-        Project UpdateProject(Project Project);
+        Project StartSync(User user, string projectId);
 
         [OperationContract(IsInitiating = false)]
         void SendDocument(Document doc);

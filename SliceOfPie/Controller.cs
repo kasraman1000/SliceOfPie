@@ -83,19 +83,7 @@ namespace SliceOfPie
             Storage.SaveProjectToFile(project);
         }
 
-        public static void SyncWithServer(User user)
-        {
-            List<Project> projects = GetAllProjectsForUser(user);
-
-            foreach (Project project in projects)
-            {
-                List<DocumentStruct> structs = new List<DocumentStruct>();
-                //getStructsInFoler(project, structs);
-
-            }
-
-            // add serverconnection here
-        }
+        
 
 
     }

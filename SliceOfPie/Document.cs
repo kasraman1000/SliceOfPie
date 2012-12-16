@@ -46,7 +46,6 @@ namespace SliceOfPie
         private bool deleted = false;
         public bool Deleted { get { return deleted; } set { deleted = value; } }
 
-        [DataMember]
         private bool modified = true;
         public bool Modified { get { return modified; } set { modified = value; } }
 

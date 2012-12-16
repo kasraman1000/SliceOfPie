@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using System.Diagnostics;
 using System.Text.RegularExpressions;
 using SliceOfPie;
+using SliceOfPieClient;
 
 
 namespace GUI
@@ -198,7 +199,7 @@ namespace GUI
 
         private void syncButton_Click(object sender, EventArgs e)
         {
-            Controller.SyncWithServer(activeUser); // probably make a new window for this
+            ServerController.SyncWithServer(selectedProject, activeUser); // probably make a new window for this
         }
 
         /**
