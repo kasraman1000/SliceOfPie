@@ -72,8 +72,19 @@ namespace SliceOfPie
 				return false;
 			Project p = (Project)obj;
 			if (!(this.FileType == p.FileType 
-                && this.id == p.Id))
+                && this.id == p.Id
+                && this.Title == p.Title
+                && this.owner == p.owner))
 				return false;
+            
+            for (int i = 0; i < sharedWith.Count; i++)
+            {
+                if (!(sharedWith[i].Equals(p.sharedWith[i])))
+                {
+                    return false;
+                }
+            }
+
             return true;
 
         }
