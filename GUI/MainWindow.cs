@@ -460,8 +460,7 @@ namespace GUI
                     path = "";
                 else
                 {
-                    DocumentStruct neighbour = (DocumentStruct)folderToMoveTo.Children[0];
-                    path = neighbour.Path;
+                    path = getPathToMoveTo(folderToMoveTo, 0);
                 }
 
                 moveDocument(path, selectedDocument.Id);
@@ -477,15 +476,48 @@ namespace GUI
                 string path;
 
                 if (folderToMoveTo == selectedProject)
-                    path = selectedFolder.Title;
+                    path = "";
                 else
                 {
-                    DocumentStruct neighbour = (DocumentStruct)folderToMoveTo.Children[0];
-                    path = neighbour.Path+"/"+selectedFolder.Title;
+                    if (folderToMoveTo.Children[0].FileType != DocType.Document)
+                    {
+                        DocumentStruct neighbour = (DocumentStruct)folderToMoveTo.Children[0];
+                        path = neighbour.Path + "/" + selectedFolder.Title;
+                    }
+                    else
+                    {
+                        path = getPathToMoveTo(folderToMoveTo, 0);
+                    }
                 }
                 MoveFolder(selectedFolder, path);
             }
             RefreshTreeView();
+        }
+
+        private string getPathToMoveTo(Folder folder, int count)
+        {
+            count++;
+            string finalPath = "";
+            foreach (IFileSystemComponent component in folder.Children)
+            {
+                
+                if (component.FileType == DocType.Document)
+                    return ((DocumentStruct)component).Path;
+                else
+                {
+                    
+                    string path = getPathToMoveTo((Folder)component,count);
+                    string[] splitPath = path.Split(new string[] { "/" }, StringSplitOptions.None);
+                    for (int i = 0; i < count; i++)
+                    {
+                        if (i==count-1)
+                            finalPath = finalPath + splitPath[i];
+                        else
+                            finalPath = finalPath + splitPath[i]+"/";
+                    }                    
+                }                
+            }
+            return finalPath;
         }
 	}
 }
