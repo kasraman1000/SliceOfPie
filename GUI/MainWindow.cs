@@ -513,6 +513,7 @@ namespace GUI
                 return false;
             }
             return true;
+        }
         private string getPathToMoveTo(Folder folder, int count)
         {
             count++;
