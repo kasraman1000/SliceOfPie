@@ -94,8 +94,6 @@ namespace SliceOfPieServiceLibrary
 
         public void SaveDocumentOnServer(SliceOfPie.Project p, SliceOfPie.Document d, User user)
         {
-            
-
             Storage.WriteToFile(p, d);
         }
 

@@ -6,6 +6,12 @@ using System.Runtime.Serialization;
 
 namespace SliceOfPie
 {
+    /**
+     * DocumentStruct, a contentless representation of
+     * the documents on the system. Mostly used for 
+     * building hiearchys such as the treeView in the
+     * main window.
+     */
     [DataContract]
     [KnownType(typeof(DocumentStruct))]
     public struct DocumentStruct : IFileSystemComponent
@@ -40,13 +46,17 @@ namespace SliceOfPie
         private bool modified;
         public bool Modified { get { return modified; } }
 
-        public DocumentStruct(string title, User user, string ID, string path, bool modified)
+        private bool deleted;
+        public bool Deleted { get { return deleted; } }
+
+        public DocumentStruct(string title, User user, string ID, string path, bool modified, bool deleted)
         {
             id = ID;
             fileType = DocType.Document;
             this.title = title;
             this.path = path;
             this.modified = modified;
+            this.deleted = deleted;
         }
         public override bool Equals(object obj)
         {

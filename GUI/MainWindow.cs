@@ -91,16 +91,21 @@ namespace GUI
         /**
          * Recursive function, 
          * filling out the treeView with folders and documents
-         * 'tag' is a property referencing the object per se.
+         * 'tag' is a property referencing the object itself.
+         * 
+         * Don't add the document to the tree if it is marked for deletion.
          */
         private void BuildDocumentTree(TreeNodeCollection nodes, IFileSystemComponent fsc)
         {
 
             if (fsc.FileType == SliceOfPie.DocType.Document) // If it's a document
             {
-                TreeNode n = new TreeNode(fsc.Title);
-                n.Tag = fsc;
-                nodes.Add(n);
+                if (!((DocumentStruct)fsc).Deleted)
+                {
+                    TreeNode n = new TreeNode(fsc.Title);
+                    n.Tag = fsc;
+                    nodes.Add(n);
+                }
             }
             else // else, if it's a folder
             {
@@ -251,36 +256,35 @@ namespace GUI
                 MessageBox.Show("Please select destination of new folder");
             else
             {
-                InputDialog inputDialog = new InputDialog("What should your new folder be called?", "name");
-                inputDialog.ShowDialog();
-                if (!inputDialog.Canceled)
-                {
-                    if (!CheckName(inputDialog.Input))
-                        return;
+                InputDialog inputDialog = new InputDialog("What should your new folder be called?", "name"); 
+                inputDialog.ShowDialog(); 
+                if (!inputDialog.Canceled) 
+                { 
+                    if (!CheckName(inputDialog.Input)) 
+                        return;  
+                     
+                    string path; 
+                    // If the project root itself is selected, just discard the whole path 
+                    if (selectedFolder.FileType == DocType.Project) 
+                        path = inputDialog.Input; 
+                    else 
+                    { 
+                        
 
-                    string path;
-                    // If the project root itself is selected, just discard the whole path
-                    if (selectedFolder.FileType == DocType.Project && !isDocument)
-                        path = "";
-                    else
-                    {
-                        path = treeView.SelectedNode.FullPath;
+                        path = treeView.SelectedNode.FullPath; 
                         path = path.Substring(selectedProject.ToString().Count() + 1);
-                    }
-                    path = Regex.Replace(path, @"\\", "/");
 
-                    if (isDocument)
-                        path = path.Substring(0, path.Count() - selectedDocument.Title.Count() - 1);
+                        if (isDocument)
+                            path = path.Substring(0, path.Count() - selectedDocument.Title.Count() - 1);
 
-                    // append the folder name to the end of the path
-                    if (path.Count() == 0)
-                        path = inputDialog.Input;
-                    else
+                        path = Regex.Replace(path, @"\\", "/");
+
                         path += "/" + inputDialog.Input;
+                    }
 
-                    Controller.CreateDocument(activeUser, path, selectedProject, "Welcome to your new folder!");
-                }
-                RefreshTreeView();
+                    Controller.CreateDocument(activeUser, path, selectedProject, "Welcome to your new folder!");  
+                } 
+                RefreshTreeView(); 
             }
         }
 
