@@ -86,7 +86,7 @@ namespace SliceOfPie
             foreach (Project project in projects)
             {
                 List<DocumentStruct> structs = new List<DocumentStruct>();
-                getStructsInFoler(project, structs);
+                //getStructsInFoler(project, structs);
 
             }
 
