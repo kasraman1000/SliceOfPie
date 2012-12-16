@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<SavedWcfConfigurationInformation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="9.1" CheckSum="kmzAaZczQrGsThPCtm+u5cyahXs=">
+<SavedWcfConfigurationInformation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="9.1" CheckSum="Ze/BwqyaNG27larMC6CFg7Ey4tk=">
   <bindingConfigurations>
-    <bindingConfiguration bindingType="netTcpBinding" name="NetTcpBinding_ISliceOfPieService">
+    <bindingConfiguration bindingType="netTcpBinding" name="NetTcpBinding_ISliceOfPieService1">
       <properties>
         <property path="/name" isComplexType="false" isExplicitlyDefined="true" clrType="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue>NetTcpBinding_ISliceOfPieService</serializedValue>
+          <serializedValue>NetTcpBinding_ISliceOfPieService1</serializedValue>
         </property>
         <property path="/closeTimeout" isComplexType="false" isExplicitlyDefined="true" clrType="System.TimeSpan, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
           <serializedValue>00:01:00</serializedValue>
@@ -118,7 +118,7 @@
     </bindingConfiguration>
   </bindingConfigurations>
   <endpoints>
-    <endpoint name="NetTcpBinding_ISliceOfPieService" contract="Service.ISliceOfPieService" bindingType="netTcpBinding" address="net.tcp://localhost:8733/" bindingConfiguration="NetTcpBinding_ISliceOfPieService">
+    <endpoint name="NetTcpBinding_ISliceOfPieService1" contract="Service.ISliceOfPieService" bindingType="netTcpBinding" address="net.tcp://localhost:8733/" bindingConfiguration="NetTcpBinding_ISliceOfPieService1">
       <properties>
         <property path="/address" isComplexType="false" isExplicitlyDefined="true" clrType="System.Uri, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
           <serializedValue>net.tcp://localhost:8733/</serializedValue>
@@ -130,7 +130,7 @@
           <serializedValue>netTcpBinding</serializedValue>
         </property>
         <property path="/bindingConfiguration" isComplexType="false" isExplicitlyDefined="true" clrType="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue>NetTcpBinding_ISliceOfPieService</serializedValue>
+          <serializedValue>NetTcpBinding_ISliceOfPieService1</serializedValue>
         </property>
         <property path="/contract" isComplexType="false" isExplicitlyDefined="true" clrType="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
           <serializedValue>Service.ISliceOfPieService</serializedValue>
@@ -193,7 +193,7 @@
           <serializedValue>False</serializedValue>
         </property>
         <property path="/name" isComplexType="false" isExplicitlyDefined="true" clrType="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue>NetTcpBinding_ISliceOfPieService</serializedValue>
+          <serializedValue>NetTcpBinding_ISliceOfPieService1</serializedValue>
         </property>
         <property path="/kind" isComplexType="false" isExplicitlyDefined="false" clrType="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
           <serializedValue />

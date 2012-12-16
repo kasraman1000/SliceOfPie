@@ -37,12 +37,16 @@ namespace SliceOfPie
             get { return fileType; }
         }
 
-        public DocumentStruct(string title, User user, string ID, string path)
+        private bool modified;
+        public bool Modified { get { return modified; } }
+
+        public DocumentStruct(string title, User user, string ID, string path, bool modified)
         {
             id = ID;
             fileType = DocType.Document;
             this.title = title;
             this.path = path;
+            this.modified = modified;
         }
         public override bool Equals(object obj)
         {

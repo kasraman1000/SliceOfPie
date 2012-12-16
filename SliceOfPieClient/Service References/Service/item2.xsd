@@ -1,18 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:tns="http://tempuri.org/" elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:import schemaLocation="http://localhost:8722/?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/SliceOfPie" />
-  <xs:element name="SyncAll">
+  <xs:element name="StartSync">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/SliceOfPie" minOccurs="0" name="docs" nillable="true" type="q1:ArrayOfDocument" />
+        <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/SliceOfPie" minOccurs="0" name="user" nillable="true" type="q1:User" />
+        <xs:element minOccurs="0" name="projectId" nillable="true" type="xs:string" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="SyncAllResponse">
+  <xs:element name="StartSyncResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/SliceOfPie" minOccurs="0" name="SyncAllResult" nillable="true" type="q2:ArrayOfDocument" />
+        <xs:element minOccurs="0" name="StartSyncResult" type="xs:boolean" />
       </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateProject">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/SliceOfPie" minOccurs="0" name="Project" nillable="true" type="q2:Project" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateProjectResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/SliceOfPie" minOccurs="0" name="UpdateProjectResult" nillable="true" type="q3:Project" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SendDocument">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/SliceOfPie" minOccurs="0" name="doc" nillable="true" type="q4:Document" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SendDocumentResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetUpdatedDocument">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetUpdatedDocumentResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/SliceOfPie" minOccurs="0" name="GetUpdatedDocumentResult" nillable="true" type="q5:Document" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="StopSync">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="StopSyncResponse">
+    <xs:complexType>
+      <xs:sequence />
     </xs:complexType>
   </xs:element>
   <xs:element name="DeleteDocument">
@@ -36,21 +85,7 @@
   <xs:element name="GetAllProjectsOnServerResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/SliceOfPie" minOccurs="0" name="GetAllProjectsOnServerResult" nillable="true" type="q3:ArrayOfProject" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="GetHierachy">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" name="projectId" nillable="true" type="xs:string" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="GetHierachyResponse">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/SliceOfPie" minOccurs="0" name="GetHierachyResult" nillable="true" type="q4:Project" />
+        <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/SliceOfPie" minOccurs="0" name="GetAllProjectsOnServerResult" nillable="true" type="q6:ArrayOfProject" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -65,14 +100,14 @@
   <xs:element name="OpenDocumentOnServerResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/SliceOfPie" minOccurs="0" name="OpenDocumentOnServerResult" nillable="true" type="q5:Document" />
+        <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/SliceOfPie" minOccurs="0" name="OpenDocumentOnServerResult" nillable="true" type="q7:Document" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="SaveProjectOnServer">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/SliceOfPie" minOccurs="0" name="p" nillable="true" type="q6:Project" />
+        <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/SliceOfPie" minOccurs="0" name="p" nillable="true" type="q8:Project" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -84,12 +119,24 @@
   <xs:element name="SaveDocumentOnServer">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/SliceOfPie" minOccurs="0" name="p" nillable="true" type="q7:Project" />
-        <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/SliceOfPie" minOccurs="0" name="d" nillable="true" type="q8:Document" />
+        <xs:element xmlns:q9="http://schemas.datacontract.org/2004/07/SliceOfPie" minOccurs="0" name="p" nillable="true" type="q9:Project" />
+        <xs:element xmlns:q10="http://schemas.datacontract.org/2004/07/SliceOfPie" minOccurs="0" name="d" nillable="true" type="q10:Document" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="SaveDocumentOnServerResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeleteProject">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="projectId" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeleteProjectResponse">
     <xs:complexType>
       <xs:sequence />
     </xs:complexType>

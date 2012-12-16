@@ -145,8 +145,13 @@ namespace SliceOfPie
         // Second parameter is optional for now, chooses where to put the file
         
         
-        public static void WriteToFile(Project pro, Document doc)
+        public static void WriteToFile(Project pro, Document doc, bool fromServer = false)
         {
+            // If a document is about to be saved, assume it's been modified since last time
+            // unless it's a document freshly recieved from the server
+            if (!fromServer)
+                doc.Modified = true;
+
             string path = pro.Id;
             string fileName;
 
@@ -482,7 +487,7 @@ namespace SliceOfPie
             }
             else
             {
-                Console.WriteLine("No file exists by that name");
+                Debug.Print("No file exists by that name");
             }
 
         }
@@ -523,10 +528,14 @@ namespace SliceOfPie
                                 toBeFolders.Add(st);
 
                             }
+                            // Read the modified boolean
+                            tr.ReadLine();
+                            bool modified = Boolean.Parse(tr.ReadLine());
+
                             // Get the files name, which is the documents id.
                             string id = Path.GetFileNameWithoutExtension(s);
                             // Add the struct to the list of structs.
-                            structs.Add(new DocumentStruct(title, user, id, path));
+                            structs.Add(new DocumentStruct(title, user, id, path, modified));
                         }
                     }
 
@@ -631,8 +640,8 @@ namespace SliceOfPie
                             if (String.Compare(fol.Title, "") == 0)
                             {
                                 // Add the documentstruct.
-                                foreach (DocumentStruct docStruct in fol.Children)
-                                    finalProject.AddChild(docStruct);
+                                foreach (IFileSystemComponent component in fol.Children)
+                                    finalProject.AddChild(component);
 
                             }
                             // Add the folder.

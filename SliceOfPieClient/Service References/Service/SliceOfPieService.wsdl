@@ -34,15 +34,39 @@
       <xsd:import schemaLocation="http://localhost:8722/?xsd=xsd0" namespace="http://tempuri.org/" />
       <xsd:import schemaLocation="http://localhost:8722/?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
       <xsd:import schemaLocation="http://localhost:8722/?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/SliceOfPie" />
-      <xsd:import schemaLocation="http://localhost:8722/?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/System.Drawing" />
-      <xsd:import schemaLocation="http://localhost:8722/?xsd=xsd4" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+      <xsd:import schemaLocation="http://localhost:8722/?xsd=xsd3" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+      <xsd:import schemaLocation="http://localhost:8722/?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/System.Drawing" />
     </xsd:schema>
   </wsdl:types>
-  <wsdl:message name="ISliceOfPieService_SyncAll_InputMessage">
-    <wsdl:part name="parameters" element="tns:SyncAll" />
+  <wsdl:message name="ISliceOfPieService_StartSync_InputMessage">
+    <wsdl:part name="parameters" element="tns:StartSync" />
   </wsdl:message>
-  <wsdl:message name="ISliceOfPieService_SyncAll_OutputMessage">
-    <wsdl:part name="parameters" element="tns:SyncAllResponse" />
+  <wsdl:message name="ISliceOfPieService_StartSync_OutputMessage">
+    <wsdl:part name="parameters" element="tns:StartSyncResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISliceOfPieService_UpdateProject_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateProject" />
+  </wsdl:message>
+  <wsdl:message name="ISliceOfPieService_UpdateProject_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateProjectResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISliceOfPieService_SendDocument_InputMessage">
+    <wsdl:part name="parameters" element="tns:SendDocument" />
+  </wsdl:message>
+  <wsdl:message name="ISliceOfPieService_SendDocument_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SendDocumentResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISliceOfPieService_GetUpdatedDocument_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetUpdatedDocument" />
+  </wsdl:message>
+  <wsdl:message name="ISliceOfPieService_GetUpdatedDocument_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetUpdatedDocumentResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISliceOfPieService_StopSync_InputMessage">
+    <wsdl:part name="parameters" element="tns:StopSync" />
+  </wsdl:message>
+  <wsdl:message name="ISliceOfPieService_StopSync_OutputMessage">
+    <wsdl:part name="parameters" element="tns:StopSyncResponse" />
   </wsdl:message>
   <wsdl:message name="ISliceOfPieService_DeleteDocument_InputMessage">
     <wsdl:part name="parameters" element="tns:DeleteDocument" />
@@ -55,12 +79,6 @@
   </wsdl:message>
   <wsdl:message name="ISliceOfPieService_GetAllProjectsOnServer_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetAllProjectsOnServerResponse" />
-  </wsdl:message>
-  <wsdl:message name="ISliceOfPieService_GetHierachy_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetHierachy" />
-  </wsdl:message>
-  <wsdl:message name="ISliceOfPieService_GetHierachy_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetHierachyResponse" />
   </wsdl:message>
   <wsdl:message name="ISliceOfPieService_OpenDocumentOnServer_InputMessage">
     <wsdl:part name="parameters" element="tns:OpenDocumentOnServer" />
@@ -80,41 +98,99 @@
   <wsdl:message name="ISliceOfPieService_SaveDocumentOnServer_OutputMessage">
     <wsdl:part name="parameters" element="tns:SaveDocumentOnServerResponse" />
   </wsdl:message>
-  <wsdl:portType name="ISliceOfPieService">
-    <wsdl:operation name="SyncAll">
-      <wsdl:input wsaw:Action="http://tempuri.org/ISliceOfPieService/SyncAll" message="tns:ISliceOfPieService_SyncAll_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/ISliceOfPieService/SyncAllResponse" message="tns:ISliceOfPieService_SyncAll_OutputMessage" />
+  <wsdl:message name="ISliceOfPieService_DeleteProject_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteProject" />
+  </wsdl:message>
+  <wsdl:message name="ISliceOfPieService_DeleteProject_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteProjectResponse" />
+  </wsdl:message>
+  <wsdl:portType msc:usingSession="true" name="ISliceOfPieService">
+    <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="StartSync">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISliceOfPieService/StartSync" message="tns:ISliceOfPieService_StartSync_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISliceOfPieService/StartSyncResponse" message="tns:ISliceOfPieService_StartSync_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="DeleteDocument">
+    <wsdl:operation msc:isInitiating="false" msc:isTerminating="false" name="UpdateProject">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISliceOfPieService/UpdateProject" message="tns:ISliceOfPieService_UpdateProject_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISliceOfPieService/UpdateProjectResponse" message="tns:ISliceOfPieService_UpdateProject_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation msc:isInitiating="false" msc:isTerminating="false" name="SendDocument">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISliceOfPieService/SendDocument" message="tns:ISliceOfPieService_SendDocument_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISliceOfPieService/SendDocumentResponse" message="tns:ISliceOfPieService_SendDocument_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation msc:isInitiating="false" msc:isTerminating="false" name="GetUpdatedDocument">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISliceOfPieService/GetUpdatedDocument" message="tns:ISliceOfPieService_GetUpdatedDocument_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISliceOfPieService/GetUpdatedDocumentResponse" message="tns:ISliceOfPieService_GetUpdatedDocument_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation msc:isInitiating="false" msc:isTerminating="true" name="StopSync">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISliceOfPieService/StopSync" message="tns:ISliceOfPieService_StopSync_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISliceOfPieService/StopSyncResponse" message="tns:ISliceOfPieService_StopSync_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="DeleteDocument">
       <wsdl:input wsaw:Action="http://tempuri.org/ISliceOfPieService/DeleteDocument" message="tns:ISliceOfPieService_DeleteDocument_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ISliceOfPieService/DeleteDocumentResponse" message="tns:ISliceOfPieService_DeleteDocument_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="GetAllProjectsOnServer">
+    <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="GetAllProjectsOnServer">
       <wsdl:input wsaw:Action="http://tempuri.org/ISliceOfPieService/GetAllProjectsOnServer" message="tns:ISliceOfPieService_GetAllProjectsOnServer_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ISliceOfPieService/GetAllProjectsOnServerResponse" message="tns:ISliceOfPieService_GetAllProjectsOnServer_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="GetHierachy">
-      <wsdl:input wsaw:Action="http://tempuri.org/ISliceOfPieService/GetHierachy" message="tns:ISliceOfPieService_GetHierachy_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/ISliceOfPieService/GetHierachyResponse" message="tns:ISliceOfPieService_GetHierachy_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="OpenDocumentOnServer">
+    <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="OpenDocumentOnServer">
       <wsdl:input wsaw:Action="http://tempuri.org/ISliceOfPieService/OpenDocumentOnServer" message="tns:ISliceOfPieService_OpenDocumentOnServer_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ISliceOfPieService/OpenDocumentOnServerResponse" message="tns:ISliceOfPieService_OpenDocumentOnServer_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="SaveProjectOnServer">
+    <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="SaveProjectOnServer">
       <wsdl:input wsaw:Action="http://tempuri.org/ISliceOfPieService/SaveProjectOnServer" message="tns:ISliceOfPieService_SaveProjectOnServer_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ISliceOfPieService/SaveProjectOnServerResponse" message="tns:ISliceOfPieService_SaveProjectOnServer_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="SaveDocumentOnServer">
+    <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="SaveDocumentOnServer">
       <wsdl:input wsaw:Action="http://tempuri.org/ISliceOfPieService/SaveDocumentOnServer" message="tns:ISliceOfPieService_SaveDocumentOnServer_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ISliceOfPieService/SaveDocumentOnServerResponse" message="tns:ISliceOfPieService_SaveDocumentOnServer_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="DeleteProject">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISliceOfPieService/DeleteProject" message="tns:ISliceOfPieService_DeleteProject_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISliceOfPieService/DeleteProjectResponse" message="tns:ISliceOfPieService_DeleteProject_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="NetTcpBinding_ISliceOfPieService" type="tns:ISliceOfPieService">
     <wsp:PolicyReference URI="#NetTcpBinding_ISliceOfPieService_policy" />
     <soap12:binding transport="http://schemas.microsoft.com/soap/tcp" />
-    <wsdl:operation name="SyncAll">
-      <soap12:operation soapAction="http://tempuri.org/ISliceOfPieService/SyncAll" style="document" />
+    <wsdl:operation name="StartSync">
+      <soap12:operation soapAction="http://tempuri.org/ISliceOfPieService/StartSync" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateProject">
+      <soap12:operation soapAction="http://tempuri.org/ISliceOfPieService/UpdateProject" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendDocument">
+      <soap12:operation soapAction="http://tempuri.org/ISliceOfPieService/SendDocument" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUpdatedDocument">
+      <soap12:operation soapAction="http://tempuri.org/ISliceOfPieService/GetUpdatedDocument" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="StopSync">
+      <soap12:operation soapAction="http://tempuri.org/ISliceOfPieService/StopSync" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -133,15 +209,6 @@
     </wsdl:operation>
     <wsdl:operation name="GetAllProjectsOnServer">
       <soap12:operation soapAction="http://tempuri.org/ISliceOfPieService/GetAllProjectsOnServer" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetHierachy">
-      <soap12:operation soapAction="http://tempuri.org/ISliceOfPieService/GetHierachy" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -169,6 +236,15 @@
     </wsdl:operation>
     <wsdl:operation name="SaveDocumentOnServer">
       <soap12:operation soapAction="http://tempuri.org/ISliceOfPieService/SaveDocumentOnServer" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteProject">
+      <soap12:operation soapAction="http://tempuri.org/ISliceOfPieService/DeleteProject" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
