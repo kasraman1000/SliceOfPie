@@ -258,14 +258,15 @@ namespace SliceOfPie
             }
             else
                 path = p.Id;
-            // Check if the project exists, if it doesnt, save it.
+            // Check if the project exists, if it doesnt, create it.
             if (!Directory.Exists(p.Id))
             {
                 // Create the MetaInfo file, which contains the Title of the project,
                 // the owner and the users the project is shared with.
+                Directory.CreateDirectory(path);
                 using (TextWriter tw = new StreamWriter(path + "\\MetaInfo.txt", false))
                 {
-                    Directory.CreateDirectory(path);
+                    
                     // Write title
                     tw.WriteLine(p.Title);
                     // Write owner.
@@ -520,8 +521,8 @@ namespace SliceOfPie
             // is in the Server folder.
             string folderPath;
             folderPath = pid;
-            
-            if(Directory.Exists(folderPath))
+
+            if (Directory.Exists(folderPath))
             {
                 IEnumerable<string> distinctFolderNames;
                 List<Folder> folders = new List<Folder>();
@@ -591,90 +592,84 @@ namespace SliceOfPie
                     string[] splitPath = path.Split('/');
                     for (int i = splitPath.Length; i != 0; i--)
                     {
-                        
+
                         foreach (Folder fol in folders)
                         {
-                            
-                            if(!splitPath[i-1].Equals(splitPath[0]))
+
+                            if (!splitPath[i - 1].Equals(splitPath[0]))
                             {
-                                
-                               if (fol.Title.Equals(splitPath[i-1]))
-                               {
-                                   
-                                 var r1 = from f in folders
-                                            where f.Title.Equals(splitPath[i-1])
-                                            select f;
 
-                                 var r2 = from f in folders
-                                         where f.Title.Equals(splitPath[i-2])
-                                         select f;
+                                if (fol.Title.Equals(splitPath[i - 1]))
+                                {
 
-                                 List<IFileSystemComponent> derp1 = r2.FirstOrDefault().Children;
-                                       Folder derp3 = r1.FirstOrDefault();
-                                 if (!derp1.Contains(derp3) && !derp1.Equals(derp3))
-                                 {
-                                     r2.FirstOrDefault().AddChild(r1.FirstOrDefault());
-                                     Folder fold = (Folder)r1.FirstOrDefault();
-                                     // Remove the folder from the list of potential root folders, as it was added
-                                     // to another folder.
-                                     potentialFoldersInRoot.Remove(fold.ToString());
-                                 }
-                                    
+                                    var r1 = from f in folders
+                                             where f.Title.Equals(splitPath[i - 1])
+                                             select f;
+
+                                    var r2 = from f in folders
+                                             where f.Title.Equals(splitPath[i - 2])
+                                             select f;
+
+                                    List<IFileSystemComponent> derp1 = r2.FirstOrDefault().Children;
+                                    Folder derp3 = r1.FirstOrDefault();
+                                    if (!derp1.Contains(derp3) && !derp1.Equals(derp3))
+                                    {
+                                        r2.FirstOrDefault().AddChild(r1.FirstOrDefault());
+                                        Folder fold = (Folder)r1.FirstOrDefault();
+                                        // Remove the folder from the list of potential root folders, as it was added
+                                        // to another folder.
+                                        potentialFoldersInRoot.Remove(fold.ToString());
+                                    }
+
                                 }
                             }
-                            
+
                         }
                         tr.Close();
                         tr.Dispose();
                     }
                 }
-                if (folders.Count == 0)
-                {
-                    Console.WriteLine("There is no folders to show");
 
+                // Read the info from the MetaInfo file.
+                TextReader mr = new StreamReader(folderPath + "\\MetaInfo.txt");
+                // Read title.
+                string ti = mr.ReadLine();
+                // Read owner.
+                User us = new User(mr.ReadLine());
+                // Read list of users the project is shared with.
+                List<User> sha = new List<User>();
+                string[] userNames = (mr.ReadLine().Split(','));
+                foreach (string str in userNames)
+                {
+                    sha.Add(new User(str.Trim()));
                 }
-                else
-                {
-                    // Read the info from the MetaInfo file.
-                    TextReader mr = new StreamReader(folderPath + "\\MetaInfo.txt");
-                    // Read title.
-                    string ti = mr.ReadLine();
-                    // Read owner.
-                    User us = new User(mr.ReadLine());
-                    // Read list of users the project is shared with.
-                    List<User> sha = new List<User>();
-                    string[] userNames = (mr.ReadLine().Split(','));
-                    foreach (string str in userNames)
-                    {
-                        sha.Add(new User(str.Trim()));
-                    }
-                    // Create the project object with the paramerters read.
-                    Project finalProject = new Project(ti, us, sha, Path.GetFileNameWithoutExtension(folderPath));
+                // Create the project object with the paramerters read.
+                Project finalProject = new Project(ti, us, sha, Path.GetFileNameWithoutExtension(folderPath));
 
-                    // Add all remaining folders to root of project, and add all
-                    // structs with "" as their folder to root as well.
-                    foreach (Folder fol in folders)
+                // Add all remaining folders to root of project, and add all
+                // structs with "" as their folder to root as well.
+                foreach (Folder fol in folders)
+                {
+                    if (potentialFoldersInRoot.Contains(fol.ToString()))
                     {
-                        if (potentialFoldersInRoot.Contains(fol.ToString()))
+                        if (String.Compare(fol.Title, "") == 0)
                         {
-                            if (String.Compare(fol.Title, "") == 0)
-                            {
-                                // Add the documentstruct.
-                                foreach (DocumentStruct docStruct in fol.Children)
-                                    finalProject.AddChild(docStruct);
+                            // Add the documentstruct.
+                            foreach (DocumentStruct docStruct in fol.Children)
+                                finalProject.AddChild(docStruct);
 
-                            }
-                            // Add the folder.
-                            else
-                                finalProject.AddChild(fol);
                         }
+                        // Add the folder.
+                        else
+                            finalProject.AddChild(fol);
                     }
-	
-                    mr.Close();
-                    mr.Dispose();
-                    return finalProject;
                 }
+
+                mr.Close();
+                mr.Dispose();
+                return finalProject;
             }
+
 
             Console.WriteLine("No Project exists by that id");
             return null;

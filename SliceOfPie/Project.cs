@@ -8,9 +8,6 @@ namespace SliceOfPie
     [DataContract]
     public class Project : Folder
     {
-        
- 
-
         [DataMember]
         private User owner;
         public User Owner { get { return owner; } }

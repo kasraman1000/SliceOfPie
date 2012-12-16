@@ -8,11 +8,9 @@ using System.Drawing;
 
 namespace SliceOfPie
 {
-    // The Document class is a generalization of the IFileSystemComponentEnum Interface.
-    // This means that it can be represented in an "explorer" when placed in Folders.
-    // The class itself contains inforamation relevant to the document, and functions
-    // to change data in the object, as well as functions to merge the document newer
-    // versions of the same document.
+    // The document class holds all fields relevant to a document when opened in the explorer,
+    // a well asd functions to change data in the object, as well as functions to
+    // merge the document newer versions of the same document.
     [DataContract]
     public class Document
     {
@@ -62,6 +60,7 @@ namespace SliceOfPie
             this.text = text;
             this.title = title;
             this.owner = owner;
+            this.path = "";
             this.images = new List<Picture>();
             log = new Document.DocumentLog(owner);
             CreateId();
@@ -74,6 +73,7 @@ namespace SliceOfPie
             this.text = text;
             this.title = title;
             this.owner = owner;
+            this.path = "";
             this.images = new List<Picture>();
             log = new Document.DocumentLog(owner);
             this.id = id;
@@ -95,7 +95,7 @@ namespace SliceOfPie
             doc.images = pictures;
             return doc;
         }
-
+        // Creates an id for the document.
         private void CreateId()
         {           
             TimeSpan t = DateTime.UtcNow - new DateTime(1991, 12, 2);
