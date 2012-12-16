@@ -183,6 +183,12 @@ namespace SliceOfPie
                
                 tw.WriteLine(imageLineBuilder.ToString());
 
+                // Write the modified boolean
+                tw.WriteLine(doc.Modified.ToString());
+
+                // Write the deleted boolean
+                tw.WriteLine(doc.Deleted.ToString());
+
                 // Write the documents log
                 tw.WriteLine("");
                 tw.Write(doc.Log);
@@ -363,6 +369,12 @@ namespace SliceOfPie
                         }
                     }
                     
+                    // Reading the modified and deleted booleans 
+                    bool modified = Boolean.Parse(tr.ReadLine());
+                    bool deleted = Boolean.Parse(tr.ReadLine());
+
+
+
                     // Create a StringBuilder and append the rest of the file to it, it will contain both the log and the text of the document.
                     StringBuilder rest = new StringBuilder();
                     while (tr.Peek() != -1)
@@ -439,7 +451,7 @@ namespace SliceOfPie
                     sr.DiscardBufferedData();
                     tr.Dispose();
                     // Finally makes the document to return
-                    finalDoc = Document.CreateDocumentFromFile(did, text, title, owner, pictures, path, new Document.DocumentLog(entryList));
+                    finalDoc = Document.CreateDocumentFromFile(did, text, title, modified, deleted, owner, pictures, path, new Document.DocumentLog(entryList));
                 }
                 //sr.ReadToEnd();
                 sr.Dispose();

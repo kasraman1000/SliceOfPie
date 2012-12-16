@@ -44,6 +44,14 @@ namespace SliceOfPie
         private Document.DocumentLog log;
         public Document.DocumentLog Log { get { return log; } }
 
+        [DataMember]
+        private bool deleted = false;
+        public bool Deleted { get { return deleted; } set { deleted = value; } }
+
+        [DataMember]
+        private bool modified = true;
+        public bool Modified { get { return modified; } set { modified = value; } }
+
         // Default constructor for creating a document object.
         public Document(string text, string title, string path, User owner)
         {
@@ -83,7 +91,7 @@ namespace SliceOfPie
         private Document(){}
 
         // Creates and returns a document in it's complete version from a file on the file system.
-        public static Document CreateDocumentFromFile(string id, string text, string title, User owner, List<Picture> pictures, string path, Document.DocumentLog log)
+        public static Document CreateDocumentFromFile(string id, string text, string title, bool modified, bool deleted, User owner, List<Picture> pictures, string path, Document.DocumentLog log)
         {
             Document doc = new Document();
             doc.id = id;
@@ -93,6 +101,8 @@ namespace SliceOfPie
             doc.path = path;
             doc.log = log;
             doc.images = pictures;
+            doc.modified = modified;
+            doc.deleted = deleted;
             return doc;
         }
 
