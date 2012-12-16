@@ -79,30 +79,9 @@ namespace SliceOfPie
             Storage.SaveProjectToFile(project);
         }
 
-
-        private static List<DocumentStruct> getStructsInFoler(Folder folder, List<DocumentStruct> structs)
-        {
-            foreach (IFileSystemComponent component in folder.Children)
-            {
-                // Add all structs in folder to list of structs.
-                // If component is a folder, do the same to that recursively.
-                if (component.FileType == DocType.Folder)
-                {
-                    getStructsInFoler((Folder)component, structs);
-                }
-                if (component.FileType == DocType.Document)
-                {
-                    structs.Add((DocumentStruct)component);
-                }
-            }
-            return structs;
-        }
-
         public static void SyncWithServer(User user)
         {
             List<Project> projects = GetAllProjectsForUser(user);
-
-
 
             foreach (Project project in projects)
             {

@@ -65,6 +65,27 @@ namespace SliceOfPie
         {
             return Title;
         }
-              
+
+        /**
+         * Add all structs in folder to list of structs.
+         * If component is a folder, do the same to that recursively.
+         */
+        public static List<DocumentStruct> GetAllStructs(Folder folder, List<DocumentStruct> structs)
+        {
+            foreach (IFileSystemComponent component in folder.Children)
+            {
+                if (component.FileType == DocType.Folder)
+                {
+                    GetAllStructs((Folder)component, structs);
+                }
+                if (component.FileType == DocType.Document)
+                {
+                    structs.Add((DocumentStruct)component);
+                }
+            }
+            return structs;
+        }
+
+
     }
 }
