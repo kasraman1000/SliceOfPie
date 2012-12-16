@@ -56,15 +56,30 @@ namespace SliceOfPieServiceLibrary
 
 
 
+        /**
+         * Single methods for Web client support
+         */
 
-        public void DeleteDocument(string projectId, string documentId)
+
+        public void DeleteDocument(string projectId, string documentId, User user)
         {
             Storage.DeleteDocument(projectId, documentId);
         }
 
-        public List<Project> GetAllProjectsOnServer()
+        public List<Project> GetAllProjectsOnServer(User user)
         {
-            return Storage.GetAllProjects();
+
+            List<Project> projects = Storage.GetAllProjects();
+            List<Project> UserProjects = new List<Project>();
+            foreach(Project p in projects)
+            {
+                if (user.ToString().CompareTo(p.Owner.ToString()) == 0 || p.SharedWith.Contains(user))
+                {
+                    UserProjects.Add(p);
+                }
+                
+            }
+            return UserProjects;
         }
 
         public Document OpenDocumentOnServer(string projectId, string documentId)
@@ -72,19 +87,42 @@ namespace SliceOfPieServiceLibrary
             return Storage.ReadFromFile(projectId, documentId);
         }
 
-        public void SaveProjectOnServer(Project p)
+        public void SaveProjectOnServer(SliceOfPie.Project p, User user)
         {
             Storage.SaveProjectToFile(p);
         }
 
-        public void SaveDocumentOnServer(Project p, Document d)
+        public static void SaveDocument(Project proj, Document doc, User user)
         {
-            Storage.WriteToFile(p, d);
+            // If the document exists in the storage, merge old version with newer verion.
+            // Otherwise just save it to the storage.
+            Document docInStorage = Storage.ReadFromFile(proj.Id, doc.Id);
+            if (docInStorage == null)
+                Storage.WriteToFile(proj, doc);
+            else
+            {
+                docInStorage.MergeWith(doc, user);
+                Storage.WriteToFile(proj, docInStorage);
+            }
         }
 
-        public void DeleteProject(string projectId)
+        public void SaveDocumentOnServer(SliceOfPie.Project p, SliceOfPie.Document d, User user)
+        {
+
+            Document docInStorage = Storage.ReadFromFile(p.Id, d.Id);
+            if (docInStorage == null)
+                Storage.WriteToFile(p, d);
+            else
+            {
+                docInStorage.MergeWith(d, user);
+                Storage.WriteToFile(p, docInStorage);
+            }
+        }
+
+        public void DeleteProject(string projectId, User user)
         {
             Storage.DeleteProject(projectId);
         }
+
     }
 }
