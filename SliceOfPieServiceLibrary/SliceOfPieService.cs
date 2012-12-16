@@ -36,11 +36,6 @@ namespace SliceOfPieServiceLibrary
             return Storage.GetAllProjects();
         }
 
-        public Project GetHierachy(string projectId)
-        {
-            return Storage.GetHierachy(projectId);
-        }
-
         public Document OpenDocumentOnServer(string projectId, string documentId)
         {
             return Storage.ReadFromFile(projectId, documentId);

@@ -27,9 +27,6 @@ namespace SliceOfPieServiceLibrary
         List<Project> GetAllProjectsOnServer();
         
         [OperationContract]
-        Project GetHierachy(string projectId);
-        
-        [OperationContract]
         Document OpenDocumentOnServer(string projectId, string documentId);
         
         [OperationContract]
