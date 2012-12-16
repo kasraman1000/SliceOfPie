@@ -293,7 +293,7 @@ namespace SliceOfPie
             else
             {
                 // If the project already exists, overwrite the MetaInfoFile with the new information.
-                using (TextWriter tw = new StreamWriter(path, false))
+                using (TextWriter tw = new StreamWriter(path + "\\MetaInfo.txt", false))
                 {
                     tw.WriteLine(p.Title);
                     tw.WriteLine(p.Owner.ToString());
