@@ -673,8 +673,6 @@ namespace SliceOfPie
             }
 
                 Console.WriteLine("No Project exists by that id");
-
-            }
                 return null;
         }
 
