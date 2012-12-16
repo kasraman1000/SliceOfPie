@@ -571,43 +571,48 @@ namespace SliceOfPie
 
                 foreach (string s in filesInRoot)
                 {
+                    // We check that the folder isn't root
                     if (!(s.Contains("MetaInfo.txt")) && (!(s.Contains(".JPG"))))
                     {
                         using (TextReader tr = new StreamReader(s))
                         {
+                        // Gets to the correct line where the paths are located
                             tr.ReadLine();
                             string path = tr.ReadLine();
                             string[] splitPath = path.Split('/');
+                        // Reverse for loop to put the folders together in a "backwards"-fashion
                             for (int i = splitPath.Length; i != 0; i--)
                             {
 
                                 foreach (Folder fol in folders)
                                 {
-
-                                    if (!splitPath[i - 1].Equals(splitPath[0]))
+                                // takes the lower levels first
+                                // it checks if its the top level  
+                                if (!splitPath[i - 1].Equals(splitPath[0]))
                                     {
 
-                                        if (fol.Title.Equals(splitPath[i - 1]))
+                                    if (fol.Title.Equals(splitPath[i - 1]))
+                                    {
+                                        // We use linq to find the correct folders
+                                        var result1 = from f in folders
+                                                      where f.Title.Equals(splitPath[i - 1])
+                                                      select f;
+
+                                        var result2 = from f in folders
+                                                      where f.Title.Equals(splitPath[i - 2])
+                                                      select f;
+
+                                        // We put the folders in their respectible folder
+                                        List<IFileSystemComponent> ParentFolder = result2.FirstOrDefault().Children;
+                                        Folder Child = result1.FirstOrDefault();
+                                        if (!ParentFolder.Contains(Child) && !ParentFolder.Equals(Child))
                                         {
-
-                                            var r1 = from f in folders
-                                                     where f.Title.Equals(splitPath[i - 1])
-                                                     select f;
-
-                                            var r2 = from f in folders
-                                                     where f.Title.Equals(splitPath[i - 2])
-                                                     select f;
-
-                                            List<IFileSystemComponent> derp1 = r2.FirstOrDefault().Children;
-                                            Folder derp3 = r1.FirstOrDefault();
-                                            if (!derp1.Contains(derp3) && !derp1.Equals(derp3))
-                                            {
-                                                r2.FirstOrDefault().AddChild(r1.FirstOrDefault());
-                                                Folder fold = (Folder)r1.FirstOrDefault();
-                                                // Remove the folder from the list of potential root folders, as it was added
-                                                // to another folder.
-                                                potentialFoldersInRoot.Remove(fold.ToString());
-                                            }
+                                            result2.FirstOrDefault().AddChild(result1.FirstOrDefault());
+                                            Folder fold = (Folder)result1.FirstOrDefault();
+                                            // Remove the folder from the list of potential root folders, as it was added
+                                            // to another folder.
+                                            potentialFoldersInRoot.Remove(fold.ToString());
+                                        }
 
                                         }
                                     }
@@ -667,8 +672,10 @@ namespace SliceOfPie
                 
             }
 
-            Console.WriteLine("No Project exists by that id");
-            return null;
+                Console.WriteLine("No Project exists by that id");
+
+            }
+                return null;
         }
 
         public static List<Project> GetAllProjects()
