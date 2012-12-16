@@ -5,23 +5,30 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using SliceOfPie;
+using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.Drawing.Imaging;
+using System.IO;
 
 namespace WebGUI
 {
     public partial class WebForm1 : System.Web.UI.Page
     {
         private static List<Project> projects = null;
-        private static Project activeProject;
-        private static Document activeDoc;
+        public static Project activeProject;
+        public static Document activeDoc;
         private static string currentPath;
 
         static bool firstVisit = true;
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            
+
             // Checks if its a postback call
             if (firstVisit == false)
             {
+                
             }
             else if (firstVisit == true)
             {
@@ -32,6 +39,7 @@ namespace WebGUI
 
             if (!Page.IsPostBack)
             {
+
                 UpdateProjects();               
             }
 
@@ -47,6 +55,7 @@ namespace WebGUI
                 ProjectDropDown.Items.Add(li);
             }
             AccessTextBox.Text = "Choose one of your projects";
+            TreeView1.ExpandAll();
         }
 
 
@@ -103,22 +112,33 @@ namespace WebGUI
             TreeView tw = (TreeView)sender;
             if (tw.SelectedNode.ChildNodes.Count == 0)
             {
+                ImageBox.Text = "";
                 Document selectedDoc = SliceOfPie.Controller.OpenDocument(activeProject.Id, tw.SelectedNode.Value);
                 DocumentTextBox.Text = selectedDoc.Text;
                 DocumentNameBox.Text = selectedDoc.Title;
                 activeDoc = selectedDoc;
-                Panel2.Visible = true;
+                if (selectedDoc.Images.Count != 0)
+                {
+                    UpdateImagePanel();
+                    ImagesCurrentlyBox.Visible = true;
+                    ImageBox.Visible = true;
+
+                }
+                DocumentTextBox.Visible = true;
+
+                activeDoc = selectedDoc;
+
+               
                 string path = tw.SelectedNode.ValuePath;
                 currentPath = path.Substring(activeProject.Id.Length + 1);
+
             }
             else
             {
-                FolderBox.Text = tw.SelectedNode.Value;
+                string path = tw.SelectedNode.ValuePath;
+                FolderBox.Text = path.Substring(activeProject.Id.Length + 1);
+                
             }
-
-        
-            
-   
 
         }
           
@@ -137,6 +157,7 @@ namespace WebGUI
             DynamicProjectPanel.Visible = true;
             NewProjectNameBox.Visible = true;
             ProjectNameBox.Visible = true;
+            SubmitProjectButton.Text = "Enter";
             SubmitProjectButton.Visible = true;
             CancelProjectButton.Visible = true;
 
@@ -145,22 +166,30 @@ namespace WebGUI
         protected void DynamicProjectPanelInvisible()
         {
             DynamicProjectPanel.Visible = false;
+            FileUploadControl.Visible = false;
             NewProjectNameBox.Visible = false;
             ProjectNameBox.Visible = false;
             SubmitProjectButton.Visible = false;
             CancelProjectButton.Visible = false;
             SharePanel.Visible = false;
-            EnterNameButton.Visible = false;
+            EnterNameBox.Visible = false;
             SubmitUserButton.Visible = false;
             CancelSharingButton.Visible = false;
             UserNameBox.Visible = false;
+            ConfirmDelete.Visible = false;
+            CancelDeleteProject.Visible = false;
+            ConfirmDeleteProj.Visible = false;
 
         }
 
         protected void DeleteProjectButton_Click(object sender, EventArgs e)
         {
+            
             DynamicPanelInvisible();
             DynamicProjectPanelInvisible();
+            ConfirmDelete.Visible = true;
+            CancelDeleteProject.Visible = true;
+            ConfirmDeleteProj.Visible = true;
         }
 
         protected void ShareProjectButton_Click(object sender, EventArgs e)
@@ -168,7 +197,7 @@ namespace WebGUI
             DynamicPanelInvisible();
             DynamicProjectPanelInvisible();
             DynamicProjectPanel.Visible = true;
-            EnterNameButton.Visible = true;
+            EnterNameBox.Visible = true;
             SharePanel.Visible = true;
             SubmitUserButton.Visible = true;
             CancelSharingButton.Visible = true;
@@ -183,17 +212,11 @@ namespace WebGUI
             DynamicProjectPanel.Visible = true;
             NewProjectNameBox.Visible = true;
             ProjectNameBox.Visible = true;
+            SubmitProjectButton.Text = "Submit";
             SubmitProjectButton.Visible = true;
             CancelProjectButton.Visible = true;
 
-            /*
-            using(SliceOfPie.SliceOfPieServer.SliceOfPieServiceClient client = new SliceOfPie.SliceOfPieServer.SliceOfPieServiceClient())
-            {
-
-               // client.SaveProjectOnServer(activeProject);
-
-            }
-             */
+             
         }
 
         protected void CreateNewDocumentButton_Click(object sender, EventArgs e)
@@ -201,12 +224,13 @@ namespace WebGUI
             DynamicPanelInvisible();
             DynamicProjectPanelInvisible();
             DynamicPanel.Visible = true;
-            NewTitleTextbox.Visible = true;
+            NewTitleTextBox.Visible = true;
             TitleBox.Visible = true;
             SubmitTitle.Visible = true;
             FolderBox.Visible = true;
             ClickFolderBox.Visible = true;
             CancelCreateButton.Visible = true;
+            SubmitTitle.Text = "Submit";
             
         }
 
@@ -230,11 +254,27 @@ namespace WebGUI
 
         protected void SubmitTitle_Click(object sender, EventArgs e)
         {
-            string title = TitleBox.Text;
-            DynamicPanelInvisible();
-            DynamicProjectPanelInvisible();
-            CreateNewDocument(WelcomeForm.active, currentPath, activeProject, TitleBox.Text);
-            UpdateProjects();
+            if (SubmitTitle.Text.CompareTo("Submit") == 0)
+            {
+                string title = TitleBox.Text;
+                DynamicPanelInvisible();
+                DynamicProjectPanelInvisible();
+                CreateNewDocument(WelcomeForm.active, currentPath, activeProject, TitleBox.Text);
+                UpdateProjects();
+                UpdateTreeView(activeProject.Id);
+            }
+
+            else if(SubmitTitle.Text.CompareTo("Enter")==0)
+            {
+
+                Controller.CreateDocument(WelcomeForm.active, FolderBox.Text + "/" + TitleBox.Text, activeProject, "New Document");
+                DynamicPanelInvisible();
+                DynamicProjectPanelInvisible();
+                UpdateProjects();
+                UpdateTreeView(activeProject.Id);
+
+            }
+            TreeView1.ExpandAll();
         }
 
         protected string GetPath()
@@ -277,11 +317,6 @@ namespace WebGUI
            
         }
 
-        protected void AreYouSureBox_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
         protected void AcceptDeleteButton_Click(object sender, EventArgs e)
         {
             Controller.DeleteDocument(activeProject.Id,activeDoc.Id);
@@ -289,6 +324,7 @@ namespace WebGUI
             DynamicProjectPanelInvisible();
             UpdateProjects();   
             UpdateTreeView(activeProject.Id);
+            TreeView1.ExpandAll();
             
         }
 
@@ -304,7 +340,7 @@ namespace WebGUI
             AreYouSureBox.Visible = false;
             AcceptDeleteButton.Visible = false;
             DeclineDeleteButton.Visible = false;
-            NewTitleTextbox.Visible = false;
+            NewTitleTextBox.Visible = false;
             TitleBox.Visible = false;
             SubmitTitle.Visible = false;
             FolderBox.Visible = false;
@@ -320,19 +356,27 @@ namespace WebGUI
             DynamicPanelInvisible();
         }
 
-        protected void TextBox1_TextChanged(object sender, EventArgs e)
-        {
-
-        }
 
         protected void SubmitProjectButton_Click(object sender, EventArgs e)
         {
-            //using(SliceOfPie.SliceOfPie.SliceOfPieServiceClient client = new SliceOfPie.SliceOfPie.SliceOfPieServiceClient())
-            //{
-
-            //    client.SaveProjectOnServer(activeProject);
-
-            //}
+            if (SubmitProjectButton.Text.CompareTo("Submit") == 0)
+            {
+                activeProject.Title = NewProjectNameBox.Text;
+                Controller.UpdateProject(activeProject);
+                UpdateProjects();
+                UpdateTreeView(activeProject.Id);
+                DynamicPanelInvisible();
+                DynamicProjectPanelInvisible();
+            }
+            else if (SubmitProjectButton.Text.CompareTo("Enter") == 0)
+            {
+                List<User> l = new List<User>();
+                Controller.CreateProject(NewProjectNameBox.Text,WelcomeForm.active,l);
+            }
+            DynamicProjectPanelInvisible();
+            DynamicPanelInvisible();
+            UpdateProjects();
+            TreeView1.ExpandAll();
         }
 
         protected void CancelProjectButton_Click(object sender, EventArgs e)
@@ -343,12 +387,94 @@ namespace WebGUI
 
         protected void EnterNameButton_TextChanged(object sender, EventArgs e)
         {
+           
+        }
+
+        protected void AddPictureButton_Click(object sender, EventArgs e)
+        {
+            FileUploadControl.Visible = true;
+            UploadButton.Visible = true;
 
         }
 
+        protected void UploadButton_Click(object sender, EventArgs e)
+        {
+            if (FileUploadControl.HasFile)
+            {
+                string ImgName = System.IO.Path.GetFileName(FileUploadControl.FileName);
+                string ThisImg = Server.MapPath("~/images/" + ImgName);
+                FileUploadControl.SaveAs(ThisImg);
+                string s = FileUploadControl.PostedFile.FileName;
+                Bitmap bm = new Bitmap(@"C:\Users\Crelde\git\SliceOfPie\SliceOfPie\WebGUI\images\"+ImgName);
+                Picture pic = new Picture(bm);
+                activeDoc.Images.Add(pic);                
+            }
+            Controller.SaveDocument(activeProject, activeDoc, WelcomeForm.active);
+            UpdateImagePanel();   
+       }
+        protected void UpdateImagePanel()
+        {
+            foreach (Picture p in activeDoc.Images)
+            {
+                if (!ImageBox.Text.Contains(p.ToString()))
+                {
+                    ImageBox.Text += p.ToString() + "\n";
+                }
+            }
+        }
 
 
-        // Change user button redirects to the welcome form.
+        protected void CreateNewFolderButton_Click(object sender, EventArgs e)
+        {
+            DynamicPanelInvisible();
+            DynamicProjectPanelInvisible();
+            DynamicPanel.Visible = true;
+            FolderBox.Visible = true;
+            TitleBox.Visible = true;
+            ClickFolderBox.Visible = true;
+            NewTitleTextBox.Visible = true;
+            SubmitTitle.Visible = true;
+            CancelCreateButton.Visible = true;
+            SubmitTitle.Text = "Enter";
+        }
+
+        protected void CancelDeleteProject_Click(object sender, EventArgs e)
+        {
+            DynamicPanelInvisible();
+            DynamicProjectPanelInvisible();
+
+        }
+
+        protected void ConfirmDeleteProj_Click(object sender, EventArgs e)
+        {
+            Controller.DeleteProject(activeProject.Id);
+            UpdateProjects();
+            UpdateTreeView("");
+            DynamicPanelInvisible();
+            DynamicProjectPanelInvisible();
+            TreeView1.ExpandAll();
+        }
+
+        protected void SubmitUserButton_Click(object sender, EventArgs e)
+        {
+            User u = new User(UserNameBox.Text);
+            activeProject.SharedWith.Add(u);
+            Controller.UpdateProject(activeProject);
+            DynamicPanelInvisible();
+            DynamicProjectPanelInvisible();
+
+        }
+
+        protected void ClickFolderBox_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void TitleBox_TextChanged(object sender, EventArgs e)
+        {
+
+        } 
+
 
 
 

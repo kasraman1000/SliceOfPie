@@ -50,6 +50,10 @@ namespace SliceOfPie
             Storage.DeleteDocument(pid,id);
         }
 
+        public static void DeleteProject(string pid)
+        {
+            Storage.DeleteProject(pid);
+        }
         public static void DeletePicture(string projectId, Picture picture)
         {
             Storage.DeletePicture(projectId, picture);

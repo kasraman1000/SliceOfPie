@@ -255,9 +255,10 @@ namespace SliceOfPie
                 path = p.Id;
             if (!Directory.Exists(p.Id))
             {
+                Directory.CreateDirectory(path);
                 using (TextWriter tw = new StreamWriter(path + "\\MetaInfo.txt", false))
                 {
-                    Directory.CreateDirectory(path);
+                    
                     tw.WriteLine(p.Title);
                     tw.WriteLine(p.Owner.ToString());
 
@@ -290,7 +291,7 @@ namespace SliceOfPie
             }
             else
             {
-                using (TextWriter tw = new StreamWriter(path, false))
+                using (TextWriter tw = new StreamWriter(path + "\\MetaInfo.txt", false))
                 {
                     tw.WriteLine(p.Title);
                     tw.WriteLine(p.Owner.ToString());
@@ -564,54 +565,50 @@ namespace SliceOfPie
 
                 foreach (string s in filesInRoot)
                 {
-                    TextReader tr = new StreamReader(s);
-                    tr.ReadLine();
-                    string path = tr.ReadLine();
-                    string[] splitPath = path.Split('/');
-                    for (int i = splitPath.Length; i != 0; i--)
+                    if (!(s.Contains("MetaInfo.txt")) && (!(s.Contains(".JPG"))))
                     {
-                        
-                        foreach (Folder fol in folders)
+                        TextReader tr = new StreamReader(s);
+                        tr.ReadLine();
+                        string path = tr.ReadLine();
+                        string[] splitPath = path.Split('/');
+                        for (int i = splitPath.Length; i != 0; i--)
                         {
-                            
-                            if(!splitPath[i-1].Equals(splitPath[0]))
+
+                            foreach (Folder fol in folders)
                             {
-                                
-                               if (fol.Title.Equals(splitPath[i-1]))
-                               {
-                                   
-                                 var r1 = from f in folders
-                                            where f.Title.Equals(splitPath[i-1])
-                                            select f;
 
-                                 var r2 = from f in folders
-                                         where f.Title.Equals(splitPath[i-2])
-                                         select f;
+                                if (!splitPath[i - 1].Equals(splitPath[0]))
+                                {
 
-                                 List<IFileSystemComponent> derp1 = r2.FirstOrDefault().Children;
-                                       Folder derp3 = r1.FirstOrDefault();
-                                 if (!derp1.Contains(derp3) && !derp1.Equals(derp3))
-                                 {
-                                     r2.FirstOrDefault().AddChild(r1.FirstOrDefault());
-                                     Folder fold = (Folder)r1.FirstOrDefault();
-                                     foldersInRoot.Remove(fold.ToString());
-                                 }
-                                    
+                                    if (fol.Title.Equals(splitPath[i - 1]))
+                                    {
+
+                                        var r1 = from f in folders
+                                                 where f.Title.Equals(splitPath[i - 1])
+                                                 select f;
+
+                                        var r2 = from f in folders
+                                                 where f.Title.Equals(splitPath[i - 2])
+                                                 select f;
+
+                                        List<IFileSystemComponent> derp1 = r2.FirstOrDefault().Children;
+                                        Folder derp3 = r1.FirstOrDefault();
+                                        if (!derp1.Contains(derp3) && !derp1.Equals(derp3))
+                                        {
+                                            r2.FirstOrDefault().AddChild(r1.FirstOrDefault());
+                                            Folder fold = (Folder)r1.FirstOrDefault();
+                                            foldersInRoot.Remove(fold.ToString());
+                                        }
+
+                                    }
                                 }
+
                             }
-                            
+                            tr.Close();
+                            tr.Dispose();
                         }
-                        tr.Close();
-                        tr.Dispose();
                     }
                 }
-                if (folders.Count == 0)
-                {
-                    Console.WriteLine("There is no folders to show");
-
-                }
-                else
-                {
                     TextReader mr = new StreamReader(folderPath + "\\MetaInfo.txt");
                     string ti = mr.ReadLine();
                     User us = new User(mr.ReadLine());
@@ -638,16 +635,22 @@ namespace SliceOfPie
                                 finalProject.AddChild(fol);
                         }
                     }
-	
-
-               
-
-
                     mr.Close();
                     mr.Dispose();
+
+
+
+
+                    if (finalProject.Children.Count == 0)
+                    {
+                        Document doc = new Document("Here is your new project", "Welcome", us);
+                        WriteToFile(finalProject,doc);
+                        finalProject.Children.Add(new DocumentStruct("Welcome",us,doc.Id,""));
+                    }
+                   
                     return finalProject;
                 }
-            }
+            
 
             Console.WriteLine("No Project exists by that id");
             return null;
@@ -675,7 +678,7 @@ namespace SliceOfPie
                     projs.Add(GetHierachy(p, true));
                 else
                 {
-                    if (!(p.Contains("Server")))
+                    if (!(String.Compare(p, path+"\\Server")==0))
                         projs.Add(GetHierachy(p));
                 }
 
