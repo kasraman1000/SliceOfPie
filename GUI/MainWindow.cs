@@ -13,132 +13,132 @@ using SliceOfPie;
 
 namespace GUI
 {
-	public partial class MainWindow : Form
-	{
+    public partial class MainWindow : Form
+    {
         private EditWindow editWindow;
 
         private User activeUser;
 
-		private List<Project> projects;
-       
+        private List<Project> projects;
+
         private Project selectedProject;
-		private Folder selectedFolder;
-		private DocumentStruct selectedDocument;
-		private bool isDocument;
+        private Folder selectedFolder;
+        private DocumentStruct selectedDocument;
+        private bool isDocument;
 
-		public MainWindow()
-		{
-			InitializeComponent();
+        public MainWindow()
+        {
+            InitializeComponent();
 
-			// initialise test data
+            // initialise test data
 
 
-			/*
-			Document doc1 = new Document("content of document 1",
-				"Top level document",
-				activeUser);
-			Document doc2 = new Document("content of document 2",
-				"Another Top level document",
-				activeUser);
-			Document doc3 = new Document("Some more text inside of this doc",
-				"A nested document",
-				activeUser);
-			Document doc4 = new Document("lots\nof\nnew\nlines!",
-				"A nested nested document",
-				activeUser);
-			Document doc5 = new Document("can't think of anything new to put in these",
-				"Nested in another folder document",
-				activeUser);
+            /*
+            Document doc1 = new Document("content of document 1",
+                "Top level document",
+                activeUser);
+            Document doc2 = new Document("content of document 2",
+                "Another Top level document",
+                activeUser);
+            Document doc3 = new Document("Some more text inside of this doc",
+                "A nested document",
+                activeUser);
+            Document doc4 = new Document("lots\nof\nnew\nlines!",
+                "A nested nested document",
+                activeUser);
+            Document doc5 = new Document("can't think of anything new to put in these",
+                "Nested in another folder document",
+                activeUser);
 
-			root = new Folder("root");
-			Folder folder1 = new Folder("Top level folder");
-			Folder folder2 = new Folder("Nested folder");
-			Folder folder3 = new Folder("Another top level folder");
+            root = new Folder("root");
+            Folder folder1 = new Folder("Top level folder");
+            Folder folder2 = new Folder("Nested folder");
+            Folder folder3 = new Folder("Another top level folder");
 
-			root.AddChild(folder1);
-			folder1.AddChild(folder2);
-			root.AddChild(folder3);
+            root.AddChild(folder1);
+            folder1.AddChild(folder2);
+            root.AddChild(folder3);
 
-			root.AddChild(doc1);
-			root.AddChild(doc2);
-			folder1.AddChild(doc3);
-			folder2.AddChild(doc4);
-			folder3.AddChild(doc5);
-			*/
-		}
+            root.AddChild(doc1);
+            root.AddChild(doc2);
+            folder1.AddChild(doc3);
+            folder2.AddChild(doc4);
+            folder3.AddChild(doc5);
+            */
+        }
 
-		/**
-		 * Called when the window is loaded.
-		 */
-		private void MainWindow_Load(object sender, EventArgs e)
-		{
-			// Ask for who the user is
-			InputDialog inputDialog = new InputDialog("Hello and welcome! Who are you? (Input username)",
-				"",
-				false);
-			inputDialog.ShowDialog();
-			activeUser = new User(inputDialog.Input);
+        /**
+         * Called when the window is loaded.
+         */
+        private void MainWindow_Load(object sender, EventArgs e)
+        {
+            // Ask for who the user is
+            InputDialog inputDialog = new InputDialog("Hello and welcome! Who are you? (Input username)",
+                "",
+                false);
+            inputDialog.ShowDialog();
+            activeUser = new User(inputDialog.Input);
 
-			userLabel.Text = "Logged in as: " + activeUser.ToString();
+            userLabel.Text = "Logged in as: " + activeUser.ToString();
 
-			RefreshTreeView(); 
-		}
+            RefreshTreeView();
+        }
 
-		/**
-		 * Recursive function, 
-		 * filling out the treeView with folders and documents
-		 * 'tag' is a property referencing the object per se.
-		 */
-		private void BuildDocumentTree(TreeNodeCollection nodes, IFileSystemComponent fsc)
-		{
+        /**
+         * Recursive function, 
+         * filling out the treeView with folders and documents
+         * 'tag' is a property referencing the object per se.
+         */
+        private void BuildDocumentTree(TreeNodeCollection nodes, IFileSystemComponent fsc)
+        {
 
-			if (fsc.FileType == SliceOfPie.DocType.Document) // If it's a document
-			{
-				TreeNode n = new TreeNode(fsc.Title);
-				n.Tag = fsc;
-				nodes.Add(n);
-			}
-			else // else, if it's a folder
-			{
-				TreeNode n = new TreeNode(fsc.Title);
-				n.Tag = fsc;
-				nodes.Add(n);
-				SliceOfPie.Folder folder = (SliceOfPie.Folder)fsc;
-				foreach (IFileSystemComponent f in (folder.Children))
-				{
-					BuildDocumentTree(n.Nodes, f);
-				}
-			}
-		}
+            if (fsc.FileType == SliceOfPie.DocType.Document) // If it's a document
+            {
+                TreeNode n = new TreeNode(fsc.Title);
+                n.Tag = fsc;
+                nodes.Add(n);
+            }
+            else // else, if it's a folder
+            {
+                TreeNode n = new TreeNode(fsc.Title);
+                n.Tag = fsc;
+                nodes.Add(n);
+                SliceOfPie.Folder folder = (SliceOfPie.Folder)fsc;
+                foreach (IFileSystemComponent f in (folder.Children))
+                {
+                    BuildDocumentTree(n.Nodes, f);
+                }
+            }
+        }
 
-		/**
-		 * Called when something is selected, expanded or collapsed in the treeview
-		 * Sets the selected folder/document here
-		 */
-		private void treeView_AfterSelect(object sender, TreeViewEventArgs e)
-		{
-            IFileSystemComponent fsc = (IFileSystemComponent) e.Node.Tag;
-			if (fsc.FileType == DocType.Document) // If it's a document
-			{
-				isDocument = true;
-				selectedDocument = (DocumentStruct) fsc;
-				selectedFolder = (Folder) e.Node.Parent.Tag;
-			}
-			else // else, if it's a folder
-			{
-				isDocument = false;
-				selectedFolder = (Folder) e.Node.Tag;
-			}
+        /**
+         * Called when something is selected, expanded or collapsed in the treeview
+         * Sets the selected folder/document here
+         */
+        private void treeView_AfterSelect(object sender, TreeViewEventArgs e)
+        {
+            IFileSystemComponent fsc = (IFileSystemComponent)e.Node.Tag;
+            if (fsc.FileType == DocType.Document) // If it's a document
+            {
+                isDocument = true;
+                selectedDocument = (DocumentStruct)fsc;
+                selectedFolder = (Folder)e.Node.Parent.Tag;
+            }
+            else // else, if it's a folder
+            {
+                isDocument = false;
+                selectedFolder = (Folder)e.Node.Tag;
+            }
 
-			// If a document was not selected, grey out the button
-			if (isDocument)
-			{
-				openButton.Enabled = true;
-			}
-			else
-			{
-				openButton.Enabled = false;
-			}
+            // If a document was not selected, grey out the button
+            if (isDocument)
+            {
+                openButton.Enabled = true;
+            }
+            else
+            {
+                openButton.Enabled = false;
+            }
 
             // You can't rename, move or delete projects in this client
             if (selectedFolder.FileType == DocType.Project && !isDocument)
@@ -155,52 +155,52 @@ namespace GUI
             }
 
 
-			createDocumentButton.Enabled = true;
-		}
+            createDocumentButton.Enabled = true;
+        }
 
-		/**
-		 * When the user hits the open document button, make sure that
-		 * if there's a document already being edited, that it does not contain
-		 * unsaved changes before switching to a new doc.
-		 */
-		private void openButton_Click(object sender, EventArgs e)
-		{
-			if (editWindow == null)
-			{
-				OpenDocument();
-			}
-			else if (editWindow.Modified)
-			{
-				MessageBox.Show("There are unsaved changes in the current document. " + 
-					"Please save or discard these changes before opening another document.");
-			}
-			else
-			{
-				editWindow.Hide();
-				OpenDocument();
-			}
+        /**
+         * When the user hits the open document button, make sure that
+         * if there's a document already being edited, that it does not contain
+         * unsaved changes before switching to a new doc.
+         */
+        private void openButton_Click(object sender, EventArgs e)
+        {
+            if (editWindow == null)
+            {
+                OpenDocument();
+            }
+            else if (editWindow.Modified)
+            {
+                MessageBox.Show("There are unsaved changes in the current document. " +
+                    "Please save or discard these changes before opening another document.");
+            }
+            else
+            {
+                editWindow.Hide();
+                OpenDocument();
+            }
 
-		}
+        }
 
-		private void OpenDocument()
-		{
-			editWindow = new EditWindow(selectedProject, 
-				Controller.OpenDocument(selectedProject.Id, selectedDocument.Id), 
-				activeUser);
-			editWindow.Show();
-		}
+        private void OpenDocument()
+        {
+            editWindow = new EditWindow(selectedProject,
+                Controller.OpenDocument(selectedProject.Id, selectedDocument.Id),
+                activeUser);
+            editWindow.Show();
+        }
 
-		private void syncButton_Click(object sender, EventArgs e)
-		{
-			Controller.SyncWithServer(activeUser);
-		}
+        private void syncButton_Click(object sender, EventArgs e)
+        {
+            Controller.SyncWithServer(activeUser);
+        }
 
-		/**
-		 * When the user hits the new doc button, it asks for the name and then
-		 * should save it to the storage.
-		 */
-		private void createDocumentButton_Click(object sender, EventArgs e)
-		{
+        /**
+         * When the user hits the new doc button, it asks for the name and then
+         * should save it to the storage.
+         */
+        private void createDocumentButton_Click(object sender, EventArgs e)
+        {
             if (treeView.SelectedNode == null)
                 MessageBox.Show("Please select destination of new document");
             else
@@ -212,7 +212,7 @@ namespace GUI
                 {
                     string title = inputDialog.Input;
                     Document newDoc = new Document("", title, activeUser);
-                    
+
                     // Create a path for the document
                     string path = treeView.SelectedNode.FullPath;
                     if (selectedFolder.FileType == DocType.Project)
@@ -221,9 +221,9 @@ namespace GUI
                         path = path.Substring(
                             selectedProject.ToString().Count() + 1,
                             path.Count() - selectedDocument.Title.Count() - selectedProject.ToString().Count() - 2);
-                    else 
+                    else
                         path = path.Substring(selectedProject.ToString().Count() + 1);
-                        
+
 
 
                     path = Regex.Replace(path, @"\\", "/");
@@ -234,45 +234,45 @@ namespace GUI
 
                 }
             }
-		}
+        }
 
-		private void createFolderButton_Click(object sender, EventArgs e)
-		{
+        private void createFolderButton_Click(object sender, EventArgs e)
+        {
 
-                InputDialog inputDialog = new InputDialog("What should your new folder be called?", "name");
-                inputDialog.ShowDialog();
-                if (!inputDialog.Canceled)
+            InputDialog inputDialog = new InputDialog("What should your new folder be called?", "name");
+            inputDialog.ShowDialog();
+            if (!inputDialog.Canceled)
+            {
+                if (!CheckName(inputDialog.Input))
+                    return;
+
+                string path;
+                // If the project root itself is selected, just discard the whole path
+                if (selectedFolder.FileType == DocType.Project && !isDocument)
+                    path = "";
+                else
                 {
-                    if (!CheckName(inputDialog.Input))
-                        return;
-
-                    string path;
-                    // If the project root itself is selected, just discard the whole path
-                    if (selectedFolder.FileType == DocType.Project && !isDocument)
-                        path = "";
-                    else
-                    {
-                        path = treeView.SelectedNode.FullPath;
-                        path = path.Substring(selectedProject.ToString().Count() + 1);
-                    }
-                    path = Regex.Replace(path, @"\\", "/");
-
-                    if (isDocument)
-                        path = path.Substring(0, path.Count() - selectedDocument.Title.Count() - 1);
-
-                    // append the folder name to the end of the path
-                    if (path.Count() == 0)
-                        path = inputDialog.Input;
-                    else
-                        path += "/" + inputDialog.Input;
-
-                    Controller.CreateDocument(activeUser, path, selectedProject, "Welcome to your new folder!");
+                    path = treeView.SelectedNode.FullPath;
+                    path = path.Substring(selectedProject.ToString().Count() + 1);
                 }
-                RefreshTreeView();
-		}
+                path = Regex.Replace(path, @"\\", "/");
 
-		private void renameButton_Click(object sender, EventArgs e)
-		{
+                if (isDocument)
+                    path = path.Substring(0, path.Count() - selectedDocument.Title.Count() - 1);
+
+                // append the folder name to the end of the path
+                if (path.Count() == 0)
+                    path = inputDialog.Input;
+                else
+                    path += "/" + inputDialog.Input;
+
+                Controller.CreateDocument(activeUser, path, selectedProject, "Welcome to your new folder!");
+            }
+            RefreshTreeView();
+        }
+
+        private void renameButton_Click(object sender, EventArgs e)
+        {
             // If a document was selected
             if (isDocument)
             {
@@ -296,7 +296,7 @@ namespace GUI
                 {
                     if (!CheckName(inputDialog.Input))
                         return;
-                    
+
                     // Build the old and new part of the path for documents
                     string fullpath = treeView.SelectedNode.FullPath;
                     string oldpath = fullpath.Substring(selectedProject.ToString().Count() + 1);
@@ -311,7 +311,7 @@ namespace GUI
 
             RefreshTreeView();
 
-		}
+        }
 
         /**
          * Recursively visit all children in a folder and change their path
@@ -342,32 +342,32 @@ namespace GUI
 
         }
 
-		private void projectBox_SelectedIndexChanged(object sender, EventArgs e)
-		{
-			selectedProject = (Project) projectBox.SelectedItem;
+        private void projectBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            selectedProject = (Project)projectBox.SelectedItem;
 
-			// Initialize the treeView with the folders and docs
-			treeView.Nodes.Clear();
-			BuildDocumentTree(treeView.Nodes, selectedProject);
-			treeView.ExpandAll();
-		}
+            // Initialize the treeView with the folders and docs
+            treeView.Nodes.Clear();
+            BuildDocumentTree(treeView.Nodes, selectedProject);
+            treeView.ExpandAll();
+        }
 
         /**
          */
-		private void RefreshTreeView()
-		{
+        private void RefreshTreeView()
+        {
             openButton.Enabled = false;
-			projects = Controller.GetAllProjectsForUser(activeUser);
+            projects = Controller.GetAllProjectsForUser(activeUser);
 
             // Fill up with projects
-			projectBox.Items.Clear();
-			foreach (Project p in projects)
-			{
-				projectBox.Items.Add(p);
-				if (p.Equals(selectedProject))
-					projectBox.SelectedItem = p;
-			}
-		}
+            projectBox.Items.Clear();
+            foreach (Project p in projects)
+            {
+                projectBox.Items.Add(p);
+                if (p.Equals(selectedProject))
+                    projectBox.SelectedItem = p;
+            }
+        }
 
         private void DeleteDocument(string projectId, string documentId)
         {
@@ -405,14 +405,14 @@ namespace GUI
             RefreshTreeView();
         }
 
-        private List<Folder> GetFoldersInFolder(Folder folder, List<Folder> folders)
+        private List<string> GetFoldersInFolder(TreeNode node, List<string> folders)
         {
-            foreach (IFileSystemComponent component in folder.Children)
+            foreach (TreeNode component in node.Nodes)
             {
-                if (component.FileType == DocType.Folder)
+                if (((IFileSystemComponent)component).FileType == DocType.Folder)
                 {
-                    folders.Add((Folder)component);
-                    List<Folder> nestedFolders = GetFoldersInFolder((Folder)component, folders);
+                    folders.Add(component.FullPath);
+                    GetFoldersInFolder(component, folders);
                 }
             }
             return folders;
@@ -426,7 +426,7 @@ namespace GUI
             Controller.SaveDocument(selectedProject, doc, activeUser);
         }
 
-        private void MoveFolder(Folder folder ,string path)
+        private void MoveFolder(Folder folder, string path)
         {
             foreach (IFileSystemComponent component in folder.Children)
             {
@@ -446,56 +446,45 @@ namespace GUI
 
         private void moveButton_Click(object sender, EventArgs e)
         {
-            List<Folder> folders = new List<Folder>();
-            
-            GetFoldersInFolder(selectedProject, folders);
+            List<string> folders = new List<string>();
 
-            folders.Add(selectedProject);
+            TreeNode projectNode = treeView.Nodes[0];
+
+            folders.Add(projectNode.FullPath);
+
+            GetFoldersInFolder(projectNode, folders);
+
+
 
             if (isDocument)
             {
-                DropdownDialog<Folder> folderDialog = new DropdownDialog<Folder>("Which folder should the document be moved to?", folders, true);
+                DropdownDialog<string> folderDialog = new DropdownDialog<string>("Which folder should the document be moved to?", folders, true);
                 folderDialog.ShowDialog();
                 if (folderDialog.Canceled)
                     return;
 
-                Folder folderToMoveTo = folderDialog.Selected;
+                string pathToMoveTo = folderDialog.Selected;
 
-                string path;
+                string oldpath = pathToMoveTo.Substring(selectedProject.ToString().Count() + 1);
+                oldpath = Regex.Replace(oldpath, @"\\", "/");
 
-                if (folderToMoveTo == selectedProject)
-                    path = "";
-                else
-                {
-                    path = getPathToMoveTo(folderToMoveTo, 0);
-                }
+                string path = oldpath;
 
                 moveDocument(path, selectedDocument.Id);
             }
             else
             {
-                DropdownDialog<Folder> folderDialog = new DropdownDialog<Folder>("Which folder should the folder be moved to?", folders, true);
+                DropdownDialog<string> folderDialog = new DropdownDialog<string>("Which folder should the folder be moved to?", folders, true);
                 folderDialog.ShowDialog();
                 if (folderDialog.Canceled)
                     return;
-                Folder folderToMoveTo = folderDialog.Selected;
 
-                string path;
+                string pathToMoveTo = folderDialog.Selected;
 
-                if (folderToMoveTo == selectedProject)
-                    path = "";
-                else
-                {
-                    if (folderToMoveTo.Children[0].FileType != DocType.Document)
-                    {
-                        DocumentStruct neighbour = (DocumentStruct)folderToMoveTo.Children[0];
-                        path = neighbour.Path + "/" + selectedFolder.Title;
-                    }
-                    else
-                    {
-                        path = getPathToMoveTo(folderToMoveTo, 0);
-                    }
-                }
+                string oldpath = pathToMoveTo.Substring(selectedProject.ToString().Count() + 1);
+                oldpath = Regex.Replace(oldpath, @"\\", "/");
+
+                string path = oldpath;
                 MoveFolder(selectedFolder, path);
             }
             RefreshTreeView();
@@ -514,30 +503,5 @@ namespace GUI
             }
             return true;
         }
-        private string getPathToMoveTo(Folder folder, int count)
-        {
-            count++;
-            string finalPath = "";
-            foreach (IFileSystemComponent component in folder.Children)
-            {
-                
-                if (component.FileType == DocType.Document)
-                    return ((DocumentStruct)component).Path;
-                else
-                {
-                    
-                    string path = getPathToMoveTo((Folder)component,count);
-                    string[] splitPath = path.Split(new string[] { "/" }, StringSplitOptions.None);
-                    for (int i = 0; i < count; i++)
-                    {
-                        if (i==count-1)
-                            finalPath = finalPath + splitPath[i];
-                        else
-                            finalPath = finalPath + splitPath[i]+"/";
-                    }                    
-                }                
-            }
-            return finalPath;
-        }
-	}
+    }
 }

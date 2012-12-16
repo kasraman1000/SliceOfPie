@@ -23,7 +23,7 @@ namespace SliceOfPie
         public string Path { get { return path; } set { path = value; } }
 
         [DataMember]
-        private string text;
+        private string text;    
         public string Text { get { return text; } set { text = value; } }
 
         [DataMember]
