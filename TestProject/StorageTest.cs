@@ -216,9 +216,9 @@ namespace TestProject
             Folder cuteanimals = new Folder("cuteanimalsxoxo");
             Folder reptiles = new Folder("reptiles");
 
-            DocumentStruct testStruct0 = new DocumentStruct(testDoc.Title, testDoc.Owner, testDoc.Id, testDoc.Path);
-            DocumentStruct testStruct1 = new DocumentStruct(testDoc1.Title, testDoc1.Owner, testDoc1.Id, testDoc1.Path);
-            DocumentStruct testStruct2 = new DocumentStruct(testDoc2.Title, testDoc2.Owner, testDoc2.Id, testDoc2.Path);
+            DocumentStruct testStruct0 = new DocumentStruct(testDoc.Title, testDoc.Owner, testDoc.Id, testDoc.Path,true);
+            DocumentStruct testStruct1 = new DocumentStruct(testDoc1.Title, testDoc1.Owner, testDoc1.Id, testDoc1.Path,true);
+            DocumentStruct testStruct2 = new DocumentStruct(testDoc2.Title, testDoc2.Owner, testDoc2.Id, testDoc2.Path,true);
 
             reptiles.AddChild(testStruct2);
             cuteanimals.AddChild(testStruct0);
