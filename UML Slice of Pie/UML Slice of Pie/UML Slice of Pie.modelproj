@@ -24,12 +24,26 @@
       <SubType>Content</SubType>
       <DependentUpon>UMLSequenceDiagram1.sequencediagram</DependentUpon>
     </Content>
-    <Content Include="UMLSequenceDiagramClientside.sequencediagram">
+    <Content Include="OfflineCLient-ServerDiagram.sequencediagram">
       <SubType>Content</SubType>
     </Content>
-    <Content Include="UMLSequenceDiagramClientside.sequencediagram.layout">
+    <Content Include="OfflineCLient-ServerDiagram.sequencediagram.layout">
       <SubType>Content</SubType>
-      <DependentUpon>UMLSequenceDiagramClientside.sequencediagram</DependentUpon>
+      <DependentUpon>OfflineCLient-ServerDiagram.sequencediagram</DependentUpon>
+    </Content>
+    <Content Include="WebClient-ServerDiagram.sequencediagram">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="WebClient-ServerDiagram.sequencediagram.layout">
+      <SubType>Content</SubType>
+      <DependentUpon>WebClient-ServerDiagram.sequencediagram</DependentUpon>
+    </Content>
+    <Content Include="SequenceOfflineClientStorage.sequencediagram">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="SequenceOfflineClientStorage.sequencediagram.layout">
+      <SubType>Content</SubType>
+      <DependentUpon>SequenceOfflineClientStorage.sequencediagram</DependentUpon>
     </Content>
     <Content Include="UMLUseCaseDiagram.usecasediagram">
       <SubType>Content</SubType>
