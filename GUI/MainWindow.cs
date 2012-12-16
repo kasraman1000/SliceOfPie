@@ -544,7 +544,14 @@ namespace GUI
 
         private void getProjectButton_Click(object sender, EventArgs e)
         {
+            try
+            {
 
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Sorry, something went wrong with contacting the server.");
+            }
         }
     }
 }

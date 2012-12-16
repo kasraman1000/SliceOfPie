@@ -80,15 +80,17 @@ namespace SliceOfPieClient
         }
 
         /**
-         * Asks the server for a list of all the projects
+         * Asks the server for a list of all the projects for this user
          */
-        public static List<Project> GetAllProjectsAvailable()
+        public static List<Project> GetAllProjectsAvailable(User user)
         {
             List<Project> result;
             using (SliceOfPieServiceClient serviceClient = new SliceOfPieServiceClient())
             {
-               // serviceClient.GetAllProjectsOnServer
+                result = serviceClient.GetAllProjectsOnServer(user);
             }
+
+            return result;
         }
 
 

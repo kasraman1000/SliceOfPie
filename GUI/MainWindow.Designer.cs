@@ -39,6 +39,7 @@
             this.syncButton = new System.Windows.Forms.Button();
             this.projectBox = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.getProjectButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // treeView
@@ -131,7 +132,7 @@
             this.userLabel.AutoSize = true;
             this.userLabel.Location = new System.Drawing.Point(12, 434);
             this.userLabel.Name = "userLabel";
-            this.userLabel.Size = new System.Drawing.Size(74, 13);
+            this.userLabel.Size = new System.Drawing.Size(98, 17);
             this.userLabel.TabIndex = 17;
             this.userLabel.Text = "Logged in as: ";
             // 
@@ -156,7 +157,7 @@
             this.projectBox.Location = new System.Drawing.Point(124, 15);
             this.projectBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.projectBox.Name = "projectBox";
-            this.projectBox.Size = new System.Drawing.Size(207, 21);
+            this.projectBox.Size = new System.Drawing.Size(207, 24);
             this.projectBox.TabIndex = 0;
             this.projectBox.SelectedIndexChanged += new System.EventHandler(this.projectBox_SelectedIndexChanged);
             // 
@@ -165,15 +166,28 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(12, 18);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(81, 13);
+            this.label1.Size = new System.Drawing.Size(106, 17);
             this.label1.TabIndex = 20;
             this.label1.Text = "Select a project";
+            // 
+            // getProjectButton
+            // 
+            this.getProjectButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.getProjectButton.Location = new System.Drawing.Point(186, 456);
+            this.getProjectButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.getProjectButton.Name = "getProjectButton";
+            this.getProjectButton.Size = new System.Drawing.Size(146, 30);
+            this.getProjectButton.TabIndex = 21;
+            this.getProjectButton.Text = "Download projects";
+            this.getProjectButton.UseVisualStyleBackColor = true;
+            this.getProjectButton.Click += new System.EventHandler(this.getProjectButton_Click);
             // 
             // MainWindow
             // 
             this.AcceptButton = this.openButton;
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.ClientSize = new System.Drawing.Size(344, 497);
+            this.Controls.Add(this.getProjectButton);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.projectBox);
             this.Controls.Add(this.syncButton);
@@ -211,6 +225,7 @@
         private System.Windows.Forms.Button syncButton;
         private System.Windows.Forms.ComboBox projectBox;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button getProjectButton;
     }
 }
 
