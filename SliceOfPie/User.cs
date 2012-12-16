@@ -21,5 +21,18 @@ namespace SliceOfPie
         {
             return name;
         }
+
+        public override bool Equals(object obj)
+        {
+            if (!(obj is User))
+                return false;
+            User u = (User)obj;
+            if (!(this.name == u.name))
+            {
+               return false;
+            } 
+            
+            return true; 
+        }
     }  
 }

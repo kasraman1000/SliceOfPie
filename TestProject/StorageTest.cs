@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.IO;
+using System.Threading;
 
 
 namespace TestProject
@@ -19,6 +20,8 @@ namespace TestProject
         static Document testDoc;
         static Document testDoc1;
         static Document testDoc2;
+        static Project testproject;
+        static Project testproject2;
 
         private TestContext testContextInstance;
 
@@ -70,11 +73,12 @@ namespace TestProject
                               "They bite hard: \n"+
                               "and thats it.";
 
-            testDoc2= new Document(docText2, "Crocoman", new User("Johnny"));
+            testDoc2= new Document(docText2, "Crocoman", new User("Karsten"));
             testDoc2.Path = "root/cuteanimalsxoxo/reptiles";
 
             
-
+            testproject = new Project("Projekt", new User("Kewin"), new List<User>(){new User("Karsten") });
+            testproject2 = new Project("Projekt2", new User("Karsten"), new List<User>() { new User("Kewin") });
 
 
 
@@ -121,10 +125,7 @@ namespace TestProject
             bool pathBool = String.Compare(documentToBeWritten.Path, readDocument.Path) == 0;
 
             bool logBool = true;
-
-          
-
-
+            
             bool descriptionBool = true;
             bool userBool = true;
             bool changeLogBool = true;
@@ -152,13 +153,13 @@ namespace TestProject
         {
             Document documentToBeWritten = new Document("", "", new User("owner"), "documentID");
 
-            Project proj = new Project("Project", new User("owner"), new List<User>(), "Project1");
+            Project proj = new Project("Project2", new User("owner"), new List<User>(), "Project2");
 
             Storage.SaveProjectToFile(proj);
 
             Storage.WriteToFile(proj, documentToBeWritten);
 
-            Document readDocument = Storage.ReadFromFile("Project1", "documentID");
+            Document readDocument = Storage.ReadFromFile("Project2", "documentID");
 
             bool textBool = String.Compare(documentToBeWritten.Text, readDocument.Text) == 0;
             bool titleBool = String.Compare(documentToBeWritten.Title, readDocument.Title) == 0;
@@ -184,51 +185,79 @@ namespace TestProject
 
             Assert.IsTrue(changeLogBool && countBool && descriptionBool && logBool && logBool && pathBool && textBool && titleBool && userBool);
         }
-       
-
-
+      
         /// <summary>
         ///Tests if the delete function actually deletes a file from the filesystem
         ///by first adding a document and then removing the same one again.
         ///</summary>
         [TestMethod()]
-        public void DeleteFileTest()
+        public void DeleteDocumentTest()
         {
-            //Storage.WriteToFile(testDoc);
-            bool expected = File.Exists("root\\"+testDoc.Id + ".txt");
-            //Storage.DeleteFile(testDoc.Id);
-            bool actual = File.Exists("root\\"+testDoc.Id + ".txt");
+            Project project = new Project("Projekt", new User("NotKewin"), new List<User>() { new User("Karsten") });
+            Storage.SaveProjectToFile(project);
+            Storage.WriteToFile(project, testDoc1);
+            bool expected = File.Exists(project.Id+"\\"+testDoc1.Id + ".txt");
+            Storage.DeleteDocument(project.Id, testDoc1.Id);
+            bool actual = File.Exists(project.Id + "\\" + testDoc1.Id + ".txt");
             Assert.AreNotEqual(expected, actual);
 
         }
         [TestMethod()]
         public void GetHierachyTest()
         {
-            //Storage.WriteToFile(testDoc);
-           // Storage.WriteToFile(testDoc1);
-            //Storage.WriteToFile(testDoc2);
+            Project project = new Project("Projekt1", new User("NotKewin2"), new List<User>() { new User("Karsten") });
+            Storage.SaveProjectToFile(project);
 
-            
+            Storage.WriteToFile(project, testDoc);
+            Storage.WriteToFile(project, testDoc1);
+            Storage.WriteToFile(project, testDoc2);
 
             Folder root = new Folder("root");
             Folder cuteanimals = new Folder("cuteanimalsxoxo");
             Folder reptiles = new Folder("reptiles");
 
-            DocumentStruct testStruct0 = new DocumentStruct(testDoc.Title, testDoc.Owner, testDoc.Id, testDoc.Path);
-            DocumentStruct testStruct1 = new DocumentStruct(testDoc1.Title, testDoc1.Owner, testDoc1.Id, testDoc1.Path);
-            DocumentStruct testStruct2 = new DocumentStruct(testDoc2.Title, testDoc2.Owner, testDoc2.Id, testDoc2.Path);
+            DocumentStruct testStruct0 = new DocumentStruct(testDoc.Title, testDoc.Owner, testDoc.Id, testDoc.Path,true);
+            DocumentStruct testStruct1 = new DocumentStruct(testDoc1.Title, testDoc1.Owner, testDoc1.Id, testDoc1.Path,true);
+            DocumentStruct testStruct2 = new DocumentStruct(testDoc2.Title, testDoc2.Owner, testDoc2.Id, testDoc2.Path,true);
 
             reptiles.AddChild(testStruct2);
             cuteanimals.AddChild(testStruct0);
             root.AddChild(testStruct1);
 
             cuteanimals.AddChild(reptiles);
-            root.AddChild(cuteanimals);
-            Folder expected = root;
-            //Folder actual = Storage.GetHierachy();
+            project.AddChild(cuteanimals);
+            Project expected = project;
+            Project actual = Storage.GetHierachy(project.Id);
 
-            //Assert.AreEqual(expected, actual);
+            Assert.AreEqual(expected, actual);
 
+        }
+
+        [TestMethod()]
+        public void SaveAndDeleteProjectTest()
+        {
+            Project project = new Project("Projekt1", new User("NotKewin3"), new List<User>() { new User("Karsten") });
+            Storage.SaveProjectToFile(project);
+            string currentDir = Directory.GetCurrentDirectory();
+            bool expected = Directory.Exists(currentDir + "\\" + project.Id);
+            Storage.DeleteProject(project.Id);
+            bool actual = Directory.Exists(currentDir + "\\" + project.Id);
+
+            Assert.AreNotEqual(expected, actual);
+
+        }
+
+        [TestMethod()]
+        public void GetAllProjectsTest()
+        {
+            Storage.SaveProjectToFile(testproject);
+            Storage.SaveProjectToFile(testproject2);
+
+            List<Project> expected = new List<Project>(){testproject2,testproject};
+
+            List<Project> actual = Storage.GetAllProjects();
+
+            CollectionAssert.AreEqual(actual, expected);
         }
 
     }

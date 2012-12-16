@@ -11,53 +11,75 @@ namespace SliceOfPieServiceLibrary
     /**
      * This is where the server behavior goes.
      */
+    [ServiceBehavior(
+        InstanceContextMode=InstanceContextMode.PerSession,
+        ConcurrencyMode=ConcurrencyMode.Single)]
     public class SliceOfPieService : ISliceOfPieService
     {
+        private Project currentProj;
+
         /**
-         * This method takes the changed documents from a user and 
-         * merges these new changes in, and then returns all the new
-         * and updated documents back to the user.
+         * This is called when an user from the offline client
+         * wants to start syncronizing a project with the server
          */
-        public List<Document> SyncAll(List<SliceOfPie.Document> docs)
+        public bool StartSync(User user, string projectId)
         {
-            return null;
+            Console.WriteLine("New user connected to sync offline content");
+            currentProj = Storage.GetHierachy(projectId);
+            if (currentProj != null)
+            {
+                if (currentProj.Owner.Equals(user) || currentProj.SharedWith.Contains(user))
+                {
+                    Console.WriteLine("{0} is now syncing with project: {1},",user,projectId);
+                    return true;
+                }
+            }
+
+            Console.WriteLine("Access Denied: {0} wanted to sync with: {1}", user, projectId);
+            return false;            
         }
+
+        public Project UpdateProject(Project Project) { return null; }
+
+        public void SendDocument(Document doc) { }
+
+        public Document GetUpdatedDocument() { return null; }
+
+        public void StopSync() { }
+
+
+
 
         public void DeleteDocument(string projectId, string documentId)
         {
-            Storage.ServerDeleteDocument(projectId, documentId);
+            Storage.DeleteDocument(projectId, documentId);
         }
 
         public List<Project> GetAllProjectsOnServer()
         {
-            return Storage.ServerGetAllProjects();
-        }
-
-        public Project GetHierachy(string projectId)
-        {
-            return Storage.ServerGetHierachy(projectId);
+            return Storage.GetAllProjects();
         }
 
         public Document OpenDocumentOnServer(string projectId, string documentId)
         {
-            return Storage.ServerReadFromFile(projectId, documentId);
+            return Storage.ReadFromFile(projectId, documentId);
         }
 
         public void SaveProjectOnServer(SliceOfPie.Project p)
         {
-            Storage.ServerSaveProjectToFile(p);
+            Storage.SaveProjectToFile(p);
         }
 
         public void SaveDocumentOnServer(SliceOfPie.Project p, SliceOfPie.Document d)
         {
             
 
-            Storage.ServerWriteToFile(p, d);
+            Storage.WriteToFile(p, d);
         }
 
         public void DeleteProject(string projectId)
         {
-            Storage.DeleteProject(projectId, true);
+            Storage.DeleteProject(projectId);
         }
     }
 }

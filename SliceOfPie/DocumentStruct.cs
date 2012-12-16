@@ -2,14 +2,19 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Runtime.Serialization;
 
 namespace SliceOfPie
 {
+    [DataContract]
+    [KnownType(typeof(DocumentStruct))]
     public struct DocumentStruct : IFileSystemComponent
     {
+        [DataMember]
         private string id;
         public string Id { get { return id; } }
 
+        [DataMember]
         private string path;
         public string Path
         {
@@ -17,6 +22,7 @@ namespace SliceOfPie
             set { path = value; }
         }
 
+        [DataMember]
         private string title;
         public string Title
         {
@@ -24,18 +30,23 @@ namespace SliceOfPie
             set { title = value; }
         }
 
+        [DataMember]
         private DocType fileType;
         public DocType FileType
         {
             get { return fileType; }
         }
 
-        public DocumentStruct(string title, User user, string ID, string path)
+        private bool modified;
+        public bool Modified { get { return modified; } }
+
+        public DocumentStruct(string title, User user, string ID, string path, bool modified)
         {
             id = ID;
             fileType = DocType.Document;
             this.title = title;
             this.path = path;
+            this.modified = modified;
         }
         public override bool Equals(object obj)
         {

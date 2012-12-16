@@ -6,11 +6,11 @@ using System.Runtime.Serialization;
 namespace SliceOfPie
 {
     [DataContract]
+    [KnownType(typeof(Project))]
+    [KnownType(typeof(Folder))]
+    [KnownType(typeof(DocumentStruct))]
     public class Project : Folder
     {
-        
- 
-
         [DataMember]
         private User owner;
         public User Owner { get { return owner; } }
@@ -69,8 +69,19 @@ namespace SliceOfPie
 				return false;
 			Project p = (Project)obj;
 			if (!(this.FileType == p.FileType 
-                && this.id == p.Id))
+                && this.id == p.Id
+                && this.Title == p.Title
+                && this.owner == p.owner))
 				return false;
+            
+            for (int i = 0; i < sharedWith.Count; i++)
+            {
+                if (!(sharedWith[i].Equals(p.sharedWith[i])))
+                {
+                    return false;
+                }
+            }
+
             return true;
 
         }

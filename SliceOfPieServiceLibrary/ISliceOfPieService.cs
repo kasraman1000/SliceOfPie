@@ -14,20 +14,33 @@ namespace SliceOfPieServiceLibrary
      * to that method. The implementation of the method can be written in
      * SliceOfPieService.cs
      */
-    [ServiceContract]
+    [ServiceContract(SessionMode = SessionMode.Required)]
     public interface ISliceOfPieService
     {
-        [OperationContract]
-        List<Document> SyncAll(List<Document> docs);
 
+        // Offline synchronization methods
+        [OperationContract(IsInitiating = true)]
+        bool StartSync(User user, string projectId);
+
+        [OperationContract(IsInitiating = false)]
+        Project UpdateProject(Project Project);
+
+        [OperationContract(IsInitiating = false)]
+        void SendDocument(Document doc);
+
+        [OperationContract(IsInitiating = false)]
+        Document GetUpdatedDocument();
+
+        [OperationContract(IsInitiating = false, IsTerminating = true)]
+        void StopSync();
+
+
+        // Web interface methods
         [OperationContract]
         void DeleteDocument(string projectId, string documentId);
 
         [OperationContract]
         List<Project> GetAllProjectsOnServer();
-        
-        [OperationContract]
-        Project GetHierachy(string projectId);
         
         [OperationContract]
         Document OpenDocumentOnServer(string projectId, string documentId);

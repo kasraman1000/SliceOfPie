@@ -46,16 +46,9 @@ namespace SliceOfPie
         public override bool Equals(object obj)
         {
             Picture pic;
-            try
-            {
-                pic = (Picture)obj;
-            }
-            catch (Exception)
-            {
-                return false;
-            }
-
-
+            try { pic = (Picture)obj; }
+            catch (Exception) { return false; }
+            
             if (String.Compare(this.id, pic.Id) == 0)
                 return true;
             else

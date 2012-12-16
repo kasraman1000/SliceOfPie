@@ -8,11 +8,9 @@ using System.Drawing;
 
 namespace SliceOfPie
 {
-    // The Document class is a generalization of the IFileSystemComponentEnum Interface.
-    // This means that it can be represented in an "explorer" when placed in Folders.
-    // The class itself contains inforamation relevant to the document, and functions
-    // to change data in the object, as well as functions to merge the document newer
-    // versions of the same document.
+    // The document class holds all fields relevant to a document when opened in the explorer,
+    // a well asd functions to change data in the object, as well as functions to
+    // merge the document newer versions of the same document.
     [DataContract]
     public class Document
     {
@@ -25,7 +23,7 @@ namespace SliceOfPie
         public string Path { get { return path; } set { path = value; } }
 
         [DataMember]
-        private string text;
+        private string text;    
         public string Text { get { return text; } set { text = value; } }
 
         [DataMember]
@@ -43,6 +41,14 @@ namespace SliceOfPie
         [DataMember]
         private Document.DocumentLog log;
         public Document.DocumentLog Log { get { return log; } }
+
+        [DataMember]
+        private bool deleted = false;
+        public bool Deleted { get { return deleted; } set { deleted = value; } }
+
+        [DataMember]
+        private bool modified = true;
+        public bool Modified { get { return modified; } set { modified = value; } }
 
         // Default constructor for creating a document object.
         public Document(string text, string title, string path, User owner)
@@ -62,6 +68,7 @@ namespace SliceOfPie
             this.text = text;
             this.title = title;
             this.owner = owner;
+            this.path = "";
             this.images = new List<Picture>();
             log = new Document.DocumentLog(owner);
             CreateId();
@@ -74,6 +81,7 @@ namespace SliceOfPie
             this.text = text;
             this.title = title;
             this.owner = owner;
+            this.path = "";
             this.images = new List<Picture>();
             log = new Document.DocumentLog(owner);
             this.id = id;
@@ -83,7 +91,7 @@ namespace SliceOfPie
         private Document(){}
 
         // Creates and returns a document in it's complete version from a file on the file system.
-        public static Document CreateDocumentFromFile(string id, string text, string title, User owner, List<Picture> pictures, string path, Document.DocumentLog log)
+        public static Document CreateDocumentFromFile(string id, string text, string title, bool modified, bool deleted, User owner, List<Picture> pictures, string path, Document.DocumentLog log)
         {
             Document doc = new Document();
             doc.id = id;
@@ -93,9 +101,11 @@ namespace SliceOfPie
             doc.path = path;
             doc.log = log;
             doc.images = pictures;
+            doc.modified = modified;
+            doc.deleted = deleted;
             return doc;
         }
-
+        // Creates an id for the document.
         private void CreateId()
         {           
             TimeSpan t = DateTime.UtcNow - new DateTime(1991, 12, 2);

@@ -111,3 +111,4 @@ UpgradeLog*.XML
 # other misc stuff
 *.orig
 *.ORIG
+*.svclog
