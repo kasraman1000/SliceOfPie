@@ -28,22 +28,22 @@ namespace SliceOfPieClient.Service {
         void StopSync();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISliceOfPieService/DeleteDocument", ReplyAction="http://tempuri.org/ISliceOfPieService/DeleteDocumentResponse")]
-        void DeleteDocument(string projectId, string documentId);
+        void DeleteDocument(string projectId, string documentId, SliceOfPie.User user);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISliceOfPieService/GetAllProjectsOnServer", ReplyAction="http://tempuri.org/ISliceOfPieService/GetAllProjectsOnServerResponse")]
-        System.Collections.Generic.List<SliceOfPie.Project> GetAllProjectsOnServer();
+        System.Collections.Generic.List<SliceOfPie.Project> GetAllProjectsOnServer(SliceOfPie.User user);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISliceOfPieService/OpenDocumentOnServer", ReplyAction="http://tempuri.org/ISliceOfPieService/OpenDocumentOnServerResponse")]
         SliceOfPie.Document OpenDocumentOnServer(string projectId, string documentId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISliceOfPieService/SaveProjectOnServer", ReplyAction="http://tempuri.org/ISliceOfPieService/SaveProjectOnServerResponse")]
-        void SaveProjectOnServer(SliceOfPie.Project p);
+        void SaveProjectOnServer(SliceOfPie.Project p, SliceOfPie.User user);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISliceOfPieService/SaveDocumentOnServer", ReplyAction="http://tempuri.org/ISliceOfPieService/SaveDocumentOnServerResponse")]
-        void SaveDocumentOnServer(SliceOfPie.Project p, SliceOfPie.Document d);
+        void SaveDocumentOnServer(SliceOfPie.Project p, SliceOfPie.Document d, SliceOfPie.User user);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISliceOfPieService/DeleteProject", ReplyAction="http://tempuri.org/ISliceOfPieService/DeleteProjectResponse")]
-        void DeleteProject(string projectId);
+        void DeleteProject(string projectId, SliceOfPie.User user);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -89,28 +89,28 @@ namespace SliceOfPieClient.Service {
             base.Channel.StopSync();
         }
         
-        public void DeleteDocument(string projectId, string documentId) {
-            base.Channel.DeleteDocument(projectId, documentId);
+        public void DeleteDocument(string projectId, string documentId, SliceOfPie.User user) {
+            base.Channel.DeleteDocument(projectId, documentId, user);
         }
         
-        public System.Collections.Generic.List<SliceOfPie.Project> GetAllProjectsOnServer() {
-            return base.Channel.GetAllProjectsOnServer();
+        public System.Collections.Generic.List<SliceOfPie.Project> GetAllProjectsOnServer(SliceOfPie.User user) {
+            return base.Channel.GetAllProjectsOnServer(user);
         }
         
         public SliceOfPie.Document OpenDocumentOnServer(string projectId, string documentId) {
             return base.Channel.OpenDocumentOnServer(projectId, documentId);
         }
         
-        public void SaveProjectOnServer(SliceOfPie.Project p) {
-            base.Channel.SaveProjectOnServer(p);
+        public void SaveProjectOnServer(SliceOfPie.Project p, SliceOfPie.User user) {
+            base.Channel.SaveProjectOnServer(p, user);
         }
         
-        public void SaveDocumentOnServer(SliceOfPie.Project p, SliceOfPie.Document d) {
-            base.Channel.SaveDocumentOnServer(p, d);
+        public void SaveDocumentOnServer(SliceOfPie.Project p, SliceOfPie.Document d, SliceOfPie.User user) {
+            base.Channel.SaveDocumentOnServer(p, d, user);
         }
         
-        public void DeleteProject(string projectId) {
-            base.Channel.DeleteProject(projectId);
+        public void DeleteProject(string projectId, SliceOfPie.User user) {
+            base.Channel.DeleteProject(projectId, user);
         }
     }
 }

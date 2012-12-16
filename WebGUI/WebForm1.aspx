@@ -101,7 +101,7 @@
                         style="margin-left: 12px" Text="New Project" Width="150px" 
                         onclick="NewProjectButton_Click" />
                     <asp:Button ID="DeleteProjectButton" runat="server" Height="40px" onclick="DeleteProjectButton_Click" 
-                        style="margin-left: 33px; margin-bottom: 1px;" Text="Delete Project" 
+                        style="margin-left: 33px; " Text="Delete Project" 
                         Width="150px" />
                     <asp:Button ID="CreateNewDocumentButton" runat="server" Height="40px" 
                         onclick="CreateNewDocumentButton_Click" 
@@ -124,14 +124,15 @@
                             Width="150px" />
                         <asp:Button ID="CreateNewFolderButton" runat="server" Height="40px" 
                             onclick="CreateNewFolderButton_Click" 
-                            style="margin-left: 29px; margin-top: 8px" Text="Create New Folder" 
+                            style="margin-left: 144px; margin-top: 8px" Text="Create New Folder" 
                             Width="150px" />
                         <asp:Button ID="AddPictureButton" runat="server" Height="40px" 
                             onclick="AddPictureButton_Click" style="margin-left: 68px; margin-top: 8px" 
                             Text="Add a Picture" Width="150px" />
-                        <asp:Button ID="MoveButton" runat="server" Height="40px" 
-                            onclick="CreateNewDocumentButton_Click" 
-                            style="margin-left: 65px; margin-top: 8px" Text="Move" Width="150px" />
+                    </p>
+                    <p>
+                    </p>
+                    <p>
                     </p>
                 </p>
             </asp:Panel>
@@ -188,8 +189,13 @@
         <br />
         &nbsp;
         <asp:Label ID="DocumentNameBox" runat="server" Font-Bold="True" 
-            Font-Size="Medium" Height="44px" Text=" " Width="579px"></asp:Label>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            Font-Size="Medium" Height="44px" Text=" " Width="440px"></asp:Label>
+&nbsp;&nbsp;&nbsp;<asp:Button ID="TextButton" runat="server" onclick="TextButton_Click" 
+            Text="Text" Visible="False" Width="66px" />
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        <asp:Button ID="LogButton" runat="server" onclick="LogButton_Click" Text="Log" 
+            Visible="False" Width="66px" />
+&nbsp;
         <asp:Label ID="ImagesCurrentlyBox" runat="server" 
             Text="Images currently in document:" Visible="False"></asp:Label>
             <asp:TextBox ID="DocumentTextBox" runat="server" Height="384px" 

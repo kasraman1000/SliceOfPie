@@ -25,8 +25,10 @@ namespace WebGUI
         protected void Page_Load(object sender, EventArgs e)
         {
             
+            
             if (firstVisit == true)
             {
+                UpdateProjects();
                 firstVisit = false;
                 Response.Redirect("WelcomeForm.aspx");
             }
@@ -34,7 +36,6 @@ namespace WebGUI
             // Checks if its a postback call
             if (!Page.IsPostBack)
             {
-
                 UpdateProjects();               
             }
 
@@ -45,15 +46,22 @@ namespace WebGUI
             // We empty the dropdownlist with project
             ProjectDropDown.Items.Clear();
             // Get all the projects by the current user
-            projects = SliceOfPie.Controller.GetAllProjectsForUser(WelcomeForm.active);
-            // we add the new projects to the dropdown
-            ProjectDropDown.Items.Add("");
-            foreach (Project p in projects)
+            if (WelcomeForm.active != null)
             {
-                ListItem li = new ListItem(p.Title, p.Id);
-                ProjectDropDown.Items.Add(li);
+                using (SliceOfPieClient.Service.SliceOfPieServiceClient serv = new SliceOfPieClient.Service.SliceOfPieServiceClient())
+                {
+                    projects = serv.GetAllProjectsOnServer(WelcomeForm.active);
+
+                    ProjectDropDown.Items.Add("");
+                    foreach (Project p in projects)
+                    {
+                        ListItem li = new ListItem(p.Title, p.Id);
+                        ProjectDropDown.Items.Add(li);
+                    }
+                    AccessTextBox.Text = "Choose one of your projects";
+                }
             }
-            AccessTextBox.Text = "Choose one of your projects";
+
         }
         
         // Builds the Treeview recursively
@@ -120,40 +128,65 @@ namespace WebGUI
         // This is what happens when you press on nodes in the TreeView
         protected void TreeView1_SelectedNodeChanged1(object sender, EventArgs e)
         {
-
             TreeView tw = (TreeView)sender;
-            // Checks if its a document that has been pressed, else do nothing
-            if (tw.SelectedNode.ChildNodes.Count == 0)
-            {
-                // Clears the Text on the Editor
-                ImageBox.Text = "";
-                // Opens the clicked document and sets the properties
-                Document selectedDoc = SliceOfPie.Controller.OpenDocument(activeProject.Id, tw.SelectedNode.Value);
-                DocumentTextBox.Text = selectedDoc.Text;
-                DocumentNameBox.Text = selectedDoc.Title;
-                activeDoc = selectedDoc;
-                // If it has images attached it lists them, else it doesnt show the imagebox
-                if (selectedDoc.Images.Count != 0)
-                {
-                    UpdateImagePanel();
-                    ImagesCurrentlyBox.Visible = true;
-                    ImageBox.Visible = true;
+            
 
-                }
-                DocumentTextBox.Visible = true;
+                 using (SliceOfPieClient.Service.SliceOfPieServiceClient serv = new SliceOfPieClient.Service.SliceOfPieServiceClient())
+                 {
+                    
+                    // Checks if its a document that has been pressed, else do nothing
+                    if (tw.SelectedNode.ChildNodes.Count == 0)
+                    {
+                    // Clears the Text on the Editor
+                    ImageBox.Text = "";
+                    // Opens the clicked document and sets the properties
 
-                // Keeps track of the current path
-                string path = tw.SelectedNode.ValuePath;
-                currentPath = path.Substring(activeProject.Id.Length + 1);
-            }
-            // Keeps track of the path selected if its a folder
-            else
-            {
-                string path = tw.SelectedNode.ValuePath;
-                FolderBox.Text = path.Substring(activeProject.Id.Length + 1);
+
+                    Document selectedDoc = serv.OpenDocumentOnServer(activeProject.Id, tw.SelectedNode.Value);
+                    DocumentTextBox.Text = selectedDoc.Text;
+                    DocumentNameBox.Text = selectedDoc.Title;
+                    activeDoc = selectedDoc;
+                    // If it has images attached it lists them, else it doesnt show the imagebox
+                    if (selectedDoc.Images.Count != 0)
+                    {
+                        UpdateImagePanel();
+                        ImagesCurrentlyBox.Visible = true;
+                        ImageBox.Visible = true;
+
+                    }
+                    DocumentTextBox.Visible = true;
+                    TextButton.Visible = true;
+                    LogButton.Visible = true;
+
+
+                    }
+
+
+
+                     // Keeps track of the path selected if its a folder
+                    else
+                    {
+                    if (tw.SelectedNode.Parent != null)
+                        {
+                            string path = tw.SelectedNode.ValuePath;
+                            currentPath = path.Substring(activeProject.Id.Length + 1);
+                    
+                            FolderBox.Text = path.Substring(activeProject.Id.Length + 1);
+                    
+                        }
+                        else
+                        {
+                            string path = tw.SelectedNode.Text;
+                            FolderBox.Text = path;
+                            // Keeps track of the current path
+                            path = tw.SelectedNode.Text;
+                            currentPath = path;
+                            path = "";
+                        }
                 
+                    }
+                ButtonPanel2.Visible = true; 
             }
-
         }
           
         // The change user button takes the user to the welcome form where he can change user
@@ -218,12 +251,14 @@ namespace WebGUI
         // Delete Button was pressed and new fields is now visible
         protected void DeleteProjectButton_Click(object sender, EventArgs e)
         {
-            
+            if (activeProject != null)
+            {
+                ConfirmDelete.Visible = true;
+                CancelDeleteProject.Visible = true;
+                ConfirmDeleteProj.Visible = true;
+            }
             DynamicPanelInvisible();
             DynamicProjectPanelInvisible();
-            ConfirmDelete.Visible = true;
-            CancelDeleteProject.Visible = true;
-            ConfirmDeleteProj.Visible = true;
         }
 
         // Share Project Button was pressed and new fields are now visible
@@ -275,48 +310,78 @@ namespace WebGUI
         // Save Document Button was pressed it calls the savedocument so it is saved on the system
         protected void SaveDocumentButton_Click(object sender, EventArgs e)
         {
-            activeDoc.Text = DocumentTextBox.Text;
-            Controller.SaveDocument(activeProject, activeDoc, WelcomeForm.active);
+            if (activeDoc != null)
+            {
+                using (SliceOfPieClient.Service.SliceOfPieServiceClient serv = new SliceOfPieClient.Service.SliceOfPieServiceClient())
+                {
+                    activeDoc.Text = DocumentTextBox.Text;
+                    serv.SaveDocumentOnServer(activeProject, activeDoc, WelcomeForm.active);
+                }
+                UpdateProjects();
+                UpdateTreeView(activeProject.Id);
+            }
         }
 
         // Delete Document Button was pressed and new fields are now visible
         protected void DeleteDocumentButton_Click(object sender, EventArgs e)
         {
-            DynamicPanelInvisible();
-            DynamicProjectPanelInvisible();
-            DynamicPanel.Visible = true;
-            AreYouSureBox.Visible = true;
-            AcceptDeleteButton.Visible = true;
-            DeclineDeleteButton.Visible = true;
+            if (activeDoc != null)
+            {
+                DynamicPanel.Visible = true;
+                AreYouSureBox.Visible = true;
+                AcceptDeleteButton.Visible = true;
+                DeclineDeleteButton.Visible = true;
+            }
+                DynamicPanelInvisible();
+                DynamicProjectPanelInvisible();
         }
 
         // This is the Submit button for creating new documents or folders
         protected void SubmitTitle_Click(object sender, EventArgs e)
         {
-            // Text value is Submit then its the new document
-            if (SubmitTitle.Text.CompareTo("Submit") == 0)
-            {
-                string title = TitleBox.Text;
-                DynamicPanelInvisible();
-                DynamicProjectPanelInvisible();
-                Controller.CreateDocument(WelcomeForm.active, currentPath, activeProject, TitleBox.Text);
-                // Updates the projects and treeview so it refreshes as it is done
-                UpdateProjects();
-                UpdateTreeView(activeProject.Id);
-            }
-            // Text value is enter so it has to create a folder.
-            else if(SubmitTitle.Text.CompareTo("Enter")==0)
-            {
-                // Create Document actually creates a folder if given a nonexisting path
-                Controller.CreateDocument(WelcomeForm.active, FolderBox.Text + "/" + TitleBox.Text, activeProject, "New Document");
-                DynamicPanelInvisible();
-                DynamicProjectPanelInvisible();
-                UpdateProjects();
-                UpdateTreeView(activeProject.Id);
+            //Checks if there is a folder and a document name
+            if (FolderBox.Text.CompareTo("") != 0 || TitleBox.Text.CompareTo("") !=0 || activeProject != null)
+                {
+                    using (SliceOfPieClient.Service.SliceOfPieServiceClient serv = new SliceOfPieClient.Service.SliceOfPieServiceClient())
+                    {
+                        // Text value is Submit then its the new document
+                        if (SubmitTitle.Text.CompareTo("Submit") == 0)
+                        {
+                            string title = TitleBox.Text;
+                            DynamicPanelInvisible();
+                            DynamicProjectPanelInvisible();
+                            Document doc = new Document("Insert your text here",TitleBox.Text, currentPath, WelcomeForm.active);
+                            serv.SaveDocumentOnServer(activeProject, doc, WelcomeForm.active);
+                            // Updates the projects and treeview so it refreshes as it is done
+                            UpdateProjects();
+                            UpdateTreeView(activeProject.Id);
+                        }
+                        // Text value is enter so it has to create a folder.
+                        else if (SubmitTitle.Text.CompareTo("Enter") == 0)
+                        {
+                            // Create Document actually creates a folder if given a nonexisting path
 
-            }
-            // Expands the treeview
-            TreeView1.ExpandAll();
+                            if (FolderBox.Text.CompareTo(activeProject.Title) == 0)
+                            {
+                                Document doc = new Document("Insert your text here", TitleBox.Text, currentPath + "/" + TitleBox.Text, WelcomeForm.active);
+                                serv.SaveDocumentOnServer(activeProject, doc, WelcomeForm.active);
+                            }
+                            else
+                            {
+                                Document doc = new Document("Insert your text here", TitleBox.Text, currentPath +  "/" + TitleBox.Text, WelcomeForm.active);
+                                serv.SaveDocumentOnServer(activeProject, doc, WelcomeForm.active);
+                            }
+                        }
+                    }
+                    UpdateProjects();
+                    UpdateTreeView(activeProject.Id);
+                }
+                DynamicPanelInvisible();
+                DynamicProjectPanelInvisible();
+                
+       
+                // Expands the treeview
+                TreeView1.ExpandAll();
         }
 
         //Called when dropdown element is pressed.
@@ -325,6 +390,8 @@ namespace WebGUI
             // Gets the id of the selected project
             string pid = ((DropDownList)sender).SelectedValue;
             UpdateTreeView(pid);
+            ButtonPanel2.Visible = true;
+
            
         }
 
@@ -360,28 +427,31 @@ namespace WebGUI
         // Submit Button was pressed for either a new project or rename a project
         protected void SubmitProjectButton_Click(object sender, EventArgs e)
         {
-            //rename project
-            if (SubmitProjectButton.Text.CompareTo("Submit") == 0)
+            if (activeProject != null)
             {
-                activeProject.Title = NewProjectNameBox.Text;
-                Controller.UpdateProject(activeProject);
+                //rename project
+                if (SubmitProjectButton.Text.CompareTo("Submit") == 0)
+                {
+                    activeProject.Title = NewProjectNameBox.Text;
+                    Controller.UpdateProject(activeProject);
+                    UpdateProjects();
+                    UpdateTreeView(activeProject.Id);
+                    DynamicPanelInvisible();
+                    DynamicProjectPanelInvisible();
+                }
+                //Create new Project
+                else if (SubmitProjectButton.Text.CompareTo("Enter") == 0)
+                {
+                    // Empty list for the users the document is shared with
+                    List<User> l = new List<User>();
+                    Controller.CreateProject(NewProjectNameBox.Text, WelcomeForm.active, l);
+                }
+                // Everything turns invisble again and the view is updated
                 UpdateProjects();
-                UpdateTreeView(activeProject.Id);
-                DynamicPanelInvisible();
-                DynamicProjectPanelInvisible();
+                TreeView1.ExpandAll();
             }
-            //Create new Project
-            else if (SubmitProjectButton.Text.CompareTo("Enter") == 0)
-            {
-                // Empty list for the users the document is shared with
-                List<User> l = new List<User>();
-                Controller.CreateProject(NewProjectNameBox.Text,WelcomeForm.active,l);
-            }
-            // Everything turns invisble again and the view is updated
-            DynamicProjectPanelInvisible();
             DynamicPanelInvisible();
-            UpdateProjects();
-            TreeView1.ExpandAll();
+            DynamicProjectPanelInvisible();
         }
 
         // The creation of a new item was cancelled
@@ -394,8 +464,11 @@ namespace WebGUI
         // The add Picture button was pressed and it made the content needed visible
         protected void AddPictureButton_Click(object sender, EventArgs e)
         {
-            FileUploadControl.Visible = true;
-            UploadButton.Visible = true;
+            if (activeDoc != null)
+            {
+                FileUploadControl.Visible = true;
+                UploadButton.Visible = true;
+            }
         }
 
         // The upload picture buttonw as pressed
@@ -413,7 +486,10 @@ namespace WebGUI
                 Bitmap bm = new Bitmap(@"C:\Users\Crelde\git\SliceOfPie\SliceOfPie\WebGUI\images\"+ImgName);
                 Picture pic = new Picture(bm);
                 // Finally adds the image to the documents imagelist
-                activeDoc.Images.Add(pic);                
+                if (activeDoc != null)
+                {
+                    activeDoc.Images.Add(pic);
+                }
             }
             // It also saves the document to the server, after the picture is added
             Controller.SaveDocument(activeProject, activeDoc, WelcomeForm.active);
@@ -473,10 +549,30 @@ namespace WebGUI
         // The user submitted a username to share the project with
         protected void SubmitUserButton_Click(object sender, EventArgs e)
         {
-            // creates a new user and adds it to the activeProject and calls the UpdateProject method
-            User u = new User(UserNameBox.Text);
-            activeProject.SharedWith.Add(u);
-            Controller.UpdateProject(activeProject);
+            if (activeProject != null)
+            {
+                // creates a new user and adds it to the activeProject and calls the UpdateProject method
+                User u = new User(UserNameBox.Text);
+                activeProject.SharedWith.Add(u);
+                Controller.UpdateProject(activeProject);
+            }
+            DynamicPanelInvisible();
+            DynamicProjectPanelInvisible();
+        }
+
+        protected void TextButton_Click(object sender, EventArgs e)
+        {
+            DocumentTextBox.Text = activeDoc.Text;
+            ButtonPanel2.Visible = true;
+            DynamicPanelInvisible();
+            DynamicProjectPanelInvisible();
+
+        }
+
+        protected void LogButton_Click(object sender, EventArgs e)
+        {
+            DocumentTextBox.Text = activeDoc.Log.ToString();
+            ButtonPanel2.Visible = false;
             DynamicPanelInvisible();
             DynamicProjectPanelInvisible();
         }

@@ -56,15 +56,30 @@ namespace SliceOfPieServiceLibrary
 
 
 
+        /**
+         * Single methods for Web client support
+         */
 
-        public void DeleteDocument(string projectId, string documentId)
+
+        public void DeleteDocument(string projectId, string documentId, User user)
         {
             Storage.DeleteDocument(projectId, documentId);
         }
 
-        public List<Project> GetAllProjectsOnServer()
+        public List<Project> GetAllProjectsOnServer(User user)
         {
-            return Storage.GetAllProjects();
+
+            List<Project> projects = Storage.GetAllProjects();
+            List<Project> UserProjects = new List<Project>();
+            foreach(Project p in projects)
+            {
+                if (user.ToString().CompareTo(p.ToString()) == 0 || p.SharedWith.Contains(user))
+                {
+                    UserProjects.Add(p);
+                }
+                
+            }
+            return UserProjects;
         }
 
         public Document OpenDocumentOnServer(string projectId, string documentId)
@@ -72,19 +87,19 @@ namespace SliceOfPieServiceLibrary
             return Storage.ReadFromFile(projectId, documentId);
         }
 
-        public void SaveProjectOnServer(SliceOfPie.Project p)
+        public void SaveProjectOnServer(SliceOfPie.Project p, User user)
         {
             Storage.SaveProjectToFile(p);
         }
 
-        public void SaveDocumentOnServer(SliceOfPie.Project p, SliceOfPie.Document d)
+        public void SaveDocumentOnServer(SliceOfPie.Project p, SliceOfPie.Document d, User user)
         {
             
 
             Storage.WriteToFile(p, d);
         }
 
-        public void DeleteProject(string projectId)
+        public void DeleteProject(string projectId, User user)
         {
             Storage.DeleteProject(projectId);
         }

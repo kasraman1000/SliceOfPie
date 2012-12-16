@@ -34,21 +34,21 @@ namespace SliceOfPieServiceLibrary
 
         // Web interface methods
         [OperationContract]
-        void DeleteDocument(string projectId, string documentId);
+        void DeleteDocument(string projectId, string documentId, User user);
 
         [OperationContract]
-        List<Project> GetAllProjectsOnServer();
+        List<Project> GetAllProjectsOnServer(User user);
         
         [OperationContract]
         Document OpenDocumentOnServer(string projectId, string documentId);
         
         [OperationContract]
-        void SaveProjectOnServer(Project p);
+        void SaveProjectOnServer(Project p, User user);
         
         [OperationContract]
-        void SaveDocumentOnServer(Project p, Document d);
+        void SaveDocumentOnServer(Project p, Document d, User user);
 
         [OperationContract]
-        void DeleteProject(string projectId);
+        void DeleteProject(string projectId, User user);
     }
 }
