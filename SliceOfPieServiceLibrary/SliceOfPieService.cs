@@ -72,12 +72,12 @@ namespace SliceOfPieServiceLibrary
             return Storage.ReadFromFile(projectId, documentId);
         }
 
-        public void SaveProjectOnServer(SliceOfPie.Project p)
+        public void SaveProjectOnServer(Project p)
         {
             Storage.SaveProjectToFile(p);
         }
 
-        public void SaveDocumentOnServer(SliceOfPie.Project p, SliceOfPie.Document d)
+        public void SaveDocumentOnServer(Project p, Document d)
         {
             Storage.WriteToFile(p, d);
         }

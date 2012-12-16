@@ -16,17 +16,17 @@ namespace SliceOfPie
     public static class Storage
     {
         //  MAIN FOR TESTING PURPOSES WILL BE REWRITTEN INTO A TESTCLASS!!
-        
+
         public static void Main(string[] args)
         {
-            
-                        Document doc1 = new Document("Line1\nLine2\nLine3", "Kewins Dokument", new User("Kewin"));
 
-                        Document doc2 = new Document("Line1\nLine4\nLine3", "Kewins nye Dokument", new User("Crelde"));
-                        Document doc5 = new Document("Line1\nLine4\nLine3", "Kewins nye Dokument", new User("Derp"));
-                        doc1.Path=("cuteanimalsxoxo");
-                        doc2.Path=("cuteanimalsxoxo/reptiles");
-                        doc5.Path=("cuteanimalsxoxo/reptiles/snakes");
+            Document doc1 = new Document("Line1\nLine2\nLine3", "Kewins Dokument", new User("Kewin"));
+
+            Document doc2 = new Document("Line1\nLine4\nLine3", "Kewins nye Dokument", new User("Crelde"));
+            Document doc5 = new Document("Line1\nLine4\nLine3", "Kewins nye Dokument", new User("Derp"));
+            doc1.Path = ("cuteanimalsxoxo");
+            doc2.Path = ("cuteanimalsxoxo/reptiles");
+            doc5.Path = ("cuteanimalsxoxo/reptiles/snakes");
 
             /*
                         doc1.MergeWith(doc2, new User("Kewin"));
@@ -59,12 +59,12 @@ namespace SliceOfPie
                         WriteToFile(proj, doc2);
                         GetHierachy(proj.Id);
             */
-                        GetAllProjects();
+            GetAllProjects();
             //testDoc.ShareWith(new User("ForeverAloneGuy"));
-                       // testDoc.ShareWith(new User("Captain Haddoc"));
-                       // testDoc.ShareWith(new User("Motor-Bjarne"));
-                        
-           // GetHierachy();
+            // testDoc.ShareWith(new User("Captain Haddoc"));
+            // testDoc.ShareWith(new User("Motor-Bjarne"));
+
+            // GetHierachy();
             /*
             Document documentWithEmptyText = new Document("", "Document", new User("kewin"));
              WriteToFile(doc1);
@@ -143,8 +143,8 @@ namespace SliceOfPie
          */
 
         // Second parameter is optional for now, chooses where to put the file
-        
-        
+
+
         public static void WriteToFile(Project pro, Document doc, bool fromServer = false)
         {
             // If a document is about to be saved, assume it's been modified since last time
@@ -156,7 +156,7 @@ namespace SliceOfPie
             string fileName;
 
             fileName = path + "\\" + doc.Id + ".txt";
-            
+
 
             // False means that it will overwrite an existing file with the same id.
             using (TextWriter tw = new StreamWriter(fileName, false))
@@ -185,7 +185,7 @@ namespace SliceOfPie
                     else
                         imageLineBuilder.AppendFormat(doc.Images[i].Id + ",");
                 }
-               
+
                 tw.WriteLine(imageLineBuilder.ToString());
 
                 // Write the modified boolean
@@ -205,7 +205,7 @@ namespace SliceOfPie
         }
 
         private static void SavePictureToFile(Picture pic, string path)
-        {            
+        {
             try
             {
                 // Create a Bitmap object from the image, and save that in the projects folder.
@@ -248,7 +248,7 @@ namespace SliceOfPie
         {
             // The path the project should be saved to.
             string path = p.Id;
-           
+
             // Check if the project exists, if it doesnt, create it.
             if (!Directory.Exists(p.Id))
             {
@@ -257,7 +257,7 @@ namespace SliceOfPie
                 Directory.CreateDirectory(path);
                 using (TextWriter tw = new StreamWriter(path + "\\MetaInfo.txt", false))
                 {
-                    
+
                     // Write title
                     tw.WriteLine(p.Title);
                     // Write owner.
@@ -332,10 +332,10 @@ namespace SliceOfPie
         {
             // Path of the project
             string path = projectId;
-            
+
             // If it exists, delete it.
             if (Directory.Exists(path))
-                Directory.Delete(path,true);
+                Directory.Delete(path, true);
         }
 
         public static Document ReadFromFile(string pid, string did)
@@ -358,7 +358,7 @@ namespace SliceOfPie
                     // Gets the name of the owner from the string and makes a user
                     string ownerString = tr.ReadLine();
                     User owner = new User(ownerString);
-                    
+
                     // Gets the images id from the file, and add them as picture elements to the list of pictures.
                     string imageString = tr.ReadLine();
                     string[] imageArray = imageString.Split(new string[] { "," }, StringSplitOptions.None);
@@ -366,15 +366,15 @@ namespace SliceOfPie
                     List<Picture> pictures = new List<Picture>();
                     foreach (string s in imageArray)
                     {
-                        if ((String.Compare(s,"")!=0))
+                        if ((String.Compare(s, "") != 0))
                         {
                             string dir = Directory.GetCurrentDirectory();
-                            string pathToPicture = dir + @"\" + pid + @"\" + s + ".JPG"; 
+                            string pathToPicture = dir + @"\" + pid + @"\" + s + ".JPG";
                             Bitmap picture = new Bitmap(pathToPicture);
-                            pictures.Add(new Picture(picture,s));
+                            pictures.Add(new Picture(picture, s));
                         }
                     }
-                    
+
                     // Reading the modified and deleted booleans 
                     bool modified = Boolean.Parse(tr.ReadLine());
                     bool deleted = Boolean.Parse(tr.ReadLine());
@@ -448,8 +448,8 @@ namespace SliceOfPie
                         log.RemoveAt(0);
                         // Created the Entry object, and add it to the entryList.
                         entryList.Add(new Document.DocumentLog.Entry(user, description, log, time));
-                        
-                        
+
+
                     }
 
 
@@ -462,7 +462,7 @@ namespace SliceOfPie
                 //sr.ReadToEnd();
                 sr.Dispose();
                 sr.Close();
-                
+
                 object o = sr.GetLifetimeService();
                 return finalDoc;
             }
@@ -480,9 +480,9 @@ namespace SliceOfPie
         public static void DeleteDocument(string pid, string did)
         {
             string fileName = pid + "\\" + did + ".txt";
-            
+
             // Checks if a filename that matches the string exists and deletes it
-            if(File.Exists(fileName))
+            if (File.Exists(fileName))
             {
                 File.Delete(fileName);
             }
@@ -500,7 +500,7 @@ namespace SliceOfPie
 
             if (Directory.Exists(folderPath))
             {
-                IEnumerable<string> distinctFolderNames;
+                List<string> distinctFolders = new List<string>();
                 List<Folder> folders = new List<Folder>();
                 List<string> potentialFoldersInRoot = new List<string>();
                 List<string> toBeFolders = new List<string>();
@@ -529,22 +529,27 @@ namespace SliceOfPie
                                 toBeFolders.Add(st);
 
                             }
-                            // Read the modified boolean
+                            // Read the modified and deleted booleans
                             tr.ReadLine();
                             bool modified = Boolean.Parse(tr.ReadLine());
+                            bool deleted = Boolean.Parse(tr.ReadLine());
 
                             // Get the files name, which is the documents id.
                             string id = Path.GetFileNameWithoutExtension(s);
                             // Add the struct to the list of structs.
-                            structs.Add(new DocumentStruct(title, user, id, path, modified));
+                            structs.Add(new DocumentStruct(title, user, id, path, modified, deleted));
                         }
                     }
 
                 }
                 // Of all the folders added to the toBeFolders, get each distinct one, and create
                 // a Folder object by that name.
-                distinctFolderNames = toBeFolders.Distinct();
-                foreach (string folderName in distinctFolderNames)
+                foreach (string foldername in toBeFolders)
+                {
+                    if (!(distinctFolders.Contains(foldername)))
+                        distinctFolders.Add(foldername);
+                }
+                foreach (string folderName in distinctFolders)
                 {
                     folders.Add(new Folder(folderName));
                     // Add it as a potential folder in root of the project.
@@ -569,33 +574,33 @@ namespace SliceOfPie
                     // We check that the folder isn't root
                     if (!(s.Contains("MetaInfo.txt")) && (!(s.Contains(".JPG"))))
                     {
-                        // New reader to retrieve paths
-                        TextReader tr = new StreamReader(s);
-                        // Gets to the correct line where the paths are located
-                        tr.ReadLine();
-                        string path = tr.ReadLine();
-                        string[] splitPath = path.Split('/');
-                        // Reverse for loop to put the folders together in a "backwards"-fashion
-                        for (int i = splitPath.Length; i != 0; i--)
+                        using (TextReader tr = new StreamReader(s))
                         {
-
-                            foreach (Folder fol in folders)
+                        // Gets to the correct line where the paths are located
+                            tr.ReadLine();
+                            string path = tr.ReadLine();
+                            string[] splitPath = path.Split('/');
+                        // Reverse for loop to put the folders together in a "backwards"-fashion
+                            for (int i = splitPath.Length; i != 0; i--)
                             {
+
+                                foreach (Folder fol in folders)
+                                {
                                 // takes the lower levels first
                                 // it checks if its the top level  
                                 if (!splitPath[i - 1].Equals(splitPath[0]))
-                                {
+                                    {
 
                                     if (fol.Title.Equals(splitPath[i - 1]))
                                     {
                                         // We use linq to find the correct folders
                                         var result1 = from f in folders
-                                                 where f.Title.Equals(splitPath[i - 1])
-                                                 select f;
+                                                      where f.Title.Equals(splitPath[i - 1])
+                                                      select f;
 
                                         var result2 = from f in folders
-                                                 where f.Title.Equals(splitPath[i - 2])
-                                                 select f;
+                                                      where f.Title.Equals(splitPath[i - 2])
+                                                      select f;
 
                                         // We put the folders in their respectible folder
                                         List<IFileSystemComponent> ParentFolder = result2.FirstOrDefault().Children;
@@ -609,62 +614,63 @@ namespace SliceOfPie
                                             potentialFoldersInRoot.Remove(fold.ToString());
                                         }
 
+                                        }
                                     }
+
                                 }
-
                             }
-                            tr.Close();
-                            tr.Dispose();
                         }
                     }
-                    // Read the info from the MetaInfo file.
-                    TextReader mr = new StreamReader(folderPath + "\\MetaInfo.txt");
-                    // Read title.
-                    string ti = mr.ReadLine();
-                    // Read owner.
-                    User us = new User(mr.ReadLine());
-                    // Read list of users the project is shared with.
-                    List<User> sha = new List<User>();
-                    string[] userNames = (mr.ReadLine().Split(','));
-                    foreach (string str in userNames)
-                    {
-                        sha.Add(new User(str.Trim()));
-                    }
-                    // Create the project object with the paramerters read.
-                    Project finalProject = new Project(ti, us, sha, Path.GetFileNameWithoutExtension(folderPath));
-
-                    // Add all remaining folders to root of project, and add all
-                    // structs with "" as their folder to root as well.
-                    foreach (Folder fol in folders)
-                    {
-                        if (potentialFoldersInRoot.Contains(fol.ToString()))
-                        {
-                            if (String.Compare(fol.Title, "") == 0)
-                            {
-                                // Add the documentstruct.
-                                foreach (IFileSystemComponent component in fol.Children)
-                                    finalProject.AddChild(component);
-
-                            }
-                            // Add the folder.
-                            else
-                                finalProject.AddChild(fol);
-                        }
-                    }
-                    mr.Close();
-                    mr.Dispose();
-
-                    if (finalProject.Children.Count == 0)
-                    {
-                        Document doc = new Document("Here is your new project", "Welcome", us);
-                        WriteToFile(finalProject, doc);
-                        finalProject.Children.Add(new DocumentStruct("Welcome", us, doc.Id, "", true));
-                    }
-                    mr.Close();
-                    mr.Dispose();
-                    return finalProject;
                 }
+                    // Read the info from the MetaInfo file.
+                    Project finalProject;
+                    using (TextReader mr = new StreamReader(folderPath + "\\MetaInfo.txt"))
+                    {
+                        // Read title.
+                        string ti = mr.ReadLine();
+                        // Read owner.
+                        User us = new User(mr.ReadLine());
+                        // Read list of users the project is shared with.
+                        List<User> sha = new List<User>();
+                        string[] userNames = (mr.ReadLine().Split(','));
+                        foreach (string str in userNames)
+                        {
+                            sha.Add(new User(str.Trim()));
+                        }
+                        // Create the project object with the paramerters read.
+                        finalProject = new Project(ti, us, sha, Path.GetFileNameWithoutExtension(folderPath));
 
+
+                        // Add all remaining folders to root of project, and add all
+                        // structs with "" as their folder to root as well.
+                        foreach (Folder fol in folders)
+                        {
+                            if (potentialFoldersInRoot.Contains(fol.ToString()))
+                            {
+                                if (String.Compare(fol.Title, "") == 0)
+                                {
+                                    // Add the documentstruct.
+                                    foreach (IFileSystemComponent component in fol.Children)
+                                        finalProject.AddChild(component);
+
+                                }
+                                // Add the folder.
+                                else
+                                    finalProject.AddChild(fol);
+                            }
+                        }
+
+                        if (finalProject.Children.Count == 0)
+                        {
+                            Document doc = new Document("Here is your new project", "Welcome", us);
+                            WriteToFile(finalProject, doc);
+                            finalProject.Children.Add(new DocumentStruct("Welcome", us, doc.Id, "", true, false));
+                        }
+
+                        return finalProject;
+                    }
+                
+            }
 
                 Console.WriteLine("No Project exists by that id");
 
@@ -677,7 +683,7 @@ namespace SliceOfPie
             List<Project> projs = new List<Project>();
             // The path to look for projects (directories)
             string path = Directory.GetCurrentDirectory();
-            
+
             // Enumerate all directories, which infact are projects.
             IEnumerable<string> projects = Directory.EnumerateDirectories(path);
             // For each project, get its hierachy, and add it to the list of projects.
