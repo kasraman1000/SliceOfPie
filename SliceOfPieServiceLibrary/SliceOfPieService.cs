@@ -18,6 +18,7 @@ namespace SliceOfPieServiceLibrary
     {
         private Project currentProj;
         private User currentUser;
+        private List<DocumentStruct> docsToSend;
 
         /**
          * This is called when an user from the offline client
@@ -43,16 +44,55 @@ namespace SliceOfPieServiceLibrary
             return null;            
         }
 
+        /**
+         * Recieve updated documents from the client and merge these changes in
+         */
         public void SendDocument(Document doc) 
         {
-            // SESSION TEST
-            Console.WriteLine("{0} wants to sync document \t{1} \tfrom project \t{2}", currentUser, doc.Title, currentProj);
+            
 
+            if (doc.Deleted)
+            {
+                Console.WriteLine("{0} deleted document \t{1}", currentUser, doc.Title);
+                Controller.DeleteDocument(currentProj.Id, doc.Id);
+
+            }
+            else
+            {
+                Console.WriteLine("{0} changed document \t{1}", currentUser, doc.Title);
+                Controller.SaveDocument(currentProj, doc, currentUser);
+            }
+                
         }
 
-        public Document GetUpdatedDocument() { return null; }
+        public Document GetUpdatedDocument() 
+        {
+            // The first time this is called, fill up the list of docs to send
+            if (docsToSend == null)
+            {
+                Console.WriteLine("{0} is now ready to recieve files", currentUser);
+                docsToSend = new List<DocumentStruct>();
+                Folder.GetAllStructs(Storage.GetHierachy(currentProj.Id), docsToSend);
+            }
 
-        public void StopSync() { }
+            // if it's out of documents to send back, return null
+            if (docsToSend.Count == 0)
+            {
+                Console.WriteLine("No more documents to send to {0}", currentUser);
+                return null;
+            }
+
+            // And if there's still docs left to be sent, pop one off the list and send it
+            Document result = Controller.OpenDocument(currentProj.Id, docsToSend[0].Id);
+            docsToSend.RemoveAt(0);
+            Console.WriteLine("Sending {0} to {1}...", result.Title, currentUser);
+            return result;
+        }
+
+        public void StopSync()
+        {
+            Console.WriteLine("{0} has finished syncing, good bye!", currentUser);
+        }
 
 
 

@@ -205,6 +205,7 @@ namespace GUI
         private void syncButton_Click(object sender, EventArgs e)
         {
             ServerController.SyncWithServer(selectedProject, activeUser); // probably make a new window for this
+            RefreshTreeView();
         }
 
         /**
@@ -386,11 +387,20 @@ namespace GUI
                     projectBox.SelectedItem = p;
             }
         }
-
-        private void DeleteDocument(string projectId, string documentId)
+        
+        private void deleteButton_Click(object sender, EventArgs e)
         {
-            Controller.DeleteDocument(projectId, documentId);
+            if (isDocument)
+            {
+                DeleteDocument(selectedProject, selectedDocument);
+            }
 
+            else if (!(isDocument))
+            {
+                if (selectedFolder.FileType == DocType.Folder)
+                    DeleteFolder(selectedFolder, selectedProject);
+            }
+            RefreshTreeView();
         }
 
         /**
@@ -403,7 +413,7 @@ namespace GUI
                 if (component.FileType == DocType.Document)
                 {
                     DocumentStruct doc = (DocumentStruct)component;
-                    DeleteDocument(project.Id, doc.Id);
+                    DeleteDocument(selectedProject, ((DocumentStruct)component));
                 }
                 else if (component.FileType == DocType.Folder)
                 {
@@ -413,17 +423,14 @@ namespace GUI
             }
         }
 
-        private void deleteButton_Click(object sender, EventArgs e)
+        /**
+         * Mark a document for deletion
+         */
+        private void DeleteDocument(Project p, DocumentStruct d)
         {
-            if (isDocument)
-                DeleteDocument(selectedProject.Id, selectedDocument.Id);
-
-            else if (!(isDocument))
-            {
-                if (selectedFolder.FileType == DocType.Folder)
-                    DeleteFolder(selectedFolder, selectedProject);
-            }
-            RefreshTreeView();
+            Document doc = Controller.OpenDocument(selectedProject.Id, selectedDocument.Id);
+            doc.Deleted = true;
+            Controller.SaveDocument(selectedProject, doc, activeUser);
         }
 
         /**
@@ -533,6 +540,11 @@ namespace GUI
                 return false;
             }
             return true;
+        }
+
+        private void getProjectButton_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

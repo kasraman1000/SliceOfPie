@@ -13,15 +13,15 @@ namespace SliceOfPieClient
      */
     public class ServerController
     {
+        /**
+         * Shares the changes the user have made in a project
+         * to the server, and the server shares changes from other
+         * users back. This synchronization is done through a series
+         * of method calls to the server.
+         */
         public static void SyncWithServer(Project project, User user)
         {
-            /**
-             * Still in development stage
-             */
-
-
             // Preparing transfer data
-
             // finding all modified documents to send
             List<DocumentStruct> docs = new List<DocumentStruct>();
             Folder.GetAllStructs(project, docs); // fill up the list
@@ -37,19 +37,58 @@ namespace SliceOfPieClient
             // Call the server
             using (SliceOfPieServiceClient serviceClient = new SliceOfPieServiceClient())
             {
-                serviceClient.StartSync(user, project.Id);
+                // Tell the server who we are and what project we want to sync
+                Project newProj = serviceClient.StartSync(user, project.Id);
 
-                foreach (DocumentStruct d in docsToSend)
+                // If null is returned, means that the project was deleted
+                // or you've lost access to this project, so we delete it
+                if (newProj == null)
+                    Controller.DeleteProject(project.Id);
+                else
                 {
-                    Document document = Controller.OpenDocument(project.Id, d.Id);
-                    serviceClient.SendDocument(document);
-                }
+                    // Send all modified documents one at a time
+                    foreach (DocumentStruct d in docsToSend)
+                    {
+                        Document document = Controller.OpenDocument(project.Id, d.Id);
+                        serviceClient.SendDocument(document);
+                        if (document.Deleted)
+                            Controller.DeleteDocument(project.Id, document.Id);
+                    }
 
+                    // Keep getting new documents from server until there are none remaining
+                    while (true)
+                    {
+                        // Grab a new document from the server
+                        Document newDoc = serviceClient.GetUpdatedDocument();
+
+                        // if null is returned, means that there are no new docs left
+                        if (newDoc == null)
+                            break;
+
+                        // Delete the old copy and write the new one instead
+                        Storage.DeleteDocument(project.Id, newDoc.Id);
+                        Storage.WriteToFile(newProj, newDoc, true);
+                    }
+
+                    // We're done syncing, close the session with the server
+                    serviceClient.StopSync();
+                }
             }
 
 
 
+        }
 
+        /**
+         * Asks the server for a list of all the projects
+         */
+        public static List<Project> GetAllProjectsAvailable()
+        {
+            List<Project> result;
+            using (SliceOfPieServiceClient serviceClient = new SliceOfPieServiceClient())
+            {
+               // serviceClient.GetAllProjectsOnServer
+            }
         }
 
 

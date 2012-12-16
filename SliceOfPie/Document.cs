@@ -226,6 +226,9 @@ namespace SliceOfPie
            
             text = newTextBuilder.ToString();
 
+            // Check and see if the document has been marked for deletion
+            this.deleted = doc.deleted;
+
             // A log that will document what changes have been made to the document.
             List<string> changeLog = new List<string>();
 
