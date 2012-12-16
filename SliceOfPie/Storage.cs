@@ -566,18 +566,20 @@ namespace SliceOfPie
 
                 foreach (string s in filesInRoot)
                 {
-                    TextReader tr = new StreamReader(s);
-                    tr.ReadLine();
-                    string path = tr.ReadLine();
-                    string[] splitPath = path.Split('/');
-                    for (int i = splitPath.Length; i != 0; i--)
+                    if (!(s.Contains("MetaInfo.txt")) && (!(s.Contains(".JPG"))))
                     {
-
-                        foreach (Folder fol in folders)
+                        TextReader tr = new StreamReader(s);
+                        tr.ReadLine();
+                        string path = tr.ReadLine();
+                        string[] splitPath = path.Split('/');
+                        for (int i = splitPath.Length; i != 0; i--)
                         {
 
-                            if (!splitPath[i - 1].Equals(splitPath[0]))
+                            foreach (Folder fol in folders)
                             {
+
+                            if (!splitPath[i - 1].Equals(splitPath[0]))
+                                {
 
                                 if (fol.Title.Equals(splitPath[i - 1]))
                                 {
@@ -601,15 +603,14 @@ namespace SliceOfPie
                                         potentialFoldersInRoot.Remove(fold.ToString());
                                     }
 
+                                    }
                                 }
+
                             }
-
+                            tr.Close();
+                            tr.Dispose();
                         }
-                        tr.Close();
-                        tr.Dispose();
                     }
-                }
-
                 // Read the info from the MetaInfo file.
                 TextReader mr = new StreamReader(folderPath + "\\MetaInfo.txt");
                 // Read title.
@@ -644,7 +645,15 @@ namespace SliceOfPie
                             finalProject.AddChild(fol);
                     }
                 }
+                    mr.Close();
+                    mr.Dispose();
 
+                    if (finalProject.Children.Count == 0)
+                    {
+                        Document doc = new Document("Here is your new project", "Welcome", us);
+                        WriteToFile(finalProject,doc);
+                        finalProject.Children.Add(new DocumentStruct("Welcome",us,doc.Id,""));
+                    }
                 mr.Close();
                 mr.Dispose();
                 return finalProject;

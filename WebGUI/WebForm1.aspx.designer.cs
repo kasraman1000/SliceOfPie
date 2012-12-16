@@ -22,15 +22,6 @@ namespace WebGUI {
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
         
         /// <summary>
-        /// WelcomeTextBox control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox WelcomeTextBox;
-        
-        /// <summary>
         /// ChangeUserButton control.
         /// </summary>
         /// <remarks>
@@ -46,7 +37,7 @@ namespace WebGUI {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox AccessTextBox;
+        protected global::System.Web.UI.WebControls.Label AccessTextBox;
         
         /// <summary>
         /// ProjectDropDown control.
@@ -76,6 +67,33 @@ namespace WebGUI {
         protected global::System.Web.UI.WebControls.TreeView TreeView1;
         
         /// <summary>
+        /// ConfirmDelete control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label ConfirmDelete;
+        
+        /// <summary>
+        /// ConfirmDeleteProj control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button ConfirmDeleteProj;
+        
+        /// <summary>
+        /// CancelDeleteProject control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button CancelDeleteProject;
+        
+        /// <summary>
         /// ButtonPanel2 control.
         /// </summary>
         /// <remarks>
@@ -103,6 +121,33 @@ namespace WebGUI {
         protected global::System.Web.UI.WebControls.Button DeleteProjectButton;
         
         /// <summary>
+        /// CreateNewDocumentButton control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button CreateNewDocumentButton;
+        
+        /// <summary>
+        /// SaveDocumentButton control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button SaveDocumentButton;
+        
+        /// <summary>
+        /// DeleteDocumentButton control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button DeleteDocumentButton;
+        
+        /// <summary>
         /// ShareProjectButton control.
         /// </summary>
         /// <remarks>
@@ -121,6 +166,33 @@ namespace WebGUI {
         protected global::System.Web.UI.WebControls.Button RenameProjectButton;
         
         /// <summary>
+        /// CreateNewFolderButton control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button CreateNewFolderButton;
+        
+        /// <summary>
+        /// AddPictureButton control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button AddPictureButton;
+        
+        /// <summary>
+        /// MoveButton control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button MoveButton;
+        
+        /// <summary>
         /// DynamicProjectPanel control.
         /// </summary>
         /// <remarks>
@@ -136,7 +208,7 @@ namespace WebGUI {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox ProjectNameBox;
+        protected global::System.Web.UI.WebControls.Label ProjectNameBox;
         
         /// <summary>
         /// NewProjectNameBox control.
@@ -175,13 +247,13 @@ namespace WebGUI {
         protected global::System.Web.UI.WebControls.Panel SharePanel;
         
         /// <summary>
-        /// EnterNameButton control.
+        /// EnterNameBox control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox EnterNameButton;
+        protected global::System.Web.UI.WebControls.Label EnterNameBox;
         
         /// <summary>
         /// UserNameBox control.
@@ -211,13 +283,13 @@ namespace WebGUI {
         protected global::System.Web.UI.WebControls.Button CancelSharingButton;
         
         /// <summary>
-        /// Panel2 control.
+        /// Label1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel Panel2;
+        protected global::System.Web.UI.WebControls.Label Label1;
         
         /// <summary>
         /// DocumentNameBox control.
@@ -226,7 +298,16 @@ namespace WebGUI {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox DocumentNameBox;
+        protected global::System.Web.UI.WebControls.Label DocumentNameBox;
+        
+        /// <summary>
+        /// ImagesCurrentlyBox control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label ImagesCurrentlyBox;
         
         /// <summary>
         /// DocumentTextBox control.
@@ -238,67 +319,31 @@ namespace WebGUI {
         protected global::System.Web.UI.WebControls.TextBox DocumentTextBox;
         
         /// <summary>
-        /// ButtonPanel1 control.
+        /// ImageBox control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel ButtonPanel1;
+        protected global::System.Web.UI.WebControls.TextBox ImageBox;
         
         /// <summary>
-        /// CreateNewDocumentButton control.
+        /// FileUploadControl control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button CreateNewDocumentButton;
+        protected global::System.Web.UI.WebControls.FileUpload FileUploadControl;
         
         /// <summary>
-        /// SaveDocumentButton control.
+        /// UploadButton control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button SaveDocumentButton;
-        
-        /// <summary>
-        /// DeleteDocumentButton control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button DeleteDocumentButton;
-        
-        /// <summary>
-        /// CreateNewFolderButton control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button CreateNewFolderButton;
-        
-        /// <summary>
-        /// AddPictureButton control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button AddPictureButton;
-        
-        /// <summary>
-        /// MoveButton control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button MoveButton;
+        protected global::System.Web.UI.WebControls.Button UploadButton;
         
         /// <summary>
         /// DynamicPanel control.
@@ -316,7 +361,7 @@ namespace WebGUI {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox ClickFolderBox;
+        protected global::System.Web.UI.WebControls.Label ClickFolderBox;
         
         /// <summary>
         /// FolderBox control.
@@ -334,7 +379,7 @@ namespace WebGUI {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox AreYouSureBox;
+        protected global::System.Web.UI.WebControls.Label AreYouSureBox;
         
         /// <summary>
         /// AcceptDeleteButton control.
@@ -355,13 +400,13 @@ namespace WebGUI {
         protected global::System.Web.UI.WebControls.Button DeclineDeleteButton;
         
         /// <summary>
-        /// NewTitleTextbox control.
+        /// NewTitleTextBox control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox NewTitleTextbox;
+        protected global::System.Web.UI.WebControls.Label NewTitleTextBox;
         
         /// <summary>
         /// TitleBox control.
