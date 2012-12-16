@@ -179,7 +179,7 @@ namespace TestProject
             if (String.Compare(original.Log.entries[0].User.ToString(), createdUserBeforeMerge.ToString()) != 0)
                 userBool1 = false;
 
-            string expectedDescription = "Made changes to the following fields : Title. Text. Path. ";
+            string expectedDescription = "Changed the document's: Title. Text. Path. ";
 
             if (String.Compare(expectedDescription, original.Log.entries[1].Description)!=0)
                 descriptionBool2 = false;

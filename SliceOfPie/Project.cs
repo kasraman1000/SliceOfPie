@@ -11,9 +11,6 @@ namespace SliceOfPie
     [KnownType(typeof(DocumentStruct))]
     public class Project : Folder
     {
-        
- 
-
         [DataMember]
         private User owner;
         public User Owner { get { return owner; } }
