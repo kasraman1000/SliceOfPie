@@ -500,7 +500,7 @@ namespace SliceOfPie
 
             if (Directory.Exists(folderPath))
             {
-                IEnumerable<string> distinctFolderNames;
+                List<string> distinctFolders = new List<string>();
                 List<Folder> folders = new List<Folder>();
                 List<string> potentialFoldersInRoot = new List<string>();
                 List<string> toBeFolders = new List<string>();
@@ -544,8 +544,12 @@ namespace SliceOfPie
                 }
                 // Of all the folders added to the toBeFolders, get each distinct one, and create
                 // a Folder object by that name.
-                distinctFolderNames = toBeFolders.Distinct();
-                foreach (string folderName in distinctFolderNames)
+                foreach (string foldername in toBeFolders)
+                {
+                    if (!(distinctFolders.Contains(foldername)))
+                        distinctFolders.Add(foldername);
+                }
+                foreach (string folderName in distinctFolders)
                 {
                     folders.Add(new Folder(folderName));
                     // Add it as a potential folder in root of the project.
@@ -612,6 +616,7 @@ namespace SliceOfPie
                             }
                         }
                     }
+                }
                     // Read the info from the MetaInfo file.
                     Project finalProject;
                     using (TextReader mr = new StreamReader(folderPath + "\\MetaInfo.txt"))
@@ -659,7 +664,7 @@ namespace SliceOfPie
 
                         return finalProject;
                     }
-                }
+                
             }
 
             Console.WriteLine("No Project exists by that id");
