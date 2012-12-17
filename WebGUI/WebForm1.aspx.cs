@@ -18,7 +18,6 @@ namespace WebGUI
         public static Project activeProject;
         public static Document activeDoc;
         private static string currentPath;
-
         static bool firstVisit = true;
 
         //This method runs everytime the page loads
@@ -257,8 +256,7 @@ namespace WebGUI
                 CancelDeleteProject.Visible = true;
                 ConfirmDeleteProj.Visible = true;
             }
-            DynamicPanelInvisible();
-            DynamicProjectPanelInvisible();
+
         }
 
         // Share Project Button was pressed and new fields are now visible
