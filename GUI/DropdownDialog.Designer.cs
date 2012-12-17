@@ -37,7 +37,7 @@ namespace GUI
             // okButton
             // 
             this.okButton.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.okButton.Location = new System.Drawing.Point(12, 60);
+            this.okButton.Location = new System.Drawing.Point(12, 49);
             this.okButton.Name = "okButton";
             this.okButton.Size = new System.Drawing.Size(80, 23);
             this.okButton.TabIndex = 2;
@@ -49,16 +49,16 @@ namespace GUI
             // 
             this.questionLabel.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.questionLabel.AutoSize = true;
-            this.questionLabel.Location = new System.Drawing.Point(12, 9);
+            this.questionLabel.Location = new System.Drawing.Point(12, -2);
             this.questionLabel.Name = "questionLabel";
-            this.questionLabel.Size = new System.Drawing.Size(46, 17);
+            this.questionLabel.Size = new System.Drawing.Size(35, 13);
             this.questionLabel.TabIndex = 0;
             this.questionLabel.Text = "label1";
             // 
             // cancelButton
             // 
             this.cancelButton.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.cancelButton.Location = new System.Drawing.Point(98, 60);
+            this.cancelButton.Location = new System.Drawing.Point(98, 49);
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Size = new System.Drawing.Size(82, 23);
             this.cancelButton.TabIndex = 3;
@@ -71,16 +71,16 @@ namespace GUI
             this.comboBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox.FormattingEnabled = true;
-            this.comboBox.Location = new System.Drawing.Point(12, 29);
+            this.comboBox.Location = new System.Drawing.Point(12, 18);
             this.comboBox.Name = "comboBox";
-            this.comboBox.Size = new System.Drawing.Size(478, 24);
+            this.comboBox.Size = new System.Drawing.Size(478, 21);
             this.comboBox.TabIndex = 4;
             // 
             // DropdownDialog
             // 
             this.AcceptButton = this.okButton;
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            this.ClientSize = new System.Drawing.Size(502, 95);
+            this.ClientSize = new System.Drawing.Size(502, 102);
             this.ControlBox = false;
             this.Controls.Add(this.comboBox);
             this.Controls.Add(this.cancelButton);
