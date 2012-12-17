@@ -30,17 +30,17 @@ namespace SliceOfPie
             return projectsToReturn;
         }
 
-        public static void SaveDocument(Project proj, Document doc, User user)
+        public static void SaveDocument(Project proj, Document doc, User user, bool fromServer = false)
         {
             // If the document exists in the storage, merge old version with newer verion.
             // Otherwise just save it to the storage.
             Document docInStorage = Storage.ReadFromFile(proj.Id, doc.Id);
             if (docInStorage == null)
-                Storage.WriteToFile(proj, doc);
+                Storage.WriteToFile(proj, doc, fromServer);
             else
             {
                 docInStorage.MergeWith(doc, user);
-                Storage.WriteToFile(proj, docInStorage);
+                Storage.WriteToFile(proj, docInStorage, fromServer);
             }
         }
 
@@ -77,10 +77,12 @@ namespace SliceOfPie
             UpdateProject(project);
         }
 
+        /**
+         * Saves an existing project
+         */
         public static void UpdateProject(Project p)
         {
-            Project project = new Project(p.Title, p.Owner, p.SharedWith, p.Id);
-            Storage.SaveProjectToFile(project);
+            Storage.SaveProjectToFile(p);
         }
 
         

@@ -93,6 +93,27 @@ namespace SliceOfPieClient
             return result;
         }
 
+        /**
+         * Get all documents of a project one by one from the server 
+         */
+        public static List<Document> GetAllProjectDocuments(Project p)
+        {
+            List<DocumentStruct> allDocs = new List<DocumentStruct>();
+            Folder.GetAllStructs(p, allDocs); // get all document reference structs out
+
+            List<Document> result = new List<Document>();
+
+            // ask server for documents
+            using (SliceOfPieServiceClient serviceClient = new SliceOfPieServiceClient())
+            {
+                foreach (DocumentStruct d in allDocs)
+                {
+                    result.Add(serviceClient.OpenDocumentOnServer(p.Id, d.Id));
+                }
+            }
+
+            return result;
+        }
 
     }
 }

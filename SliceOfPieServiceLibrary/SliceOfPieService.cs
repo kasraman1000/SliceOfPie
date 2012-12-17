@@ -108,12 +108,12 @@ namespace SliceOfPieServiceLibrary
 
         public List<Project> GetAllProjectsOnServer(User user)
         {
-            Console.WriteLine("{0} is working from a web interface", user);
+            Console.WriteLine("{0} wants to see his projects", user);
             List<Project> projects = Storage.GetAllProjects();
             List<Project> UserProjects = new List<Project>();
             foreach(Project p in projects)
             {
-                if (user.ToString().CompareTo(p.Owner.ToString()) == 0 || p.SharedWith.Contains(user))
+                if (user.ToString().ToLower().CompareTo(p.Owner.ToString()) == 0 || p.SharedWith.Contains(user))
                 {
                     UserProjects.Add(p);
                 }

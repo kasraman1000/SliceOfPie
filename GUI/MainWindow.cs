@@ -214,39 +214,46 @@ namespace GUI
          */
         private void createDocumentButton_Click(object sender, EventArgs e)
         {
-            // Make sure a destination is selected
-            if (treeView.SelectedNode == null)
-                MessageBox.Show("Please select destination of new document");
-            else
+            try
             {
-                InputDialog inputDialog = new InputDialog("Input name of new Document");
-                inputDialog.ShowDialog();
-
-                if (!inputDialog.Canceled)
+                // Make sure a destination is selected
+                if (treeView.SelectedNode == null)
+                    MessageBox.Show("Please select destination of new document");
+                else
                 {
-                    string title = inputDialog.Input;
-                    Document newDoc = new Document("", title, activeUser);
+                    InputDialog inputDialog = new InputDialog("Input name of new Document");
+                    inputDialog.ShowDialog();
 
-                    // Create a path for the document
-                    string path = treeView.SelectedNode.FullPath;
-                    if (selectedFolder.FileType == DocType.Project)
-                        path = "";
-                    else if (isDocument)
-                        path = path.Substring(
-                            selectedProject.ToString().Count() + 1,
-                            path.Count() - selectedDocument.Title.Count() - selectedProject.ToString().Count() - 2);
-                    else
-                        path = path.Substring(selectedProject.ToString().Count() + 1);
+                    if (!inputDialog.Canceled)
+                    {
+                        string title = inputDialog.Input;
+                        Document newDoc = new Document("", title, activeUser);
+
+                        // Create a path for the document
+                        string path = treeView.SelectedNode.FullPath;
+                        if (selectedFolder.FileType == DocType.Project)
+                            path = "";
+                        else if (isDocument)
+                            path = path.Substring(
+                                selectedProject.ToString().Count() + 1,
+                                path.Count() - selectedDocument.Title.Count() - selectedProject.ToString().Count() - 2);
+                        else
+                            path = path.Substring(selectedProject.ToString().Count() + 1);
 
 
 
-                    path = Regex.Replace(path, @"\\", "/");
+                        path = Regex.Replace(path, @"\\", "/");
 
-                    Controller.CreateDocument(activeUser, path, selectedProject, title);
+                        Controller.CreateDocument(activeUser, path, selectedProject, title);
 
-                    RefreshTreeView();
+                        RefreshTreeView();
 
+                    }
                 }
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Sorry, something went wrong trying to contact the server.");
             }
         }
 
@@ -542,15 +549,61 @@ namespace GUI
             return true;
         }
 
+        /**
+         * Find out what projects that aren't on this storage yet,
+         * ask the user for one to donwload, and then get all the documents
+         * from that project
+         */
         private void getProjectButton_Click(object sender, EventArgs e)
         {
             try
             {
+                // Ask server for all available projects
+                List<Project> serverProjects = ServerController.GetAllProjectsAvailable(activeUser);
+                List<Project> newProjects = new List<Project>();
 
+                // Check which ones that aren't added yet
+                foreach (Project p in serverProjects)
+                {
+                    bool contained = false;
+                    foreach (Project q in projects)
+                    {
+                        if (p.Id == q.Id)
+                            contained = true;
+                    }
+                    if (!contained)
+                        newProjects.Add(p);
+                }
+
+                // If there's no new projects, tell the user
+                if (newProjects.Count == 0)
+                    MessageBox.Show("There are no new projects on the server");
+                else
+                {
+                    // Show a dropdowndialog with all the choices
+                    DropdownDialog<Project> dialog = new DropdownDialog<Project>(
+                        "Choose a project from the server to download",
+                        newProjects);
+                    dialog.ShowDialog();
+                    if (!dialog.Canceled)
+                    {
+                        Project newProject = dialog.Selected;
+                        // Ask the server for all document for the selected project
+                        List<Document> docs = ServerController.GetAllProjectDocuments(newProject);
+
+                        // Save it all
+                        Controller.UpdateProject(newProject);
+                        foreach (Document d in docs)
+                        {
+                            Controller.SaveDocument(newProject, d, activeUser, true);
+                        }
+                    }
+                }
+                RefreshTreeView();
             }
             catch (Exception)
             {
-                MessageBox.Show("Sorry, something went wrong with contacting the server.");
+                MessageBox.Show("Sorry, something went wrong trying to contact the server.");
             }
         }
     }
