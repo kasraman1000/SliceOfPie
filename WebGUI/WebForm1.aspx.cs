@@ -256,8 +256,7 @@ namespace WebGUI
                 CancelDeleteProject.Visible = true;
                 ConfirmDeleteProj.Visible = true;
             }
-            DynamicPanelInvisible();
-            DynamicProjectPanelInvisible();
+
         }
 
         // Share Project Button was pressed and new fields are now visible
