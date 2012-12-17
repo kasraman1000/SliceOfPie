@@ -504,7 +504,7 @@ namespace WebGUI
                     string ThisImg = Server.MapPath("~/images/" + ImgName);
                     FileUploadControl.SaveAs(ThisImg);
                     // It creates a new bitmap, and then a new object of our own Picture class
-                    Bitmap bm = new Bitmap(@"C:\Users\Crelde\git\SliceOfPie\SliceOfPie\WebGUI\images\" + ImgName);
+                    Bitmap bm = new Bitmap(ThisImg);
                     Picture pic = new Picture(bm);
                     // Finally adds the image to the documents imagelist
                     if (activeDoc != null)
@@ -516,6 +516,8 @@ namespace WebGUI
                 serv.SaveDocumentOnServer(activeProject, activeDoc, WelcomeForm.active);
                 // Updates the panel in which you can see which pictures are added, so you can see it as soon as you click upload
                 UpdateImagePanel();
+                ImagesCurrentlyBox.Visible = true;
+                ImageBox.Visible = true;
             }
        }
 
