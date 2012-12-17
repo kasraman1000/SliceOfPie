@@ -187,6 +187,7 @@ namespace WebGUI
                     }
                 ButtonPanel2.Visible = true; 
             }
+                 DocumentTextBox.Enabled = true;
         }
           
         // The change user button takes the user to the welcome form where he can change user
@@ -595,6 +596,7 @@ namespace WebGUI
         {
             DocumentTextBox.Text = activeDoc.Text;
             ButtonPanel2.Visible = true;
+            DocumentTextBox.Enabled = true;
             DynamicPanelInvisible();
             DynamicProjectPanelInvisible();
 
@@ -604,6 +606,7 @@ namespace WebGUI
         {
             DocumentTextBox.Text = activeDoc.Log.ToString();
             ButtonPanel2.Visible = false;
+            DocumentTextBox.Enabled = false;
             DynamicPanelInvisible();
             DynamicProjectPanelInvisible();
         }
