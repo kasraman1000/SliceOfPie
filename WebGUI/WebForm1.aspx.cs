@@ -57,6 +57,7 @@ namespace WebGUI
                         ListItem li = new ListItem(p.Title, p.Id);
                         ProjectDropDown.Items.Add(li);
                     }
+
                     AccessTextBox.Text = "Choose one of your projects";
                 }
             }
@@ -330,8 +331,7 @@ namespace WebGUI
                 AcceptDeleteButton.Visible = true;
                 DeclineDeleteButton.Visible = true;
             }
-                DynamicPanelInvisible();
-                DynamicProjectPanelInvisible();
+                
         }
 
         // This is the Submit button for creating new documents or folders

@@ -113,9 +113,12 @@ namespace SliceOfPieServiceLibrary
             List<Project> UserProjects = new List<Project>();
             foreach(Project p in projects)
             {
-                if (user.ToString().ToLower().CompareTo(p.Owner.ToString()) == 0 || p.SharedWith.Contains(user))
+                if (p != null)
                 {
-                    UserProjects.Add(p);
+                    if (user.ToString().ToLower().CompareTo(p.Owner.ToString().ToLower()) == 0 || p.SharedWith.Contains(user))
+                    {
+                        UserProjects.Add(p);
+                    }
                 }
                 
             }
