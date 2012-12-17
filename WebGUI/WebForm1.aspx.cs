@@ -18,7 +18,6 @@ namespace WebGUI
         public static Project activeProject;
         public static Document activeDoc;
         private static string currentPath;
-
         static bool firstVisit = true;
 
         //This method runs everytime the page loads

@@ -123,8 +123,9 @@
                             style="margin-left: 32px; margin-bottom: 1px;" Text="Rename Project" 
                             Width="150px" />
                         <asp:Button ID="RenameDocButton" runat="server" Height="40px" 
-                             style="margin-left: 68px; margin-top: 8px" 
+                             style="margin-left: 31px; margin-top: 8px" 
                             Text="Rename Document" Width="150px" onclick="RenameDocButton_Click" />
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         <asp:Button ID="CreateNewFolderButton" runat="server" Height="40px" 
                             onclick="CreateNewFolderButton_Click" 
                             style="margin-left: 27px; margin-top: 8px" Text="Create New Folder" 
