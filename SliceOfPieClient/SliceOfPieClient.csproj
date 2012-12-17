@@ -98,6 +98,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="app.config" />
+    <None Include="Service References\Service\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Service References\Service\configuration.svcinfo" />
+    <None Include="Service References\Service\configuration91.svcinfo" />
     <None Include="Properties\DataSources\SliceOfPie.Document.datasource" />
     <None Include="Properties\DataSources\SliceOfPie.Project.datasource" />
     <None Include="Service References\Service\item.xsd">
@@ -119,18 +125,6 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadataStorage Include="Service References\Service\" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\Service\configuration91.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\Service\configuration.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\Service\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

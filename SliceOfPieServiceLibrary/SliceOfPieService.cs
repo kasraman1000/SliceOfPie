@@ -108,7 +108,7 @@ namespace SliceOfPieServiceLibrary
 
         public List<Project> GetAllProjectsOnServer(User user)
         {
-
+            Console.WriteLine("{0} is working from a web interface", user);
             List<Project> projects = Storage.GetAllProjects();
             List<Project> UserProjects = new List<Project>();
             foreach(Project p in projects)
@@ -124,31 +124,22 @@ namespace SliceOfPieServiceLibrary
 
         public Document OpenDocumentOnServer(string projectId, string documentId)
         {
-            return Storage.ReadFromFile(projectId, documentId);
+            Document result = Storage.ReadFromFile(projectId, documentId);
+            Console.WriteLine("{0} from project {1} was accesed", result.Title, projectId);
+            return result;
         }
 
-        public void SaveProjectOnServer(SliceOfPie.Project p, User user)
+        public void SaveProjectOnServer(Project p, User user)
         {
+            Console.WriteLine("{0} saved the project {1} to the server", user, p.Title);
             Storage.SaveProjectToFile(p);
         }
 
-        public static void SaveDocument(Project proj, Document doc, User user)
+        public void SaveDocumentOnServer(Project p, Document d, User user)
         {
+            Console.WriteLine("{0} saved document {1} to project {2}", user, d.Title, p.Title);
             // If the document exists in the storage, merge old version with newer verion.
             // Otherwise just save it to the storage.
-            Document docInStorage = Storage.ReadFromFile(proj.Id, doc.Id);
-            if (docInStorage == null)
-                Storage.WriteToFile(proj, doc);
-            else
-            {
-                docInStorage.MergeWith(doc, user);
-                Storage.WriteToFile(proj, docInStorage);
-            }
-        }
-
-        public void SaveDocumentOnServer(SliceOfPie.Project p, SliceOfPie.Document d, User user)
-        {
-
             Document docInStorage = Storage.ReadFromFile(p.Id, d.Id);
             if (docInStorage == null)
                 Storage.WriteToFile(p, d);
@@ -161,6 +152,7 @@ namespace SliceOfPieServiceLibrary
 
         public void DeleteProject(string projectId, User user)
         {
+            Console.WriteLine("{0} deleted project {1} from server", user, projectId);
             Storage.DeleteProject(projectId);
         }
 
