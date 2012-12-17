@@ -71,7 +71,7 @@ namespace SliceOfPie
 			if (!(this.FileType == p.FileType 
                 && this.id == p.Id
                 && this.Title == p.Title
-                && this.owner == p.owner))
+                && String.Compare(this.Title,p.Title)==0))
 				return false;
             
             for (int i = 0; i < sharedWith.Count; i++)
