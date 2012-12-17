@@ -9,7 +9,7 @@ namespace TestProject
     
     /// <summary>
     ///This is a test class for DocumentTest and is intended
-    ///to contain all DocumentTest Unit Tests
+    ///to contain all Document Unit Tests
     ///</summary>
     [TestClass()]
     public class DocumentTest

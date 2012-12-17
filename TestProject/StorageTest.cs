@@ -225,7 +225,8 @@ namespace TestProject
             root.AddChild(testStruct1);
 
             cuteanimals.AddChild(reptiles);
-            project.AddChild(cuteanimals);
+            root.AddChild(cuteanimals);
+            project.AddChild(root);
             Project expected = project;
             Project actual = Storage.GetHierachy(project.Id);
 
