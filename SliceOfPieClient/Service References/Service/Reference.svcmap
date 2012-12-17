@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="c30f27f8-3ae1-47be-b80a-1cc37aba72e8" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="fdd5d3a2-f088-4c04-ad0a-3bb453dd7bff" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
   <ClientOptions>
     <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
     <EnableDataBinding>true</EnableDataBinding>
@@ -23,12 +23,12 @@
     <MetadataSource Address="http://localhost:8722/?wsdl" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="item.xsd" MetadataType="Schema" ID="39883c1b-aa11-4100-8d93-81a3b3ca635d" SourceId="1" SourceUrl="http://localhost:8722/?xsd=xsd1" />
-    <MetadataFile FileName="item1.xsd" MetadataType="Schema" ID="e1d82440-dd35-4009-aad0-908ff96a3bcf" SourceId="1" SourceUrl="http://localhost:8722/?xsd=xsd2" />
-    <MetadataFile FileName="item2.xsd" MetadataType="Schema" ID="ade98c9a-f7a0-4e1e-887c-81db9b5763bb" SourceId="1" SourceUrl="http://localhost:8722/?xsd=xsd0" />
-    <MetadataFile FileName="item3.xsd" MetadataType="Schema" ID="62489c17-7dd7-48b9-b9b9-d57e2892bdd3" SourceId="1" SourceUrl="http://localhost:8722/?xsd=xsd3" />
-    <MetadataFile FileName="SliceOfPieService.wsdl" MetadataType="Wsdl" ID="f13eb09b-dfcd-44f5-83fb-727610d45ea6" SourceId="1" SourceUrl="http://localhost:8722/?wsdl" />
-    <MetadataFile FileName="item4.xsd" MetadataType="Schema" ID="96fe5959-2b11-4886-ad62-b845429570ff" SourceId="1" SourceUrl="http://localhost:8722/?xsd=xsd4" />
+    <MetadataFile FileName="item.xsd" MetadataType="Schema" ID="725b863d-7bb6-46f0-a23d-6334e64c468d" SourceId="1" SourceUrl="http://localhost:8722/?xsd=xsd1" />
+    <MetadataFile FileName="item1.xsd" MetadataType="Schema" ID="44d4a1c2-03a5-4826-88ae-8d835b6668d3" SourceId="1" SourceUrl="http://localhost:8722/?xsd=xsd2" />
+    <MetadataFile FileName="item2.xsd" MetadataType="Schema" ID="f78d0d6c-b738-4eb1-99b7-6c75241f6274" SourceId="1" SourceUrl="http://localhost:8722/?xsd=xsd0" />
+    <MetadataFile FileName="item3.xsd" MetadataType="Schema" ID="82829f35-e13a-4006-970e-a0ac7a4b4ebf" SourceId="1" SourceUrl="http://localhost:8722/?xsd=xsd3" />
+    <MetadataFile FileName="SliceOfPieService.wsdl" MetadataType="Wsdl" ID="e601d339-aa50-4640-9f81-39cd64959d40" SourceId="1" SourceUrl="http://localhost:8722/?wsdl" />
+    <MetadataFile FileName="item4.xsd" MetadataType="Schema" ID="8b340294-67e1-4bba-a80b-88eca984449a" SourceId="1" SourceUrl="http://localhost:8722/?xsd=xsd4" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

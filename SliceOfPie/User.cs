@@ -27,7 +27,7 @@ namespace SliceOfPie
             if (!(obj is User))
                 return false;
             User u = (User)obj;
-            if (!(this.name == u.name))
+            if (!(String.Compare(this.name.ToLower(), u.name.ToLower()) == 0))
             {
                return false;
             } 
